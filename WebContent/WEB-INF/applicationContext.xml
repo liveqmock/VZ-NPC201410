@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/task
+	http://www.springframework.org/schema/task/spring-task-3.0.xsd"
+	default-autowire="byName">
+	
+	<!-- 引用配置文件 -->
+	<bean id="propertyConfigure" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:hibernate.properties</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:/npc.msyql.datasource"/>
+	</bean>
+	<!-- 添加对sessionFactory的支持 -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="packagesToScan" value="com.weizhen.npc.model" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="show_sql">${show_sql}</prop>
+				<prop key="hibernate.jdbc.batch_size">${hibernate.jdbc.batch_size}</prop>
+			</props>
+		</property>
+	</bean>
+	
+	
+	<!-- 事物管理器-->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<!-- 拦截器 -->
+	<bean id="transactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager">
+			<ref local="transactionManager" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="find*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- 代理 -->
+	<bean id="beanNameProxy" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="proxyTargetClass" value="true" />
+		<property name="beanNames">
+			<list>
+				<value>*Service</value>
+			</list>
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<value>transactionInterceptor</value>
+			</list>
+		</property>
+	</bean>
+	
+</beans>

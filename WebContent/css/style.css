@@ -1,0 +1,394 @@
+/**
+ * NPC Styles
+ */
+
+/***** Reset *****/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp, small,
+strike, strong, sub, sup, tt, var, b, u, i,
+center, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, figure, figcaption,
+footer, header, hgroup, menu, nav, output,
+ruby, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+a {
+    outline: 0
+}
+
+/***** Common *****/
+
+body {
+    font-family: "Microsoft YaHei", "微软雅黑", "Microsoft JhengHei", "冬青黑体简体中文 w3", "华文细黑", STHeiti, MingLiu;
+    font-size: 14px;
+    padding-top: 90px;
+}
+
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+.clearfix:before,
+.clearfix:after {
+    display: table;
+    line-height: 0;
+    content: "";
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+/***** Header *****/
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #fff;
+    z-index: 100;
+}
+
+header > div {
+    width: 98%;
+    margin: 0 auto;
+    padding-top: 5px;
+    max-width: 1600px;
+}
+
+header #logo {
+    float: left;
+    width: 200px;
+    height: 80px;
+}
+
+header #logo a {
+    display: block;
+    width: 200px;
+    height: 80px;
+    background: url("../image/logo.png") no-repeat left top;
+    background-size: 200px 80px;
+}
+
+header nav {
+    margin-left: 230px;
+}
+
+header nav > a {
+    position: relative;
+}
+
+header nav ul {
+    float: right;
+    display: inline;
+    text-align: center;
+}
+
+header nav ul li {
+    float: left;
+    display: inline;
+    min-width: 60px;
+    padding: 30px 30px;
+    position: relative;
+}
+
+header nav ul ul {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 70px;
+    background: #fff;
+    padding-bottom: 20px;
+}
+
+header nav ul li:hover ul {
+    display: block;
+}
+
+header nav ul ul li {
+    padding: 10px 30px;
+}
+
+/***** Container *****/
+
+#container {
+    width: 98%;
+    margin: 0 auto;
+    max-width: 1600px;
+}
+
+#container #main-content {
+    position: relative;
+    padding: 0 5px;
+    max-height: 600px;
+    background: #454545;
+    text-align: center;
+    overflow: hidden;
+}
+
+#container #main-content img {
+    width: 70%;
+}
+
+#container #main-content nav {
+}
+
+#container #main-content nav ul {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 80px;
+    text-align: center;
+    background: #fff;
+}
+
+#container #main-content nav ul li {
+    width: 80px;
+    height: 40px;
+    line-height: 40px;
+}
+
+#container #main-content nav span.info {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    width: 200px;
+    padding: 10px 20px;
+    font-size: 30px;
+    text-align: left;
+    background: #fff;
+}
+
+#container #main-content nav span.share {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 120px;
+    padding: 10px 20px;
+    font-size: 20px;
+    text-align: right;
+    background: #fff;
+}
+
+#container #session-nav {
+    width: 100%;
+}
+
+#container #session-nav ul {
+    float: left;
+}
+
+#container #session-nav ul li {
+    float: left;
+    width: 25%;
+    display: inline;
+}
+
+#container #session-nav ul li a {
+    position: relative;
+    display: block;
+    margin: 10px 5px 0 5px;
+    color: #fff;
+    max-height: 230px;
+    overflow: hidden;
+}
+
+#container #session-nav ul li a img {
+    width: 100%;
+}
+
+#container #session-nav ul li a span {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 230px;
+    background: #333;
+    filter: alpha(opacity=70);
+    -moz-opacity: 0.7;
+    opacity: 0.7;
+    z-index: 10;
+}
+
+#container #session-nav ul li a i {
+    position: absolute;
+    width: 50%;
+    text-align: center;
+    top: 20%;
+    left: 50%;
+    margin-left: -25%;
+    font-size: 120px;
+    text-shadow: 0 0 10px #333;
+    z-index: 2;
+}
+
+#container #session-nav ul li a span p {
+    margin: 20px;
+    line-height: 1.7;
+}
+
+#container #relate-content {
+    width: 100%;
+    padding-top: 10px;
+}
+
+#container #relate-content .text {
+    float: left;
+    width: 60%;
+}
+
+#container #relate-content .text h2 {
+    margin: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#container #relate-content .text p {
+    margin: 5px 20px;
+}
+
+#container #relate-content .media {
+    float: right;
+    border-left: 1px solid #ccc;
+    width: 38%;
+    min-height: 200px;
+}
+
+#container #relate-content .media ul {
+    padding: 10px 10px 10px 50px;
+}
+
+#container #relate-content .media ul li {
+    float: left;
+    display: inline;
+    margin: 0 10px 10px 0;
+}
+
+#container #relate-content .media ul li a {
+    display: block;
+    width: 80px;
+    height: 80px;
+    background: #454545;
+}
+
+#container #relate-content .media ul li a.article {
+    background: #999;
+}
+
+#container #relate-content .media ul li a.image {
+    background: #ff9000;
+}
+
+#container #relate-content .media ul li a.video {
+    background: #ff9988;
+}
+
+#container #gallery-content {
+    display: none;
+    position: relative;
+    min-height: 600px;
+}
+
+#container #gallery-content ul li {
+    float: left;
+    display: inline;
+    max-width: 32%;
+    margin: 0 10px 10px 0;
+}
+
+#container #gallery-content ul li img {
+    width: 100%;
+}
+
+#container #detail-content {
+    display: none;
+    position: relative;
+    padding: 20px 30px 40px;
+    min-height: 600px;
+    background: #ddd;
+}
+
+#container #detail-content .media {
+    text-align: center;
+}
+
+#container #detail-content img {
+    width: 70%;
+}
+
+#container #detail-content h2 {
+    margin: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#container #detail-content p {
+    margin: 5px 20px;
+}
+
+#container #detail-content a.close {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+}
+
+/***** Footer *****/
+
+footer {
+    width: 98%;
+    margin: 30px auto;
+    padding-bottom: 30px;
+    padding-top: 20px;
+    max-width: 1600px;
+    border-top: 1px solid #ccc;
+}
+
+footer p {
+    text-align: center;
+}

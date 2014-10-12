@@ -1,0 +1,9 @@
+
+.externalToolBuilders/org.eclipse.wst.common.project.facet.core.builder.launch
+
+Img
+._*
+*.bak
+._.gitignore
+
+WebContent/WEB-INF/classes
