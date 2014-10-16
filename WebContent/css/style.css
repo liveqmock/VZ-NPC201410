@@ -106,16 +106,15 @@ header > div {
 
 header #logo {
     float: left;
-    width: 592px;
+    width: 308px;
     height: 71px;
 }
 
 header #logo a {
     display: block;
-    width: 592px;
+    width: 308px;
     height: 71px;
     background: url("../image/logo.png") no-repeat left top;
-    background-size: 592px 71px;
 }
 
 header nav {
@@ -149,7 +148,8 @@ header nav ul li a{
 
 header nav ul li.nav-3d, 
 header nav ul li.nav-location {
-    padding: 10px 2px;
+    padding: 10px 0;
+    min-width: 50px;
 }
 
 header nav ul li.nav-3d a {
@@ -340,6 +340,7 @@ header nav ul li.nav-session ul li.nav-session-12 a:hover {
     width: 98%;
     margin: 0 auto;
     max-width: 1330px;
+    behavior: url(../js/vendor/PIE.htc);
 }
 
 #container #main-content,
@@ -395,7 +396,6 @@ header nav ul li.nav-session ul li.nav-session-12 a:hover {
     left: 20px;
     width: 80px;
     text-align: center;
-    background: #7d7d7d;
 }
 
 #container #main-content nav ul li {
@@ -570,25 +570,25 @@ header nav ul li.nav-session ul li.nav-session-12 a:hover {
 }
 
 #container #relate-content .text h2 {
-    margin: 20px 20px 0 250px;
+    margin: 20px 20px 0 200px;
     font-size: 18px;
     font-weight: bold;
 }
 
 #container #relate-content .text p {
-    margin: 20px 20px 0 250px;
+    margin: 20px 20px 0 200px;
     line-height: 1.7;
 }
 
 #container #relate-content .media {
     float: right;
-    border-left: 1px solid #ccc;
+    border-left: 0px solid #ccc;
     width: 38%;
     min-height: 200px;
 }
 
 #container #relate-content .media ul {
-    padding: 10px 10px 10px 50px;
+    padding: 10px 10px 10px 10px;
 }
 
 #container #relate-content .media ul li {
@@ -599,21 +599,24 @@ header nav ul li.nav-session ul li.nav-session-12 a:hover {
 
 #container #relate-content .media ul li a {
     display: block;
-    width: 80px;
-    height: 80px;
+    width: 110px;
+    height: 110px;
     background: #454545;
 }
 
 #container #relate-content .media ul li a.article {
-    background: #999;
+    background: #7d7d7d url(../image/icon_artical.png) center center no-repeat;
 }
 
 #container #relate-content .media ul li a.image {
-    background: #ff9000;
+    background: #7d7d7d;
 }
 
 #container #relate-content .media ul li a.video {
-    background: #ff9988;
+    background: #7d7d7d;
+}
+
+#container #relate-content .media ul li a.video img{
 }
 
 #container #gallery-content {
@@ -644,25 +647,32 @@ header nav ul li.nav-session ul li.nav-session-12 a:hover {
     padding: 0;
     background: #7d7d7d;
     text-align: center;
-    height: 500px;
-    max-height: 500px;
-    line-height: 500px;
+    height: 576px;
+    max-height: 576px;
+    line-height: 576px;
+    overflow: hidden;
 }
 
 #container #detail-content .media img {
-    max-height: 500px;
+    max-height: 576px;
     vertical-align: middle;
+}
+#container #detail-content .media .mejs-container {
+    margin: 0 auto;
 }
 
 #container #detail-content h2 {
-    margin: 20px 20px 0 250px;
+    margin: 20px 20px 0 20px;
     font-size: 18px;
+    line-height: 1.7;
     font-weight: bold;
+    text-align: center;
 }
 
 #container #detail-content p {
-    margin: 20px 20px 0 250px;
+    margin: 20px 20px 0 20px;
     line-height: 1.7;
+    text-align: center;
 }
 
 #container #detail-content a.close {

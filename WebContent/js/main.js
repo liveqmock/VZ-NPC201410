@@ -14,7 +14,7 @@ $(document).ready(function () {
     }).on("mouseleave", function () {
         $(this).find("span").hide();
     });
-    
+
     //二级页面全部图片浮动文字
     $("#gallery-content li a").on("mouseenter", function () {
         $(this).find("span").show();
@@ -26,37 +26,35 @@ $(document).ready(function () {
     $("#relate-content .media").on('click', 'a', function (e) {
         e.preventDefault();
         $("#relate-content, #main-content").hide();
-        
+
         $("#detail-content .media").html("");
         $("#jp_container_1").hide();
-        
+
         var source = $(this);
-        
+
         var imageSrc = source.find('img').prop('src').replace('/s/', '/b/').replace('-s.', '-b.');
         var materialType = source.prop('class');
-        if(materialType == 'video') {
-        	var player = $("<div class='video'></div>");
-        	player.appendTo($("#detail-content .media"));
-        	player.jPlayer({
-        		   ready: function () {
-        			    $(this).jPlayer("setMedia", {
-        			   		// flv:"00-04-2002.flv"
-        			   		flv :  context + "/" + source.attr('file'),
-             			   poster: imageSrc
-        			    });
-        			   },
-        			   swfPath: context + "/jPlayer/Jplayer.swf",
-        			   supplied: "flv"
-        			  });
-        	
-        	$("#jp_container_1").show();
-        } else if(materialType == 'image') {
-        	$("#detail-content .media").html("<img src='" + imageSrc + "'></img>");
+        if (materialType == 'video') {
+            //http://mediaelementjs.com/
+            var _src = context + "/" + source.attr('file');
+            var player = $('<video src="' + _src + '" width="720" height="576" controls="controls" preload="none">' +
+                '<source type="video/flv" src="' + context + "/" + source.attr('file') + '" />' +
+                '<object width="720" height="576" type="application/x-shockwave-flash" data="' + context + '/js/vendor/flashmediaelement.swf">' +
+                '<param name="movie" value="' + context + '/js/vendor/flashmediaelement.swf" />' +
+                '<param name="flashvars" value="controls=true&file=' + _src + '" />' +
+                '<img src="' + imageSrc + '" width="720" height="576" />' +
+                '</object>' +
+                '</video>');
+            player.appendTo($("#detail-content .media"));
+            $('#detail-content .media video').mediaelementplayer();
+
+        } else if (materialType == 'image') {
+            $("#detail-content .media").html("<img src='" + imageSrc + "'></img>");
         }
-        
+
         $("#detail-content h2").text($(this).attr('datatitle'));
         $("#detail-content p").text($(this).attr('datadescrition'));
-        
+
         $("#detail-content").show();
     });
     $("#detail-content .close").click(function (e) {
@@ -71,11 +69,16 @@ $(document).ready(function () {
     });
     $("#gallery-content").on('click', 'a', function (e) {
         e.preventDefault();
-        
+
         showImageMain($(this).attr('dataImageMainId'));
-        
+
         $("#relate-content, #main-content").show();
         $("#gallery-content").hide();
+    });
+
+    $("footer .gotop").click(function (e) {
+        e.preventDefault();
+        $('body').animate({scrollTop: '0px'}, 500);
     });
 });
 

@@ -2,8 +2,11 @@
 .externalToolBuilders/org.eclipse.wst.common.project.facet.core.builder.launch
 
 Img
+
 ._*
+
 *.bak
+
 ._.gitignore
 
 WebContent/WEB-INF/classes
@@ -20,6 +23,6 @@ WebContent/jPlayer/index.html
 
 .settings/org.eclipse.jdt.core.prefs
 
-.classpath
+.project
 
-.settings/org.eclipse.jdt.core.prefs
+WebContent/.idea/*
