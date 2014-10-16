@@ -7,3 +7,15 @@ Img
 ._.gitignore
 
 WebContent/WEB-INF/classes
+
+WebContent/jPlayer/00-04-2002.flv
+
+.settings/org.eclipse.jdt.core.prefs
+
+WebContent/jPlayer/2.mp4
+
+WebContent/jPlayer/index.html
+
+.classpath
+
+.settings/org.eclipse.jdt.core.prefs
