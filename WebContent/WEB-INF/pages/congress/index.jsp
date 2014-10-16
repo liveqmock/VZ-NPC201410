@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="npc" uri="http://weizhen.com/tags/npc" %>
 
 <c:set var="context" value="/npc">
 </c:set>
@@ -31,6 +32,7 @@
 
 <script src="${context }/js/vendor/jquery.min.js"></script>
 <script src="${context }/js/main.js"></script>
+<script src="${context }/jPlayer/jquery.jplayer.min.js"></script>
 
 <script type="text/javascript">
     	var currentImageMainId = ${firstImageMain.imageMainId};
@@ -61,6 +63,18 @@
     	    showImageMain('${firstImageMain.imageMainId}');
     	});
     	
+    	
+    	// 将图片路径转为对应的大图的路径
+    	function transImagePath(imagePath, type) {
+			  var imageMainFilepath = imagePath;
+			  var lastIndex = imageMainFilepath.lastIndexOf('/') + 1;
+			  var fileName = imageMainFilepath.substring(lastIndex, imageMainFilepath.length);
+			  fileName = fileName.replace('.', '-'+type+'.');
+			  imageMainFilepath = imageMainFilepath.substring(0, lastIndex) + type + '/' + fileName;
+    		
+			  return imageMainFilepath;
+    	}
+    	
     	function showImageMain(imageMainId) {
     		imageMainId = imageMainId * 1;
     		
@@ -72,7 +86,7 @@
 					  currentImageMainId = imageMainId;
 					  currentIndex = imageMainIds.indexOf(currentImageMainId);
 					  
-					  $("#main-content img")[0].src = '${context}/' + data['imageMainFilepath'];
+					  $("#main-content img")[0].src = '${context}/' + transImagePath(data['imageMainFilepath'], 'b');
 					  $("#main-content .info").text("${congress.congressTitle} / (" + currentIndex + ")");
 					  
 					  $("#relate-content .text h2").text(data['imageMainTitle']);
@@ -86,9 +100,9 @@
 						  var materialType = materialTypes[relate['materialId']];
 						  var imgSrc = "default.png";
 						  if (materialType != 'article')
-							  imgSrc = '${context}/' + relate['imageRelatedThumbFilepath'];
+							  imgSrc = '${context}/' + transImagePath(relate['imageRelatedThumbFilepath'], 's');
 						  
-						  var tHtml = "<li><a href='javascript:void(0)' datatitle='" + relate['imageRelatedTitle'] + "' datadescription='" + relate['imageRelatedDescription'] + "' class='" + materialType + "'><img height=80 width=80 src='" + imgSrc + "'></img></a></li>";
+						  var tHtml = "<li><a href='javascript:void(0)' datatitle='" + relate['imageRelatedTitle'] + "' datadescription='" + relate['imageRelatedDescription'] + "' file='" + relate['imageRelatedFilepath'] + "' class='" + materialType + "'><img src='" + imgSrc + "'></img></a></li>";
 						  $(tHtml).appendTo($("#relate-content .media ul"));
 					  }
 				  },
@@ -133,7 +147,8 @@
 	</header>
 	<div id="container">
 		<div id="main-content">
-			<img src="${context }/${firstImageMain.imageMainFilepath}" alt="" />
+			
+			<img src="${context }/${npc:transImagePath(firstImageMain.imageMainFilepath, 'b')}" alt="" />
 			<nav>
 				<ul>
 					<li class="gallery"><a href="javascript:void(0)" title="所有图片"></a></li>
@@ -170,9 +185,14 @@
 			<ul>
 				<c:if test="${!empty imageMains && fn:length(imageMains) > 0}">
 					<c:forEach var="imageMain" items="${imageMains}" varStatus="row">
-						<li><a dataImageMainId="${imageMain.imageMainId }"
-							href="javascript:void(0)"><img
-								src="${context }/${imageMain.imageMainFilepath}" alt="" /></a></li>
+						<li><a dataImageMainId="${imageMain.imageMainId }" href="javascript:void(0)">
+								<span style="display:none;">
+									<h3>${imageMain.imageMainTitle }</h3><br/>
+									<p>${imageMain.imageMainDescription }</p>
+								</span>
+								<img src="${context }/${npc:transImagePath(imageMain.imageMainFilepath, 'm')}" alt="" />
+							</a>
+					    </li>
 					</c:forEach>
 				</c:if>
 			</ul>
@@ -185,7 +205,15 @@
 				<img
 					src="data:image/gif;base64,R0lGODlhBAABAIABAMLBwfLx8SH5BAEAAAEALAAAAAAEAAEAAAICRF4AOw=="
 					alt="" />
+					
+				
 			</div>
+			
+			<div id="jp_container_1">
+				 <a href="javascript:void(0);" class="jp-play">Play</a>
+				 <a href="javascript:void(0);" class="jp-pause">Pause</a>
+			</div>
+			
 			<h2></h2>
 
 			<p></p>
