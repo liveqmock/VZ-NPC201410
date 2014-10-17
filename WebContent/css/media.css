@@ -1,6 +1,37 @@
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1100px) {
 
-	header nav ul li.nav-input {
-		display:none;
-	}
+    header #header-content,
+    #container,
+    footer {
+        width: 1000px !important;
+    }
+
+    header nav ul li.nav-input {
+        display: none;
+    }
+
+    #container #relate-content .text {
+        width: 47%;
+    }
+
+    #container #relate-content .text h2,
+    #container #relate-content .text p {
+        margin-left: 100px;
+    }
+
+    #container #relate-content .media {
+        width: 51%;
+    }
+
+    #container #session-nav ul li,
+    #container #session-nav ul li a,
+    #container #session-nav ul li a img {
+        width: 327px;
+        height: 213px;
+    }
+
+    #container #session-nav ul li a span {
+        width: 327px;
+        height: 193px;
+    }
 }

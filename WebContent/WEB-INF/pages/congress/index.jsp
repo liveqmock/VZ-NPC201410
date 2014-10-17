@@ -30,12 +30,18 @@ pageEncoding="UTF-8"%>
     <link rel="stylesheet" href="${context }/js/vendor/mediaelementplayer.min.css"/>
     <!--[if lt IE 9]>
     <script src="${context }/js/vendor/html5.min.js"></script>
-    <link rel="stylesheet" href="${context }/css/ie.css"/>
+    <script src="${context }/js/vendor/respond.min.js"></script>
+    <![endif]-->
+    <!--[if lt IE 7]>
+    <script src="${context }/js/vendor/DD_belatedPNG_0.0.8a-min.js"></script>
+    <script>
+        DD_belatedPNG.fix('.png_bg');
+    </script>
     <![endif]-->
 </head>
 <body>
 <header>
-    <div>
+    <div id="header-content">
         <div id="logo">
             <a href="${context }/index.do" title="回到首页"></a>
         </div>
@@ -43,7 +49,7 @@ pageEncoding="UTF-8"%>
             <ul>
                 <li class="nav-3d"><a href="#"></a></li>
                 <li class="nav-location"><a href="#"></a></li>
-                <li class="nav-input"><input type="text"/></li>
+                <li class="nav-input"><input type="text" class="png_bg"/></li>
                 <li class="nav-search"><a href="#"></a></li>
                 <li class="nav-session"><a href="#"></a>
                     <ul>
@@ -65,13 +71,14 @@ pageEncoding="UTF-8"%>
 </header>
 <div id="container">
     <div id="main-content">
-
-        <img src="${context }/${npc:transImagePath(firstImageMain.imageMainFilepath, 'b')}" alt=""/>
+        <div class="wrapper">
+            <img src="${context }/${npc:transImagePath(firstImageMain.imageMainFilepath, 'b')}" alt=""/>
+        </div>
         <nav>
             <ul>
-                <li class="gallery"><a href="javascript:void(0)" title="所有图片"></a></li>
-                <li class="previous"><a href="javascript:void(0)" title="上一张"></a></li>
-                <li class="next"><a href="javascript:void(0)" title="下一张"></a></li>
+                <li class="gallery"><a href="javascript:void(0)" title="所有图片" class="png_bg"></a></li>
+                <li class="previous"><a href="javascript:void(0)" title="上一张" class="png_bg"></a></li>
+                <li class="next"><a href="javascript:void(0)" title="下一张" class="png_bg"></a></li>
             </ul>
         </nav>
         <span class="tbar"></span>
@@ -109,7 +116,7 @@ pageEncoding="UTF-8"%>
         <div class="clearfix"></div>
     </div>
     <div id="detail-content">
-        <a href="javascript:void(0)" class="close"></a>
+        <a href="javascript:void(0)" class="close png_bg"></a>
 
         <div class="media">
             <img src="data:image/gif;base64,R0lGODlhBAABAIABAMLBwfLx8SH5BAEAAAEALAAAAAAEAAEAAAICRF4AOw==" alt=""/>
@@ -122,43 +129,28 @@ pageEncoding="UTF-8"%>
 </div>
 <footer>
     <p>
-        <a href="#top" class="gotop"></a>
+        <a href="#top" id="gotop"></a>
     </p>
 </footer>
 
 <script src="${context }/js/vendor/jquery.min.js"></script>
 <script src="${context }/js/vendor/mediaelement-and-player.min.js"></script>
+<!--[if lt IE 7]>
+<script>
+    $(document).ready(function () {
+        $("li, span, a").hover(function () {
+            $(this).toggleClass("hover");
+        });
+    });
+</script>
+<![endif]-->
 <script src="${context }/js/main.js"></script>
 
-<script type="text/javascript">
+<script>
     var currentImageMainId = ${firstImageMain.imageMainId};
     var imageMainIds = [${imageMainIds}];
-
-    var currentIndex = imageMainIds.indexOf(currentImageMainId);
-
-    $(document).ready(function () {
-        $("#main-content li.gallery a").click(function (e) {
-            $("#gallery-content").show().siblings().hide();
-        });
-
-        $("#main-content li.previous a").click(function (e) {
-            if (currentIndex && currentIndex > 1) {
-                showImageMain(imageMainIds[currentIndex - 1])
-            }
-        });
-
-        $("#main-content li.next a").click(function (e) {
-            if (currentIndex && currentIndex < imageMainIds.length - 1) {
-                showImageMain(imageMainIds[currentIndex + 1])
-            }
-        });
-
-        $("#main-content .info").text("${congress.congressTitle} / (" + currentIndex + ")");
-
-
-        showImageMain('${firstImageMain.imageMainId}');
-    });
-
+    var currentIndex = $.inArray(currentImageMainId, imageMainIds);
+    var materialTypes = ['article', 'image', 'video', 'article'];
 
     // 将图片路径转为对应的大图的路径
     function transImagePath(imagePath, type) {
@@ -180,7 +172,7 @@ pageEncoding="UTF-8"%>
             async: true,
             success: function (data, textStatus, jqXHR) {
                 currentImageMainId = imageMainId;
-                currentIndex = imageMainIds.indexOf(currentImageMainId);
+                currentIndex = $.inArray(currentImageMainId, imageMainIds);
 
                 $("#main-content img")[0].src = '${context}/' + transImagePath(data['imageMainFilepath'], 'b');
                 $("#main-content .info").text("${congress.congressTitle} / (" + currentIndex + ")");
@@ -230,9 +222,28 @@ pageEncoding="UTF-8"%>
             }
         });
     }
+    $(document).ready(function () {
+        $("#main-content li.gallery a").click(function (e) {
+            $("#gallery-content").show().siblings().hide();
+        });
 
 
-    var materialTypes = ['article', 'image', 'video', 'article'];
+        $("#main-content li.previous a").click(function (e) {
+            if (currentIndex && currentIndex > 1) {
+                showImageMain(imageMainIds[currentIndex - 1])
+            }
+        });
+
+        $("#main-content li.next a").click(function (e) {
+            if (currentIndex && currentIndex < imageMainIds.length - 1) {
+                showImageMain(imageMainIds[currentIndex + 1])
+            }
+        });
+
+        $("#main-content .info").text("${congress.congressTitle} / (" + currentIndex + ")");
+
+        showImageMain('${firstImageMain.imageMainId}');
+    });
 </script>
 </body>
 </html>
