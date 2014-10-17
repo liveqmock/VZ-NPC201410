@@ -1,0 +1,6 @@
+@media screen and (max-width: 1024px) {
+
+	header nav ul li.nav-input {
+		display:none;
+	}
+}
