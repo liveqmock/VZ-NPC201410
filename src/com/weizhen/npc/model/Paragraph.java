@@ -15,6 +15,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 
 /**
  * The persistent class for the Paragraph database table.
@@ -22,9 +24,12 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @NamedQuery(name="Paragraph.findAll", query="SELECT p FROM Paragraph p")
+@JsonIgnoreProperties("document")
 public class Paragraph implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer paragraphId;
+	
+	
 	private Document document;
 	private String paragraphContent;
 	private String paragraphIndex;
@@ -47,7 +52,7 @@ public class Paragraph implements Serializable {
 	}
 
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="paragraph_id")
+	@JoinColumn(name="document_id")
 	public Document getDocument() {
 		return this.document;
 	}

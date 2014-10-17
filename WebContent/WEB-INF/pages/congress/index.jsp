@@ -197,9 +197,32 @@ pageEncoding="UTF-8"%>
                     var imgSrc = "default.png";
                     if (materialType != 'article')
                         imgSrc = '${context}/' + transImagePath(relate['imageRelatedThumbFilepath'], 's');
+                        
+                    var content = relate['imageRelatedDescription'] || '';
 
-                    var tHtml = "<li><a href='javascript:void(0)' datatitle='" + relate['imageRelatedTitle'] + "' datadescription='" + relate['imageRelatedDescription'] + "' file='" + relate['imageRelatedFilepath'] + "' class='" + materialType + "'><img src='" + imgSrc + "'></img></a></li>";
+                    var tHtml = "<li><a href='javascript:void(0)' datatitle='" + relate['imageRelatedTitle'] + "' datadescription='" + content + "' file='" + relate['imageRelatedFilepath'] + "' class='" + materialType + "'><img src='" + imgSrc + "'></img></a></li>";
                     $(tHtml).appendTo($("#relate-content .media ul"));
+                }
+                
+                for(var index in data['documents']) {
+                	var document = data['documents'][index];
+                	var paragraphs = document['paragraphs'];
+                	var content = '';
+                	if (paragraphs && paragraphs.length > 0) {
+                		content = paragraphs[0]['paragraphContent'];
+                		for (var i = 1; i < paragraphs.length; i++) {
+                			content += '<br/>' + paragraphs[i]['paragraphContent'];
+                		}
+                	}
+                	
+                	$("<li></li>").append(
+                			$("<a href='javascript:void(0)' class='article'></a>")
+                				.attr('datatitle', document['documentTitle'])
+                				.attr('datadescription', content)
+                		).appendTo($("#relate-content .media ul"));
+
+                    //var tHtml = "<li><a href='javascript:void(0)' datatitle='" + document['documentTitle'] + "' datadescription='" + content + "' class='article'></a></li>";
+                    //$(tHtml).appendTo($("#relate-content .media ul"));
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {

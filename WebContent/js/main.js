@@ -32,10 +32,9 @@ $(document).ready(function () {
 
         var source = $(this);
 
-        var imageSrc = source.find('img').prop('src').replace('/s/', '/b/').replace('-s.', '-b.');
         var materialType = source.prop('class');
         if (materialType == 'video') {
-            //http://mediaelementjs.com/
+        	var imageSrc = source.find('img').prop('src').replace('/s/', '/b/').replace('-s.', '-b.');
             var _src = context + "/" + source.attr('file');
             var player = $('<video src="' + _src + '" width="720" height="576" controls="controls" preload="none">' +
                 '<source type="video/flv" src="' + context + "/" + source.attr('file') + '" />' +
@@ -49,11 +48,12 @@ $(document).ready(function () {
             $('#detail-content .media video').mediaelementplayer();
 
         } else if (materialType == 'image') {
+        	var imageSrc = source.find('img').prop('src').replace('/s/', '/b/').replace('-s.', '-b.');
             $("#detail-content .media").html("<img src='" + imageSrc + "'></img>");
         }
 
         $("#detail-content h2").text($(this).attr('datatitle'));
-        $("#detail-content p").text($(this).attr('datadescrition'));
+        $("#detail-content p").html($(this).attr('datadescription') ? $(this).attr('datadescription') : '');
 
         $("#detail-content").show();
     });
