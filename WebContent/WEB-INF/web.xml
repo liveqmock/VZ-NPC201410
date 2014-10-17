@@ -49,10 +49,11 @@
     <taglib>
       <taglib-uri>http://weizhen.com/tags/npc</taglib-uri>
       <taglib-location>/WEB-INF/tags/npc.tld</taglib-location>
-    </taglib>  
+    </taglib>
   </jsp-config>
   
   <welcome-file-list>
+  	<welcome-file>index.html</welcome-file>
     <welcome-file>index.do</welcome-file>
   </welcome-file-list>
 </web-app>
