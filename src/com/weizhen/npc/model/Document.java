@@ -1,7 +1,20 @@
 package com.weizhen.npc.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -12,24 +25,26 @@ import javax.persistence.*;
 @NamedQuery(name="Document.findAll", query="SELECT d FROM Document d")
 public class Document implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private int document_id;
-	private int check_Publish;
-	private int city_id;
+	private Integer documentId;
+	private Integer checkPublish;
+	private Integer cityId;
 	private String comment;
-	private int congress_id;
-	private int continent_id;
-	private int country_id;
-	private String document_description;
-	private String document_location;
-	private String document_ref;
-	private int document_sequence;
-	private int document_time;
-	private String document_title;
-	private int image_Main_id;
-	private int material_id;
-	private int province_id;
+	private Integer congressId;
+	private Integer continentId;
+	private Integer countryId;
+	private String documentDescription;
+	private String documentLocation;
+	private String documentRef;
+	private Integer documentSequence;
+	private Integer documentTime;
+	private String documentTitle;
+	private Integer imageMainId;
+	private Integer materialId;
+	private Integer provinceId;
 	private String publishDate;
-	private byte[] updateTime;
+	private Date updateTime;
+	
+	private List<Paragraph> paragraphs;
 
 	public Document() {
 	}
@@ -37,34 +52,37 @@ public class Document implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	public int getDocument_id() {
-		return this.document_id;
+	@Column(name = "document_id")
+	public Integer getDocumentId() {
+		return this.documentId;
 	}
 
-	public void setDocument_id(int document_id) {
-		this.document_id = document_id;
-	}
-
-
-	public int getCheck_Publish() {
-		return this.check_Publish;
-	}
-
-	public void setCheck_Publish(int check_Publish) {
-		this.check_Publish = check_Publish;
+	public void setDocumentId(Integer documentId) {
+		this.documentId = documentId;
 	}
 
 
-	public int getCity_id() {
-		return this.city_id;
+	@Column(name = "check_Publish")
+	public Integer getCheckPublish() {
+		return this.checkPublish;
 	}
 
-	public void setCity_id(int city_id) {
-		this.city_id = city_id;
+	public void setCheckPublish(Integer checkPublish) {
+		this.checkPublish = checkPublish;
 	}
 
 
-	@Lob
+	@Column(name = "city_id")
+	public Integer getCityId() {
+		return this.cityId;
+	}
+
+	public void setCityId(Integer cityId) {
+		this.cityId = cityId;
+	}
+
+
+	@Column(name = "comment")
 	public String getComment() {
 		return this.comment;
 	}
@@ -74,119 +92,126 @@ public class Document implements Serializable {
 	}
 
 
-	public int getCongress_id() {
-		return this.congress_id;
+	@Column(name = "congress_id")
+	public Integer getCongressId() {
+		return this.congressId;
 	}
 
-	public void setCongress_id(int congress_id) {
-		this.congress_id = congress_id;
-	}
-
-
-	public int getContinent_id() {
-		return this.continent_id;
-	}
-
-	public void setContinent_id(int continent_id) {
-		this.continent_id = continent_id;
+	public void setCongressId(Integer congressId) {
+		this.congressId = congressId;
 	}
 
 
-	public int getCountry_id() {
-		return this.country_id;
+	@Column(name = "continent_id")
+	public Integer getContinentId() {
+		return this.continentId;
 	}
 
-	public void setCountry_id(int country_id) {
-		this.country_id = country_id;
-	}
-
-
-	@Lob
-	public String getDocument_description() {
-		return this.document_description;
-	}
-
-	public void setDocument_description(String document_description) {
-		this.document_description = document_description;
+	public void setContinentId(Integer continentId) {
+		this.continentId = continentId;
 	}
 
 
-	@Lob
-	public String getDocument_location() {
-		return this.document_location;
+	@Column(name = "country_id")
+	public Integer getCountryId() {
+		return this.countryId;
 	}
 
-	public void setDocument_location(String document_location) {
-		this.document_location = document_location;
-	}
-
-
-	@Lob
-	public String getDocument_ref() {
-		return this.document_ref;
-	}
-
-	public void setDocument_ref(String document_ref) {
-		this.document_ref = document_ref;
+	public void setCountryId(Integer countryId) {
+		this.countryId = countryId;
 	}
 
 
-	public int getDocument_sequence() {
-		return this.document_sequence;
+	@Column(name = "document_description")
+	public String getDocumentDescription() {
+		return this.documentDescription;
 	}
 
-	public void setDocument_sequence(int document_sequence) {
-		this.document_sequence = document_sequence;
-	}
-
-
-	public int getDocument_time() {
-		return this.document_time;
-	}
-
-	public void setDocument_time(int document_time) {
-		this.document_time = document_time;
+	public void setDocumentDescription(String documentDescription) {
+		this.documentDescription = documentDescription;
 	}
 
 
-	@Lob
-	public String getDocument_title() {
-		return this.document_title;
+	@Column(name = "document_location")
+	public String getDocumentLocation() {
+		return this.documentLocation;
 	}
 
-	public void setDocument_title(String document_title) {
-		this.document_title = document_title;
-	}
-
-
-	public int getImage_Main_id() {
-		return this.image_Main_id;
-	}
-
-	public void setImage_Main_id(int image_Main_id) {
-		this.image_Main_id = image_Main_id;
+	public void setDocumentLocation(String documentLocation) {
+		this.documentLocation = documentLocation;
 	}
 
 
-	public int getMaterial_id() {
-		return this.material_id;
+	@Column(name = "document_ref")
+	public String getDocumentRef() {
+		return this.documentRef;
 	}
 
-	public void setMaterial_id(int material_id) {
-		this.material_id = material_id;
-	}
-
-
-	public int getProvince_id() {
-		return this.province_id;
-	}
-
-	public void setProvince_id(int province_id) {
-		this.province_id = province_id;
+	public void setDocumentRef(String documentRef) {
+		this.documentRef = documentRef;
 	}
 
 
-	@Lob
+	@Column(name = "document_sequence")
+	public Integer getDocumentSequence() {
+		return this.documentSequence;
+	}
+
+	public void setDocumentSequence(Integer documentSequence) {
+		this.documentSequence = documentSequence;
+	}
+
+
+	@Column(name = "document_time")
+	public Integer getDocumentTime() {
+		return this.documentTime;
+	}
+
+	public void setDocumentTime(Integer documentTime) {
+		this.documentTime = documentTime;
+	}
+
+
+	@Column(name = "document_title")
+	public String getDocumentTitle() {
+		return this.documentTitle;
+	}
+
+	public void setDocumentTitle(String documentTitle) {
+		this.documentTitle = documentTitle;
+	}
+
+
+	@Column(name = "image_Main_id")
+	public Integer getImageMainId() {
+		return this.imageMainId;
+	}
+
+	public void setImageMainId(Integer imageMainId) {
+		this.imageMainId = imageMainId;
+	}
+
+
+	@Column(name = "material_id")
+	public Integer getMaterialId() {
+		return this.materialId;
+	}
+
+	public void setMaterialId(Integer materialId) {
+		this.materialId = materialId;
+	}
+
+
+	@Column(name = "province_id")
+	public Integer getProvinceId() {
+		return this.provinceId;
+	}
+
+	public void setProvinceId(Integer provinceId) {
+		this.provinceId = provinceId;
+	}
+
+
 	@Column(name="publish_date")
 	public String getPublishDate() {
 		return this.publishDate;
@@ -196,14 +221,27 @@ public class Document implements Serializable {
 		this.publishDate = publishDate;
 	}
 
-
-	@Lob
-	public byte[] getUpdateTime() {
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "updateTime")
+	public Date getUpdateTime() {
 		return this.updateTime;
 	}
 
-	public void setUpdateTime(byte[] updateTime) {
+	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
 
+
+	//bi-directional many-to-one association to CongressResume
+	@OneToMany(mappedBy="document",fetch=FetchType.EAGER)
+	@OrderBy("paragraphSequence")
+	public List<Paragraph> getParagraphs() {
+		return paragraphs;
+	}
+
+
+	public void setParagraphs(List<Paragraph> paragraphs) {
+		this.paragraphs = paragraphs;
+	}
+	
 }

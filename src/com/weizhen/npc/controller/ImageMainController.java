@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.weizhen.npc.base.BaseController;
 import com.weizhen.npc.model.ImageMain;
 import com.weizhen.npc.service.CongressService;
+import com.weizhen.npc.service.DocumentService;
 import com.weizhen.npc.service.ImageMainService;
 import com.weizhen.npc.service.ImageRelatedService;
 
@@ -30,12 +31,16 @@ public class ImageMainController extends BaseController {
 	
 	@Autowired
 	private ImageRelatedService imageRelatedService;
+	
+	@Autowired
+	private DocumentService documentService;
 
 	@RequestMapping(value = "/{imageMainId}")
 	@ResponseBody
 	public ImageMain index(@PathVariable("imageMainId") Integer imageMainId) {
 		ImageMain imageMain = imageMainService.get(imageMainId);
 		imageMain.setImageRelateds(imageRelatedService.findByImageMainId(imageMainId));
+		imageMain.setDocuments(documentService.findByImageMainId(imageMainId));
 			
 		return imageMain;
 	}

@@ -44,6 +44,7 @@ public class ImageMain implements Serializable {
 	private Date updateTime;
 	
 	private List<ImageRelated> imageRelateds;
+	private List<Document> documents;
 
 	public ImageMain() {
 	}
@@ -228,6 +229,16 @@ public class ImageMain implements Serializable {
 	
 	public void setImageRelateds(List<ImageRelated> imageRelateds) {
 		this.imageRelateds = imageRelateds;
+	}
+
+	@Transient
+	public List<Document> getDocuments() {
+		return documents;
+	}
+
+
+	public void setDocuments(List<Document> documents) {
+		this.documents = documents;
 	}
 
 }
