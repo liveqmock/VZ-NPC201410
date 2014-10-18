@@ -121,6 +121,8 @@ $(document).ready(function () {
         }
 
         $("#detail-content").show();
+
+        $('body, html').animate({scrollTop: '0px'}, 500);
     });
     $("#detail-content .close").click(function (e) {
         e.preventDefault();
