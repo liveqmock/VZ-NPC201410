@@ -43,7 +43,7 @@ pageEncoding="UTF-8"%>
 <header>
     <div id="header-content">
         <div id="logo">
-            <a href="${context }/index.do" title="回到首页"></a>
+            <a href="${context }/index.html" title="回到首页"></a>
         </div>
         <nav>
             <ul>
@@ -56,7 +56,7 @@ pageEncoding="UTF-8"%>
                         <c:if test="${!empty congresses && fn:length(congresses) > 0}">
                             <c:forEach var="congress" items="${congresses}" varStatus="row">
                                 <li class="nav-session-${congress.congressId }"><a
-                                        href="${context }/congress/${congress.congressId }.do"></a></li>
+                                        href="${context }/congress/${congress.congressId }.html"></a></li>
                             </c:forEach>
                         </c:if>
                     </ul>
@@ -164,7 +164,7 @@ pageEncoding="UTF-8"%>
     function showImageMain(imageMainId) {
         imageMainId = imageMainId * 1;
 
-        $.ajax("${context}/imagemain/" + imageMainId + ".do", {
+        $.ajax("${context}/imagemain/" + imageMainId + ".html", {
             type: 'get',
             dataType: 'json',
             async: true,
