@@ -100,6 +100,7 @@ $(document).ready(function () {
                             mediaElement.pause();
                         }
                     });
+                    mediaElement.play();
                 }
             });
             //$('#detail-content .media video').mediaelementplayer();
