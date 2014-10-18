@@ -37,7 +37,7 @@ public class CommonController extends BaseController {
 		return "redirect:" + directUrl;
 	}
 	
-	@RequestMapping(value="/index.do")
+	@RequestMapping(value="/index.html")
 	public ModelAndView index(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("index");
 		mav.addObject("congresses", congressService.loadAll());

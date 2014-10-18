@@ -28,7 +28,7 @@ pageEncoding="UTF-8"%>
 <header>
     <div id="header-content">
         <div id="logo">
-            <a href="index.do" title="回到首页"></a>
+            <a href="index.html" title="回到首页"></a>
         </div>
         <nav>
             <ul>
@@ -41,7 +41,7 @@ pageEncoding="UTF-8"%>
                         <c:if test="${!empty congresses && fn:length(congresses) > 0}">
                             <c:forEach var="congress" items="${congresses}" varStatus="row">
                                 <li class="nav-session-${congress.congressId }"><a
-                                        href="congress/${congress.congressId }.do"></a></li>
+                                        href="congress/${congress.congressId }.html"></a></li>
                             </c:forEach>
                         </c:if>
                     </ul>
@@ -68,7 +68,7 @@ pageEncoding="UTF-8"%>
                 <c:set var="rowIndex" value="1"></c:set>
                 <c:forEach var="congress" items="${congresses}" varStatus="row">
                     <c:if test="${congress.congressId > 0 }">
-                        <li><a href="congress/${congress.congressId }.do"> <span>
+                        <li><a href="congress/${congress.congressId }.html"> <span>
 										    <h3>第${congress.congressId }届全国人民代表大会<br/>
                                                 <strong>SESSION ${congress.congressId } OF THE NATIONAL PEOPLE'S
                                                     CONGRESS</strong></h3>
