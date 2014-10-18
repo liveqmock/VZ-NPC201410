@@ -105,7 +105,7 @@ pageEncoding="UTF-8"%>
                     <li><a dataImageMainId="${imageMain.imageMainId }" href="javascript:void(0)">
 								<span style="display:none;">
 									<h3>${imageMain.imageMainTitle }</h3><br/>
-									<p>${imageMain.imageMainDescription }</p>
+									<p>${row.index < 2 ? fn:replace(congress.congressResumeContent,'/n','<br/>') : imageMain.imageMainDescription }</p>
 								</span>
                         <img src="${context }/${npc:transImagePath(imageMain.imageMainFilepath, 'm')}" alt=""/>
                     </a>
