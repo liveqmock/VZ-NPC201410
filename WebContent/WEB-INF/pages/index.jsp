@@ -40,10 +40,8 @@ pageEncoding="UTF-8"%>
                     <ul>
                         <c:if test="${!empty congresses && fn:length(congresses) > 0}">
                             <c:forEach var="congress" items="${congresses}" varStatus="row">
-                                <c:if test="${congress.congressId > 0 }">
-                                    <li class="nav-session-${congress.congressId }"><a
-                                            href="congress/${congress.congressId }.do"></a></li>
-                                </c:if>
+                            	<li class="nav-session-${congress.congressId }"><a
+                                	href="congress/${congress.congressId }.do"></a></li>
                             </c:forEach>
                         </c:if>
                     </ul>
