@@ -178,7 +178,10 @@ pageEncoding="UTF-8"%>
                 $("#main-content .info").text("${congress.congressTitle} / (" + currentIndex + ")");
 
                 $("#relate-content .text h2").text(data['imageMainTitle']);
-                $("#relate-content .text p").text(data['imageMainDescription']);
+                
+                var description = currentIndex == 1 ? '${congress.congressResumeContent}' : data['imageMainDescription'];
+                $("#relate-content .text p")
+                	.html($("<span></span>").text(description).html().replace(new RegExp('/n', 'g'),'<br/>'));
 
                 $("#relate-content .media ul").html('');
 

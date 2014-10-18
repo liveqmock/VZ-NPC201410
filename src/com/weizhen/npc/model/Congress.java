@@ -170,9 +170,10 @@ public class Congress implements Serializable {
 		if (null == this.congressResumes || this.congressResumes.isEmpty())
 			return null;
 		
-		StringBuffer content = new StringBuffer("");
-		for(CongressResume congressResume : getCongressResumes()) {
-			content.append(congressResume.getResume());
+		StringBuffer content = new StringBuffer(getCongressResumes().get(0).getResume());
+		
+		for(int index = 1; index < getCongressResumes().size(); index++) {
+			content.append("/n").append(getCongressResumes().get(index).getResume());
 		}
 		
 		return content.toString();

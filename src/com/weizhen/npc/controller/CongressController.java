@@ -43,7 +43,8 @@ public class CongressController extends BaseController {
 		
 		List<Congress> congresses = congressService.loadAll();
 		mav.addObject("congresses", congresses);
-		mav.addObject("congress", congressService.load(congressId));
+		Congress thisCongress = congressService.load(congressId);
+		mav.addObject("congress", thisCongress);
 //		for(Congress congress : congresses) {
 //			if (congressId == congress.getCongressId()) {
 //				mav.addObject("congress", congress);
