@@ -14,6 +14,36 @@ $(document).ready(function () {
         });
     }
 
+    var player = "";
+    $("#index-main-content a.play").click(function (e) {
+        e.preventDefault();
+        if (!player) {
+            $('#index-video-content').show();
+            player = new MediaElement('index-video', {
+                plugins: ['flash'],
+                pluginPath: 'js/vendor/',
+                flashName: 'flashmediaelement.swf',
+                clickToPlayPause: true,
+                success: function (mediaElement, domObject) {
+                    $(this).on('click', function () {
+                        if (mediaElement.paused) {
+                            mediaElement.play();
+                        } else {
+                            mediaElement.pause();
+                        }
+                    });
+                    mediaElement.play();
+                }
+            });
+        } else {
+            if (player.paused) {
+                player.play();
+            } else {
+                player.pause();
+            }
+        }
+    });
+
     //首页届别浮动文字
     $("#session-nav li a").on("mouseenter", function () {
         $(this).find("span").show();
@@ -37,15 +67,16 @@ $(document).ready(function () {
         e.preventDefault();
         $("#relate-content, #main-content").hide();
 
-        $("#detail-content .media").html("");
+        $("#detail-content .article").remove();
+        $("#detail-content .media").html("").show();
         $("#jp_container_1").hide();
 
         var source = $(this);
 
         var materialType = source.prop('class');
-        if (materialType == 'video') {
-        		var imageSrc = source.find('img').prop('src').replace('/s/', '/b/').replace('-s.', '-b.');
-            
+        if (materialType.indexOf('video') != -1) {
+            var imageSrc = source.find('img').prop('src').replace('/s/', '/b/').replace('-s.', '-b.');
+
             //http://mediaelementjs.com/
             var _src = (context + "/" + source.attr('file'));
             var player = $('<video id="video" src="' + _src + '" width="720" height="576" controls="controls" preload="none">' +
@@ -59,14 +90,21 @@ $(document).ready(function () {
                 '</video>');
             player.appendTo($("#detail-content .media"));
             $('#detail-content .media video').mediaelementplayer();
+            $("#detail-content h2").text($(this).attr('datatitle'));
+            $("#detail-content p").html($(this).attr('datadescription') ? $(this).attr('datadescription') : '');
 
-        } else if (materialType == 'image') {
-        	var imageSrc = source.find('img').prop('src').replace('/s/', '/b/').replace('-s.', '-b.');
+        } else if (materialType.indexOf('image') != -1) {
+            var imageSrc = source.find('img').prop('src').replace('/s/', '/b/').replace('-s.', '-b.');
             $("#detail-content .media").html("<img src='" + imageSrc + "'></img>");
+            $("#detail-content h2").text($(this).attr('datatitle'));
+            $("#detail-content p").html($(this).attr('datadescription') ? $(this).attr('datadescription') : '');
+        } else if (materialType.indexOf('article') != -1) {
+            $("#detail-content h2").text("");
+            $("#detail-content p").html("");
+            $("#detail-content .media").hide();
+            $("#detail-content").append($('<div class="article"><div><h2>' + $(this).attr('datatitle') + '</h2>' +
+                ($(this).attr('datadescription') ? $(this).attr('datadescription') : '') + '</div></div>'));
         }
-
-        $("#detail-content h2").text($(this).attr('datatitle'));
-        $("#detail-content p").html($(this).attr('datadescription') ? $(this).attr('datadescription') : '');
 
         $("#detail-content").show();
     });

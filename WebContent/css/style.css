@@ -385,6 +385,7 @@ header nav ul li.nav-session ul li.nav-session-12 a:hover {
     width: 64px;
     height: 64px;
     background: url("../image/icon_play.png") no-repeat;
+    z-index: 100;
 }
 
 #container #index-main-content a.play:hover,
@@ -406,13 +407,23 @@ header nav ul li.nav-session ul li.nav-session-12 a:hover {
     vertical-align: middle;
 }
 
-
 #container #index-main-content img {
     position: absolute;
     left: 50%;
     margin-left: -665px;
     height: 484px;
     vertical-align: middle;
+    z-index: 30;
+}
+
+#container #index-main-content #index-video-content {
+    display: none;
+    position: absolute;
+    left: 50%;
+    margin-left: -302.5px;
+    height: 484px;
+    vertical-align: middle;
+    z-index: 300;
 }
 
 #container #main-content nav {
@@ -760,6 +771,39 @@ header nav ul li.nav-session ul li.nav-session-12 a:hover {
     margin: 20px 20px 0 20px;
     line-height: 1.7;
     text-align: center;
+}
+
+#container #detail-content .article {
+    position: relative;
+    *top: -44px;
+    background: #7d7d7d;
+    text-align: center;
+    _height: 576px;
+    min-height: 576px;
+    padding: 0 100px;
+    color: #fff;
+}
+
+#container #detail-content .article div {
+    background: #333;
+    padding: 30px 30px 50px 30px;
+}
+
+#container #detail-content .article h2 {
+    display: block;
+    margin: 20px 20px 0 20px;
+    font-size: 22px;
+    line-height: 1.7;
+    font-weight: bold;
+    text-align: left;
+    clear: both;
+}
+
+#container #detail-content .article p {
+    display: block;
+    margin: 20px 20px 0 20px;
+    line-height: 1.7;
+    text-align: left;
 }
 
 #container #detail-content a.close {

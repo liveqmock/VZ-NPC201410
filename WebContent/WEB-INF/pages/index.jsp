@@ -57,6 +57,9 @@ pageEncoding="UTF-8"%>
 <div id="container">
     <div id="index-main-content">
         <div class="wrapper">
+            <div id="index-video-content">
+                <video id="index-video" src="image/xi.flv" width="605" height="484"></video>
+            </div>
             <img src="image/index_main.jpg" alt=""/>
         </div>
         <a class="play png_bg"></a>
