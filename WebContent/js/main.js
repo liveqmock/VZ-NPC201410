@@ -21,9 +21,8 @@ $(document).ready(function () {
             $('#index-video-content').show();
             player = new MediaElement('index-video', {
                 plugins: ['flash'],
-                pluginPath: 'js/vendor/',
+                pluginPath: context + '/js/vendor/',
                 flashName: 'flashmediaelement.swf',
-                clickToPlayPause: true,
                 success: function (mediaElement, domObject) {
                     $(this).on('click', function () {
                         if (mediaElement.paused) {
@@ -33,6 +32,14 @@ $(document).ready(function () {
                         }
                     });
                     mediaElement.play();
+                },
+                error: function () {
+                    if ($(".me-cannotplay").length > 0) {
+                        $(".me-cannotplay").html('<h2>您的电脑没有安装flash播放器，无法观看视频。' +
+                            '<a href="http://get.adobe.com/cn/flashplayer/?fpchrome"target="_blank">点击下载安装</a></h2>')
+                    } else {
+                        alert("您的电脑没有安装flash播放器，无法观看视频。");
+                    }
                 }
             });
         } else {
@@ -79,17 +86,24 @@ $(document).ready(function () {
 
             //http://mediaelementjs.com/
             var _src = (context + "/" + source.attr('file'));
-            var player = $('<video id="video" src="' + _src + '" width="720" height="576" controls="controls" preload="none">' +
-                '<source type="video/flv" src="' + _src + '" />' +
-
-                '<object width="720" height="576" type="application/x-shockwave-flash" data="' + context + '/js/vendor/flashmediaelement.swf">' +
-                '<param name="movie" value="' + context + '/js/vendor/flashmediaelement.swf" />' +
-                '<param name="flashvars" value="controls=true&file=' + _src + '" />' +
-                '<img src="' + imageSrc + '" width="720" height="576" />' +
-                '</object>' +
-                '</video>');
+            var player = $('<video id="video" src="' + _src + '" width="720" height="576" controls="controls" preload="none"></video>');
             player.appendTo($("#detail-content .media"));
-            $('#detail-content .media video').mediaelementplayer();
+            var me = new MediaElement('video', {
+                plugins: ['flash'],
+                pluginPath: context + '/js/vendor/',
+                flashName: 'flashmediaelement.swf',
+                success: function (mediaElement, domObject) {
+                    $(this).on('click', function () {
+                        if (mediaElement.paused) {
+                            mediaElement.play();
+                        } else {
+                            mediaElement.pause();
+                        }
+                    });
+                }
+            });
+            //$('#detail-content .media video').mediaelementplayer();
+
             $("#detail-content h2").text($(this).attr('datatitle'));
             $("#detail-content p").html($(this).attr('datadescription') ? $(this).attr('datadescription') : '');
 
