@@ -51,6 +51,10 @@ $(document).ready(function () {
         }
     });
 
+    $("#index-main-img").click(function () {
+        window.location.href = window.location.origin + context + "/congress/0.do";
+    });
+
     //首页届别浮动文字
     $("#session-nav li a").on("mouseenter", function () {
         $(this).find("span").show();
