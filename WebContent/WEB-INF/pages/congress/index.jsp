@@ -181,7 +181,7 @@ pageEncoding="UTF-8"%>
                 
                 var description = currentIndex == 1 ? '${congress.congressResumeContent}' : data['imageMainDescription'];
                 $("#relate-content .text p")
-                	.html($("<span></span>").text(description).html().replace(new RegExp('/n', 'g'),'<br/>'));
+                	.html($("<span></span>").text(description).html().replace(new RegExp('/n', 'g'),'<br/><br/>'));
 
                 $("#relate-content .media ul").html('');
 

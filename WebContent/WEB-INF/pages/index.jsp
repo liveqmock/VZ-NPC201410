@@ -80,7 +80,7 @@ pageEncoding="UTF-8"%>
                                                            items="${congress.congressResumes }">
                                                     <p>${congressResume.resume }</p>
                                                 </c:forEach>
-                                            </c:if></span> <img src="image/index_s${congress.congressId }.jpg" alt=""/>
+                                            </c:if></span> <div><img src="image/index_s${congress.congressId }.jpg" alt=""/></div>
                         </a></li>
                         <c:set var="rowIndex" value="${rowIndex+1 }"></c:set>
                     </c:if>

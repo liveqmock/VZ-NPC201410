@@ -560,9 +560,10 @@ header nav ul li.nav-session ul li.nav-session-12 a:hover {
     float: left;
     display: inline;
     width: 33%;
+    *width: 32.8%;
     margin: 8px 4px 0 0;
     max-width: 436px;
-    _width: expression( document.body.clientWidth > 436 ? "436px" : "33%" );
+    _width: expression( document.body.clientWidth > 1400 ? "436px" : "32.8%" );
     height: 284px;
 }
 
@@ -582,8 +583,15 @@ header nav ul li.nav-session ul li.nav-session-12 a:hover {
     text-decoration: none;
 }
 
+#container #session-nav ul li a div {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    text-align: center;
+}
+
 #container #session-nav ul li a img {
-    width: 436px;
     height: 284px;
 }
 
