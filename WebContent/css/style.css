@@ -560,8 +560,9 @@ header nav ul li.nav-session ul li.nav-session-12 a:hover {
     float: left;
     display: inline;
     width: 33%;
-    margin: 8px 3px 0 3px;
-    width: 436px;
+    margin: 8px 4px 0 0;
+    max-width: 436px;
+    _width: expression( document.body.clientWidth > 436 ? "436px" : "33%" );
     height: 284px;
 }
 
@@ -570,7 +571,7 @@ header nav ul li.nav-session ul li.nav-session-12 a:hover {
     display: block;
     margin: 0;
     padding: 0;
-    width: 436px;
+    /*width: 436px;*/
     height: 284px;
     color: #fff;
     background: #780000;
@@ -591,7 +592,7 @@ header nav ul li.nav-session ul li.nav-session-12 a:hover {
     position: absolute;
     left: 0;
     top: 0;
-    width: 436px;
+    /*width: 436px;*/
     height: 264px;
     background: #780000;
     filter: alpha(opacity=90);
