@@ -436,12 +436,14 @@ header nav ul li.nav-session ul li.nav-session-12 a:hover {
 }
 
 #container .me-cannotplay {
+    margin: 0 auto;
 }
 
 #container .me-cannotplay h2 {
     margin-top: 30px;
     padding: 30px;
-    font-size: 14px;
+    font-size: 14px !important;
+    font-weight: normal !important;
     color: #fff;
     background: #333;
     filter: alpha(opacity=70);
@@ -451,6 +453,7 @@ header nav ul li.nav-session ul li.nav-session-12 a:hover {
 
 #container .me-cannotplay h2 a {
     color: #ff0000;
+    font-weight: normal !important;
 }
 
 #container #main-content nav {
