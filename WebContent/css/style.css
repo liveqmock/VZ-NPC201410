@@ -248,6 +248,14 @@ header nav ul ul li {
     padding: 3px 5px;
 }
 
+header nav ul li.nav-session ul li.nav-session-0 a {
+    background-image: url("../image/nav_02_00.png");
+}
+
+header nav ul li.nav-session ul li.nav-session-0 a:hover {
+    background-image: url("../image/nav_02_00_h.png");
+}
+
 header nav ul li.nav-session ul li.nav-session-1 a {
     background-image: url("../image/nav_02_01.png");
 }
@@ -399,6 +407,7 @@ header nav ul li.nav-session ul li.nav-session-12 a:hover {
     height: 100%;
     overflow: hidden;
     text-align: center;
+    cursor: pointer;
 }
 
 #container #main-content img {
@@ -427,12 +436,14 @@ header nav ul li.nav-session ul li.nav-session-12 a:hover {
 }
 
 #container .me-cannotplay {
+    margin: 0 auto;
 }
 
 #container .me-cannotplay h2 {
     margin-top: 30px;
     padding: 30px;
-    font-size: 14px;
+    font-size: 14px !important;
+    font-weight: normal !important;
     color: #fff;
     background: #333;
     filter: alpha(opacity=70);
@@ -442,6 +453,7 @@ header nav ul li.nav-session ul li.nav-session-12 a:hover {
 
 #container .me-cannotplay h2 a {
     color: #ff0000;
+    font-weight: normal !important;
 }
 
 #container #main-content nav {

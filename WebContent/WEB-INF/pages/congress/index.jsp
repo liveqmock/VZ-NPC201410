@@ -51,7 +51,7 @@ pageEncoding="UTF-8"%>
                 <li class="nav-location"><a href="#"></a></li>
                 <li class="nav-input"><input type="text" class="png_bg"/></li>
                 <li class="nav-search"><a href="#"></a></li>
-                <li class="nav-session"><a href="#"></a>
+                <li class="nav-session"><a href="${context }/index.html"></a>
                     <ul>
                         <c:if test="${!empty congresses && fn:length(congresses) > 0}">
                             <c:forEach var="congress" items="${congresses}" varStatus="row">

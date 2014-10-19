@@ -54,11 +54,11 @@ pageEncoding="UTF-8"%>
 </header>
 <div id="container">
     <div id="index-main-content">
-        <div class="wrapper">
+        <div class="wrapper" title="序言">
             <div id="index-video-content">
                 <video id="index-video" src="image/xi.flv" width="605" height="484"></video>
             </div>
-            <img src="image/index_main.jpg" alt=""/>
+            <img src="image/index_main.jpg" alt="序言" id="index-main-img"/>
         </div>
         <a class="play png_bg"></a>
     </div>
@@ -78,7 +78,9 @@ pageEncoding="UTF-8"%>
                                                            items="${congress.congressResumes }">
                                                     <p>${congressResume.resume }</p>
                                                 </c:forEach>
-                                            </c:if></span> <div><img src="image/index_s${congress.congressId }.jpg" alt=""/></div>
+                                            </c:if></span>
+
+                            <div><img src="image/index_s${congress.congressId }.jpg" alt=""/></div>
                         </a></li>
                         <c:set var="rowIndex" value="${rowIndex+1 }"></c:set>
                     </c:if>
