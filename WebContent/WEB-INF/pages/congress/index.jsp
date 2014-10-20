@@ -49,8 +49,8 @@ pageEncoding="UTF-8"%>
             <ul>
                 <li class="nav-3d"><a href="#"></a></li>
                 <li class="nav-location"><a href="#"></a></li>
-                <li class="nav-input"><input type="text" class="png_bg"/></li>
-                <li class="nav-search"><a href="#"></a></li>
+                <li class="nav-input"><input type="text" name="keyword" id="keyword" class="png_bg"/></li>
+                <li class="nav-search"><a href="javascript:void(0)"></a></li>
                 <li class="nav-session"><a href="${context }/index.html"></a>
                     <ul>
                         <c:if test="${!empty congresses && fn:length(congresses) > 0}">
@@ -246,6 +246,12 @@ pageEncoding="UTF-8"%>
         $("#main-content .info").text("${congress.congressTitle} / (" + currentIndex + ")");
 
         showImageMain('${firstImageMain.imageMainId}');
+        
+        
+        $(".nav-search").on("click", function() {
+			if($("#keyword").val())
+				document.location.href="search.html?keyword=" + encodeURI($("#keyword").val());
+		});
     });
 </script>
 </body>
