@@ -1,7 +1,17 @@
 package com.weizhen.npc.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -12,18 +22,18 @@ import javax.persistence.*;
 @NamedQuery(name="Person.findAll", query="SELECT p FROM Person p")
 public class Person implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private int person_id;
-	private String person_academic_level;
-	private int person_birthday;
-	private String person_birthplace_province;
-	private String person_ethnic;
-	private String person_Image;
-	private String person_name;
-	private String person_party_grouping;
-	private String person_resume;
-	private String person_sex;
-	private String person_workplace_province;
-	private byte[] updateTime;
+	private Integer personId;
+	private String personAcademicLevel;
+	private Integer personBirthday;
+	private String personBirthplaceProvince;
+	private String personEthnic;
+	private String personImage;
+	private String personName;
+	private String personPartyGrouping;
+	private String personResume;
+	private String personSex;
+	private String personWorkplaceProvince;
+	private Date updateTime;
 
 	public Person() {
 	}
@@ -31,120 +41,122 @@ public class Person implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	public int getPerson_id() {
-		return this.person_id;
+	@Column(name="person_id")
+	public Integer getPersonId() {
+		return this.personId;
 	}
 
-	public void setPerson_id(int person_id) {
-		this.person_id = person_id;
-	}
-
-
-	@Lob
-	public String getPerson_academic_level() {
-		return this.person_academic_level;
-	}
-
-	public void setPerson_academic_level(String person_academic_level) {
-		this.person_academic_level = person_academic_level;
+	public void setPersonId(Integer personId) {
+		this.personId = personId;
 	}
 
 
-	public int getPerson_birthday() {
-		return this.person_birthday;
+	@Column(name="person_academic_level")
+	public String getPersonAcademicLevel() {
+		return this.personAcademicLevel;
 	}
 
-	public void setPerson_birthday(int person_birthday) {
-		this.person_birthday = person_birthday;
-	}
-
-
-	@Lob
-	public String getPerson_birthplace_province() {
-		return this.person_birthplace_province;
-	}
-
-	public void setPerson_birthplace_province(String person_birthplace_province) {
-		this.person_birthplace_province = person_birthplace_province;
+	public void setPersonAcademicLevel(String personAcademicLevel) {
+		this.personAcademicLevel = personAcademicLevel;
 	}
 
 
-	@Lob
-	public String getPerson_ethnic() {
-		return this.person_ethnic;
+	@Column(name="person_birthday")
+	public Integer getPersonBirthday() {
+		return this.personBirthday;
 	}
 
-	public void setPerson_ethnic(String person_ethnic) {
-		this.person_ethnic = person_ethnic;
+	public void setPersonBirthday(Integer personBirthday) {
+		this.personBirthday = personBirthday;
 	}
 
 
-	@Lob
+	@Column(name="person_birthplace_province")
+	public String getPersonBirthplaceProvince() {
+		return this.personBirthplaceProvince;
+	}
+
+	public void setPersonBirthplaceProvince(String personBirthplaceProvince) {
+		this.personBirthplaceProvince = personBirthplaceProvince;
+	}
+
+
+	@Column(name="person_ethnic")
+	public String getPersonEthnic() {
+		return this.personEthnic;
+	}
+
+	public void setPersonEthnic(String personEthnic) {
+		this.personEthnic = personEthnic;
+	}
+
+
+	@Column(name="person_Image")
 	public String getPerson_Image() {
-		return this.person_Image;
+		return this.personImage;
 	}
 
 	public void setPerson_Image(String person_Image) {
-		this.person_Image = person_Image;
+		this.personImage = person_Image;
 	}
 
 
-	@Lob
+	@Column(name="person_name")
 	public String getPerson_name() {
-		return this.person_name;
+		return this.personName;
 	}
 
 	public void setPerson_name(String person_name) {
-		this.person_name = person_name;
+		this.personName = person_name;
 	}
 
 
-	@Lob
+	@Column(name="person_party_grouping")
 	public String getPerson_party_grouping() {
-		return this.person_party_grouping;
+		return this.personPartyGrouping;
 	}
 
 	public void setPerson_party_grouping(String person_party_grouping) {
-		this.person_party_grouping = person_party_grouping;
+		this.personPartyGrouping = person_party_grouping;
 	}
 
 
-	@Lob
+	@Column(name="person_resume")
 	public String getPerson_resume() {
-		return this.person_resume;
+		return this.personResume;
 	}
 
 	public void setPerson_resume(String person_resume) {
-		this.person_resume = person_resume;
+		this.personResume = person_resume;
 	}
 
 
-	@Lob
+	@Column(name="person_sex")
 	public String getPerson_sex() {
-		return this.person_sex;
+		return this.personSex;
 	}
 
 	public void setPerson_sex(String person_sex) {
-		this.person_sex = person_sex;
+		this.personSex = person_sex;
 	}
 
 
-	@Lob
+	@Column(name="person_workplace_province")
 	public String getPerson_workplace_province() {
-		return this.person_workplace_province;
+		return this.personWorkplaceProvince;
 	}
 
 	public void setPerson_workplace_province(String person_workplace_province) {
-		this.person_workplace_province = person_workplace_province;
+		this.personWorkplaceProvince = person_workplace_province;
 	}
 
 
-	@Lob
-	public byte[] getUpdateTime() {
+	@Temporal(TemporalType.TIMESTAMP)
+	public Date getUpdateTime() {
 		return this.updateTime;
 	}
 
-	public void setUpdateTime(byte[] updateTime) {
+	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
 
