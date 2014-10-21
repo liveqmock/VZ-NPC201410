@@ -37,7 +37,7 @@ public class DateImageMain implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "date_Image_Main_id")
-	public Integer getDateImageMainid() {
+	public Integer getDateImageMainId() {
 		return this.dateImageMainId;
 	}
 
