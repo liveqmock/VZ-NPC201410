@@ -1,7 +1,20 @@
 package com.weizhen.npc.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -13,9 +26,9 @@ import javax.persistence.*;
 @NamedQuery(name="DateImageMain.findAll", query="SELECT d FROM DateImageMain d")
 public class DateImageMain implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private int date_Image_Main_id;
-	private int image_Main_id;
-	private byte[] publishDate;
+	private Integer dateImageMainId;
+	private ImageMain imageMain;
+	private Date publishDate;
 
 	public DateImageMain() {
 	}
@@ -23,31 +36,34 @@ public class DateImageMain implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	public int getDate_Image_Main_id() {
-		return this.date_Image_Main_id;
+	@Column(name = "date_Image_Main_id")
+	public Integer getDateImageMainid() {
+		return this.dateImageMainId;
 	}
 
-	public void setDate_Image_Main_id(int date_Image_Main_id) {
-		this.date_Image_Main_id = date_Image_Main_id;
-	}
-
-
-	public int getImage_Main_id() {
-		return this.image_Main_id;
-	}
-
-	public void setImage_Main_id(int image_Main_id) {
-		this.image_Main_id = image_Main_id;
+	public void setDateImageMainId(Integer dateImageMainId) {
+		this.dateImageMainId = dateImageMainId;
 	}
 
 
-	@Lob
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "image_Main_id")
+	public ImageMain getImageMain() {
+		return this.imageMain;
+	}
+
+	public void setImageMain(ImageMain imageMain) {
+		this.imageMain = imageMain;
+	}
+
+
+	@Temporal(TemporalType.DATE)
 	@Column(name="publish_date")
-	public byte[] getPublishDate() {
+	public Date getPublishDate() {
 		return this.publishDate;
 	}
 
-	public void setPublishDate(byte[] publishDate) {
+	public void setPublishDate(Date publishDate) {
 		this.publishDate = publishDate;
 	}
 

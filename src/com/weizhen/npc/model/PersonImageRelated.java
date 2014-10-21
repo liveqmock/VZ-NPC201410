@@ -1,7 +1,17 @@
 package com.weizhen.npc.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -13,10 +23,10 @@ import javax.persistence.*;
 @NamedQuery(name="PersonImageRelated.findAll", query="SELECT p FROM PersonImageRelated p")
 public class PersonImageRelated implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private int person_Image_Related_id;
-	private int image_Related_id;
-	private int person_id;
-	private byte[] updateTime;
+	private Integer personImageRelatedId;
+	private ImageRelated imageRelated;
+	private Person person;
+	private Date updateTime;
 
 	public PersonImageRelated() {
 	}
@@ -24,39 +34,41 @@ public class PersonImageRelated implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	public int getPerson_Image_Related_id() {
-		return this.person_Image_Related_id;
+	@Column(name = "person_Image_Related_id")
+	public Integer getPersonImageRelatedId() {
+		return this.personImageRelatedId;
 	}
 
-	public void setPerson_Image_Related_id(int person_Image_Related_id) {
-		this.person_Image_Related_id = person_Image_Related_id;
-	}
-
-
-	public int getImage_Related_id() {
-		return this.image_Related_id;
-	}
-
-	public void setImage_Related_id(int image_Related_id) {
-		this.image_Related_id = image_Related_id;
+	public void setPersonImageRelatedId(Integer personImageRelatedId) {
+		this.personImageRelatedId = personImageRelatedId;
 	}
 
 
-	public int getPerson_id() {
-		return this.person_id;
+	public ImageRelated getImageRelated() {
+		return this.imageRelated;
 	}
 
-	public void setPerson_id(int person_id) {
-		this.person_id = person_id;
+	public void setImageRelated(ImageRelated imageRelated) {
+		this.imageRelated = imageRelated;
 	}
 
 
-	@Lob
-	public byte[] getUpdateTime() {
+	public Person getPerson() {
+		return this.person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "updateTime")
+	public Date getUpdateTime() {
 		return this.updateTime;
 	}
 
-	public void setUpdateTime(byte[] updateTime) {
+	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
 

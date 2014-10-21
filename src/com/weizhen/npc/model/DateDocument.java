@@ -1,7 +1,20 @@
 package com.weizhen.npc.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -13,9 +26,9 @@ import javax.persistence.*;
 @NamedQuery(name="DateDocument.findAll", query="SELECT d FROM DateDocument d")
 public class DateDocument implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private int date_Document_id;
-	private int document_id;
-	private byte[] publishDate;
+	private Integer dateDocumentId;
+	private Document document;
+	private Date publishDate;
 
 	public DateDocument() {
 	}
@@ -23,31 +36,34 @@ public class DateDocument implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	public int getDate_Document_id() {
-		return this.date_Document_id;
+	@Column(name = "date_Document_id")
+	public Integer getDateDocumentId() {
+		return this.dateDocumentId;
 	}
 
-	public void setDate_Document_id(int date_Document_id) {
-		this.date_Document_id = date_Document_id;
+	public void setDateDocumentId(Integer dateDocumentId) {
+		this.dateDocumentId = dateDocumentId;
+	}
+
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "document_id")
+	public Document getDocument() {
+		return this.document;
+	}
+
+	public void setDocument(Document document) {
+		this.document = document;
 	}
 
 
-	public int getDocument_id() {
-		return this.document_id;
-	}
-
-	public void setDocument_id(int document_id) {
-		this.document_id = document_id;
-	}
-
-
-	@Lob
+	@Temporal(TemporalType.DATE)
 	@Column(name="publish_date")
-	public byte[] getPublishDate() {
+	public Date getPublishDate() {
 		return this.publishDate;
 	}
 
-	public void setPublishDate(byte[] publishDate) {
+	public void setPublishDate(Date publishDate) {
 		this.publishDate = publishDate;
 	}
 

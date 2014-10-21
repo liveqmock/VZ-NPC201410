@@ -1,7 +1,16 @@
 package com.weizhen.npc.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -12,15 +21,15 @@ import javax.persistence.*;
 @NamedQuery(name="Location.findAll", query="SELECT l FROM Location l")
 public class Location implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private int location_id;
-	private String location_image;
-	private int location_index;
-	private double location_lat;
-	private double location_lng;
-	private String location_name;
-	private String location_resume;
-	private String location_title;
-	private byte[] updateTime;
+	private Integer locationId;
+	private String locationImage;
+	private Integer locationIndex;
+	private Double locationLat;
+	private Double locationLng;
+	private String locationName;
+	private String locationResume;
+	private String locationTitle;
+	private Date updateTime;
 
 	public Location() {
 	}
@@ -28,88 +37,93 @@ public class Location implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	public int getLocation_id() {
-		return this.location_id;
+	@Column(name = "location_id")
+	public Integer getLocationId() {
+		return this.locationId;
 	}
 
-	public void setLocation_id(int location_id) {
-		this.location_id = location_id;
-	}
-
-
-	@Lob
-	public String getLocation_image() {
-		return this.location_image;
-	}
-
-	public void setLocation_image(String location_image) {
-		this.location_image = location_image;
+	public void setLocationId(Integer locationId) {
+		this.locationId = locationId;
 	}
 
 
-	public int getLocation_index() {
-		return this.location_index;
+	@Column(name = "location_image")
+	public String getLocationImage() {
+		return this.locationImage;
 	}
 
-	public void setLocation_index(int location_index) {
-		this.location_index = location_index;
-	}
-
-
-	public double getLocation_lat() {
-		return this.location_lat;
-	}
-
-	public void setLocation_lat(double location_lat) {
-		this.location_lat = location_lat;
+	public void setLocationImage(String locationImage) {
+		this.locationImage = locationImage;
 	}
 
 
-	public double getLocation_lng() {
-		return this.location_lng;
+	@Column(name = "location_index")
+	public Integer getLocationIndex() {
+		return this.locationIndex;
 	}
 
-	public void setLocation_lng(double location_lng) {
-		this.location_lng = location_lng;
-	}
-
-
-	@Lob
-	public String getLocation_name() {
-		return this.location_name;
-	}
-
-	public void setLocation_name(String location_name) {
-		this.location_name = location_name;
+	public void setLocationIndex(Integer locationIndex) {
+		this.locationIndex = locationIndex;
 	}
 
 
-	@Lob
-	public String getLocation_resume() {
-		return this.location_resume;
+	@Column(name = "location_lat")
+	public Double getLocationLat() {
+		return this.locationLat;
 	}
 
-	public void setLocation_resume(String location_resume) {
-		this.location_resume = location_resume;
-	}
-
-
-	@Lob
-	public String getLocation_title() {
-		return this.location_title;
-	}
-
-	public void setLocation_title(String location_title) {
-		this.location_title = location_title;
+	public void setLocationLat(Double locationLat) {
+		this.locationLat = locationLat;
 	}
 
 
-	@Lob
-	public byte[] getUpdateTime() {
+	@Column(name = "location_lng")
+	public Double getLocationLng() {
+		return this.locationLng;
+	}
+
+	public void setLocationLng(Double locationLng) {
+		this.locationLng = locationLng;
+	}
+
+
+	@Column(name = "location_name")
+	public String getLocationName() {
+		return this.locationName;
+	}
+
+	public void setLocationName(String locationName) {
+		this.locationName = locationName;
+	}
+
+
+	@Column(name = "location_resume")
+	public String getLocationResume() {
+		return this.locationResume;
+	}
+
+	public void setLocationResume(String locationResume) {
+		this.locationResume = locationResume;
+	}
+
+
+	@Column(name = "location_title")
+	public String getLocationTitle() {
+		return this.locationTitle;
+	}
+
+	public void setLocationTitle(String locationTitle) {
+		this.locationTitle = locationTitle;
+	}
+
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "updateTime")
+	public Date getUpdateTime() {
 		return this.updateTime;
 	}
 
-	public void setUpdateTime(byte[] updateTime) {
+	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
 

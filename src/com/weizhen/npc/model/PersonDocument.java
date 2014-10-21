@@ -1,7 +1,18 @@
 package com.weizhen.npc.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 
 /**
@@ -13,10 +24,10 @@ import javax.persistence.*;
 @NamedQuery(name="PersonDocument.findAll", query="SELECT p FROM PersonDocument p")
 public class PersonDocument implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private int person_Document_id;
-	private int document_id;
-	private int person_id;
-	private byte[] updateTime;
+	private Integer personDocumentId;
+	private Document document;
+	private Person person;
+	private Date updateTime;
 
 	public PersonDocument() {
 	}
@@ -24,39 +35,44 @@ public class PersonDocument implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	public int getPerson_Document_id() {
-		return this.person_Document_id;
+	@Column(name = "person_Document_id")
+	public Integer getPersonDocumentId() {
+		return this.personDocumentId;
 	}
 
-	public void setPerson_Document_id(int person_Document_id) {
-		this.person_Document_id = person_Document_id;
-	}
-
-
-	public int getDocument_id() {
-		return this.document_id;
-	}
-
-	public void setDocument_id(int document_id) {
-		this.document_id = document_id;
+	public void setPersonDocumentId(Integer personDocumentId) {
+		this.personDocumentId = personDocumentId;
 	}
 
 
-	public int getPerson_id() {
-		return this.person_id;
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="document_id")
+	public Document getDocument() {
+		return this.document;
 	}
 
-	public void setPerson_id(int person_id) {
-		this.person_id = person_id;
+	public void setDocument(Document document) {
+		this.document = document;
 	}
 
 
-	@Lob
-	public byte[] getUpdateTime() {
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="person_id")
+	public Person getPerson() {
+		return this.person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+
+
+	@Column(name = "updateTime")
+	public Date getUpdateTime() {
 		return this.updateTime;
 	}
 
-	public void setUpdateTime(byte[] updateTime) {
+	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
 

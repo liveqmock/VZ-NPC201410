@@ -1,7 +1,18 @@
 package com.weizhen.npc.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 
 /**
@@ -13,10 +24,10 @@ import javax.persistence.*;
 @NamedQuery(name="PersonImageMain.findAll", query="SELECT p FROM PersonImageMain p")
 public class PersonImageMain implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private int person_Image_Main_id;
-	private int image_Main_id;
-	private int person_id;
-	private byte[] updateTime;
+	private Integer personImageMainId;
+	private ImageMain imageMain;
+	private Person person;
+	private Date updateTime;
 
 	public PersonImageMain() {
 	}
@@ -24,39 +35,43 @@ public class PersonImageMain implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	public int getPerson_Image_Main_id() {
-		return this.person_Image_Main_id;
+	@Column(name = "person_Image_Main_id")
+	public Integer getPersonImageMainId() {
+		return this.personImageMainId;
 	}
 
-	public void setPerson_Image_Main_id(int person_Image_Main_id) {
-		this.person_Image_Main_id = person_Image_Main_id;
-	}
-
-
-	public int getImage_Main_id() {
-		return this.image_Main_id;
-	}
-
-	public void setImage_Main_id(int image_Main_id) {
-		this.image_Main_id = image_Main_id;
+	public void setPersonImageMainId(Integer personImageMainId) {
+		this.personImageMainId = personImageMainId;
 	}
 
 
-	public int getPerson_id() {
-		return this.person_id;
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="image_main_id")
+	public ImageMain getImageMain() {
+		return this.imageMain;
 	}
 
-	public void setPerson_id(int person_id) {
-		this.person_id = person_id;
+	public void setImageMain(ImageMain imageMain) {
+		this.imageMain = imageMain;
+	}
+
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="person_id")
+	public Person getPerson() {
+		return this.person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 
 
-	@Lob
-	public byte[] getUpdateTime() {
+	@Column(name = "updateTime")
+	public Date getUpdateTime() {
 		return this.updateTime;
 	}
 
-	public void setUpdateTime(byte[] updateTime) {
+	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
 

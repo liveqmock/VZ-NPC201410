@@ -1,7 +1,20 @@
 package com.weizhen.npc.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -13,10 +26,10 @@ import javax.persistence.*;
 @NamedQuery(name="LocationImageRelated.findAll", query="SELECT l FROM LocationImageRelated l")
 public class LocationImageRelated implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private int location_Image_Related_id;
-	private int image_Related_id;
-	private int location_id;
-	private byte[] updateTime;
+	private Integer locationImageRelatedId;
+	private ImageRelated imageRelated;
+	private Location location;
+	private Date updateTime;
 
 	public LocationImageRelated() {
 	}
@@ -24,39 +37,45 @@ public class LocationImageRelated implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	public int getLocation_Image_Related_id() {
-		return this.location_Image_Related_id;
+	@Column(name = "location_Image_Related_id")
+	public Integer getLocationImageRelatedId() {
+		return this.locationImageRelatedId;
 	}
 
-	public void setLocation_Image_Related_id(int location_Image_Related_id) {
-		this.location_Image_Related_id = location_Image_Related_id;
-	}
-
-
-	public int getImage_Related_id() {
-		return this.image_Related_id;
-	}
-
-	public void setImage_Related_id(int image_Related_id) {
-		this.image_Related_id = image_Related_id;
+	public void setLocationImageRelatedId(Integer locationImageRelatedId) {
+		this.locationImageRelatedId = locationImageRelatedId;
 	}
 
 
-	public int getLocation_id() {
-		return this.location_id;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "image_Related_id")
+	public ImageRelated getImageRelated() {
+		return this.imageRelated;
 	}
 
-	public void setLocation_id(int location_id) {
-		this.location_id = location_id;
+	public void setImageRelated(ImageRelated imageRelated) {
+		this.imageRelated = imageRelated;
 	}
 
 
-	@Lob
-	public byte[] getUpdateTime() {
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "location_id")
+	public Location getLocation() {
+		return this.location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
+	}
+
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "updateTime")
+	public Date getUpdateTime() {
 		return this.updateTime;
 	}
 
-	public void setUpdateTime(byte[] updateTime) {
+	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
 

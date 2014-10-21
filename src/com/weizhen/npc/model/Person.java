@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -92,62 +91,62 @@ public class Person implements Serializable {
 
 
 	@Column(name="person_Image")
-	public String getPerson_Image() {
+	public String getPersonImage() {
 		return this.personImage;
 	}
 
-	public void setPerson_Image(String person_Image) {
-		this.personImage = person_Image;
+	public void setPersonImage(String personImage) {
+		this.personImage = personImage;
 	}
 
 
 	@Column(name="person_name")
-	public String getPerson_name() {
+	public String getPersonName() {
 		return this.personName;
 	}
 
-	public void setPerson_name(String person_name) {
-		this.personName = person_name;
+	public void setPersonName(String personName) {
+		this.personName = personName;
 	}
 
 
 	@Column(name="person_party_grouping")
-	public String getPerson_party_grouping() {
+	public String getPersonPartyGrouping() {
 		return this.personPartyGrouping;
 	}
 
-	public void setPerson_party_grouping(String person_party_grouping) {
-		this.personPartyGrouping = person_party_grouping;
+	public void setPersonPartyGrouping(String personPartyGrouping) {
+		this.personPartyGrouping = personPartyGrouping;
 	}
 
 
 	@Column(name="person_resume")
-	public String getPerson_resume() {
+	public String getPersonResume() {
 		return this.personResume;
 	}
 
-	public void setPerson_resume(String person_resume) {
-		this.personResume = person_resume;
+	public void setPersonResume(String personResume) {
+		this.personResume = personResume;
 	}
 
 
 	@Column(name="person_sex")
-	public String getPerson_sex() {
+	public String getPersonSex() {
 		return this.personSex;
 	}
 
-	public void setPerson_sex(String person_sex) {
-		this.personSex = person_sex;
+	public void setPersonSex(String personSex) {
+		this.personSex = personSex;
 	}
 
 
 	@Column(name="person_workplace_province")
-	public String getPerson_workplace_province() {
+	public String getPersonWorkplaceProvince() {
 		return this.personWorkplaceProvince;
 	}
 
-	public void setPerson_workplace_province(String person_workplace_province) {
-		this.personWorkplaceProvince = person_workplace_province;
+	public void setPersonWorkplaceProvince(String personWorkplaceProvince) {
+		this.personWorkplaceProvince = personWorkplaceProvince;
 	}
 
 
