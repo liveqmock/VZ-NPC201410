@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.weizhen.npc.base.BaseController;
+import com.weizhen.npc.model.Congress;
 import com.weizhen.npc.model.Document;
 import com.weizhen.npc.model.ImageMain;
 import com.weizhen.npc.model.ImageRelated;
 import com.weizhen.npc.model.Location;
+import com.weizhen.npc.service.CongressService;
 import com.weizhen.npc.service.ImageMainService;
 import com.weizhen.npc.service.ImageRelatedService;
 import com.weizhen.npc.service.LocationService;
@@ -31,6 +33,9 @@ import com.weizhen.npc.service.LocationService;
 @RequestMapping(value="/location")
 @SessionAttributes({ "userType", "user", "partyCode", "isManager" })
 public class LocationController extends BaseController {
+	
+	@Autowired
+	private CongressService congressService;
 
 	@Autowired
 	private LocationService locationService;
@@ -45,6 +50,9 @@ public class LocationController extends BaseController {
 	public ModelAndView index() {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("location/index");
+		
+		List<Congress> congresses = congressService.loadAll();
+		mav.addObject("congresses", congresses);
 		
 		List<Location> locations = locationService.loadAll();
 		mav.addObject("locations", locations);

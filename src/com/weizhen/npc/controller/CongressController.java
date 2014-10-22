@@ -24,7 +24,7 @@ import com.weizhen.npc.service.ImageRelatedService;
  */
 @Controller
 @RequestMapping(value="/congress")
-@SessionAttributes({ "userType", "user", "partyCode", "isManager" })
+@SessionAttributes({ "congresses" })
 public class CongressController extends BaseController {
 
 	@Autowired
