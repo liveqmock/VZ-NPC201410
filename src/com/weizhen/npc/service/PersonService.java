@@ -1,6 +1,7 @@
 package com.weizhen.npc.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.weizhen.npc.base.BaseService;
 import com.weizhen.npc.dao.PersonDAO;
 import com.weizhen.npc.model.Document;
-import com.weizhen.npc.model.ImageMain;
 import com.weizhen.npc.model.ImageRelated;
 import com.weizhen.npc.model.Person;
 
@@ -28,7 +28,11 @@ public class PersonService extends BaseService {
 		return personDao.loadAll();
 	}
 	
-	public List<ImageMain> findImageMainsByPersonId(Integer personId) {
+	public Person get(Integer personId) {
+		return personDao.get(personId);
+	}
+	
+	public List<Map<String, Object>> findImageMainsByPersonId(Integer personId) {
 		return personDao.findImageMainsByPersonId(personId);
 	}
 	

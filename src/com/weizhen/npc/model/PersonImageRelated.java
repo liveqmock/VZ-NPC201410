@@ -5,9 +5,12 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -44,6 +47,8 @@ public class PersonImageRelated implements Serializable {
 	}
 
 
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="Image_Related_id")
 	public ImageRelated getImageRelated() {
 		return this.imageRelated;
 	}
@@ -53,6 +58,8 @@ public class PersonImageRelated implements Serializable {
 	}
 
 
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="person_id")
 	public Person getPerson() {
 		return this.person;
 	}

@@ -13,10 +13,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.weizhen.npc.base.BaseController;
-import com.weizhen.npc.model.Document;
-import com.weizhen.npc.model.ImageMain;
-import com.weizhen.npc.model.ImageRelated;
+import com.weizhen.npc.model.Congress;
 import com.weizhen.npc.model.Person;
+import com.weizhen.npc.service.CongressService;
 import com.weizhen.npc.service.PersonService;
 
 /**
@@ -29,6 +28,9 @@ import com.weizhen.npc.service.PersonService;
 @RequestMapping(value="/person")
 @SessionAttributes({ "congresses" })
 public class PersonController extends BaseController {
+	
+	@Autowired
+	private CongressService congressService;
 
 	@Autowired
 	private PersonService personService;
@@ -37,6 +39,9 @@ public class PersonController extends BaseController {
 	public ModelAndView index() {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("person/index");
+		
+		List<Congress> congresses = congressService.loadAll();
+		mav.addObject("congresses", congresses);
 		
 		List<Person> persons = personService.loadAll();
 		mav.addObject("persons", persons);
@@ -49,12 +54,10 @@ public class PersonController extends BaseController {
 	public Map<String, Object> detail(@PathVariable("personId") Integer personId) {
 		Map<String, Object> datas = new HashMap<String, Object>();
 		
-		List<ImageMain> imageMains = personService.findImageMainsByPersonId(personId);
-		datas.put("imageMains", imageMains);
-		List<ImageRelated> imageRelateds = personService.findImageRelatedsByPersonId(personId);
-		datas.put("imageRelateds", imageRelateds);
-		List<Document> documents = personService.findDocumentsByPersonId(personId);
-		datas.put("documents", documents);
+		datas.put("person", personService.get(personId));
+		datas.put("imageMains", personService.findImageMainsByPersonId(personId));
+		datas.put("imageRelateds", personService.findImageRelatedsByPersonId(personId));
+		datas.put("documents", personService.findDocumentsByPersonId(personId));
 			
 		return datas;
 	}
