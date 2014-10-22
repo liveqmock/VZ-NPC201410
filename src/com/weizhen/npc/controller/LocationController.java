@@ -65,12 +65,9 @@ public class LocationController extends BaseController {
 	public Map<String, Object> detail(@PathVariable("locationId") Integer locationId) {
 		Map<String, Object> datas = new HashMap<String, Object>();
 		
-		List<ImageMain> imageMains = locationService.findImageMainsByLocationId(locationId);
-		datas.put("imageMains", imageMains);
-		List<ImageRelated> imageRelateds = locationService.findImageRelatedsByLocationId(locationId);
-		datas.put("imageRelateds", imageRelateds);
-		List<Document> documents = locationService.findDocumentsByLocationId(locationId);
-		datas.put("documents", documents);
+		datas.put("imageMains", locationService.findImageMainsByLocationId(locationId));
+		datas.put("imageRelateds", locationService.findImageRelatedsByLocationId(locationId));
+		datas.put("documents", locationService.findDocumentsByLocationId(locationId));
 			
 		return datas;
 	}

@@ -2,6 +2,7 @@ package com.weizhen.npc.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -10,7 +11,6 @@ import com.chineseall.dams.common.paging.Paging;
 import com.chineseall.dams.common.paging.PagingQueryResult;
 import com.weizhen.npc.base.BaseEntityDaoSupport;
 import com.weizhen.npc.model.Document;
-import com.weizhen.npc.model.ImageMain;
 import com.weizhen.npc.model.ImageRelated;
 import com.weizhen.npc.model.Location;
 
@@ -23,12 +23,13 @@ import com.weizhen.npc.model.Location;
 public class LocationDAO extends BaseEntityDaoSupport<Location> {
 	private Paging paging = new Paging(1, Integer.MAX_VALUE);
 
-	public List<ImageMain> findImageMainsByLocationId(Integer locationId) {
-		String ql = "select m.imageMain from LocationImageMain m where m.location.locationId = :locationId";
+	public List<Map<String, Object>> findImageMainsByLocationId(Integer locationId) {
+		String ql = "select new map(m.imageMain.imageMainId, m.imageMain.imageMainTitle, m.imageMain.imageMainDescription, m.imageMain.imageMainFilepath) ";
+			ql += " from LocationImageMain m where m.location.locationId = :locationId";
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 		nameValuePairs.add(new NameValuePair("locationId", locationId));
 		
-		PagingQueryResult<ImageMain> result = this.pagingQuery(ql, nameValuePairs, paging);
+		PagingQueryResult<Map<String, Object>> result = this.pagingQuery(ql, nameValuePairs, paging);
 		
 		return result.getRecords();
 	}
