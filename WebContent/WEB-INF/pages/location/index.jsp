@@ -125,29 +125,19 @@
 <script src="${context }/js/convert.js"></script>
 
 <script>
-    var materialTypes = ['article', 'image', 'video', 'article'];
 
-    // 将图片路径转为对应的大图的路径
-    function transImagePath(imagePath, type) {
-        var imageMainFilepath = imagePath;
-        var lastIndex = imageMainFilepath.lastIndexOf('/') + 1;
-        var fileName = imageMainFilepath.substring(lastIndex, imageMainFilepath.length);
-        fileName = fileName.replace('.', '-' + type + '.');
-        imageMainFilepath = imageMainFilepath.substring(0, lastIndex) + type + '/' + fileName;
-
-        return imageMainFilepath;
-    }
-
-    function showLocation(locationInfo) {
-    	var locationId = locationInfo['locationId'] * 1;
+	//显示地点主题相关信息
+    function showLocation(source) {
+    	
+    	var locationId = source.attr('data-locationId') * 1;
 
         $.ajax("${context}/location/" + locationId + ".html", {
             type: 'get',
             dataType: 'json',
             async: true,
             success: function (data, textStatus, jqXHR) {
-                $("#relate-content .text h2").text(locationInfo['locationTitle']);
-                $("#relate-content .text p").text(locationInfo['locationResume']);
+                $("#relate-content .text h2").text(source.attr('data-locationTitle'));
+                $("#relate-content .text p").text(source.attr('data-locationResume'));
                 
                 $("#relate-content .media ul").html('');
 
@@ -191,6 +181,26 @@
         });
     }
     
+ // 调用百度地图API显示地图
+    function markLocationInMap(source) {
+    	var lng = source.attr('data-locationLng');
+    	var lnt = source.attr('data-locationLnt');
+    	var gpsPoint = new BMap.Point(lng,lnt);
+    	
+    	BMap.Convertor.translate(gpsPoint,0,function(point){
+    		map.centerAndZoom(point, 5);
+        	
+        	var marker=new BMap.Marker(point);  
+        	map.addOverlay(marker); 
+        	
+        	var opts = {width: 300};
+        	var infoWindow = new BMap.InfoWindow("<b>" + source.attr('data-locationName') + "</b>", opts); 
+       	    marker.addEventListener('click',function(){
+       	        marker.openInfoWindow(infoWindow);
+       	    });
+    	});
+    }
+    
     // 百度地图调用
     var map; 
     
@@ -199,37 +209,14 @@
     	map.enableScrollWheelZoom();
     	
         $("#main-content li.locationitem a").click(function (e) {
-        	var source = $(this);	
-        	
-           	// 调用百度地图API显示地图
-        	var lng = source.attr('data-locationLng');
-        	var lnt = source.attr('data-locationLnt');
-        	var gpsPoint = new BMap.Point(lng,lnt);
-        	
-        	BMap.Convertor.translate(gpsPoint,0,function(point){
-        		map.centerAndZoom(point, 5);
-            	
-            	var marker=new BMap.Marker(point);  
-            	map.addOverlay(marker); 
-            	
-            	var opts = {width: 300};
-            	var infoWindow = new BMap.InfoWindow("<b>" + source.attr('data-locationName') + "</b>", opts); 
-           	    marker.addEventListener('click',function(){
-           	        marker.openInfoWindow(infoWindow);
-           	    });
-        	});
-        	
-        	// 显示地点主题相关信息
-        	var locatinInfo = {
-        		"locationId" : source.attr('data-locationId'),
-        		"locationTitle" : source.attr('data-locationTitle'),
-        		"locationResume" : source.attr('data-locationResume')
-        	};
-        	showLocation(locatinInfo);
+           	showLocation($(this));
         });
 
-
         $("#main-content li.locationitem a:first").click();
+        
+        $("#main-content li.locationitem a").each(function(index, element){
+        	markLocationInMap($(element));
+        })
     });
 </script>
 

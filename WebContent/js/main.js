@@ -6,6 +6,22 @@
 
 var context = '/npc';
 
+// 相关资源类型
+var materialTypes = ['article', 'image', 'video', 'article'];
+
+// 将图片路径转为对应的大图的路径
+function transImagePath(imagePath, type) {
+	if(!imagePath) return '';
+	
+    var imageMainFilepath = imagePath;
+    var lastIndex = imageMainFilepath.lastIndexOf('/') + 1;
+    var fileName = imageMainFilepath.substring(lastIndex, imageMainFilepath.length);
+    fileName = fileName.replace('.', '-' + type + '.');
+    imageMainFilepath = imageMainFilepath.substring(0, lastIndex) + type + '/' + fileName;
+
+    return imageMainFilepath;
+}
+
 $(document).ready(function () {
 
     if (window.PIE) {
@@ -13,6 +29,12 @@ $(document).ready(function () {
             PIE.attach(this);
         });
     }
+    
+    // 搜索
+    $(".nav-search").on("click", function() {
+		if($("#keyword").val())
+			document.location.href=context + "/search.html?keyword=" + encodeURI($("#keyword").val());
+	});
 
     var player = "";
     $("#index-main-content a.play").click(function (e) {

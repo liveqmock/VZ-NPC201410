@@ -35,17 +35,17 @@ public class DateDAO extends BaseEntityDaoSupport<DateImageMain> {
 		
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 		
-		ql = "select distinct str(publishDate, 'YYYYMM') from DateImageMain";
+		ql = "select distinct date_format(publishDate, '%Y%m') from DateImageMain";
 		result = this.pagingQuery(ql, nameValuePairs,  paging);
 		dates = result.getRecords();
 		for(String date : dates) publishDates.put(date, null);
 		
-		ql = "select distinct str(publishDate, 'YYYYMM') from DateImageRelated";
+		ql = "select distinct date_format(publishDate, '%Y%m') from DateImageRelated";
 		result = this.pagingQuery(ql, nameValuePairs,  paging);
 		dates = result.getRecords();
 		for(String date : dates) publishDates.put(date, null);
 		
-		ql = "select distinct str(publishDate, 'YYYYMM') from DateDocument";
+		ql = "select distinct date_format(publishDate, '%Y%m') from DateDocument";
 		result = this.pagingQuery(ql, nameValuePairs,  paging);
 		dates = result.getRecords();
 		for(String date : dates) publishDates.put(date, null);

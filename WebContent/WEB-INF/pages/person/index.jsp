@@ -147,20 +147,6 @@
     var personIds = [${personIds}];
     var currentIndex = 1;
     var currentPersonId = personIds[currentIndex];
-    var materialTypes = ['article', 'image', 'video', 'article'];
-
-    // 将图片路径转为对应的大图的路径
-    function transImagePath(imagePath, type) {
-    	if(!imagePath) return '';
-    	
-        var imageMainFilepath = imagePath;
-        var lastIndex = imageMainFilepath.lastIndexOf('/') + 1;
-        var fileName = imageMainFilepath.substring(lastIndex, imageMainFilepath.length);
-        fileName = fileName.replace('.', '-' + type + '.');
-        imageMainFilepath = imageMainFilepath.substring(0, lastIndex) + type + '/' + fileName;
-
-        return imageMainFilepath;
-    }
 
     function showImageMain(personId) {
     	personId = personId * 1;

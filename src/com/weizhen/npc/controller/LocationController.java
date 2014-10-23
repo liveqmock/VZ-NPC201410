@@ -14,9 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.weizhen.npc.base.BaseController;
 import com.weizhen.npc.model.Congress;
-import com.weizhen.npc.model.Document;
-import com.weizhen.npc.model.ImageMain;
-import com.weizhen.npc.model.ImageRelated;
 import com.weizhen.npc.model.Location;
 import com.weizhen.npc.service.CongressService;
 import com.weizhen.npc.service.ImageMainService;

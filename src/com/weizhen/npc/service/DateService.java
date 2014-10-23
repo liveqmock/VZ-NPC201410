@@ -31,25 +31,22 @@ public class DateService extends BaseService {
 	}
 	
 	public List<ImageMain> findImageMainsByDate(String publishDate) throws ParseException {
-		Date start = DateTimeUtils.parse(publishDate, "YYYYMM");
-		Date end = DateTimeUtils.add(start, null, 1, null, null, null, null);
-		end = DateTimeUtils.add(end, null, null, -1, null, null, null);
+		Date start = DateTimeUtils.parse(publishDate, "yyyyMM");
+		Date end = DateTimeUtils.add(start, null, 1, -1, null, null, null);
 		
 		return dateDao.findImageMainsByDate(start, end);
 	}
 	
 	public List<ImageRelated> findImageRelatedsByDate(String publishDate) throws ParseException {
-		Date start = DateTimeUtils.parse(publishDate, "YYYYMM");
-		Date end = DateTimeUtils.add(start, null, 1, null, null, null, null);
-		end = DateTimeUtils.add(end, null, null, -1, null, null, null);
+		Date start = DateTimeUtils.parse(publishDate, "yyyyMM");
+		Date end = DateTimeUtils.add(start, null, 1, -1, null, null, null);
 		
 		return dateDao.findImageRelatedsByDate(start, end);
 	}
 	
 	public List<Document> findDocumentsByDate(String publishDate) throws ParseException {
-		Date start = DateTimeUtils.parse(publishDate, "YYYYMM");
-		Date end = DateTimeUtils.add(start, null, 1, null, null, null, null);
-		end = DateTimeUtils.add(end, null, null, -1, null, null, null);
+		Date start = DateTimeUtils.parse(publishDate, "yyyyMM");
+		Date end = DateTimeUtils.add(start, null, 1, -1, null, null, null);
 		
 		return dateDao.findDocumentsByDate(start, end);
 	}
