@@ -61,6 +61,7 @@ public class CommonController extends BaseController {
 	@RequestMapping(value="/search.html")
 	public ModelAndView search(HttpServletRequest request, @RequestParam String keyword, Paging paging) {
 		ModelAndView mav = new ModelAndView("search");
+		mav.addObject("congresses", congressService.loadAll());
 		
 		mav.addObject("imageMains", imageMainService.findByKeyword(keyword, paging));
 		mav.addObject("imageRelateds", imageRelatedService.findByKeyword(keyword, paging));

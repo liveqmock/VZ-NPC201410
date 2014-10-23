@@ -34,10 +34,16 @@ pageEncoding="UTF-8"%>
             <ul>
                 <li class="nav-3d"><a href="#"></a></li>
                 <li class="nav-location"><a href="#"></a></li>
-                <li class="nav-input"><input type="text"/></li>
-                <li class="nav-search"><a href="#"></a></li>
+                <li class="nav-input"><input name="keyword" id="keyword" type="text"/></li>
+                <li class="nav-search"><a href="javascript:void(0)"></a></li>
                 <li class="nav-session"><a href="#"></a>
                     <ul>
+                        <c:if test="${!empty congresses && fn:length(congresses) > 0}">
+                            <c:forEach var="congress" items="${congresses}" varStatus="row">
+                            	<li class="nav-session-${congress.congressId }"><a
+                                	href="congress/${congress.congressId }.html"></a></li>
+                            </c:forEach>
+                        </c:if>
                     </ul>
                 </li>
                 <li class="nav-discovery"><a href="javascript:void(0);"></a></li>
