@@ -9,7 +9,15 @@
 		<function-class>com.weizhen.npc.utils.Functions</function-class>
 		<function-signature>java.lang.String transImagePath(java.lang.String, java.lang.String)</function-signature>
 		<example>
-  			${npc.transImagePath(imagePath, type)}
+  			${npc:transImagePath(imagePath, type)}
+  		</example>
+	</function>	
+	<function>
+		<name>transMaterialType</name>
+		<function-class>com.weizhen.npc.utils.Functions</function-class>
+		<function-signature>java.lang.String transMaterialType(java.lang.Integer)</function-signature>
+		<example>
+  			${npc:transMaterialType(materialId)}
   		</example>
 	</function>	
 </taglib>

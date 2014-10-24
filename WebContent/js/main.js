@@ -32,8 +32,11 @@ $(document).ready(function () {
     
     // 搜索
     $(".nav-search").on("click", function() {
-		if($("#keyword").val())
-			document.location.href=context + "/search.html?keyword=" + encodeURI($("#keyword").val());
+		if($("#keyword").val()) {
+			var href = window.location.origin + context + "/search.html?keyword=" + encodeURI($("#keyword").val());
+			console.debug(href);
+			document.location.href= href;
+		}
 	});
 
     var player = "";
@@ -108,7 +111,9 @@ $(document).ready(function () {
 
         var materialType = source.prop('class');
         if (materialType.indexOf('video') != -1) {
-            var imageSrc = source.find('img').prop('src').replace('/s/', '/b/').replace('-s.', '-b.');
+            var imageSrc = source.find('img').prop('src')
+            	.replace('/s/', '/b/').replace('-s.', '-b.')
+            	.replace('/m/', '/b/').replace('-m.', '-b.');
 
             $("#detail-content h2").text($(this).attr('datatitle'));
             $("#detail-content p").html($(this).attr('datadescription') ? $(this).attr('datadescription') : '');
@@ -142,7 +147,10 @@ $(document).ready(function () {
             });
 
         } else if (materialType.indexOf('image') != -1) {
-            var imageSrc = source.find('img').prop('src').replace('/s/', '/b/').replace('-s.', '-b.');
+            var imageSrc = source.find('img').prop('src')
+            	.replace('/s/', '/b/').replace('-s.', '-b.')
+            	.replace('/m/', '/b/').replace('-m.', '-b.');
+            
             $("#detail-content .media").html("<img src='" + imageSrc + "'></img>");
             $("#detail-content h2").text($(this).attr('datatitle'));
             $("#detail-content p").html($(this).attr('datadescription') ? $(this).attr('datadescription') : '');

@@ -6,8 +6,7 @@ pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="npc" uri="http://weizhen.com/tags/npc" %>
 
-<c:set var="context" value="/npc">
-</c:set>
+<%@ include file="../common.jsp" %>
 
 <c:set var="imageMainIds" value="-1">
 </c:set>
@@ -40,33 +39,10 @@ pageEncoding="UTF-8"%>
     <![endif]-->
 </head>
 <body>
-<header>
-    <div id="header-content">
-        <div id="logo">
-            <a href="${context }/index.html" title="回到首页"></a>
-        </div>
-        <nav>
-            <ul>
-                <li class="nav-3d"><a href="#"></a></li>
-                <li class="nav-location"><a href="#"></a></li>
-                <li class="nav-input"><input type="text" name="keyword" id="keyword" class="png_bg"/></li>
-                <li class="nav-search"><a href="javascript:void(0)"></a></li>
-                <li class="nav-session"><a href="${context }/index.html"></a>
-                    <ul>
-                        <c:if test="${!empty congresses && fn:length(congresses) > 0}">
-                            <c:forEach var="congress" items="${congresses}" varStatus="row">
-                                <li class="nav-session-${congress.congressId }"><a
-                                        href="${context }/congress/${congress.congressId }.html"></a></li>
-                            </c:forEach>
-                        </c:if>
-                    </ul>
-                </li>
-                <li class="nav-discovery"><a href="javascript:void(0);"></a></li>
-            </ul>
-            <div class="clearfix"></div>
-        </nav>
-    </div>
-</header>
+
+	<%@ include file="../header.jsp" %>
+
+
 <div id="container">
     <div id="main-content">
         <div class="wrapper">
@@ -148,18 +124,6 @@ pageEncoding="UTF-8"%>
     var currentImageMainId = ${firstImageMain.imageMainId};
     var imageMainIds = [${imageMainIds}];
     var currentIndex = $.inArray(currentImageMainId, imageMainIds);
-    var materialTypes = ['article', 'image', 'video', 'article'];
-
-    // 将图片路径转为对应的大图的路径
-    function transImagePath(imagePath, type) {
-        var imageMainFilepath = imagePath;
-        var lastIndex = imageMainFilepath.lastIndexOf('/') + 1;
-        var fileName = imageMainFilepath.substring(lastIndex, imageMainFilepath.length);
-        fileName = fileName.replace('.', '-' + type + '.');
-        imageMainFilepath = imageMainFilepath.substring(0, lastIndex) + type + '/' + fileName;
-
-        return imageMainFilepath;
-    }
 
     function showImageMain(imageMainId) {
         imageMainId = imageMainId * 1;
@@ -191,10 +155,11 @@ pageEncoding="UTF-8"%>
                     if (materialType != 'article')
                         imgSrc = '${context}/' + transImagePath(relate['imageRelatedThumbFilepath'], 's');
 
+                    var title = relate['imageRelatedTitle'] || '';
                     var content = relate['imageRelatedDescription'] || '';
 
-                    var tHtml = "<li><a href='javascript:void(0)' datatitle='" + relate['imageRelatedTitle'] + "' datadescription='" + content + "' file='" + relate['imageRelatedFilepath'] + "' " +
-                            "class='" + materialType + "' title='" + relate['imageRelatedTitle'] + "'><img src='" + imgSrc + "' alt='" + relate['imageRelatedTitle'] + "'></img></a></li>";
+                    var tHtml = "<li><a href='javascript:void(0)' datatitle='" + title + "' datadescription='" + content + "' file='" + relate['imageRelatedFilepath'] + "' " +
+                            "class='" + materialType + "' title='" + title + "'><img src='" + imgSrc + "' alt='" + title + "'></img></a></li>";
                     $(tHtml).appendTo($("#relate-content .media ul"));
                 }
 
@@ -246,12 +211,6 @@ pageEncoding="UTF-8"%>
         $("#main-content .info").text("${congress.congressTitle} / (" + currentIndex + ")");
 
         showImageMain('${firstImageMain.imageMainId}');
-        
-        
-        $(".nav-search").on("click", function() {
-			if($("#keyword").val())
-				document.location.href="search.html?keyword=" + encodeURI($("#keyword").val());
-		});
     });
 </script>
 </body>

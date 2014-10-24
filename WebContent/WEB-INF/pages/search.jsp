@@ -4,6 +4,10 @@ pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="npc" uri="http://weizhen.com/tags/npc" %>
+
+<%@ include file="common.jsp" %>
+
 <!DOCTYPE html>
 <html>
 <head lang="zh-cn">
@@ -25,43 +29,95 @@ pageEncoding="UTF-8"%>
     <![endif]-->
 </head>
 <body>
-<header>
-    <div id="header-content">
-        <div id="logo">
-            <a href="index.html" title="回到首页"></a>
-        </div>
-        <nav>
+	
+	<%@ include file="header.jsp" %>
+
+<div id="container">	
+	<p>相关主图</p>
+    <div id="relate-content">
+        <div class="media">
             <ul>
-                <li class="nav-3d"><a href="#"></a></li>
-                <li class="nav-location"><a href="#"></a></li>
-                <li class="nav-input"><input name="keyword" id="keyword" type="text"/></li>
-                <li class="nav-search"><a href="javascript:void(0)"></a></li>
-                <li class="nav-session"><a href="#"></a>
-                    <ul>
-                        <c:if test="${!empty congresses && fn:length(congresses) > 0}">
-                            <c:forEach var="congress" items="${congresses}" varStatus="row">
-                            	<li class="nav-session-${congress.congressId }"><a
-                                	href="congress/${congress.congressId }.html"></a></li>
-                            </c:forEach>
-                        </c:if>
-                    </ul>
-                </li>
-                <li class="nav-discovery"><a href="javascript:void(0);"></a></li>
+            
+            <c:if test="${!empty imageMains.records && fn:length(imageMains.records) > 0}">
+                <c:forEach var="imageMain" items="${imageMains.records}" varStatus="row">
+            	
+            	<li>
+            		<a href='javascript:void(0)' datatitle='${imageMain.imageMainTitle }'
+            			 datadescription='${imageMain.imageMainDescription }'
+            			 file='${imageMain.imageMainFilepath }'
+            			 class='image'
+            			 title='${imageMain.imageMainTitle }'>
+            			<img src="${context }/${npc:transImagePath(imageMain.imageMainFilepath, 'm')}" alt='${imageMain.imageMainTitle }'></img>
+            		</a>
+            	</li>
+            	
+            	</c:forEach>
+            </c:if>
+            
             </ul>
-            <div class="clearfix"></div>
-        </nav>
-    </div>
-</header>
-<div id="container">
-    <div id="session-nav">
-        <ul>
-        </ul>
+        </div>
+        <div class="clearfix"></div>
+    </div>	
+	
+	
+	<p>相关资料</p>
+    <div id="relate-content">
+        <div class="media">
+            <ul>
+            
+            <c:if test="${!empty imageRelateds.records && fn:length(imageRelateds.records) > 0}">
+                <c:forEach var="imageRelated" items="${imageRelateds.records}" varStatus="row">
+            	
+            	<li>
+            		<a href='javascript:void(0)' datatitle='${imageRelated.imageRelatedTitle }'
+            			 datadescription='${imageRelated.imageRelatedDescription }'
+            			 file='${imageRelated.imageRelatedFilepath }'
+            			 class='${npc:transMaterialType(imageRelated.materialId) }'
+            			 title='${imageRelated.imageRelatedTitle }'>
+            			<img src="${context }/${npc:transImagePath(imageRelated.imageRelatedFilepath, 's')}" alt='${imageRelated.imageRelatedTitle }'></img>
+            		</a>
+            	</li>
+            	
+            	</c:forEach>
+            </c:if>
+            
+           	<c:if test="${!empty documents.records && fn:length(documents.records) > 0}">
+                <c:forEach var="document" items="${documents.records}" varStatus="row">
+                <c:set var="content" value=""></c:set>
+                <c:if test="${!empty document.paragraphs && fn:length(document.paragraphs) > 0}">
+                	<c:forEach var="paragraph" items="${document.paragraphs}" varStatus="paragraphRow">
+                		<c:set var="content" value="${content }<p>${paragraph.paragraphContent }</p>"></c:set>
+                	</c:forEach>
+                </c:if>
+            	
+            	<li>
+            		<a href='javascript:void(0)' datatitle='${document.documentTitle }'
+            			 datadescription='${content }'
+            			 class='article png_bg'
+            			 title='${document.documentTitle }'>
+            		</a>
+            	</li>
+            	
+            	</c:forEach>
+            </c:if>            
+            
+            </ul>
+        </div>
         <div class="clearfix"></div>
     </div>
+    
+	<div id="detail-content">
+        <a href="javascript:void(0)" class="close png_bg"></a>
+
+        <div class="media">
+            <img src="data:image/gif;base64,R0lGODlhBAABAIABAMLBwfLx8SH5BAEAAAEALAAAAAAEAAEAAAICRF4AOw==" alt=""/>
+        </div>
+
+        <h2></h2>
+
+        <p></p>
+    </div>
 </div>
-${fn:length(imageMains.records) } 条主题
-${fn:length(imageRelateds.records) } 条相关图片视频
-${fn:length(documents.records) } 条相关文章
 
 <footer>
     <p><a href="#top" id="gotop"></a></p>

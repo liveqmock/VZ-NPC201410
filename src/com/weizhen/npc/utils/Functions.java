@@ -25,6 +25,22 @@ public class Functions {
 		return imagePath;
 	}
 	
+	private static final String[] materialTypes = new String[] {"article", "image", "video", "article"};
+	
+	/**
+	 * 将相关资料类型转换为英文描述
+	 * @param materialId 相关资料类型
+	 * @return
+	 */
+	public static String transMaterialType(Integer materialId) {
+		try {
+			return materialTypes[materialId];
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	
 	public static void main(String[] args) {
 		System.out.println(transImagePath("/Img/abc/01-01.jpg", "b"));
 		System.out.println(transImagePath("/Img/abc/01-01.jpg", "m"));

@@ -5,8 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="npc" uri="http://weizhen.com/tags/npc" %>
 
-<c:set var="context" value="/npc">
-</c:set>
+<%@ include file="../common.jsp" %>
 
 <c:set var="personIds" value="-1">
 </c:set>
@@ -39,33 +38,9 @@
     <![endif]-->
 </head>
 <body>
-<header>
-    <div id="header-content">
-        <div id="logo">
-            <a href="${context }/index.html" title="回到首页"></a>
-        </div>
-        <nav>
-            <ul>
-                <li class="nav-3d"><a href="#"></a></li>
-                <li class="nav-location"><a href="#"></a></li>
-                <li class="nav-input"><input type="text" name="keyword" id="keyword" class="png_bg"/></li>
-                <li class="nav-search"><a href="javascript:void(0)"></a></li>
-                <li class="nav-session"><a href="${context }/index.html"></a>
-                    <ul>
-                        <c:if test="${!empty congresses && fn:length(congresses) > 0}">
-                            <c:forEach var="congress" items="${congresses}" varStatus="row">
-                                <li class="nav-session-${congress.congressId }"><a
-                                        href="${context }/congress/${congress.congressId }.html"></a></li>
-                            </c:forEach>
-                        </c:if>
-                    </ul>
-                </li>
-                <li class="nav-discovery"><a href="javascript:void(0);"></a></li>
-            </ul>
-            <div class="clearfix"></div>
-        </nav>
-    </div>
-</header>
+
+	<%@ include file="../header.jsp" %>
+	
 <div id="container">
     <div id="main-content">
         <div class="wrapper">
@@ -231,6 +206,7 @@
             }
         });
     }
+    
     $(document).ready(function () {
         $("#main-content li.gallery a").click(function (e) {
             $("#gallery-content").show().siblings().hide();
@@ -251,11 +227,6 @@
 
        	// showImageMain(personIds[1]);
        	$("#main-content li.gallery a").click();
-        
-        $(".nav-search").on("click", function() {
-			if($("#keyword").val())
-				document.location.href="search.html?keyword=" + encodeURI($("#keyword").val());
-		});
     });
 </script>
 </body>

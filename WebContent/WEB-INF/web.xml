@@ -52,6 +52,16 @@
     </taglib>
   </jsp-config>
   
+	<error-page>  
+	    <error-code>404</error-code>  
+	    <location>/404.htm</location>  
+	</error-page>  
+  
+<error-page>  
+    <error-code>500</error-code>  
+    <location>/500.htm</location>  
+</error-page>
+  
   <welcome-file-list>
   	<welcome-file>default.htm</welcome-file>
   	<welcome-file>index.html</welcome-file>
