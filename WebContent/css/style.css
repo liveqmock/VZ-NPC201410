@@ -91,7 +91,7 @@ a:hover {
 header {
     position: absolute;
     *position: relative;
-    top: 5px;
+    top: 3px;
     width: 100%;
     z-index: 100;
 }
@@ -112,7 +112,7 @@ header #logo {
 header #logo a {
     float: left;
     display: block;
-    width: 308px;
+    width: 440px;
     height: 71px;
     background: url("../image/logo.png") no-repeat left top;
 }
@@ -182,13 +182,13 @@ header nav ul li.nav-input input {
     outline: none;
     padding: 5px 15px;
     font-size: 14px;
-    line-height: 40px;
+    *line-height: 40px;
     background-image: url("../image/bg_input.png");
 }
 
 header nav ul li.nav-search a {
     margin-top: 10px;
-    width: 107px;
+    width: 98px;
     height: 30px;
     *height: 50px;
     background-image: url("../image/nav_01.png");
@@ -229,13 +229,13 @@ header nav ul ul {
     top: 50px;
     background: #fff;
     padding: 10px;
-    width: 200px;
+    width: 220px;
     z-index: 200;
 }
 
 header nav ul li.nav-session ul li a {
     margin: 3px;
-    width: 200px;
+    width: 210px;
     height: 24px;
 }
 
@@ -352,11 +352,45 @@ header nav ul li.nav-session ul li.nav-session-12 a:hover {
     background-image: url("../image/nav_02_12_h.png");
 }
 
+header nav ul li.nav-discovery ul {
+    width: 115px;
+}
+
+header nav ul li.nav-discovery ul li a {
+    margin: 3px;
+    width: 115px;
+    height: 24px;
+}
+
+header nav ul li.nav-discovery ul li.nav-discovery-1 a {
+    background-image: url("../image/nav_03_01.png");
+}
+
+header nav ul li.nav-discovery ul li.nav-discovery-1 a:hover {
+    background-image: url("../image/nav_03_01_h.png");
+}
+
+header nav ul li.nav-discovery ul li.nav-discovery-2 a {
+    background-image: url("../image/nav_03_02.png");
+}
+
+header nav ul li.nav-discovery ul li.nav-discovery-2 a:hover {
+    background-image: url("../image/nav_03_02_h.png");
+}
+
+header nav ul li.nav-discovery ul li.nav-discovery-3 a {
+    background-image: url("../image/nav_03_03.png");
+}
+
+header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
+    background-image: url("../image/nav_03_03_h.png");
+}
+
 /***** Container *****/
 
 #container {
     width: 98%;
-    margin: 90px auto 0;
+    margin: 85px auto 0;
     *margin: 10px auto 0;
     max-width: 1330px;
     _width: expression( document.body.clientWidth > 1330 ? "1330px" : "98%" );
@@ -385,7 +419,7 @@ header nav ul li.nav-session ul li.nav-session-12 a:hover {
     _height: expression( this.scrollHeight > 484 ? "484px" : "484px" );
 }
 
-#container #index-main-content a.play {
+#container a.play {
     position: absolute;
     right: 20px;
     bottom: 20px;
@@ -396,8 +430,8 @@ header nav ul li.nav-session ul li.nav-session-12 a:hover {
     z-index: 100;
 }
 
-#container #index-main-content a.play:hover,
-#container #index-main-content a.play.hover {
+#container a.play:hover,
+#container a.play.hover {
     background: url("../image/icon_play_h.png") no-repeat;
 }
 
@@ -425,7 +459,7 @@ header nav ul li.nav-session ul li.nav-session-12 a:hover {
     z-index: 30;
 }
 
-#container #index-main-content #index-video-content {
+#container #index-video-content {
     display: none;
     position: absolute;
     left: 50%;
@@ -660,24 +694,25 @@ header nav ul li.nav-session ul li.nav-session-12 a:hover {
 
 #container #relate-content .text {
     float: left;
-    width: 60%;
+    width: 47%;
 }
 
 #container #relate-content .text h2 {
-    margin: 20px 20px 0 200px;
+    margin: 20px 20px 0 100px;
     font-size: 18px;
     font-weight: bold;
+    line-height: 1.7;
 }
 
 #container #relate-content .text p {
-    margin: 20px 20px 0 200px;
+    margin: 20px 20px 0 100px;
     line-height: 1.7;
 }
 
 #container #relate-content .media {
     float: right;
     border-left: 0px solid #ccc;
-    width: 38%;
+    width: 51%;
     min-height: 200px;
 }
 
@@ -692,10 +727,54 @@ header nav ul li.nav-session ul li.nav-session-12 a:hover {
 }
 
 #container #relate-content .media ul li a {
+    position: relative;
     display: block;
-    width: 110px;
-    height: 110px;
+    width: 140px;
+    height: 140px;
     background: #454545;
+    overflow: hidden;
+}
+
+#container #relate-content .media ul li a:hover {
+    text-decoration: none;
+}
+
+#container #relate-content .media ul li a span {
+    position: absolute;
+    bottom: 0;
+    width: 140px;
+    height: 30px;
+    padding: 5px 0 8px;
+    background: url(../image/bg_related_image.png);
+    color: #fff;
+    overflow: hidden;
+}
+
+#container #relate-content .media ul li a span h4 {
+    padding: 3px 12px;
+    height: 25px;
+    line-height: 14px;
+    overflow: hidden;
+}
+
+#container #relate-content .media ul li a.article span {
+    position: absolute;
+    bottom: 0;
+    width: 112px;
+    height: 112px;
+    padding: 14px;
+    background: #959595;
+    color: #fff;
+    overflow: hidden;
+}
+
+#container #relate-content .media ul li a.article span h4 {
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.5;
+    overflow: visible;
 }
 
 #container #relate-content .media ul li a.article {
@@ -723,7 +802,7 @@ header nav ul li.nav-session ul li.nav-session-12 a:hover {
 #container #gallery-content ul li {
     float: left;
     display: inline;
-    margin: 0 10px 10px 0;
+    margin: 0 0 15px 15px;
 }
 
 #container #gallery-content ul li a {
@@ -733,7 +812,28 @@ header nav ul li.nav-session ul li.nav-session-12 a:hover {
 }
 
 #container #gallery-content ul li img {
-    height: 240px;
+    width: 310px;
+    height: 310px;
+}
+
+#container #gallery-content ul li a i {
+    position: absolute;
+    bottom: 0;
+    width: 310px;
+    height: 25px;
+    padding: 5px 0 10px;
+    background: url(../image/bg_related_image.png);
+    color: #fff;
+    overflow: hidden;
+}
+
+#container #gallery-content ul li a i h4 {
+    padding: 3px 12px;
+    line-height: 22px;
+    font-weight: bold;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 /** 二级页面全部图片 **/

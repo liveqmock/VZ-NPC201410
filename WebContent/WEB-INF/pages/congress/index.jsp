@@ -40,12 +40,18 @@ pageEncoding="UTF-8"%>
 </head>
 <body>
 
-	<%@ include file="../header.jsp" %>
+<%@ include file="../header.jsp" %>
 
 
 <div id="container">
     <div id="main-content">
         <div class="wrapper">
+            <c:if test="${congress.congressId == 0}">
+                <div id="index-video-content">
+                    <video id="index-video" src="${context }/Img/xi.flv" width="625" height="500"></video>
+                </div>
+                <a class="play png_bg"></a>
+            </c:if>
             <img src="${context }/${npc:transImagePath(firstImageMain.imageMainFilepath, 'b')}" alt=""/>
         </div>
         <nav>
@@ -79,9 +85,11 @@ pageEncoding="UTF-8"%>
                     <li><a dataImageMainId="${imageMain.imageMainId }" href="javascript:void(0)">
 								<span style="display:none;">
 									<h3>${imageMain.imageMainTitle }</h3><br/>
-									<p>${row.index < 2 ? fn:replace(congress.congressResumeContent,'/n','<br/>') : imageMain.imageMainDescription }</p>
+									<p>
+                                        ${row.index < 2 ? fn:replace(congress.congressResumeContent,'/n','<br/>') : imageMain.imageMainDescription }</p>
 								</span>
                         <img src="${context }/${npc:transImagePath(imageMain.imageMainFilepath, 'm')}" alt=""/>
+                        <i><h4>${imageMain.imageMainTitle }</h4></i>
                     </a>
                     </li>
                 </c:forEach>
@@ -140,10 +148,10 @@ pageEncoding="UTF-8"%>
                 $("#main-content .info").text("${congress.congressTitle} / (" + currentIndex + ")");
 
                 $("#relate-content .text h2").text(data['imageMainTitle']);
-                
+
                 var description = currentIndex == 1 ? '${congress.congressResumeContent}' : data['imageMainDescription'];
                 $("#relate-content .text p")
-                	.html($("<span></span>").text(description).html().replace(new RegExp('/n', 'g'),'<br/><br/>'));
+                        .html($("<span></span>").text(description).html().replace(new RegExp('/n', 'g'), '<br/><br/>'));
 
                 $("#relate-content .media ul").html('');
 
@@ -158,8 +166,14 @@ pageEncoding="UTF-8"%>
                     var title = relate['imageRelatedTitle'] || '';
                     var content = relate['imageRelatedDescription'] || '';
 
+                    var _title = title;
+                    if (title.length > 28) {
+                        _title = subStr(title, 28);
+                    }
+
                     var tHtml = "<li><a href='javascript:void(0)' datatitle='" + title + "' datadescription='" + content + "' file='" + relate['imageRelatedFilepath'] + "' " +
-                            "class='" + materialType + "' title='" + title + "'><img src='" + imgSrc + "' alt='" + title + "'></img></a></li>";
+                            "class='" + materialType + "' title='" + title + "'><span><h4>" + _title + "</h4></span><img src='" + imgSrc + "' alt='" + title + "'></img>" +
+                            "</a></li>";
                     $(tHtml).appendTo($("#relate-content .media ul"));
                 }
 
@@ -175,7 +189,8 @@ pageEncoding="UTF-8"%>
                     }
 
                     $("<li></li>").append(
-                            $("<a href='javascript:void(0)' class='article png_bg'></a>")
+                            $("<a href='javascript:void(0)' class='article png_bg'>" +
+                                    "<span><h4>" + document['documentTitle'] + "</h4></span></a>")
                                     .attr('datatitle', document['documentTitle'])
                                     .attr('datadescription', content)
                                     .attr('title', document['documentTitle'])

@@ -5,7 +5,7 @@
     }
 }
 
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 1200px) {
 
     header #header-content,
     #container,
@@ -18,7 +18,7 @@
     }
 
     #container #relate-content .text {
-        width: 47%;
+        width: 49%;
     }
 
     #container #relate-content .text h2,
@@ -27,7 +27,7 @@
     }
 
     #container #relate-content .media {
-        width: 51%;
+        width: 47%;
     }
 
     #container #session-nav ul li,

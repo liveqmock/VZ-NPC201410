@@ -32,12 +32,8 @@ pageEncoding="UTF-8"%>
 <div id="container">
     <div id="index-main-content">
         <div class="wrapper" title="序言">
-            <div id="index-video-content">
-                <video id="index-video" src="image/xi.flv" width="605" height="484"></video>
-            </div>
             <img src="image/index_main.jpg" alt="序言" id="index-main-img"/>
         </div>
-        <a class="play png_bg"></a>
     </div>
     <div id="session-nav">
         <ul>
@@ -72,7 +68,6 @@ pageEncoding="UTF-8"%>
 </footer>
 
 <script src="js/vendor/jquery.min.js"></script>
-<script src="js/vendor/mediaelement-and-player.min.js"></script>
 <!--[if lt IE 7]>
 <script>
     $(document).ready(function () {

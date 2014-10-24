@@ -11,8 +11,8 @@ var materialTypes = ['article', 'image', 'video', 'article'];
 
 // 将图片路径转为对应的大图的路径
 function transImagePath(imagePath, type) {
-	if(!imagePath) return '';
-	
+    if (!imagePath) return '';
+
     var imageMainFilepath = imagePath;
     var lastIndex = imageMainFilepath.lastIndexOf('/') + 1;
     var fileName = imageMainFilepath.substring(lastIndex, imageMainFilepath.length);
@@ -22,6 +22,31 @@ function transImagePath(imagePath, type) {
     return imageMainFilepath;
 }
 
+// 截断中英文字符串,中文算2个字符
+var subStr = function (str, len) {
+    var str_length = 0;
+    var str_len = 0;
+    str_cut = new String();
+    str_len = str.length;
+    for (var i = 0; i < str_len; i++) {
+        a = str.charAt(i);
+        str_length++;
+        if (escape(a).length > 4) {
+            //中文字符的长度经编码之后大于4
+            str_length++;
+        }
+        str_cut = str_cut.concat(a);
+        if (str_length >= len) {
+            str_cut = str_cut.concat("...");
+            return str_cut;
+        }
+    }
+    //如果给定字符串小于指定长度，则返回源字符串；
+    if (str_length < len) {
+        return  str;
+    }
+};
+
 $(document).ready(function () {
 
     if (window.PIE) {
@@ -29,52 +54,62 @@ $(document).ready(function () {
             PIE.attach(this);
         });
     }
-    
-    // 搜索
-    $(".nav-search").on("click", function() {
-		if($("#keyword").val()) {
-			var href = window.location.origin + context + "/search.html?keyword=" + encodeURI($("#keyword").val());
-			console.debug(href);
-			document.location.href= href;
-		}
-	});
 
-    var player = "";
-    $("#index-main-content a.play").click(function (e) {
-        e.preventDefault();
-        if (!player) {
-            $('#index-video-content').show();
-            player = new MediaElement('index-video', {
-                plugins: ['flash'],
-                pluginPath: context + '/js/vendor/',
-                flashName: 'flashmediaelement.swf',
-                success: function (mediaElement, domObject) {
-                    $(this).on('click', function () {
-                        if (mediaElement.paused) {
-                            mediaElement.play();
-                        } else {
-                            mediaElement.pause();
-                        }
-                    });
-                    mediaElement.play();
-                },
-                error: function () {
-                    if ($(".me-cannotplay").length > 0) {
-                        $(".me-cannotplay").html('<h2>您的电脑没有安装flash播放器，无法观看视频。' +
-                            '<a href="http://get.adobe.com/cn/flashplayer" target="_blank">点击下载安装</a></h2>')
-                    } else {
-                        alert("您的电脑没有安装flash播放器，无法观看视频。");
-                    }
-                }
-            });
-        } else {
-            if (player.paused) {
-                player.play();
-            } else {
-                player.pause();
-            }
+    // 搜索
+    $(".nav-search").on("click", function () {
+        if ($("#keyword").val()) {
+            var href = window.location.origin + context + "/search.html?keyword=" + encodeURI($("#keyword").val());
+            console.debug(href);
+            document.location.href = href;
         }
     });
+
+    if ($('#index-video-content').length > 0) {
+        console.log(1)
+        var player = "";
+        $("#main-content a.play").click(function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            if (!player) {
+                $('#index-video-content').show();
+                player = new MediaElement('index-video', {
+                    plugins: ['flash'],
+                    pluginPath: context + '/js/vendor/',
+                    flashName: 'flashmediaelement.swf',
+                    success: function (mediaElement, domObject) {
+                        $(this).on('click', function () {
+                            if (mediaElement.paused) {
+                                mediaElement.play();
+                            } else {
+                                mediaElement.pause();
+                            }
+                        });
+                        mediaElement.play();
+                    },
+                    error: function () {
+                        if ($(".me-cannotplay").length > 0) {
+                            $(".me-cannotplay").html('<h2>您的电脑没有安装flash播放器，无法观看视频。' +
+                                '<a href="http://get.adobe.com/cn/flashplayer" target="_blank">点击下载安装</a></h2>')
+                        } else {
+                            alert("您的电脑没有安装flash播放器，无法观看视频。");
+                        }
+                    }
+                });
+            } else {
+                if (player.paused) {
+                    player.play();
+                } else {
+                    player.pause();
+                }
+            }
+        });
+
+        //点击关闭视频
+        $("#main-content").click(function () {
+            $('#index-video-content .me-plugin').remove();
+            player = "";
+        });
+    }
 
     $("#index-main-img").click(function () {
         window.location.href = window.location.origin + context + "/congress/0.html";
@@ -112,8 +147,8 @@ $(document).ready(function () {
         var materialType = source.prop('class');
         if (materialType.indexOf('video') != -1) {
             var imageSrc = source.find('img').prop('src')
-            	.replace('/s/', '/b/').replace('-s.', '-b.')
-            	.replace('/m/', '/b/').replace('-m.', '-b.');
+                .replace('/s/', '/b/').replace('-s.', '-b.')
+                .replace('/m/', '/b/').replace('-m.', '-b.');
 
             $("#detail-content h2").text($(this).attr('datatitle'));
             $("#detail-content p").html($(this).attr('datadescription') ? $(this).attr('datadescription') : '');
@@ -148,9 +183,9 @@ $(document).ready(function () {
 
         } else if (materialType.indexOf('image') != -1) {
             var imageSrc = source.find('img').prop('src')
-            	.replace('/s/', '/b/').replace('-s.', '-b.')
-            	.replace('/m/', '/b/').replace('-m.', '-b.');
-            
+                .replace('/s/', '/b/').replace('-s.', '-b.')
+                .replace('/m/', '/b/').replace('-m.', '-b.');
+
             $("#detail-content .media").html("<img src='" + imageSrc + "'></img>");
             $("#detail-content h2").text($(this).attr('datatitle'));
             $("#detail-content p").html($(this).attr('datadescription') ? $(this).attr('datadescription') : '');
