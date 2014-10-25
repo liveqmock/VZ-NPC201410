@@ -31,8 +31,8 @@ pageEncoding="UTF-8"%>
 	<%@ include file="header.jsp" %>
 <div id="container">
     <div id="index-main-content">
-        <div class="wrapper" title="序言">
-            <img src="image/index_main.jpg" alt="序言" id="index-main-img"/>
+        <div class="wrapper" title="进入序言">
+            <img src="image/index_main.jpg" alt="进入序言" id="index-main-img"/>
         </div>
     </div>
     <div id="session-nav">

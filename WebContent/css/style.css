@@ -230,7 +230,7 @@ header nav ul ul {
     background: #fff;
     padding: 10px;
     width: 220px;
-    z-index: 200;
+    z-index: 500;
 }
 
 header nav ul li.nav-session ul li a {
@@ -835,13 +835,14 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     background: url(../image/bg_related_image.png);
     color: #fff;
     overflow: hidden;
-    z-index: 200;
+    z-index: 30;
 }
 
 #container #gallery-content ul li a i h4 {
     padding: 3px 12px;
     line-height: 22px;
     font-weight: bold;
+    font-style: normal;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -1056,4 +1057,6 @@ footer p a#gotop.hover {
     bottom: 0;
     width: 1070px;
     padding: 0;
+    height: 700px;
+    max-height: 700px;
 }
