@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
 <head lang="zh-cn">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>人大60周年展 - 地点主题</title>
@@ -29,34 +29,31 @@
 </head>
 <body>
 
-	<%@ include file="../header.jsp" %>
+<%@ include file="../header.jsp" %>
 
 <div id="container">
-    <div id="main-content">
+    <div id="main-content" class="location-content">
         <div class="wrapper">
-       		<span style="display:block; width:700px;height:460px;border:1px solid gray; margin:2px auto;" id="mapContainer"</span>
+            <span id="mapContainer"></span>
         </div>
-        <nav>
-            <ul>
-			<c:forEach var="location" items="${locations}" varStatus="row">
-				<li class="locationitem">
-					<a href="javascript:void(0)" title="${location.locationName }" class="png_bg"
-						data-locationId="${location.locationId }" 
-						data-locationLng="${location.locationLng }"
-						data-locationLnt="${location.locationLat }"
-						data-locationName="${location.locationName }"
-						data-locationTitle="${location.locationTitle }"
-						data-locationResume="${location.locationResume }"></a>
-				</li>
-			</c:forEach>
-            </ul>
-        </nav>
-        <span class="tbar"></span>
-        <span class="info"></span> 
+        <ul id="location-list">
+            <c:forEach var="location" items="${locations}" varStatus="row">
+                <li class="locationitem">
+                    <a href="javascript:void(0)" title="${location.locationName }" class="png_bg"
+                       data-locationId="${location.locationId }"
+                       data-locationLng="${location.locationLng }"
+                       data-locationLnt="${location.locationLat }"
+                       data-locationName="${location.locationName }"
+                       data-locationTitle="${location.locationTitle }"
+                       data-locationResume="${location.locationResume }">${location.locationTitle }</a>
+                </li>
+            </c:forEach>
+        </ul>
     </div>
-    <div id="relate-content">
+    <div id="relate-content" style="display: none">
         <div class="text">
             <h2 name="title">${firstImageMain.imageMainTitle }</h2>
+
             <p name="description">${firstImageMain.imageMainDescription }</p>
         </div>
         <div class="media">
@@ -73,6 +70,7 @@
         </div>
 
         <h2 name="title"></h2>
+
         <p name="description"></p>
     </div>
 </div>
@@ -94,15 +92,15 @@
 </script>
 <![endif]-->
 <script src="${context }/js/main.js"></script>
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=KKEEWToQh6mD7cCkpGX3iolH"></script> 
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=KKEEWToQh6mD7cCkpGX3iolH"></script>
 <script src="${context }/js/convert.js"></script>
 
 <script>
 
-	//显示地点主题相关信息
+    //显示地点主题相关信息
     function showLocation(source) {
-    	
-    	var locationId = source.attr('data-locationId') * 1;
+
+        var locationId = source.attr('data-locationId') * 1;
 
         $.ajax("${context}/location/" + locationId + ".html", {
             type: 'get',
@@ -111,7 +109,7 @@
             success: function (data, textStatus, jqXHR) {
                 $("#relate-content .text h2").text(source.attr('data-locationTitle'));
                 $("#relate-content .text p").text(source.attr('data-locationResume'));
-                
+
                 $("#relate-content .media ul").html('');
 
                 for (var index in data['imageRelateds']) {
@@ -153,42 +151,42 @@
             }
         });
     }
-    
- // 调用百度地图API显示地图
+
+    // 调用百度地图API显示地图
     function markLocationInMap(source) {
-    	var lng = source.attr('data-locationLng');
-    	var lnt = source.attr('data-locationLnt');
-    	var gpsPoint = new BMap.Point(lng,lnt);
-    	
-    	BMap.Convertor.translate(gpsPoint,0,function(point){
-    		map.centerAndZoom(point, 5);
-        	
-        	var marker=new BMap.Marker(point);  
-        	map.addOverlay(marker); 
-        	
-        	var opts = {width: 300};
-        	var infoWindow = new BMap.InfoWindow("<b>" + source.attr('data-locationName') + "</b>", opts); 
-       	    marker.addEventListener('click',function(){
-       	        marker.openInfoWindow(infoWindow);
-       	    });
-    	});
+        var lng = source.attr('data-locationLng');
+        var lnt = source.attr('data-locationLnt');
+        var gpsPoint = new BMap.Point(lng, lnt);
+
+        BMap.Convertor.translate(gpsPoint, 0, function (point) {
+            map.centerAndZoom(point, 5);
+
+            var marker = new BMap.Marker(point);
+            map.addOverlay(marker);
+
+            var opts = {width: 300};
+            var infoWindow = new BMap.InfoWindow("<b>" + source.attr('data-locationName') + "</b>", opts);
+            marker.addEventListener('click', function () {
+                marker.openInfoWindow(infoWindow);
+            });
+        });
     }
-    
+
     // 百度地图调用
-    var map; 
-    
+    var map;
+
     $(document).ready(function () {
-    	map = new BMap.Map("mapContainer"); 
-    	map.enableScrollWheelZoom();
-    	
+        map = new BMap.Map("mapContainer");
+        map.enableScrollWheelZoom();
+
         $("#main-content li.locationitem a").click(function (e) {
-           	showLocation($(this));
+            showLocation($(this));
         });
 
         $("#main-content li.locationitem a:first").click();
-        
-        $("#main-content li.locationitem a").each(function(index, element){
-        	markLocationInMap($(element));
+
+        $("#main-content li.locationitem a").each(function (index, element) {
+            markLocationInMap($(element));
         })
     });
 </script>

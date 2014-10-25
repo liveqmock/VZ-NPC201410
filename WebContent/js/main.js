@@ -9,6 +9,23 @@ var context = '/npc';
 // 相关资源类型
 var materialTypes = ['article', 'image', 'video', 'article'];
 
+// 解决IE不支持window.location.origin问题
+if (!window.location.origin)
+    window.location.origin = window.location.protocol + "//" + window.location.host;
+
+if (!window.console) {
+    window.console = {
+        log: function () {
+        },
+        error: function () {
+        },
+        info: function () {
+        },
+        warn: function () {
+        }
+    };
+}
+
 // 将图片路径转为对应的大图的路径
 function transImagePath(imagePath, type) {
     if (!imagePath) return '';
@@ -45,6 +62,10 @@ var subStr = function (str, len) {
     if (str_length < len) {
         return  str;
     }
+};
+
+var goToPageTop = function () {
+    $('body, html').animate({scrollTop: '0px'}, 500);
 };
 
 $(document).ready(function () {
@@ -127,7 +148,7 @@ $(document).ready(function () {
     //二级页面全部图片浮动文字
     $("#gallery-content li a").on("mouseenter", function () {
         var t = $(this);
-        t.find("span").width(t.width()).height(t.height()).show();
+        t.find("span").width(t.width()).height(310).show();
     }).on("mouseleave", function () {
         var t = $(this);
         t.find("span").hide();
@@ -198,18 +219,19 @@ $(document).ready(function () {
         }
 
         $("#detail-content").show();
-
-        $('body, html').animate({scrollTop: '0px'}, 500);
+        goToPageTop();
     });
-    $("#detail-content .close").click(function (e) {
+    $("#detail-content .close a").click(function (e) {
         e.preventDefault();
         $("#relate-content, #main-content").show();
         $("#detail-content").hide();
+        goToPageTop();
     });
     $("#main-content a.gallery").click(function (e) {
         e.preventDefault();
         $("#relate-content, #main-content").hide();
         $("#gallery-content").show();
+        goToPageTop();
     });
     $("#gallery-content").on('click', 'a', function (e) {
         e.preventDefault();
@@ -218,11 +240,12 @@ $(document).ready(function () {
 
         $("#relate-content, #main-content").show();
         $("#gallery-content").hide();
+        goToPageTop();
     });
 
     $("#gotop").click(function (e) {
         e.preventDefault();
-        $('body, html').animate({scrollTop: '0px'}, 500);
+        goToPageTop();
     });
 });
 

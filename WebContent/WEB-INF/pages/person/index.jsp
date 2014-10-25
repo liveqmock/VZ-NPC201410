@@ -39,18 +39,18 @@
 </head>
 <body>
 
-	<%@ include file="../header.jsp" %>
-	
+<%@ include file="../header.jsp" %>
+
 <div id="container">
     <div id="main-content">
         <div class="wrapper">
             <img src="" alt=""/>
         </div>
-        <nav>
+        <nav class="control">
             <ul>
                 <li class="gallery"><a href="javascript:void(0)" title="所有图片" class="png_bg"></a></li>
-                <li class="previous"><a href="javascript:void(0)" title="上一张" class="png_bg"></a></li>
-                <li class="next"><a href="javascript:void(0)" title="下一张" class="png_bg"></a></li>
+                <li class="previous"><a href="javascript:void(0)" title="上一个" class="png_bg"></a></li>
+                <li class="next"><a href="javascript:void(0)" title="下一个" class="png_bg"></a></li>
             </ul>
         </nav>
         <span class="tbar"></span>
@@ -80,6 +80,7 @@
 									<p>${person.personResume }</p>
 								</span>
                         <img src="${context }/${npc:transImagePath(person.personImage, 'm')}" alt=""/>
+                        <i><h4>${person.personName }</h4></i>
                     </a>
                     </li>
                 </c:forEach>
@@ -88,6 +89,15 @@
         <div class="clearfix"></div>
     </div>
     <div id="detail-content">
+
+        <nav class="control">
+            <ul>
+                <li class="close"><a href="javascript:void(0)" title="关闭" class="png_bg"></a></li>
+                <li class="previous"><a href="javascript:void(0)" title="上一个" class="png_bg"></a></li>
+                <li class="next"><a href="javascript:void(0)" title="下一个" class="png_bg"></a></li>
+            </ul>
+        </nav>
+
         <a href="javascript:void(0)" class="close png_bg"></a>
 
         <div class="media">
@@ -124,7 +134,7 @@
     var currentPersonId = personIds[currentIndex];
 
     function showImageMain(personId) {
-    	personId = personId * 1;
+        personId = personId * 1;
 
         $.ajax("${context}/person/" + personId + ".html", {
             type: 'get',
@@ -133,33 +143,36 @@
             success: function (data, textStatus, jqXHR) {
                 currentPersonId = personId;
                 currentIndex = $.inArray(currentPersonId, personIds);
-                
+
                 var person = data['person'];
-                
+
 
                 $("#main-content img")[0].src = '${context}/' + transImagePath(person['personImage'], 'b');
-                $("#main-content .info").text(currentIndex + " / " + (personIds.length - 1));
+                //$("#main-content .info").text(currentIndex + " / " + (personIds.length - 1));
 
                 $("#relate-content .text h2").text(person['personName']);
                 $("#relate-content .text p").text(person['personResume'] || '');
 
                 $("#relate-content .media ul").html('');
-                
+
                 // 主题
                 for (var index in data['imageMains']) {
-                	var imageMain = data['imageMains'][index];
-                	var materialType = 'image';
-                	
-                	var title = imageMain['imageMainTitle'];
-                	var description = imageMain['imageMainDescription'] || '';
-                	var file = imageMain['imageMainFilepath'];
-                	var imgSrc = '${context}/' + transImagePath(imageMain['imageMainFilepath'], 's')
-                	
-                	
-                	
-                	var tHtml = "<li><a href='javascript:void(0)' datatitle='" + title + "' datadescription='" + description + "' file='" + file + "' "
-                		+ "class='" + materialType + "' title='" + title + "'><img src='" + imgSrc + "' alt='" + title + "'></img></a></li>";
-           			 $(tHtml).appendTo($("#relate-content .media ul"));
+                    var imageMain = data['imageMains'][index];
+                    var materialType = 'image';
+
+                    var title = imageMain['imageMainTitle'];
+                    var description = imageMain['imageMainDescription'] || '';
+                    var file = imageMain['imageMainFilepath'];
+                    var imgSrc = '${context}/' + transImagePath(imageMain['imageMainFilepath'], 's')
+
+                    var _title = title;
+                    if (title.length > 28) {
+                        _title = subStr(title, 28);
+                    }
+
+                    var tHtml = "<li><a href='javascript:void(0)' datatitle='" + title + "' datadescription='" + description + "' file='" + file + "' "
+                            + "class='" + materialType + "' title='" + title + "'><span><h4>" + _title + "</h4></span><img src='" + imgSrc + "' alt='" + title + "'></img></a></li>";
+                    $(tHtml).appendTo($("#relate-content .media ul"));
                 }
 
                 // 相关图片和视频
@@ -173,8 +186,13 @@
 
                     var content = relate['imageRelatedDescription'] || '';
 
+                    var _title = title;
+                    if (title.length > 28) {
+                        _title = subStr(title, 28);
+                    }
+
                     var tHtml = "<li><a href='javascript:void(0)' datatitle='" + relate['imageRelatedTitle'] + "' datadescription='" + content + "' file='" + relate['imageRelatedFilepath'] + "' " +
-                            "class='" + materialType + "' title='" + relate['imageRelatedTitle'] + "'><img src='" + imgSrc + "' alt='" + relate['imageRelatedTitle'] + "'></img></a></li>";
+                            "class='" + materialType + "' title='" + relate['imageRelatedTitle'] + "'><span><h4>" + _title + "</h4></span><img src='" + imgSrc + "' alt='" + relate['imageRelatedTitle'] + "'></img></a></li>";
                     $(tHtml).appendTo($("#relate-content .media ul"));
                 }
 
@@ -191,7 +209,7 @@
                     }
 
                     $("<li></li>").append(
-                            $("<a href='javascript:void(0)' class='article png_bg'></a>")
+                            $("<a href='javascript:void(0)' class='article png_bg'><span><h4>" + document['documentTitle'] + "</h4></span></a>")
                                     .attr('datatitle', document['documentTitle'])
                                     .attr('datadescription', content)
                                     .attr('title', document['documentTitle'])
@@ -206,7 +224,7 @@
             }
         });
     }
-    
+
     $(document).ready(function () {
         $("#main-content li.gallery a").click(function (e) {
             $("#gallery-content").show().siblings().hide();
@@ -225,8 +243,8 @@
             }
         });
 
-       	// showImageMain(personIds[1]);
-       	$("#main-content li.gallery a").click();
+        // showImageMain(personIds[1]);
+        $("#main-content li.gallery a").click();
     });
 </script>
 </body>

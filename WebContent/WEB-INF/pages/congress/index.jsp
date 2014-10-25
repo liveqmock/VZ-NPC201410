@@ -54,11 +54,11 @@ pageEncoding="UTF-8"%>
             </c:if>
             <img src="${context }/${npc:transImagePath(firstImageMain.imageMainFilepath, 'b')}" alt=""/>
         </div>
-        <nav>
+        <nav class="control">
             <ul>
                 <li class="gallery"><a href="javascript:void(0)" title="所有图片" class="png_bg"></a></li>
-                <li class="previous"><a href="javascript:void(0)" title="上一张" class="png_bg"></a></li>
-                <li class="next"><a href="javascript:void(0)" title="下一张" class="png_bg"></a></li>
+                <li class="previous"><a href="javascript:void(0)" title="上一个" class="png_bg"></a></li>
+                <li class="next"><a href="javascript:void(0)" title="下一个" class="png_bg"></a></li>
             </ul>
         </nav>
         <span class="tbar"></span>
@@ -98,7 +98,14 @@ pageEncoding="UTF-8"%>
         <div class="clearfix"></div>
     </div>
     <div id="detail-content">
-        <a href="javascript:void(0)" class="close png_bg"></a>
+
+        <nav class="control">
+            <ul>
+                <li class="close"><a href="javascript:void(0)" title="关闭" class="png_bg"></a></li>
+                <li class="previous"><a href="javascript:void(0)" title="上一个" class="png_bg"></a></li>
+                <li class="next"><a href="javascript:void(0)" title="下一个" class="png_bg"></a></li>
+            </ul>
+        </nav>
 
         <div class="media">
             <img src="data:image/gif;base64,R0lGODlhBAABAIABAMLBwfLx8SH5BAEAAAEALAAAAAAEAAEAAAICRF4AOw==" alt=""/>
@@ -134,6 +141,19 @@ pageEncoding="UTF-8"%>
     var currentIndex = $.inArray(currentImageMainId, imageMainIds);
 
     function showImageMain(imageMainId) {
+
+//        console.log(currentIndex);
+//        if (currentIndex && currentIndex <= 1) {
+//            $("#main-content li.previous").hide();
+//        } else {
+//            $("#main-content li.previous").show();
+//        }
+//        if (currentIndex && currentIndex >= imageMainIds.length - 1) {
+//            $("#main-content li.next").hide();
+//        } else {
+//            $("#main-content li.next").show();
+//        }
+
         imageMainId = imageMainId * 1;
 
         $.ajax("${context}/imagemain/" + imageMainId + ".html", {
@@ -189,8 +209,7 @@ pageEncoding="UTF-8"%>
                     }
 
                     $("<li></li>").append(
-                            $("<a href='javascript:void(0)' class='article png_bg'>" +
-                                    "<span><h4>" + document['documentTitle'] + "</h4></span></a>")
+                            $("<a href='javascript:void(0)' class='article png_bg'><span><h4>" + document['documentTitle'] + "</h4></span></a>")
                                     .attr('datatitle', document['documentTitle'])
                                     .attr('datadescription', content)
                                     .attr('title', document['documentTitle'])
@@ -206,20 +225,24 @@ pageEncoding="UTF-8"%>
         });
     }
     $(document).ready(function () {
+
         $("#main-content li.gallery a").click(function (e) {
             $("#gallery-content").show().siblings().hide();
+            goToPageTop();
         });
 
 
         $("#main-content li.previous a").click(function (e) {
             if (currentIndex && currentIndex > 1) {
-                showImageMain(imageMainIds[currentIndex - 1])
+                showImageMain(imageMainIds[currentIndex - 1]);
+                goToPageTop();
             }
         });
 
         $("#main-content li.next a").click(function (e) {
             if (currentIndex && currentIndex < imageMainIds.length - 1) {
-                showImageMain(imageMainIds[currentIndex + 1])
+                showImageMain(imageMainIds[currentIndex + 1]);
+                goToPageTop();
             }
         });
 

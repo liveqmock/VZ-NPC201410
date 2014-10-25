@@ -490,10 +490,10 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     font-weight: normal !important;
 }
 
-#container #main-content nav {
+#container nav.control {
 }
 
-#container #main-content nav ul {
+#container nav.control ul {
     position: absolute;
     top: 20px;
     left: 20px;
@@ -503,13 +503,13 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     z-index: 100;
 }
 
-#container #main-content nav ul li {
+#container nav.control ul li {
     float: left;
     display: block;
     clear: both;
 }
 
-#container #main-content nav ul li a {
+#container nav.control ul li a {
     display: block;
     margin-bottom: 20px;
     width: 32px;
@@ -518,31 +518,39 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     backgrond-position: left top;
 }
 
-#container #main-content nav ul li a:hover {
+#container nav.control ul li a:hover {
     width: 117px;
 }
 
-#container #main-content nav ul li.gallery a {
+#container nav.control ul li.close a {
+    background-image: url("../image/icon_close.png");
+}
+
+#container nav.control ul li.close a:hover {
+    background-image: url("../image/icon_close_h.png");
+}
+
+#container nav.control ul li.gallery a {
     background-image: url("../image/icon_all.png");
 }
 
-#container #main-content nav ul li.gallery a:hover {
+#container nav.control ul li.gallery a:hover {
     background-image: url("../image/icon_all_h.png");
 }
 
-#container #main-content nav ul li.next a {
+#container nav.control ul li.next a {
     background-image: url("../image/icon_next.png");
 }
 
-#container #main-content nav ul li.next a:hover {
+#container nav.control ul li.next a:hover {
     background-image: url("../image/icon_next_h.png");
 }
 
-#container #main-content nav ul li.previous a {
+#container nav.control ul li.previous a {
     background-image: url("../image/icon_previous.png");
 }
 
-#container #main-content nav ul li.previous a:hover {
+#container nav.control ul li.previous a:hover {
     background-image: url("../image/icon_previous_h.png");
 }
 
@@ -743,7 +751,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     position: absolute;
     bottom: 0;
     width: 140px;
-    height: 30px;
+    height: 35px;
     padding: 5px 0 8px;
     background: url(../image/bg_related_image.png);
     color: #fff;
@@ -752,8 +760,8 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 
 #container #relate-content .media ul li a span h4 {
     padding: 3px 12px;
-    height: 25px;
-    line-height: 14px;
+    height: 30px;
+    line-height: 17px;
     overflow: hidden;
 }
 
@@ -818,13 +826,16 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 
 #container #gallery-content ul li a i {
     position: absolute;
-    bottom: 0;
+    left: 0;
+    right: 0;
+    bottom: 2px;
     width: 310px;
     height: 25px;
     padding: 5px 0 10px;
     background: url(../image/bg_related_image.png);
     color: #fff;
     overflow: hidden;
+    z-index: 200;
 }
 
 #container #gallery-content ul li a i h4 {
@@ -842,6 +853,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     position: absolute;
     left: 0;
     top: 0;
+    height: 290px;
     background: #780000;
     filter: alpha(opacity=90);
     -moz-opacity: 0.9;
@@ -995,4 +1007,53 @@ footer p a#gotop {
 footer p a#gotop:hover,
 footer p a#gotop.hover {
     background: url("../image/icon_totop_h.png") no-repeat;
+}
+
+/*地点专题*/
+
+#container #main-content.location-content {
+    height: 700px;
+    max-height: 700px;
+    line-height: 1.7;
+    _height: expression( this.scrollHeight > 700 ? "700px" : "700px" );
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+
+#container #main-content #location-list {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 250px;
+    padding: 10px;
+}
+
+#container #main-content #location-list li.locationitem {
+    float: left;
+    display: block;
+    color: #333;
+    text-align: left;
+}
+
+#container #main-content #location-list li a {
+    display: block;
+    line-height: 1.7;
+    padding: 8px 10px 8px 40px;
+    width: 190px;
+    color: #36c;
+    background: url(../image/icon_local.png) no-repeat left 3px;
+}
+
+#container #main-content #location-list li a:hover {
+    background-color: #eee;
+}
+
+#container #main-content #mapContainer {
+    position: absolute;
+    top: 0;
+    left: 260px;
+    bottom: 0;
+    width: 1070px;
+    padding: 0;
 }
