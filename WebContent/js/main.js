@@ -15,6 +15,8 @@ if (!window.location.origin)
 
 if (!window.console) {
     window.console = {
+    	debug: function(msg) {
+    	},
         log: function () {
         },
         error: function () {
@@ -77,12 +79,12 @@ $(document).ready(function () {
     }
 
     // 搜索
-    $(".nav-search").on("click", function () {
+    $(".nav-search").click(function () {
         if ($("#keyword").val()) {
-            var href = window.location.origin + context + "/search.html?keyword=" + encodeURI($("#keyword").val());
-            console.debug(href);
-            document.location.href = href;
+        	window.location.href = window.location.origin + context + "/search.html?keyword=" + encodeURI($("#keyword").val());
         }
+        
+        return false;
     });
 
     if ($('#index-video-content').length > 0) {

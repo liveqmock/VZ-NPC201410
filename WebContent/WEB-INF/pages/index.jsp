@@ -78,13 +78,5 @@ pageEncoding="UTF-8"%>
 </script>
 <![endif]-->
 <script src="js/main.js"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$(".nav-search").on("click", function() {
-			if($("#keyword").val())
-				document.location.href="search.html?keyword=" + encodeURI($("#keyword").val());
-		});
-	});
-</script>
 </body>
 </html>
