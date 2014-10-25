@@ -153,7 +153,9 @@
     }
 
     // 调用百度地图API显示地图
-    function markLocationInMap(source) {
+    function markLocationInMap(source, showInfoWindow) {
+    	var _showInfoWindow = showInfoWindow || false;
+    	
         var lng = source.attr('data-locationLng');
         var lnt = source.attr('data-locationLnt');
         var gpsPoint = new BMap.Point(lng, lnt);
@@ -169,25 +171,35 @@
             marker.addEventListener('click', function () {
                 marker.openInfoWindow(infoWindow);
             });
+            
+            markers[source.attr('data-locationId')] = {
+            	"marker" : marker,
+            	"infoWindow" : infoWindow
+            };
         });
     }
 
     // 百度地图调用
     var map;
+    var markers = {};
 
     $(document).ready(function () {
         map = new BMap.Map("mapContainer");
         map.enableScrollWheelZoom();
 
         $("#main-content li.locationitem a").click(function (e) {
-            showLocation($(this));
+            //showLocation($(this));
+           	markLocationInMap($(this));
+            var t = markers[$(this).attr('data-locationId')];
+            t['marker'].openInfoWindow(t['infoWindow']);
         });
-
-        $("#main-content li.locationitem a:first").click();
 
         $("#main-content li.locationitem a").each(function (index, element) {
             markLocationInMap($(element));
-        })
+        });
+        
+        //$("#main-content li.locationitem a:first").click();
+        
     });
 </script>
 

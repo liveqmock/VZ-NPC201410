@@ -35,8 +35,12 @@ pageEncoding="UTF-8"%>
 <div id="container">
 
     <div id="search-box">
-        <input type="text" class="text"/>
-        <input type="submit" value="搜 索" class="btn"/>
+        	<input type="text" class="text" id="_keyword" value="${keyword }" />
+        	<input type="submit" value="搜 索" class="btn"/>
+    </div>
+    
+    <div id="nodata" style="display:none;">
+    	<p>无搜索结果</p>
     </div>
 
     <div id="gallery-content" style="display: block" class="for-search">
@@ -82,7 +86,7 @@ pageEncoding="UTF-8"%>
                                file='${imageRelated.imageRelatedFilepath }'
                                class='${npc:transMaterialType(imageRelated.materialId) }'
                                title='${imageRelated.imageRelatedTitle }'>
-                                <img src="${context }/${npc:transImagePath(imageRelated.imageRelatedFilepath, 's')}"
+                                <img src="${context }/${npc:transImagePath(imageRelated.imageRelatedThumbFilepath, 's')}"
                                      alt='${imageRelated.imageRelatedTitle }'></img>
                                 <span><h4>${imageRelated.imageRelatedTitle }</h4></span>
                             </a>
@@ -116,6 +120,7 @@ pageEncoding="UTF-8"%>
         </div>
         <div class="clearfix"></div>
     </div>
+    
 
     <div id="detail-content">
 
@@ -153,5 +158,27 @@ pageEncoding="UTF-8"%>
 </script>
 <![endif]-->
 <script src="js/main.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			
+			var dataSize = $("#gallery-content li").size() + $("#relate-content li").size();
+			if (dataSize == 0) {
+				$("#nodata").css("display", "");
+			}
+			
+			$("#search-box .btn").click(function(e){
+				window.location.href = window.location.origin + context + "/search.html?keyword=" + encodeURI($("#_keyword").val());
+
+		        return false;
+			});
+			
+			$("#gallery-content a").click(function(e){
+				showDetail($(this));
+			});
+			
+		});
+	</script>
+
 </body>
 </html>

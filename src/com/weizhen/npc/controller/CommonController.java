@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.chineseall.dams.common.paging.Paging;
+import com.fylaw.utils.EntityUtils;
 import com.weizhen.npc.base.BaseController;
 import com.weizhen.npc.service.CongressService;
 import com.weizhen.npc.service.DocumentService;
@@ -59,13 +60,16 @@ public class CommonController extends BaseController {
 	}
 	
 	@RequestMapping(value="/search.html")
-	public ModelAndView search(HttpServletRequest request, @RequestParam String keyword, Paging paging) {
+	public ModelAndView search(HttpServletRequest request, String keyword, Paging paging) {
 		ModelAndView mav = new ModelAndView("search");
 		mav.addObject("congresses", congressService.loadAll());
-		
-		mav.addObject("imageMains", imageMainService.findByKeyword(keyword, paging));
-		mav.addObject("imageRelateds", imageRelatedService.findByKeyword(keyword, paging));
-		mav.addObject("documents", documentService.findByKeyword(keyword, paging));
+		mav.addObject("keyword", keyword);
+	
+		if (EntityUtils.notEmpty(keyword)) {
+			mav.addObject("imageMains", imageMainService.findByKeyword(keyword, paging));
+			mav.addObject("imageRelateds", imageRelatedService.findByKeyword(keyword, paging));
+			mav.addObject("documents", documentService.findByKeyword(keyword, paging));
+		}
 		
 		return mav;
 	}
