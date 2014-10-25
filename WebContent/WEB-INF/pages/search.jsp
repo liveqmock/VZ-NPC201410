@@ -44,7 +44,7 @@ pageEncoding="UTF-8"%>
     </div>
 
     <div id="gallery-content" style="display: block" class="for-search">
-        <ul>
+        <ul style="clear:both">
             <c:if test="${!empty imageMains.records && fn:length(imageMains.records) > 0}">
                 <c:forEach var="imageMain" items="${imageMains.records}" varStatus="row">
 
@@ -67,14 +67,14 @@ pageEncoding="UTF-8"%>
 
                 </c:forEach>
             </c:if>
-
         </ul>
         <div class="clearfix"></div>
-        <hr/>
     </div>
 
 
     <div id="relate-content" style="display: block;width: 100%;">
+
+        <hr/>
         <div class="media" style="width: 100%;">
             <ul>
                 <c:if test="${!empty imageRelateds.records && fn:length(imageRelateds.records) > 0}">
