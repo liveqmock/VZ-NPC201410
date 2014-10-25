@@ -8,8 +8,8 @@
         </div>
         <nav>
             <ul>
-                <li class="nav-3d"><a href="#"></a></li>
-                <li class="nav-location"><a href="#"></a></li>
+                <li class="nav-3d"><a href="${context }/360.html"></a></li>
+                <li class="nav-location"><a href="${context }/3d.html"></a></li>
                 <li class="nav-input"><input name="keyword" id="keyword" type="text"/></li>
                 <li class="nav-search"><a href="javascript:void(0)"></a></li>
                 <li class="nav-session"><a href="#"></a>

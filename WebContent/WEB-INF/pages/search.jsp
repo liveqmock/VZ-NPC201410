@@ -29,85 +29,103 @@ pageEncoding="UTF-8"%>
     <![endif]-->
 </head>
 <body>
-	
-	<%@ include file="header.jsp" %>
 
-<div id="container">	
-	<p>相关主图</p>
-    <div id="relate-content">
-        <div class="media">
-            <ul>
-            
+<%@ include file="header.jsp" %>
+
+<div id="container">
+
+    <div id="search-box">
+        <input type="text" class="text"/>
+        <input type="submit" value="搜 索" class="btn"/>
+    </div>
+
+    <div id="gallery-content" style="display: block" class="for-search">
+        <ul>
             <c:if test="${!empty imageMains.records && fn:length(imageMains.records) > 0}">
                 <c:forEach var="imageMain" items="${imageMains.records}" varStatus="row">
-            	
-            	<li>
-            		<a href='javascript:void(0)' datatitle='${imageMain.imageMainTitle }'
-            			 datadescription='${imageMain.imageMainDescription }'
-            			 file='${imageMain.imageMainFilepath }'
-            			 class='image'
-            			 title='${imageMain.imageMainTitle }'>
-            			<img src="${context }/${npc:transImagePath(imageMain.imageMainFilepath, 'm')}" alt='${imageMain.imageMainTitle }'></img>
-            		</a>
-            	</li>
-            	
-            	</c:forEach>
+
+                    <li>
+                        <a href='javascript:void(0)' datatitle='${imageMain.imageMainTitle }'
+                           datadescription='${imageMain.imageMainDescription }'
+                           file='${imageMain.imageMainFilepath }'
+                           class='image'
+                           title='${imageMain.imageMainTitle }'>
+                            <span style="display:none;">
+									<h3>${imageMain.imageMainTitle }</h3><br/>
+									<p>
+                                        ${row.index < 2 ? fn:replace(congress.congressResumeContent,'/n','<br/>') : imageMain.imageMainDescription }</p>
+								</span>
+                            <img src="${context }/${npc:transImagePath(imageMain.imageMainFilepath, 'm')}"
+                                 alt='${imageMain.imageMainTitle }'></img>
+                            <i><h4>${imageMain.imageMainTitle }</h4></i>
+                        </a>
+                    </li>
+
+                </c:forEach>
             </c:if>
-            
-            </ul>
-        </div>
+
+        </ul>
         <div class="clearfix"></div>
-    </div>	
-	
-	
-	<p>相关资料</p>
-    <div id="relate-content">
-        <div class="media">
+        <hr/>
+    </div>
+
+
+    <div id="relate-content" style="display: block;width: 100%;">
+        <div class="media" style="width: 100%;">
             <ul>
-            
-            <c:if test="${!empty imageRelateds.records && fn:length(imageRelateds.records) > 0}">
-                <c:forEach var="imageRelated" items="${imageRelateds.records}" varStatus="row">
-            	
-            	<li>
-            		<a href='javascript:void(0)' datatitle='${imageRelated.imageRelatedTitle }'
-            			 datadescription='${imageRelated.imageRelatedDescription }'
-            			 file='${imageRelated.imageRelatedFilepath }'
-            			 class='${npc:transMaterialType(imageRelated.materialId) }'
-            			 title='${imageRelated.imageRelatedTitle }'>
-            			<img src="${context }/${npc:transImagePath(imageRelated.imageRelatedFilepath, 's')}" alt='${imageRelated.imageRelatedTitle }'></img>
-            		</a>
-            	</li>
-            	
-            	</c:forEach>
-            </c:if>
-            
-           	<c:if test="${!empty documents.records && fn:length(documents.records) > 0}">
-                <c:forEach var="document" items="${documents.records}" varStatus="row">
-                <c:set var="content" value=""></c:set>
-                <c:if test="${!empty document.paragraphs && fn:length(document.paragraphs) > 0}">
-                	<c:forEach var="paragraph" items="${document.paragraphs}" varStatus="paragraphRow">
-                		<c:set var="content" value="${content }<p>${paragraph.paragraphContent }</p>"></c:set>
-                	</c:forEach>
+                <c:if test="${!empty imageRelateds.records && fn:length(imageRelateds.records) > 0}">
+                    <c:forEach var="imageRelated" items="${imageRelateds.records}" varStatus="row">
+
+                        <li>
+                            <a href='javascript:void(0)' datatitle='${imageRelated.imageRelatedTitle }'
+                               datadescription='${imageRelated.imageRelatedDescription }'
+                               file='${imageRelated.imageRelatedFilepath }'
+                               class='${npc:transMaterialType(imageRelated.materialId) }'
+                               title='${imageRelated.imageRelatedTitle }'>
+                                <img src="${context }/${npc:transImagePath(imageRelated.imageRelatedFilepath, 's')}"
+                                     alt='${imageRelated.imageRelatedTitle }'></img>
+                                <span><h4>${imageRelated.imageRelatedTitle }</h4></span>
+                            </a>
+                        </li>
+
+                    </c:forEach>
                 </c:if>
-            	
-            	<li>
-            		<a href='javascript:void(0)' datatitle='${document.documentTitle }'
-            			 datadescription='${content }'
-            			 class='article png_bg'
-            			 title='${document.documentTitle }'>
-            		</a>
-            	</li>
-            	
-            	</c:forEach>
-            </c:if>            
-            
+
+                <c:if test="${!empty documents.records && fn:length(documents.records) > 0}">
+                    <c:forEach var="document" items="${documents.records}" varStatus="row">
+                        <c:set var="content" value=""></c:set>
+                        <c:if test="${!empty document.paragraphs && fn:length(document.paragraphs) > 0}">
+                            <c:forEach var="paragraph" items="${document.paragraphs}" varStatus="paragraphRow">
+                                <c:set var="content" value="${content }<p>${paragraph.paragraphContent }</p>"></c:set>
+                            </c:forEach>
+                        </c:if>
+
+                        <li>
+                            <a href='javascript:void(0)' datatitle='${document.documentTitle }'
+                               datadescription='${content }'
+                               class='article png_bg'
+                               title='${document.documentTitle }'>
+                                <span><h4>${document.documentTitle }</h4></span>
+                            </a>
+                        </li>
+
+                    </c:forEach>
+                </c:if>
+
             </ul>
         </div>
         <div class="clearfix"></div>
     </div>
-    
-	<div id="detail-content">
-        <a href="javascript:void(0)" class="close png_bg"></a>
+
+    <div id="detail-content">
+
+        <nav class="control">
+            <ul>
+                <li class="close"><a href="javascript:void(0)" title="关闭" class="png_bg"></a></li>
+                <li class="previous"><a href="javascript:void(0)" title="上一个" class="png_bg"></a></li>
+                <li class="next"><a href="javascript:void(0)" title="下一个" class="png_bg"></a></li>
+            </ul>
+        </nav>
 
         <div class="media">
             <img src="data:image/gif;base64,R0lGODlhBAABAIABAMLBwfLx8SH5BAEAAAEALAAAAAAEAAEAAAICRF4AOw==" alt=""/>

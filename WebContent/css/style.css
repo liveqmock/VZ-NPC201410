@@ -1116,8 +1116,8 @@ footer p a#gotop.hover {
     position: relative;
     border-left: 0px solid #ccc;
     width: 46%;
-    left: 54%;
-    *left: 28%;
+    left: 53%;
+    *left: 27%;
     margin-top: -100px;
     padding: 0;
     min-height: 200px;
@@ -1129,7 +1129,7 @@ footer p a#gotop.hover {
 
 #container #dateContainer .year ul ul.left {
     left: 0;
-    *left: -27%;
+    *left: -26%;
 }
 
 #container #dateContainer .year ul ul {
@@ -1143,6 +1143,10 @@ footer p a#gotop.hover {
     height: auto;
     margin: 0 10px 10px 0;
     background: none;
+}
+
+#container #dateContainer .year ul ul.left li {
+    float: right;
 }
 
 #container #dateContainer .year ul ul li a {
@@ -1213,4 +1217,44 @@ footer p a#gotop.hover {
 }
 
 #container #dateContainer .year ul ul li a.video img {
+}
+
+/* 360 */
+
+#container #flashContent,
+#container #flashContent object {
+    width: 100%;
+    height: 700px;
+}
+
+/*搜索*/
+
+#container #search-box {
+    width: 100%;
+    height: 60px;
+    margin-bottom: 20px;
+    line-height: 60px;
+    background: #7d7d7d;
+    text-align: center;
+}
+
+#container #search-box input.text {
+    width: 400px;
+    height: 30px;
+    line-height: 30px;
+    _margin-top: 15px;
+    border: 0;
+}
+
+#container #search-box input.btn {
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    _margin-top: 15px;
+    border: 0;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    background: #333;
+    cursor: pointer;
 }

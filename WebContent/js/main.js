@@ -15,8 +15,8 @@ if (!window.location.origin)
 
 if (!window.console) {
     window.console = {
-    	debug: function(msg) {
-    	},
+        debug: function (msg) {
+        },
         log: function () {
         },
         error: function () {
@@ -81,9 +81,9 @@ $(document).ready(function () {
     // 搜索
     $(".nav-search").click(function () {
         if ($("#keyword").val()) {
-        	window.location.href = window.location.origin + context + "/search.html?keyword=" + encodeURI($("#keyword").val());
+            window.location.href = window.location.origin + context + "/search.html?keyword=" + encodeURI($("#keyword").val());
         }
-        
+
         return false;
     });
 
@@ -159,7 +159,7 @@ $(document).ready(function () {
     //子页面相关信息显示隐藏
     $("#relate-content .media").on('click', 'a', function (e) {
         e.preventDefault();
-        $("#relate-content, #main-content").hide();
+        $("#relate-content, #main-content, .for-search").hide();
 
         $("#detail-content .article").remove();
         $("#detail-content .media").html("").show();
@@ -225,7 +225,7 @@ $(document).ready(function () {
     });
     $("#detail-content .close a").click(function (e) {
         e.preventDefault();
-        $("#relate-content, #main-content").show();
+        $("#relate-content, #main-content, .for-search").show();
         $("#detail-content").hide();
         goToPageTop();
     });
