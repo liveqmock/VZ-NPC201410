@@ -1,0 +1,38 @@
+<xml>
+<room>
+	<vid>piconly2\0.mp4</vid>
+	<sphere>
+		<src>piconly2\sphere\c00.png</src>
+	</sphere>
+	<plane>
+		<src>piconly2\plane\00.jpg</src>
+		<src>piconly2\plane\01.jpg</src>
+		<src>piconly2\plane\02.jpg</src>
+		<src>piconly2\plane\03.jpg</src>
+		<src>piconly2\plane\04.jpg</src>
+		<src>piconly2\plane\05.jpg</src>
+		<src>piconly2\plane\06.jpg</src>
+		<src>piconly2\plane\07.jpg</src>
+		<src>piconly2\plane\08.jpg</src>
+		<src>piconly2\plane\09.jpg</src>
+		<src>piconly2\plane\10.jpg</src>
+		<src>piconly2\plane\11.jpg</src>
+		<src>piconly2\plane\12.jpg</src>
+	</plane>
+	<url>
+		<src>congress/1.html</src>
+		<src>congress/2.html</src>
+		<src>congress/3.html</src>
+		<src>congress/4.html</src>
+		<src>congress/5.html</src>
+		<src>congress/6.html</src>
+		<src>congress/7.html</src>
+		<src>congress/8.html</src>
+		<src>congress/9.html</src>
+		<src>congress/10.html</src>
+		<src>congress/11.html</src>
+		<src>congress/12.html</src>
+		<src>congress/0.html</src>
+	</url>	
+</room>
+</xml>
