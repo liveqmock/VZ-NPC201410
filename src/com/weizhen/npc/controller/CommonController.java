@@ -70,4 +70,20 @@ public class CommonController extends BaseController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/3d.html")
+	public ModelAndView threed(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("3d");
+		mav.addObject("congresses", congressService.loadAll());
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/360.html")
+	public ModelAndView threesixzero(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("360");
+		mav.addObject("congresses", congressService.loadAll());
+		
+		return mav;
+	}
+	
 }
