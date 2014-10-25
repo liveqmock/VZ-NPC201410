@@ -186,9 +186,9 @@
 
                     var content = relate['imageRelatedDescription'] || '';
 
-                    var _title = title;
-                    if (title.length > 28) {
-                        _title = subStr(title, 28);
+                    var _title = relate['imageRelatedTitle'] || '';
+                    if (_title.length > 28) {
+                        _title = subStr(_title, 28);
                     }
 
                     var tHtml = "<li><a href='javascript:void(0)' datatitle='" + relate['imageRelatedTitle'] + "' datadescription='" + content + "' file='" + relate['imageRelatedFilepath'] + "' " +
