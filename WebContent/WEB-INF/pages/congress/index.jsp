@@ -48,7 +48,7 @@ pageEncoding="UTF-8"%>
         <div class="wrapper">
             <c:if test="${congress.congressId == 0}">
                 <div id="index-video-content">
-                    <video id="index-video" src="${context }/Img/xi.mp4" width="625" height="500"></video>
+                    <video id="index-video" src="${context }/Img/xi.flv" width="668" height="500"></video>
                 </div>
                 <a class="play png_bg"></a>
             </c:if>

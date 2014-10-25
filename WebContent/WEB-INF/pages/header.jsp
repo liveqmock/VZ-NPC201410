@@ -12,7 +12,7 @@
                 <li class="nav-location"><a href="${context }/3d.html"></a></li>
                 <li class="nav-input"><input name="keyword" id="keyword" type="text"/></li>
                 <li class="nav-search"><a href="javascript:void(0)"></a></li>
-                <li class="nav-session"><a href="#"></a>
+                <li class="nav-session"><a href="${context }/index.html"></a>
                     <ul>
                         <c:if test="${!empty congresses && fn:length(congresses) > 0}">
                             <c:forEach var="congress" items="${congresses}" varStatus="row">

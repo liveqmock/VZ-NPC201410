@@ -28,39 +28,15 @@ pageEncoding="UTF-8"%>
     <![endif]-->
 </head>
 <body>
-	<%@ include file="header.jsp" %>
+<%@ include file="header.jsp" %>
 <div id="container">
-    <div id="index-main-content">
-        <div class="wrapper" title="进入序言">
-            <img src="image/index_main.jpg" alt="进入序言" id="index-main-img"/>
-        </div>
-    </div>
-    <div id="session-nav">
-        <ul>
-            <c:if test="${!empty congresses && fn:length(congresses) > 0}">
-                <c:set var="rowIndex" value="1"></c:set>
-                <c:forEach var="congress" items="${congresses}" varStatus="row">
-                    <c:if test="${congress.congressId > 0 }">
-                        <li><a href="congress/${congress.congressId }.html"> <span>
-										    <h3>第${congress.congressId }届全国人民代表大会<br/>
-                                                <strong>SESSION ${congress.congressId } OF THE NATIONAL PEOPLE'S
-                                                    CONGRESS</strong></h3>
-										    <c:if
-                                                    test="${!empty congress.congressResumes && fn:length(congress.congressResumes) > 0 }">
-                                                <c:forEach var="congressResume"
-                                                           items="${congress.congressResumes }">
-                                                    <p>${congressResume.resume }</p>
-                                                </c:forEach>
-                                            </c:if></span>
+    <div id="unityPlayer">
+        <div class="missing">
+            <a href="http://unity3d.com/cn/webplayer" title="安装 Unity3d Web 播放器">
+                <img alt="安装 Unity3d Web 播放器" src="http://webplayer.unity3d.com/installation/getunity.png"/>
 
-                            <div><img src="image/index_s${congress.congressId }.jpg" alt=""/></div>
-                        </a></li>
-                        <c:set var="rowIndex" value="${rowIndex+1 }"></c:set>
-                    </c:if>
-                </c:forEach>
-            </c:if>
-        </ul>
-        <div class="clearfix"></div>
+                <p>您的电脑还未安装3D播放器，点击安装播放器</p></a>
+        </div>
     </div>
 </div>
 <footer>
@@ -68,6 +44,7 @@ pageEncoding="UTF-8"%>
 </footer>
 
 <script src="js/vendor/jquery.min.js"></script>
+<script src="js/vendor/UnityObject.js"></script>
 <!--[if lt IE 7]>
 <script>
     $(document).ready(function () {
@@ -78,5 +55,23 @@ pageEncoding="UTF-8"%>
 </script>
 <![endif]-->
 <script src="js/main.js"></script>
+<script>
+
+    function GetUnity() {
+        if (typeof unityObject != "undefined") {
+            return unityObject.getObjectById("unityPlayer");
+        }
+        return null;
+    }
+    if (typeof unityObject != "undefined") {
+        unityObject.embedUnity("unityPlayer", "Img/renda2.unity3d", 1000, 530, { logoimage: 'image/unity/zi.png', disableContextMenu: 'true' });
+    }
+
+    function OpenNPC(id) {
+        if (id >= 0 && id <= 12) {
+            window.location.href = "congress/" + id + ".html";
+        }
+    }
+</script>
 </body>
 </html>

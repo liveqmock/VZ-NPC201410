@@ -463,8 +463,8 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     display: none;
     position: absolute;
     left: 50%;
-    margin-left: -302.5px;
-    height: 484px;
+    margin-left: -334px;
+    height: 500px;
     vertical-align: middle;
     z-index: 300;
 }
@@ -1225,6 +1225,18 @@ footer p a#gotop.hover {
 #container #flashContent object {
     width: 100%;
     height: 700px;
+}
+
+/* 3D */
+
+#container #unityPlayer {
+    width: 100% !important;
+    height: 700px;
+    text-align: center;
+}
+
+#container #unityPlayer .missing {
+    margin-top: 150px;
 }
 
 /*搜索*/

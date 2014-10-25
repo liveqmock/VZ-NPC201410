@@ -2,7 +2,7 @@
 <room>
 	<vid>piconly2\0.mp4</vid>
 	<sphere>
-		<src>piconly2\sphere\c00.png</src>
+		<src>piconly2\sphere\c00.jpg</src>
 	</sphere>
 	<plane>
 		<src>piconly2\plane\00.jpg</src>
