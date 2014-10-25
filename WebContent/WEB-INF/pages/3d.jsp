@@ -56,22 +56,30 @@ pageEncoding="UTF-8"%>
 <![endif]-->
 <script src="js/main.js"></script>
 <script>
+    $(document).ready(function () {
+        $("li, span, a").hover(function () {
+            $(this).toggleClass("hover");
+        });
 
-    function GetUnity() {
+        function GetUnity() {
+            if (typeof unityObject != "undefined") {
+                return unityObject.getObjectById("unityPlayer");
+            }
+            return null;
+        }
+
+        var width = $("#unityPlayer").width();
+
         if (typeof unityObject != "undefined") {
-            return unityObject.getObjectById("unityPlayer");
+            unityObject.embedUnity("unityPlayer", "Img/renda2.unity3d", width, parseInt(width / 1.9), { logoimage: 'images/unity/zi.png', disableContextMenu: 'true' });
         }
-        return null;
-    }
-    if (typeof unityObject != "undefined") {
-        unityObject.embedUnity("unityPlayer", "Img/renda2.unity3d", 1000, 530, { logoimage: 'image/unity/zi.png', disableContextMenu: 'true' });
-    }
 
-    function OpenNPC(id) {
-        if (id >= 0 && id <= 12) {
-            window.location.href = "congress/" + id + ".html";
+        function OpenNPC(id) {
+            if (id >= 0 && id <= 12) {
+                window.location.href = "congress/" + id + ".html";
+            }
         }
-    }
+    });
 </script>
 </body>
 </html>
