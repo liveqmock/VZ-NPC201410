@@ -46,7 +46,7 @@ public class DateImageRelated implements Serializable {
 	}
 
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "image_Related_id")
 	public ImageRelated getImageRelated() {
 		return this.imageRelated;

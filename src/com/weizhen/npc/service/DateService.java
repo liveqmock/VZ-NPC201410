@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import com.fylaw.utils.DateTimeUtils;
 import com.weizhen.npc.base.BaseService;
 import com.weizhen.npc.dao.DateDAO;
+import com.weizhen.npc.model.DateDocument;
+import com.weizhen.npc.model.DateImageMain;
+import com.weizhen.npc.model.DateImageRelated;
 import com.weizhen.npc.model.Document;
 import com.weizhen.npc.model.ImageMain;
 import com.weizhen.npc.model.ImageRelated;
@@ -50,4 +53,17 @@ public class DateService extends BaseService {
 		
 		return dateDao.findDocumentsByDate(start, end);
 	}
+	
+	public List<DateImageMain> findDateImageMains(String direction) {
+		return dateDao.findDateImageMains(direction);
+	}
+	
+	public List<DateImageRelated> findDateImageRelateds(String direction) {
+		return dateDao.findDateImageRelateds(direction);
+	}
+	
+	public List<DateDocument> findDateDocuments(String direction) {
+		
+		return dateDao.findDateDocuments(direction);
+	}	
 }

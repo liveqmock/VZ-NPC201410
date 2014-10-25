@@ -223,6 +223,9 @@ $(document).ready(function () {
         $("#detail-content").show();
         goToPageTop();
     });
+    
+
+    
     $("#detail-content .close a").click(function (e) {
         e.preventDefault();
         $("#relate-content, #main-content, .for-search").show();

@@ -12,7 +12,9 @@ import com.chineseall.dams.common.paging.NameValuePair;
 import com.chineseall.dams.common.paging.Paging;
 import com.chineseall.dams.common.paging.PagingQueryResult;
 import com.weizhen.npc.base.BaseEntityDaoSupport;
+import com.weizhen.npc.model.DateDocument;
 import com.weizhen.npc.model.DateImageMain;
+import com.weizhen.npc.model.DateImageRelated;
 import com.weizhen.npc.model.Document;
 import com.weizhen.npc.model.ImageMain;
 import com.weizhen.npc.model.ImageRelated;
@@ -25,6 +27,7 @@ import com.weizhen.npc.model.ImageRelated;
 @Repository
 public class DateDAO extends BaseEntityDaoSupport<DateImageMain> {
 	private Paging paging = new Paging(1, Integer.MAX_VALUE);
+	private List<NameValuePair> emptyNameValuePairs = new ArrayList<NameValuePair>();
 	
 	
 	public List<String> findAllPublishDateInMonth() {
@@ -88,5 +91,29 @@ public class DateDAO extends BaseEntityDaoSupport<DateImageMain> {
 		
 		return result.getRecords();
 	}
+	
+	public List<DateImageMain> findDateImageMains(String direction) {
+		String ql = " from DateImageMain m order by m.publishDate " + direction;
+		
+		PagingQueryResult<DateImageMain> result = this.pagingQuery(ql, emptyNameValuePairs, paging);
+		
+		return result.getRecords();
+	}
+	
+	public List<DateImageRelated> findDateImageRelateds(String direction) {
+		String ql = " from DateImageRelated m order by m.publishDate " + direction;
+		
+		PagingQueryResult<DateImageRelated> result = this.pagingQuery(ql, emptyNameValuePairs, paging);
+		
+		return result.getRecords();
+	}
+	
+	public List<DateDocument> findDateDocuments(String direction) {
+		String ql = " from DateDocument m order by m.publishDate " + direction;
+		
+		PagingQueryResult<DateDocument> result = this.pagingQuery(ql, emptyNameValuePairs, paging);
+		
+		return result.getRecords();
+	}	
 	
 }

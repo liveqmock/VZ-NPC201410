@@ -46,7 +46,7 @@ public class DateDocument implements Serializable {
 	}
 
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "document_id")
 	public Document getDocument() {
 		return this.document;
