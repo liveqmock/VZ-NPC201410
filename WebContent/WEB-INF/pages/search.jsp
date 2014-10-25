@@ -35,12 +35,12 @@ pageEncoding="UTF-8"%>
 <div id="container">
 
     <div id="search-box">
-        	<input type="text" class="text" id="_keyword" value="${keyword }" />
-        	<input type="submit" value="搜 索" class="btn"/>
+        <input type="text" class="text" id="_keyword" value="${keyword }" placeholder="请输入搜索关键字..."/>
+        <input type="submit" value="搜 索" class="btn"/>
     </div>
-    
-    <div id="nodata" style="display:none;">
-    	<p>无搜索结果</p>
+
+    <div id="nodata" style="display:none;text-align: center;">
+
     </div>
 
     <div id="gallery-content" style="display: block" class="for-search">
@@ -120,7 +120,7 @@ pageEncoding="UTF-8"%>
         </div>
         <div class="clearfix"></div>
     </div>
-    
+
 
     <div id="detail-content">
 
@@ -159,26 +159,28 @@ pageEncoding="UTF-8"%>
 <![endif]-->
 <script src="js/main.js"></script>
 
-	<script type="text/javascript">
-		$(document).ready(function(){
-			
-			var dataSize = $("#gallery-content li").size() + $("#relate-content li").size();
-			if (dataSize == 0) {
-				$("#nodata").css("display", "");
-			}
-			
-			$("#search-box .btn").click(function(e){
-				window.location.href = window.location.origin + context + "/search.html?keyword=" + encodeURI($("#_keyword").val());
+<script type="text/javascript">
+    $(document).ready(function () {
 
-		        return false;
-			});
-			
-			$("#gallery-content a").click(function(e){
-				showDetail($(this));
-			});
-			
-		});
-	</script>
+        var dataSize = $("#gallery-content li").size() + $("#relate-content li").size();
+        if ($("#_keyword").val() && dataSize == 0) {
+            $("#nodata").html("<h3>没有找到您要搜索的信息</h3>").show();
+        }
+
+        $("#search-box .btn").click(function (e) {
+            window.location.href = window.location.origin + context + "/search.html?keyword=" + encodeURI($("#_keyword").val());
+
+            return false;
+        });
+
+        $("#gallery-content a").click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            showDetail($(this));
+        });
+
+    });
+</script>
 
 </body>
 </html>
