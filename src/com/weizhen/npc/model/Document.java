@@ -244,4 +244,19 @@ public class Document implements Serializable {
 		this.paragraphs = paragraphs;
 	}
 	
+	public String comboParagraphContent() {
+		return comboParagraphContent("<br />");
+	}
+	
+	public String comboParagraphContent(String split) {
+		if (null == this.paragraphs || this.paragraphs.size() == 0)
+			return null;
+		
+		String paragraphContent = this.paragraphs.get(0).getParagraphContent();
+		for(int index = 1; index < this.paragraphs.size(); index++) {
+			paragraphContent += split + this.paragraphs.get(index).getParagraphContent();
+		}
+		
+		return paragraphContent;
+	}
 }

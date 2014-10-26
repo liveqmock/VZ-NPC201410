@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
+import com.weizhen.npc.vo.DetailVO;
 
 
 /**
@@ -30,6 +33,8 @@ public class Location implements Serializable {
 	private String locationResume;
 	private String locationTitle;
 	private Date updateTime;
+	
+	private DetailVO detail;
 
 	public Location() {
 	}
@@ -127,4 +132,12 @@ public class Location implements Serializable {
 		this.updateTime = updateTime;
 	}
 
+	@Transient
+	public DetailVO getDetail() {
+		return detail;
+	}
+
+	public void setDetail(DetailVO detail) {
+		this.detail = detail;
+	}
 }

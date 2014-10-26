@@ -52,6 +52,10 @@ public class LocationController extends BaseController {
 		mav.addObject("congresses", congresses);
 		
 		List<Location> locations = locationService.loadAll();
+		for(Location location : locations) {
+			locationService.fillWithDetail(location);
+		}
+		
 		mav.addObject("locations", locations);
 			
 		return mav;
