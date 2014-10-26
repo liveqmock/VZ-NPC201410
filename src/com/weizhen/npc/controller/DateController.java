@@ -2,11 +2,12 @@ package com.weizhen.npc.controller;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.map.ListOrderedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,6 +39,7 @@ import com.weizhen.npc.vo.DateVO;
 @Controller
 @RequestMapping(value="/date")
 @SessionAttributes({ "congresses" })
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class DateController extends BaseController {
 	
 	@Autowired
@@ -46,7 +48,6 @@ public class DateController extends BaseController {
 	@Autowired
 	private DateService dateService;
 
-	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/index")
 	public ModelAndView index(String direction) {
 		ModelAndView mav = new ModelAndView();
@@ -56,7 +57,7 @@ public class DateController extends BaseController {
 		mav.addObject("congresses", congresses);
 		
 		if (null == direction) direction = "asc";
-		ListOrderedMap datas = new ListOrderedMap();
+		Map<String, Map<String, List>> datas = new HashMap<String, Map<String, List>>();
 		
 		List<DateImageMain> dateImageMains = dateService.findDateImageMains(direction);
 		List<DateImageRelated> dateImageRelateds = dateService.findDateImageRelateds(direction);
@@ -64,22 +65,22 @@ public class DateController extends BaseController {
 		
 		if (EntityUtils.notEmpty(dateImageMains)) {
 			for (DateImageMain dateImageMain : dateImageMains) {
-				Map<String, List<?>> data = getData(datas, DateTimeUtils.format(dateImageMain.getPublishDate(), "yyyyMM"));
-				((List<ImageMain>) data.get("imageMains")).add(dateImageMain.getImageMain());
+				Map<String, List> data = getData(datas, DateTimeUtils.format(dateImageMain.getPublishDate(), "yyyyMM"));
+				data.get("imageMains").add(dateImageMain.getImageMain());
 			}
 		}
 		
 		if (EntityUtils.notEmpty(dateImageRelateds)) {
 			for (DateImageRelated dateImageRelated : dateImageRelateds) {
-				Map<String, List<?>> data = getData(datas, DateTimeUtils.format(dateImageRelated.getPublishDate(), "yyyyMM"));
-				((List<ImageRelated>) data.get("imageRelateds")).add(dateImageRelated.getImageRelated());
+				Map<String, List> data = getData(datas, DateTimeUtils.format(dateImageRelated.getPublishDate(), "yyyyMM"));
+				data.get("imageRelateds").add(dateImageRelated.getImageRelated());
 			}
 		}
 		
 		if (EntityUtils.notEmpty(dateDocuments)) {
 			for (DateDocument dateDocument : dateDocuments) {
-				Map<String, List<?>> data = getData(datas, DateTimeUtils.format(dateDocument.getPublishDate(), "yyyyMM"));
-				((List<Document>) data.get("documents")).add(dateDocument.getDocument());
+				Map<String, List> data = getData(datas, DateTimeUtils.format(dateDocument.getPublishDate(), "yyyyMM"));
+				data.get("documents").add(dateDocument.getDocument());
 			}
 		}	
 		
@@ -88,22 +89,31 @@ public class DateController extends BaseController {
 			DateVO dateVO = new DateVO();
 			dateVO.setPublishDate((String)publishDate);
 			
-			Map<String, List<?>> data = (Map<String, List<?>>)datas.get(publishDate);
+			Map<String, List> data = (Map<String, List>)datas.get(publishDate);
 			dateVO.setImageMains((List<ImageMain>) data.get("imageMains"));
 			dateVO.setImageRelateds((List<ImageRelated>) data.get("imageRelateds"));
 			dateVO.setDocuments((List<Document>) data.get("documents"));
 			dateVOs.add(dateVO);
 		}
+		
+		Collections.sort(dateVOs, new Comparator<DateVO>() {
+
+			@Override
+			public int compare(DateVO arg0, DateVO arg1) {
+				return arg0.getPublishDate().compareTo(arg1.getPublishDate());
+			}
+			
+		});
+		
 		mav.addObject("dateVOs", dateVOs);
 			
 		return mav;
 	}
 	
-	@SuppressWarnings("unchecked")
-	private Map<String, List<?>> getData(ListOrderedMap datas, String publishDate) {
-		Map<String, List<?>> data = (Map<String, List<?>>) datas.get(publishDate);
+	private Map<String, List> getData(Map<String, Map<String, List>> datas, String publishDate) {
+		Map<String, List> data = datas.get(publishDate);
 		if (null == data) {
-			data = new HashMap<String, List<?>>();
+			data = new HashMap<String, List>();
 			data.put("imageMains", new ArrayList<ImageMain>());
 			data.put("imageRelateds", new ArrayList<ImageRelated>());
 			data.put("documents", new ArrayList<Document>());
@@ -128,33 +138,5 @@ public class DateController extends BaseController {
 			
 		return datas;
 	}
-	
-	@SuppressWarnings({"unchecked","rawtypes"})
-	public static void main(String[] args) {
-		ListOrderedMap m = new ListOrderedMap();
-		Map data = new HashMap();
-		data.put("documents", new ArrayList<Document>());
-		m.put("201410", data);
-		
-		((List<Document>)((Map)m.get("201410")).get("documents")).add(new Document());
-		System.out.println(((List<Document>)((Map)m.get("201410")).get("documents")).size());
-		
-		System.out.println(m.get(0));
-		
-		m.put("3", "third");
-		m.put("2", "second");
-		
-		for(Object o : m.keySet()) {
-			System.out.println(m.get(o));
-		}
-		
-		Map hm = new HashMap();
-		hm.put("1", "first");
-		hm.put("3", "third");
-		hm.put("2", "second");
-		
-		for(Object o : hm.keySet()) {
-			System.out.println(hm.get(o));
-		}
-	}
+
 }
