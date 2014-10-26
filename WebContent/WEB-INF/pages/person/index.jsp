@@ -98,8 +98,6 @@
             </ul>
         </nav>
 
-        <a href="javascript:void(0)" class="close png_bg"></a>
-
         <div class="media">
             <img src="data:image/gif;base64,R0lGODlhBAABAIABAMLBwfLx8SH5BAEAAAEALAAAAAAEAAEAAAICRF4AOw==" alt=""/>
         </div>

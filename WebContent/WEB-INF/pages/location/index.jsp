@@ -100,10 +100,11 @@
 
 <script>
 
+
     // 调用百度地图API显示地图
     function markLocationInMap(source, showInfoWindow) {
-    	var _showInfoWindow = showInfoWindow || false;
-    	
+        var _showInfoWindow = showInfoWindow || false;
+
         var lng = source.attr('data-locationLng');
         var lnt = source.attr('data-locationLnt');
         var gpsPoint = new BMap.Point(lng, lnt);
@@ -119,14 +120,15 @@
             infoHtml += "<p>" + source.attr('data-detail-title') + "<br/>[" + source.attr('data-locationName') + "]</p>"
             infoHtml += "<img src='" + context + '/' + transImagePath(source.attr('data-detail-thumbFilepath'), 's') + "'></img>"
             infoHtml += "</div>";
+
             var infoWindow = new BMap.InfoWindow(infoHtml, opts);
             marker.addEventListener('click', function () {
                 marker.openInfoWindow(infoWindow);
             });
-            
+
             markers[source.attr('data-locationId')] = {
-            	"marker" : marker,
-            	"infoWindow" : infoWindow
+                "marker": marker,
+                "infoWindow": infoWindow
             };
         });
     }
@@ -201,8 +203,6 @@
         map.enableScrollWheelZoom();
 
         $("#main-content li.locationitem a").click(function (e) {
-            // showLocation($(this));
-           	// markLocationInMap($(this));
             var t = markers[$(this).attr('data-locationId')];
             t['marker'].openInfoWindow(t['infoWindow']);
         });
@@ -210,8 +210,6 @@
         $("#main-content li.locationitem a").each(function (index, element) {
             markLocationInMap($(element));
         });
-        
-        //$("#main-content li.locationitem a:first").click();
         
         $("#detail-content .close a").unbind().click(function (e) {
             e.preventDefault();
@@ -227,6 +225,7 @@
 
         $(".modal").height($(document.body).height());
         $(".modal").width($('body, html').width());
+
     });
 </script>
 
