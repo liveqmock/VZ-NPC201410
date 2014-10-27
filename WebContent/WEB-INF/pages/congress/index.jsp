@@ -59,6 +59,9 @@ pageEncoding="UTF-8"%>
                 <li class="gallery"><a href="javascript:void(0)" title="所有图片" class="png_bg"></a></li>
                 <li class="previous"><a href="javascript:void(0)" title="上一个" class="png_bg"></a></li>
                 <li class="next"><a href="javascript:void(0)" title="下一个" class="png_bg"></a></li>
+                <li class="previousCon"><a href="javascript:void(0)" title="上一届" class="png_bg">上一届</a></li>
+                <li class="nextCon"><a href="javascript:void(0)" title="下一届" class="png_bg">下一届</a></li>
+                <li class="home"><a href="${context }/index.html" title="回到首页" class="png_bg">回到首页</a></li>
             </ul>
         </nav>
         <span class="tbar"></span>
@@ -79,6 +82,8 @@ pageEncoding="UTF-8"%>
         <div class="clearfix"></div>
     </div>
     <div id="gallery-content">
+        <!-- 这个地方要根据届别来改 -->
+        <h2 title="第n届全国人民代表大会"><img src="${context }/images/banner_01.jpg" alt=""/></h2>
         <ul>
             <c:if test="${!empty imageMains && fn:length(imageMains) > 0}">
                 <c:forEach var="imageMain" items="${imageMains}" varStatus="row">

@@ -24,9 +24,9 @@
                 </li>
                 <li class="nav-discovery"><a href="#"></a>
                     <ul>
-                        <li class="nav-discovery-1"><a href="${context }/person/index.html"></a></li>
-                        <li class="nav-discovery-2"><a href="${context }/location/index.html"></a></li>
-                        <li class="nav-discovery-3"><a href="${context }/date/index.html"></a></li>
+                        <li class="nav-discovery-1"><a href="#"></a></li>
+                        <li class="nav-discovery-2"><a href="#"></a></li>
+                        <li class="nav-discovery-3"><a href="#"></a></li>
                     </ul>
                 </li>
             </ul>

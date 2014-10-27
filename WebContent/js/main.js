@@ -132,9 +132,9 @@ $(document).ready(function () {
         });
     }
 
-    $("#index-main-img").click(function () {
-        window.location.href = window.location.origin + context + "/congress/0.html";
-    });
+//    $("#index-main-img").click(function () {
+//        window.location.href = window.location.origin + context + "/congress/0.html";
+//    });
 
     //首页届别浮动文字
     $("#session-nav li a").on("mouseenter", function () {
