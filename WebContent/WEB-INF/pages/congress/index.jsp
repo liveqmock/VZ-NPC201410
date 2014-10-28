@@ -168,9 +168,22 @@ pageEncoding="UTF-8"%>
             success: function (data, textStatus, jqXHR) {
                 currentImageMainId = imageMainId;
                 currentIndex = $.inArray(currentImageMainId, imageMainIds);
+                
+                // 浏览到第一张的时候,隐藏"上一张"箭头
+                if (currentIndex <= 1) {
+                	$("#main-content li.previous a").hide();
+                } else {
+                	$("#main-content li.previous a").show();
+                }
+                
+                if (currentIndex >= imageMainIds.length - 1) {
+                	$("#main-content li.next a").hide();
+                } else {
+                	$("#main-content li.next a").show();
+                }
 
                 $("#main-content img")[0].src = '${context}/' + transImagePath(data['imageMainFilepath'], 'b');
-                $("#main-content .info").text("${congress.congressTitle} / (" + currentIndex + ")");
+                $("#main-content .info").text("${congress.congressTitle} " + currentIndex + "/" + (imageMainIds.length-1));
 
                 $("#relate-content .text h2").text(data['imageMainTitle']);
 
@@ -229,6 +242,7 @@ pageEncoding="UTF-8"%>
             }
         });
     }
+    
     $(document).ready(function () {
 
         $("#main-content li.gallery a").click(function (e) {
@@ -251,9 +265,7 @@ pageEncoding="UTF-8"%>
             }
         });
 
-        $("#main-content .info").text("${congress.congressTitle} / (" + currentIndex + ")");
-
-        showImageMain('${firstImageMain.imageMainId}');
+        showImageMain(currentImageMainId);
     });
 </script>
 </body>
