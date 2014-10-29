@@ -74,7 +74,7 @@ $(document).ready(function () {
 
     // 搜索
     $(".nav-search").click(function () {
-    	window.location.href = window.location.origin + context + "/search.html?keyword=" + encodeURI($("#keyword").val());
+        window.location.href = window.location.origin + context + "/search.html?keyword=" + encodeURI($("#keyword").val());
 
         return false;
     });
@@ -90,6 +90,7 @@ $(document).ready(function () {
                 player = new MediaElement('index-video', {
                     plugins: ['flash'],
                     pluginPath: context + '/js/vendor/',
+                    pauseOtherPlayers: true,
                     flashName: 'flashmediaelement.swf',
                     success: function (mediaElement, domObject) {
                         $(this).on('click', function () {
@@ -216,41 +217,40 @@ $(document).ready(function () {
         $("#detail-content").show();
         goToPageTop();
     });
-    
 
-    
+
     $("#detail-content .close a").click(function (e) {
         e.preventDefault();
         $("#relate-content, #main-content, .for-search").show();
         $("#detail-content").hide();
         goToPageTop();
     });
-    
+
     $("#detail-content .previous a").click(function (e) {
-    	e.preventDefault();
-    	
-    	var sourceElement = $("#detail-content").data("source_element");
-    	if (sourceElement) {
-    		var prev = sourceElement.parent("li").prev("li");
-    		if (prev) {
-    			prev.children("a").click();
-    		}
-    	}
+        e.preventDefault();
+
+        var sourceElement = $("#detail-content").data("source_element");
+        if (sourceElement) {
+            var prev = sourceElement.parent("li").prev("li");
+            if (prev) {
+                prev.children("a").click();
+            }
+        }
     });
-    
+
     $("#detail-content .next a").click(function (e) {
-    	e.preventDefault();
-    	
-    	var sourceElement = $("#detail-content").data("source_element");
-    	if (sourceElement) {
-    		var prev = sourceElement.parent("li").next("li");
-    		if (prev) {
-    			prev.children("a").click();
-    		}
-    	}
+        e.preventDefault();
+
+        var sourceElement = $("#detail-content").data("source_element");
+        if (sourceElement) {
+            var prev = sourceElement.parent("li").next("li");
+            if (prev) {
+                prev.children("a").click();
+            }
+        }
     });
-    
-    
+
+
     $("#main-content a.gallery").click(function (e) {
         e.preventDefault();
         $("#relate-content, #main-content").hide();
@@ -335,9 +335,9 @@ function showDetail(source) {
     }
 
     $("#detail-content").data("source_element", source);
-    
+
     $("#detail-content").show();
-    goToPageTop();	
+    goToPageTop();
 }
 
 

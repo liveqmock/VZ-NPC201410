@@ -1,23 +1,23 @@
 <xml>
 <room>
-	<vid>piconly2\0.mp4</vid>
+	<vid>Img\360.mp4</vid>
 	<sphere>
-		<src>piconly2\sphere\c00.jpg</src>
+		<src>image\360bg.jpg</src>
 	</sphere>
 	<plane>
-		<src>piconly2\plane\00.jpg</src>
-		<src>piconly2\plane\01.jpg</src>
-		<src>piconly2\plane\02.jpg</src>
-		<src>piconly2\plane\03.jpg</src>
-		<src>piconly2\plane\04.jpg</src>
-		<src>piconly2\plane\05.jpg</src>
-		<src>piconly2\plane\06.jpg</src>
-		<src>piconly2\plane\07.jpg</src>
-		<src>piconly2\plane\08.jpg</src>
-		<src>piconly2\plane\09.jpg</src>
-		<src>piconly2\plane\10.jpg</src>
-		<src>piconly2\plane\11.jpg</src>
-		<src>piconly2\plane\12.jpg</src>
+		<src>image\index_s1.jpg</src>
+		<src>image\index_s2.jpg</src>
+		<src>image\index_s3.jpg</src>
+		<src>image\index_s4.jpg</src>
+		<src>image\index_s5.jpg</src>
+		<src>image\index_s6.jpg</src>
+		<src>image\index_s7.jpg</src>
+		<src>image\index_s8.jpg</src>
+		<src>image\index_s9.jpg</src>
+		<src>image\index_s10.jpg</src>
+		<src>image\index_s11.jpg</src>
+		<src>image\index_s12.jpg</src>
+		<src>image\index_s0.jpg</src>
 	</plane>
 	<url>
 		<src>congress/1.html</src>

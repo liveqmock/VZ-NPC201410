@@ -65,8 +65,7 @@ pageEncoding="UTF-8"%>
     </div>
 
     <div id="gallery-content">
-        <!-- 这个地方要根据届别来改 -->
-        <h2 title="第n届全国人民代表大会"><img src="${context }/images/banner_01.jpg" alt=""/></h2>
+        <h2 class="con-title"><img src="${context }/image/title_s${congress.congressId}.png" alt=""/></h2>
         <ul>
             <c:if test="${!empty imageMains && fn:length(imageMains) > 0}">
                 <c:forEach var="imageMain" items="${imageMains}" varStatus="row">
@@ -119,18 +118,6 @@ pageEncoding="UTF-8"%>
 
     function showImageMain(imageMainId) {
 
-//        console.log(currentIndex);
-//        if (currentIndex && currentIndex <= 1) {
-//            $("#main-content li.previous").hide();
-//        } else {
-//            $("#main-content li.previous").show();
-//        }
-//        if (currentIndex && currentIndex >= imageMainIds.length - 1) {
-//            $("#main-content li.next").hide();
-//        } else {
-//            $("#main-content li.next").show();
-//        }
-
         imageMainId = imageMainId * 1;
 
         $.ajax("${context}/imagemain/" + imageMainId + ".html", {
@@ -143,15 +130,15 @@ pageEncoding="UTF-8"%>
 
                 // 浏览到第一张的时候,隐藏"上一张"箭头
                 if (currentIndex <= 1) {
-                    $("#main-content li.previous a").hide();
+                    $("#main-content li.previous").addClass("disable");
                 } else {
-                    $("#main-content li.previous a").show();
+                    $("#main-content li.previous").removeClass("disable");
                 }
 
                 if (currentIndex >= imageMainIds.length - 1) {
-                    $("#main-content li.next a").hide();
+                    $("#main-content li.next").addClass("disable");
                 } else {
-                    $("#main-content li.next a").show();
+                    $("#main-content li.next").removeClass("disable");
                 }
 
                 $("#main-content img")[0].src = '${context}/' + transImagePath(data['imageMainFilepath'], 'b');
@@ -164,6 +151,25 @@ pageEncoding="UTF-8"%>
                 //.replace(new RegExp('/n', 'g'), '<br/><br/>'));
 
                 $("#relate-content .media ul").html('');
+
+                for (var index in data['documents']) {
+                    var document = data['documents'][index];
+                    var paragraphs = document['paragraphs'];
+                    var content = '';
+                    if (paragraphs && paragraphs.length > 0) {
+                        content = '<p>' + paragraphs[0]['paragraphContent'] + "</p>";
+                        for (var i = 1; i < paragraphs.length; i++) {
+                            content += '<p>' + paragraphs[i]['paragraphContent'] + "</p>";
+                        }
+                    }
+
+                    $("<li></li>").append(
+                            $("<a href='javascript:void(0)' class='article png_bg'><span><h4>" + document['documentTitle'] + "</h4></span></a>")
+                                    .attr('datatitle', document['documentTitle'])
+                                    .attr('datadescription', content)
+                                    .attr('title', document['documentTitle'])
+                    ).appendTo($("#relate-content .media ul"));
+                }
 
                 for (var index in data['imageRelateds']) {
                     var relate = data['imageRelateds'][index];
@@ -185,28 +191,6 @@ pageEncoding="UTF-8"%>
                             "class='" + materialType + "' title='" + title + "'><span><h4>" + _title + "</h4></span><img src='" + imgSrc + "' alt='" + title + "'></img>" +
                             "</a></li>";
                     $(tHtml).appendTo($("#relate-content .media ul"));
-                }
-
-                for (var index in data['documents']) {
-                    var document = data['documents'][index];
-                    var paragraphs = document['paragraphs'];
-                    var content = '';
-                    if (paragraphs && paragraphs.length > 0) {
-                        content = '<p>' + paragraphs[0]['paragraphContent'] + "</p>";
-                        for (var i = 1; i < paragraphs.length; i++) {
-                            content += '<p>' + paragraphs[i]['paragraphContent'] + "</p>";
-                        }
-                    }
-
-                    $("<li></li>").append(
-                            $("<a href='javascript:void(0)' class='article png_bg'><span><h4>" + document['documentTitle'] + "</h4></span></a>")
-                                    .attr('datatitle', document['documentTitle'])
-                                    .attr('datadescription', content)
-                                    .attr('title', document['documentTitle'])
-                    ).appendTo($("#relate-content .media ul"));
-
-                    //var tHtml = "<li><a href='javascript:void(0)' datatitle='" + document['documentTitle'] + "' datadescription='" + content + "' class='article'></a></li>";
-                    //$(tHtml).appendTo($("#relate-content .media ul"));
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {

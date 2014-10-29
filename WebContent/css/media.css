@@ -16,7 +16,7 @@
     }
 
     header nav ul li.nav-input {
-        display: none;
+        /*display: none;*/
     }
 
     #container #relate-content .text {
@@ -36,14 +36,21 @@
     #container #session-nav ul li a,
     #container #session-nav ul li a img {
         width: 327px;
-        height: 213px;
+        height: 251px;
     }
 
     #container #session-nav ul li a span {
         width: 327px;
-        height: 193px;
+        height: 220px;
     }
 
+    #container #session-nav ul li a span h3 {
+        text-align: center;
+    }
+
+    #container #session-nav ul li a span h3 strong {
+        display: block;
+    }
 
     #container #main-content #mapContainer {
         width: 740px;

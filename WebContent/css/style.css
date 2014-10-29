@@ -112,7 +112,7 @@ header #logo {
 header #logo a {
     float: left;
     display: block;
-    width: 440px;
+    width: 260px;
     height: 71px;
     background: url("../image/logo.png") no-repeat left top;
 }
@@ -386,6 +386,16 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     background-image: url("../image/nav_03_03_h.png");
 }
 
+#indexPlayer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5000;
+    background: #fff;
+}
+
 /***** Container *****/
 
 #container {
@@ -524,6 +534,38 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     background-image: url("../image/icon_previous_h.png");
 }
 
+#container nav.control ul li.previousCon a {
+    background-image: url("../image/icon_previousCon.png");
+}
+
+#container nav.control ul li.previousCon a:hover {
+    background-image: url("../image/icon_previousCon_h.png");
+}
+
+#container nav.control ul li.nextCon a {
+    background-image: url("../image/icon_nextCon.png");
+}
+
+#container nav.control ul li.nextCon a:hover {
+    background-image: url("../image/icon_nextCon_h.png");
+}
+
+#container nav.control ul li.home a {
+    background-image: url("../image/icon_home.png");
+}
+
+#container nav.control ul li.home a:hover {
+    background-image: url("../image/icon_home_h.png");
+}
+
+#container nav.control ul li.disable a {
+    background-image: url("../image/icon_disable.png");
+}
+
+#container nav.control ul li.disable a:hover {
+    background: url("../image/icon_disable.png") no-repeat;
+}
+
 #container #main-content img {
     height: 500px;
     /*max-height: 500px;*/
@@ -550,6 +592,10 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     width: 100%;
     vertical-align: middle;
     text-align: center;
+}
+
+#container #index-main-content .wrapper {
+    cursor: default;
 }
 
 #container #main-content .tbar {
@@ -614,9 +660,9 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     width: 33%;
     *width: 32.8%;
     margin: 8px 4px 0 0;
-    max-width: 436px;
-    _width: expression( document.body.clientWidth > 1400 ? "436px" : "32.8%" );
-    height: 284px;
+    max-width: 434px;
+    _width: expression( document.body.clientWidth > 1400 ? "434px" : "32.8%" );
+    height: 333px;
 }
 
 #container #session-nav ul li a {
@@ -624,8 +670,8 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     display: block;
     margin: 0;
     padding: 0;
-    /*width: 436px;*/
-    height: 284px;
+    /*width: 434px;*/
+    height: 333px;
     color: #fff;
     background: #780000;
     overflow: hidden;
@@ -644,7 +690,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 }
 
 #container #session-nav ul li a img {
-    height: 284px;
+    height: 333px;
 }
 
 #container #session-nav ul li a span {
@@ -652,8 +698,8 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     position: absolute;
     left: 0;
     top: 0;
-    /*width: 436px;*/
-    height: 264px;
+    /*width: 434px;*/
+    height: 310px;
     background: #780000;
     filter: alpha(opacity=90);
     -moz-opacity: 0.9;
@@ -706,7 +752,6 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 }
 
 #container #relate-content .text h2 {
-    text-indent: 2em;
     margin: 20px 20px 0 100px;
     font-size: 18px;
     font-weight: bold;
@@ -714,6 +759,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 }
 
 #container #relate-content .text p {
+    text-indent: 2em;
     margin: 20px 20px 0 100px;
     line-height: 1.7;
 }
@@ -806,6 +852,16 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     position: relative;
     width: 100%;
     min-height: 600px;
+}
+
+#container #gallery-content h2.con-title {
+    height: 100px;
+    line-height: 100px;
+    padding: 5px 0;
+    width: 99%;
+    text-align: center;
+    background-color: #ad0900;
+    margin: 0 auto 10px;
 }
 
 #container #gallery-content ul li {

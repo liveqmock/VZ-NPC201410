@@ -10,4 +10,8 @@
     <link rel="stylesheet" href="${context }/css/style.css"/>
     <link rel="stylesheet" href="${context }/css/media.css"/>
     <link rel="stylesheet" href="${context }/js/vendor/mediaelementplayer.min.css"/>
+    <!--[if lt IE 9]>
+    <script src="${context }/js/vendor/html5.min.js"></script>
+    <script src="${context }/js/vendor/respond.min.js"></script>
+    <![endif]-->
 </head>
