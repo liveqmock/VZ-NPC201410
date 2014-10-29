@@ -407,16 +407,11 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 }
 
 #container #main-content {
+    display: none;
     height: 500px;
     max-height: 500px;
     line-height: 500px;
     _height: expression( this.scrollHeight > 500 ? "500px" : "500px" );
-}
-
-#container #index-main-content {
-    height: 484px;
-    max-height: 484px;
-    _height: expression( this.scrollHeight > 484 ? "484px" : "484px" );
 }
 
 #container a.play {
@@ -442,16 +437,6 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     overflow: hidden;
     text-align: center;
     cursor: pointer;
-}
-
-#container #index-video-content {
-    display: none;
-    position: absolute;
-    left: 50%;
-    margin-left: -334px;
-    height: 500px;
-    vertical-align: middle;
-    z-index: 300;
 }
 
 #container .me-cannotplay {
@@ -546,13 +531,25 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     vertical-align: middle;
 }
 
-#container #index-main-content img {
+#container #index-video-content {
+    display: none;
     position: absolute;
     left: 50%;
-    margin-left: -665px;
-    height: 484px;
+    margin-left: -334px;
+    height: 500px;
     vertical-align: middle;
-    z-index: 30;
+    z-index: 300;
+}
+
+#container #index-main-content {
+    height: auto;
+    max-height: 380px;
+}
+
+#container #index-main-content img {
+    width: 100%;
+    vertical-align: middle;
+    text-align: center;
 }
 
 #container #main-content .tbar {
@@ -698,6 +695,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 }
 
 #container #relate-content {
+    display: none;
     width: 100%;
     padding-top: 30px;
 }
@@ -804,7 +802,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 }
 
 #container #gallery-content {
-    display: none;
+    /*display: none;*/
     position: relative;
     width: 100%;
     min-height: 600px;
@@ -933,6 +931,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 
 #container #detail-content p {
     margin: 20px 20px 0 20px;
+    font-size: 14px;
     line-height: 1.7;
     text-align: center;
 }

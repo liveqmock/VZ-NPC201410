@@ -7,26 +7,7 @@ pageEncoding="UTF-8"%>
 
 <%@ include file="common.jsp" %>
 
-<!DOCTYPE html>
-<html>
-<head lang="zh-cn">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>全国人大60周年数字虚拟展览</title>
-    <link rel="stylesheet" href="css/style.css"/>
-    <link rel="stylesheet" href="css/media.css"/>
-    <!--[if lt IE 9]>
-    <script src="js/vendor/html5.min.js"></script>
-    <script src="js/vendor/respond.min.js"></script>
-    <![endif]-->
-    <!--[if lt IE 7]>
-    <script src="js/vendor/DD_belatedPNG_0.0.8a-min.js"></script>
-    <script>
-        DD_belatedPNG.fix('.png_bg');
-    </script>
-    <![endif]-->
-</head>
+<%@ include file="doctype.jsp" %>
 <body>
 <%@ include file="header.jsp" %>
 <div id="container">
@@ -67,16 +48,6 @@ pageEncoding="UTF-8"%>
             <!--<![endif]-->
         </object>
     </div>
-    <script src="js/vendor/jquery.min.js"></script>
-    <!--[if lt IE 7]>
-    <script>
-        $(document).ready(function () {
-            $("li, span, a").hover(function () {
-                $(this).toggleClass("hover");
-            });
-        });
-    </script>
-    <![endif]-->
-    <script src="js/main.js"></script>
+    <%@ include file="script.jsp" %>
 </body>
 </html>

@@ -7,51 +7,40 @@ pageEncoding="UTF-8"%>
 
 <%@ include file="common.jsp" %>
 
-<!DOCTYPE html>
-<html>
-<head lang="zh-cn">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>人大60周年展</title>
-    <link rel="stylesheet" href="css/style.css"/>
-    <link rel="stylesheet" href="css/media.css"/>
-    <!--[if lt IE 9]>
-    <script src="js/vendor/html5.min.js"></script>
-    <script src="js/vendor/respond.min.js"></script>
-    <![endif]-->
-    <!--[if lt IE 7]>
-    <script src="js/vendor/DD_belatedPNG_0.0.8a-min.js"></script>
-    <script>
-        DD_belatedPNG.fix('.png_bg');
-    </script>
-    <![endif]-->
-</head>
+<%@ include file="doctype.jsp" %>
 <body>
-	<%@ include file="header.jsp" %>
+<%@ include file="header.jsp" %>
+
 <div id="container">
     <div id="index-main-content">
-        <div class="wrapper" title="进入序言">
-            <img src="image/index_main.jpg" alt="进入序言" id="index-main-img"/>
+        <div class="wrapper">
+            <img src="image/index_main3.jpg" alt="全国人大成立60周年网上纪念展"/>
         </div>
     </div>
     <div id="session-nav">
         <ul>
+            <li><a href="congress/0.html">
+                <span>
+                    <h3>序——历史的选择 ${congress.congressDescription }</h3>
+                    <p>“60年的实践充分证明，人民代表大会制度是符合中国国情和实际、体现社会主义国家性质、
+                        保证人民当家作主、保障实现中华民族伟大复兴的好制度。” ——摘自“庆祝全国人大成立60周年”习近平总书记讲话</p>
+                </span>
+
+                <div><img src="image/index_s${congress.congressId }.jpg" alt=""/></div>
+            </a></li>
             <c:if test="${!empty congresses && fn:length(congresses) > 0}">
                 <c:set var="rowIndex" value="1"></c:set>
                 <c:forEach var="congress" items="${congresses}" varStatus="row">
                     <c:if test="${congress.congressId > 0 }">
-                        <li><a href="congress/${congress.congressId }.html"> <span>
-										    <h3>第${congress.congressId }届全国人民代表大会<br/>
-                                                <strong>SESSION ${congress.congressId } OF THE NATIONAL PEOPLE'S
-                                                    CONGRESS</strong></h3>
-										    <c:if
-                                                    test="${!empty congress.congressResumes && fn:length(congress.congressResumes) > 0 }">
-                                                <c:forEach var="congressResume"
-                                                           items="${congress.congressResumes }">
-                                                    <p>${congressResume.resume }</p>
-                                                </c:forEach>
-                                            </c:if></span>
+                        <li><a href="congress/${congress.congressId }.html">
+                            <span>
+                                <h3>${congress.congressTitle }全国人民代表大会</h3>
+								<c:if test="${!empty congress.congressResumes && fn:length(congress.congressResumes) > 0 }">
+                                    <c:forEach var="congressResume" items="${congress.congressResumes }">
+                                        <p>${congressResume.resume }</p>
+                                    </c:forEach>
+                                </c:if>
+                            </span>
 
                             <div><img src="image/index_s${congress.congressId }.jpg" alt=""/></div>
                         </a></li>
@@ -67,16 +56,6 @@ pageEncoding="UTF-8"%>
     <p><a href="#top" id="gotop"></a></p>
 </footer>
 
-<script src="js/vendor/jquery.min.js"></script>
-<!--[if lt IE 7]>
-<script>
-    $(document).ready(function () {
-        $("li, span, a").hover(function () {
-            $(this).toggleClass("hover");
-        });
-    });
-</script>
-<![endif]-->
-<script src="js/main.js"></script>
+<%@ include file="script.jsp" %>
 </body>
 </html>

@@ -72,12 +72,6 @@ var goToPageTop = function () {
 
 $(document).ready(function () {
 
-    if (window.PIE) {
-        $('.c3').each(function () {
-            PIE.attach(this);
-        });
-    }
-
     // 搜索
     $(".nav-search").click(function () {
     	window.location.href = window.location.origin + context + "/search.html?keyword=" + encodeURI($("#keyword").val());

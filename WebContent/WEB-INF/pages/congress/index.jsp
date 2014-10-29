@@ -17,32 +17,9 @@ pageEncoding="UTF-8"%>
     </c:forEach>
 </c:if>
 
-<!DOCTYPE html>
-<html>
-<head lang="zh-cn">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>人大60周年展</title>
-    <link rel="stylesheet" href="${context }/css/style.css"/>
-    <link rel="stylesheet" href="${context }/css/media.css"/>
-    <link rel="stylesheet" href="${context }/js/vendor/mediaelementplayer.min.css"/>
-    <!--[if lt IE 9]>
-    <script src="${context }/js/vendor/html5.min.js"></script>
-    <script src="${context }/js/vendor/respond.min.js"></script>
-    <![endif]-->
-    <!--[if lt IE 7]>
-    <script src="${context }/js/vendor/DD_belatedPNG_0.0.8a-min.js"></script>
-    <script>
-        DD_belatedPNG.fix('.png_bg');
-    </script>
-    <![endif]-->
-</head>
+<%@ include file="../doctype.jsp" %>
 <body>
-
 <%@ include file="../header.jsp" %>
-
-
 <div id="container">
     <div id="main-content">
         <div class="wrapper">
@@ -59,8 +36,12 @@ pageEncoding="UTF-8"%>
                 <li class="gallery"><a href="javascript:void(0)" title="所有图片" class="png_bg"></a></li>
                 <li class="previous"><a href="javascript:void(0)" title="上一个" class="png_bg"></a></li>
                 <li class="next"><a href="javascript:void(0)" title="下一个" class="png_bg"></a></li>
-                <li class="previousCon"><a href="javascript:void(0)" title="上一届" class="png_bg">上一届</a></li>
-                <li class="nextCon"><a href="javascript:void(0)" title="下一届" class="png_bg">下一届</a></li>
+                <li class="previousCon"><a
+                        href="${context }/congress/${congress.congressId-1<0?0:congress.congressId-1 }.html" title="上一届"
+                        class="png_bg"></a></li>
+                <li class="nextCon"><a
+                        href="${context }/congress/${congress.congressId+1>12?12:congress.congressId+1 }.html"
+                        title="下一届" class="png_bg"></a></li>
                 <li class="home"><a href="${context }/index.html" title="回到首页" class="png_bg">回到首页</a></li>
             </ul>
         </nav>
@@ -69,6 +50,7 @@ pageEncoding="UTF-8"%>
             href="javascript:void(0)">赞</a> <a href="javascript:void(0)">分享</a>
 			</span>
     </div>
+
     <div id="relate-content">
         <div class="text">
             <h2>${firstImageMain.imageMainTitle }</h2>
@@ -81,6 +63,7 @@ pageEncoding="UTF-8"%>
         </div>
         <div class="clearfix"></div>
     </div>
+
     <div id="gallery-content">
         <!-- 这个地方要根据届别来改 -->
         <h2 title="第n届全国人民代表大会"><img src="${context }/images/banner_01.jpg" alt=""/></h2>
@@ -102,6 +85,7 @@ pageEncoding="UTF-8"%>
         </ul>
         <div class="clearfix"></div>
     </div>
+
     <div id="detail-content">
 
         <nav class="control">
@@ -127,19 +111,7 @@ pageEncoding="UTF-8"%>
     </p>
 </footer>
 
-<script src="${context }/js/vendor/jquery.min.js"></script>
-<script src="${context }/js/vendor/mediaelement-and-player.min.js"></script>
-<!--[if lt IE 7]>
-<script>
-    $(document).ready(function () {
-        $("li, span, a").hover(function () {
-            $(this).toggleClass("hover");
-        });
-    });
-</script>
-<![endif]-->
-<script src="${context }/js/main.js"></script>
-
+<%@ include file="../script.jsp" %>
 <script>
     var currentImageMainId = ${firstImageMain.imageMainId};
     var imageMainIds = [${imageMainIds}];
@@ -168,28 +140,28 @@ pageEncoding="UTF-8"%>
             success: function (data, textStatus, jqXHR) {
                 currentImageMainId = imageMainId;
                 currentIndex = $.inArray(currentImageMainId, imageMainIds);
-                
+
                 // 浏览到第一张的时候,隐藏"上一张"箭头
                 if (currentIndex <= 1) {
-                	$("#main-content li.previous a").hide();
+                    $("#main-content li.previous a").hide();
                 } else {
-                	$("#main-content li.previous a").show();
+                    $("#main-content li.previous a").show();
                 }
-                
+
                 if (currentIndex >= imageMainIds.length - 1) {
-                	$("#main-content li.next a").hide();
+                    $("#main-content li.next a").hide();
                 } else {
-                	$("#main-content li.next a").show();
+                    $("#main-content li.next a").show();
                 }
 
                 $("#main-content img")[0].src = '${context}/' + transImagePath(data['imageMainFilepath'], 'b');
-                $("#main-content .info").text("${congress.congressTitle} " + currentIndex + "/" + (imageMainIds.length-1));
+                $("#main-content .info").text("${congress.congressTitle} " + currentIndex + "/" + (imageMainIds.length - 1));
 
                 $("#relate-content .text h2").text(data['imageMainTitle']);
 
-                var description = currentIndex == 1 ? '${congress.congressResumeContent}' : data['imageMainDescription'];
-                $("#relate-content .text p")
-                        .html($("<span></span>").text(description).html().replace(new RegExp('/n', 'g'), '<br/><br/>'));
+                var description = data['imageMainDescription'];
+                $("#relate-content .text p").html($("<span></span>").text(description).html());
+                //.replace(new RegExp('/n', 'g'), '<br/><br/>'));
 
                 $("#relate-content .media ul").html('');
 
@@ -242,7 +214,7 @@ pageEncoding="UTF-8"%>
             }
         });
     }
-    
+
     $(document).ready(function () {
 
         $("#main-content li.gallery a").click(function (e) {
@@ -265,7 +237,7 @@ pageEncoding="UTF-8"%>
             }
         });
 
-        showImageMain(currentImageMainId);
+        //showImageMain(currentImageMainId);
     });
 </script>
 </body>

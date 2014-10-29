@@ -13,6 +13,7 @@ WebContent/WEB-INF/classes
 WebContent/jPlayer/00-04-2002.flv
 WebContent/jPlayer/2.mp4
 WebContent/jPlayer/index.html
+WebContent/js/vendor/old/*
 
 .settings/org.eclipse.jdt.core.prefs
 .classpath
@@ -25,3 +26,5 @@ WebContent/.idea/*
 Video60.flv
 xi.mp4
 *.DS_Store
+WebContent/sql/npcwebsite2014102502.sql
+*.sql

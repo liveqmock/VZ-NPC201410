@@ -7,27 +7,8 @@
 
 <%@ include file="../common.jsp" %>
 
-<!DOCTYPE html>
-<html>
-<head lang="zh-cn">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>人大60周年展 - 时间专题</title>
-    <link rel="stylesheet" href="${context }/css/style.css"/>
-    <link rel="stylesheet" href="${context }/css/media.css"/>
-    <link rel="stylesheet" href="${context }/js/vendor/mediaelementplayer.min.css"/>
-    <!--[if lt IE 9]>
-    <script src="${context }/js/vendor/html5.min.js"></script>
-    <script src="${context }/js/vendor/respond.min.js"></script>
-    <![endif]-->
-    <!--[if lt IE 7]>
-    <script src="${context }/js/vendor/DD_belatedPNG_0.0.8a-min.js"></script>
-    <script>
-        DD_belatedPNG.fix('.png_bg');
-    </script>
-    <![endif]-->
-</head>
+
+<%@ include file="../doctype.jsp" %>
 <body>
 <%@ include file="../header.jsp" %>
 
@@ -147,20 +128,9 @@
         <a href="#top" id="gotop"></a>
     </p>
 </footer>
-<script src="${context }/js/vendor/jquery.min.js"></script>
-<script src="${context }/js/vendor/jquery.lazyload.min.js"></script>
-<script src="${context }/js/vendor/mediaelement-and-player.min.js"></script>
-<!--[if lt IE 7]>
-<script>
-    $(document).ready(function () {
-        $("li, span, a").hover(function () {
-            $(this).toggleClass("hover");
-        });
-    });
-</script>
-<![endif]-->
-<script src="${context }/js/main.js"></script>
 
+<%@ include file="../script.jsp" %>
+<script src="${context }/js/vendor/jquery.lazyload.min.js"></script>
 <script>
 
     function showDetail(source) {
