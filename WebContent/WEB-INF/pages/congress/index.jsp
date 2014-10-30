@@ -75,7 +75,7 @@ pageEncoding="UTF-8"%>
 									<p>
                                         ${row.index < 2 ? fn:replace(congress.congressResumeContent,'/n','<br/>') : imageMain.imageMainDescription }</p>
 								</span>
-                        <img src="${context }/${npc:transImagePath(imageMain.imageMainFilepath, 'm')}" alt=""/>
+                        <img data-original="${context }/${npc:transImagePath(imageMain.imageMainFilepath, 'm')}" alt="" class="lazy"/>
                         <i><h4>${imageMain.imageMainTitle }</h4></i>
                     </a>
                     </li>

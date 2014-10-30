@@ -16,4 +16,5 @@
 <!--<script src="${context }/js/vendor/jquery.min.js"></script>-->
 <!--<script src="http://apps.bdimg.com/libs/swfobject/2.2/swfobject.js"></script>-->
 <script src="${context }/js/vendor/mediaelement-and-player.min.js"></script>
+<script src="${context }/js/vendor/jquery.lazyload.min.js"></script>
 <script src="${context }/js/main.js"></script>

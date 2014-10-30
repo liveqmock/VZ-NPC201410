@@ -387,6 +387,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 }
 
 #indexPlayer {
+    display: none;
     position: absolute;
     left: 0;
     top: 0;

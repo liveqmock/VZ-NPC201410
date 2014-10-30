@@ -72,6 +72,8 @@ var goToPageTop = function () {
 
 $(document).ready(function () {
 
+    $("img.lazy").lazyload();
+
     // 搜索
     $(".nav-search").click(function () {
         window.location.href = window.location.origin + context + "/search.html?keyword=" + encodeURI($("#keyword").val());
