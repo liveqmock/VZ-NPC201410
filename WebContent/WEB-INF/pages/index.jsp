@@ -11,11 +11,11 @@ pageEncoding="UTF-8"%>
 <body>
 <%@ include file="header.jsp" %>
 
-<div id="indexPlayer"></div>
+<div id="indexPlayer"><img src="image/index_main_b.jpg"/></div>
 <div id="container">
     <div id="index-main-content">
         <div class="wrapper">
-            <img src="image/index_main2.jpg" alt="全国人大成立60周年网上纪念展"/>
+            <img src="image/index_main_b.jpg" alt="全国人大成立60周年网上纪念展"/>
         </div>
     </div>
     <div id="session-nav">
@@ -44,7 +44,8 @@ pageEncoding="UTF-8"%>
                                 </c:if>
                             </span>
 
-                            <div><img data-original="image/index_s${congress.congressId }.jpg" alt="" class="lazy"/></div>
+                            <div><img data-original="image/index_s${congress.congressId }.jpg" alt="" class="lazy"/>
+                            </div>
                         </a></li>
                         <c:set var="rowIndex" value="${rowIndex+1 }"></c:set>
                     </c:if>
@@ -60,49 +61,28 @@ pageEncoding="UTF-8"%>
 
 <%@ include file="script.jsp" %>
 <script>
-
     $(document).ready(function () {
+        var dwidth = $(document).width();
+        var dheight = document.documentElement.clientHeight;
+        $("#indexPlayer").css({
+            width: dheight * 2.8286,
+            height: dheight,
+            "margin-left": -dheight * 2.8286 / 2
+        }).show();
 
-        if (window.location.href.indexOf("init") > 0) {
-            $("#container").hide();
-            $("#indexPlayer").html('<video id="index-video" src="Img/initVideo.flv" style="max-width:100%;height:100%;"></video>')
-                    .height(document.documentElement.clientHeight).show();
-            try {
-                var indexPlayer = new MediaElement('index-video', {
-                    plugins: ['flash'],
-                    pluginPath: 'js/vendor/',
-                    flashName: 'flashmediaelement.swf',
-                    videoWidth: document.documentElement.clientWidth,
-                    videoHeight: document.documentElement.clientHeight,
-                    enableAutosize: true,
-                    isFullScreen: true,
-                    success: function (mediaElement, domObject) {
-                        mediaElement.addEventListener('ended', function (e) {
-                            $("#indexPlayer").remove();
-                            $("#container").show();
-                        }, false);
+        $("body").css("overflow-x", "hidden");
 
-                        //IE6
-                        setTimeout(function () {
-                            if ($("#indexPlayer").length > 0) {
-                                $("#indexPlayer").remove();
-                                $("#container").show();
-                            }
-                        }, 6000);
-
-                        mediaElement.play();
-                    },
-                    error: function () {
-                        $("#indexPlayer").remove();
-                        $("#container").show();
-                    }
-                });
-
-            } catch (e) {
-                $("#indexPlayer").remove();
-                $("#container").show();
-            }
-        }
+        setTimeout(function () {
+            $("#indexPlayer").animate({
+                top: "85px",
+                width: $("#index-main-content").width(),
+                height: $("#index-main-content").height(),
+                "margin-left": -$("#index-main-content").width() / 2
+            }, 4000, function () {
+                $(this).hide();
+                $("body").css("overflow", "auto");
+            });
+        }, 1000);
     });
 </script>
 </body>
