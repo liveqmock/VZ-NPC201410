@@ -391,13 +391,25 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     position: absolute;
     left: 50%;
     top: 0;
-    z-index: 5000;
+    z-index: 1000;
     background: #fff;
 }
 
 #indexPlayer img {
     width: 100%;
     vertical-align: middle;
+}
+
+#indexPlayerClose {
+    display: none;
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    width: 32px;
+    height: 32px;
+    z-index: 1200;
+    background: url("../image/icon_closead.png") no-repeat;
+    cursor: pointer;
 }
 
 /***** Container *****/
@@ -582,14 +594,14 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     position: absolute;
     left: 50%;
     margin-left: -334px;
-    height: 500px;
+    height: 600px;
     vertical-align: middle;
     z-index: 300;
 }
 
 #container #index-main-content {
     height: auto;
-    max-height: 485px;
+    max-height: 600px;
 }
 
 #container #index-main-content img {
@@ -664,9 +676,9 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     width: 33%;
     *width: 32.8%;
     margin: 8px 4px 0 0;
-    max-width: 434px;
-    _width: expression( document.body.clientWidth > 1400 ? "434px" : "32.8%" );
-    height: 333px;
+    max-width: 436px;
+    _width: expression( document.body.clientWidth > 1400 ? "436px" : "32.8%" );
+    height: 284px;
 }
 
 #container #session-nav ul li a {
@@ -675,7 +687,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     margin: 0;
     padding: 0;
     /*width: 434px;*/
-    height: 333px;
+    height: 284px;
     color: #fff;
     background: #780000;
     overflow: hidden;
@@ -694,7 +706,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 }
 
 #container #session-nav ul li a img {
-    height: 333px;
+    height: 284px;
 }
 
 #container #session-nav ul li a span {
@@ -703,7 +715,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     left: 0;
     top: 0;
     /*width: 434px;*/
-    height: 310px;
+    height: 260px;
     background: #780000;
     filter: alpha(opacity=90);
     -moz-opacity: 0.9;

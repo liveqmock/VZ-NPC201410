@@ -11,11 +11,12 @@ pageEncoding="UTF-8"%>
 <body>
 <%@ include file="header.jsp" %>
 
+<div id="indexPlayerClose" title="关闭"></div>
 <div id="indexPlayer"><img src="image/index_main_b.jpg"/></div>
 <div id="container">
     <div id="index-main-content">
         <div class="wrapper">
-            <img src="image/index_main_b.jpg" alt="全国人大成立60周年网上纪念展"/>
+            <img src="image/index_main3.jpg" alt="全国人大成立60周年网上纪念展"/>
         </div>
     </div>
     <div id="session-nav">
@@ -27,7 +28,7 @@ pageEncoding="UTF-8"%>
                         保证人民当家作主、保障实现中华民族伟大复兴的好制度。” ——摘自“庆祝全国人大成立60周年”习近平总书记讲话</p>
                 </span>
 
-                <div><img data-original="image/index_s0.jpg" alt="" class="lazy"/></div>
+                <div><img src="image/index_s0.jpg" alt="" class=""/></div>
             </a></li>
             <c:if test="${!empty congresses && fn:length(congresses) > 0}">
                 <c:set var="rowIndex" value="1"></c:set>
@@ -44,7 +45,7 @@ pageEncoding="UTF-8"%>
                                 </c:if>
                             </span>
 
-                            <div><img data-original="image/index_s${congress.congressId }.jpg" alt="" class="lazy"/>
+                            <div><img src="image/index_s${congress.congressId }.jpg" alt="" class=""/>
                             </div>
                         </a></li>
                         <c:set var="rowIndex" value="${rowIndex+1 }"></c:set>
@@ -62,27 +63,52 @@ pageEncoding="UTF-8"%>
 <%@ include file="script.jsp" %>
 <script>
     $(document).ready(function () {
+
+        function hideAd() {
+            $("#indexPlayerClose").hide();
+            $("#indexPlayer").animate({
+                top: -dheight
+            }, 1000, function () {
+                $(this).hide();
+                $("body").css("overflow", "auto");
+            });
+        }
+
         var dwidth = $(document).width();
         var dheight = document.documentElement.clientHeight;
+
         $("#indexPlayer").css({
             width: dheight * 2.8286,
             height: dheight,
             "margin-left": -dheight * 2.8286 / 2
         }).show();
 
+        //把关闭按钮始终定位在右上角
+        $("#indexPlayerClose").css("left", dwidth / 2 + ($("#indexPlayer img").width() > dwidth ? dwidth / 2 : $("#indexPlayer img").width() / 2) - 60)
+                .show().click(function () {
+                    hideAd();
+                });
+
+
         $("body").css("overflow-x", "hidden");
 
-        setTimeout(function () {
-            $("#indexPlayer").animate({
-                top: "85px",
-                width: $("#index-main-content").width(),
-                height: $("#index-main-content").height(),
-                "margin-left": -$("#index-main-content").width() / 2
-            }, 4000, function () {
-                $(this).hide();
-                $("body").css("overflow", "auto");
-            });
-        }, 1000);
+		if(window.location.href.indexOf("style2") > 0) {
+		    $("#index-main-content img").attr("src", "image/index_main4.jpg");
+			
+		    $("#session-nav li a").each(function(){
+				var t = $(this);
+				var img = t.find("img")
+			    img.attr("src", img.attr("src").replace("index_s", "index2_s"));
+				t.css("background", "#b28951");
+				t.find("span").css("background", "#b28951");
+			});
+
+			
+		}
+
+
+
+        setTimeout(hideAd, 5000);
     });
 </script>
 </body>
