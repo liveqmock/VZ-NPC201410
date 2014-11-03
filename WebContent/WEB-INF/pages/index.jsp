@@ -12,7 +12,7 @@ pageEncoding="UTF-8"%>
 <%@ include file="header.jsp" %>
 
 <div id="indexPlayerClose" title="关闭"></div>
-<div id="indexPlayer"><img src="image/index_main_b.jpg"/></div>
+<div id="indexPlayer"><img src="image/index_main3.jpg"/></div>
 <div id="container">
     <div id="index-main-content">
         <div class="wrapper">
@@ -64,6 +64,19 @@ pageEncoding="UTF-8"%>
 <script>
     $(document).ready(function () {
 
+		if(window.location.href.indexOf("style2") > 0) {
+		    $("#indexPlayer img").attr("src", "image/index_main4.jpg");
+		    $("#index-main-content img").attr("src", "image/index_main4.jpg");
+			
+		    $("#session-nav li a").each(function(){
+				var t = $(this);
+				var img = t.find("img")
+			    img.attr("src", img.attr("src").replace("index_s", "index2_s"));
+				//t.css("background", "#b28951");
+				//t.find("span").css("background", "#b28951");
+			});
+		}
+
         function hideAd() {
             $("#indexPlayerClose").hide();
             $("#indexPlayer").animate({
@@ -78,9 +91,9 @@ pageEncoding="UTF-8"%>
         var dheight = document.documentElement.clientHeight;
 
         $("#indexPlayer").css({
-            width: dheight * 2.8286,
+            width: dheight * 2.21,
             height: dheight,
-            "margin-left": -dheight * 2.8286 / 2
+            "margin-left": -dheight * 2.21 / 2
         }).show();
 
         //把关闭按钮始终定位在右上角
@@ -91,22 +104,6 @@ pageEncoding="UTF-8"%>
 
 
         $("body").css("overflow-x", "hidden");
-
-		if(window.location.href.indexOf("style2") > 0) {
-		    $("#index-main-content img").attr("src", "image/index_main4.jpg");
-			
-		    $("#session-nav li a").each(function(){
-				var t = $(this);
-				var img = t.find("img")
-			    img.attr("src", img.attr("src").replace("index_s", "index2_s"));
-				t.css("background", "#b28951");
-				t.find("span").css("background", "#b28951");
-			});
-
-			
-		}
-
-
 
         setTimeout(hideAd, 5000);
     });
