@@ -44,6 +44,10 @@
   <url-pattern>*.html</url-pattern>
  </servlet-mapping>
  
+ <servlet-mapping>
+ 	<servlet-name>npc</servlet-name>
+ 	<url-pattern>/manager/*</url-pattern>
+ </servlet-mapping>
  
  <jsp-config>
     <taglib>

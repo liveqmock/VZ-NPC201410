@@ -71,4 +71,37 @@
 		</property>
 	</bean>
 	
+	<bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">
+		<property name="config" ref="captchaConfig" />
+	</bean>
+	
+	<bean id="captchaConfig" class="com.google.code.kaptcha.util.Config">
+		<constructor-arg>
+			<props>
+				<prop key="kaptcha.border">no</prop>
+				<prop key="kaptcha.border.color">105,179,90</prop>    
+                <prop key="kaptcha.textproducer.font.color">red</prop>    
+                <prop key="kaptcha.image.width">100</prop>    
+                <prop key="kaptcha.textproducer.font.size">30</prop>    
+                <prop key="kaptcha.image.height">43</prop>    
+                <prop key="kaptcha.session.key">code</prop>    
+                <prop key="kaptcha.textproducer.char.length">4</prop>    
+                <prop key="kaptcha.textproducer.font.names">Arial, Courier</prop>   
+                <prop key="kaptcha.GimpyEngine">WaterRipple</prop>   
+                <prop key="kaptcha.noise.impl">com.google.code.kaptcha.impl.DefaultNoise</prop>
+                <prop key="kaptcha.noise.color">black</prop>
+			</props>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="managerViewNames"	class="java.util.Map">
+		<constructor-arg>  
+			<map>  
+		        <entry key="editor" value="/manager/content"/>  
+		        <entry key="auditor" value="/manager/auditing"/>  
+		        <entry key="manager" value="/manager/users"/>  
+			</map>  
+    	</constructor-arg>
+	</bean>
+	
 </beans>
