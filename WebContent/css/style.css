@@ -403,7 +403,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 #indexPlayerClose {
     display: none;
     position: absolute;
-    left: 20px;
+    right: 20px;
     top: 20px;
     width: 32px;
     height: 32px;
@@ -492,8 +492,8 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 #container nav.control ul {
     position: absolute;
     top: 20px;
-    left: 20px;
-    width: 80px;
+    left: 0;
+    width: 100%;
     height: 100px;
     text-align: center;
     z-index: 100;
@@ -508,10 +508,11 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 #container nav.control ul li a {
     display: block;
     margin-bottom: 20px;
+	margin-left: 20px;
     width: 32px;
     height: 32px;
     background-repeat: no-repeat;
-    backgrond-position: left top;
+    background-position: center center;
 }
 
 #container nav.control ul li a:hover {
@@ -535,19 +536,33 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 }
 
 #container nav.control ul li.next a {
-    background-image: url("../image/icon_next.png");
+    position: absolute !important;
+    display: block;
+    right: 70px;
+    top: 0px;
+    margin-bottom: 20px;
+    width: 140px;
+    height: 430px;
+    background-image: url("../image/icon_next2.png");
 }
 
 #container nav.control ul li.next a:hover {
-    background-image: url("../image/icon_next_h.png");
+    background-image: url("../image/icon_next2_h.png");
 }
 
 #container nav.control ul li.previous a {
-    background-image: url("../image/icon_previous.png");
+    position: absolute !important;
+    display: block;
+    left: 50px;
+    top: 0px;
+    margin-bottom: 20px;
+    width: 140px;
+    height: 430px;
+    background-image: url("../image/icon_previous2.png");
 }
 
 #container nav.control ul li.previous a:hover {
-    background-image: url("../image/icon_previous_h.png");
+    background-image: url("../image/icon_previous2_h.png");
 }
 
 #container nav.control ul li.previousCon a {
@@ -575,11 +590,11 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 }
 
 #container nav.control ul li.disable a {
-    background-image: url("../image/icon_disable.png");
+    background-image: none; /*url("../image/icon_disable.png");*/
 }
 
 #container nav.control ul li.disable a:hover {
-    background: url("../image/icon_disable.png") no-repeat;
+    background: none; /*url("../image/icon_disable.png") no-repeat; */
 }
 
 #container #main-content img {
@@ -601,7 +616,8 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 
 #container #index-main-content {
     height: auto;
-    max-height: 600px;
+    max-height: 700px;
+	background: #fff;
 }
 
 #container #index-main-content img {
@@ -689,7 +705,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     /*width: 434px;*/
     height: 284px;
     color: #fff;
-    background: #780000;
+    background: #6d4212;
     overflow: hidden;
 }
 
@@ -716,7 +732,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     top: 0;
     /*width: 434px;*/
     height: 260px;
-    background: #780000;
+    background: #6d4212;
     filter: alpha(opacity=90);
     -moz-opacity: 0.9;
     opacity: 0.9;
@@ -876,7 +892,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     padding: 5px 0;
     width: 99%;
     text-align: center;
-    background-color: #ad0900;
+    background-color: #ae8a52;
     margin: 0 auto 10px;
 }
 
@@ -928,7 +944,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     left: 0;
     top: 0;
     height: 290px;
-    background: #780000;
+    background: #6d4212;
     filter: alpha(opacity=90);
     -moz-opacity: 0.9;
     opacity: 0.9;

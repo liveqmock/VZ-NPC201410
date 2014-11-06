@@ -11,12 +11,13 @@ pageEncoding="UTF-8"%>
 <body>
 <%@ include file="header.jsp" %>
 
-<div id="indexPlayerClose" title="关闭"></div>
-<div id="indexPlayer"><img src="image/index_main3.jpg"/></div>
+<!-- <div id="indexPlayerClose" title="关闭"></div>
+<div id="indexPlayer"><img src="image/index_main3.jpg"/></div> -->
 <div id="container">
     <div id="index-main-content">
+	    <div id="indexPlayerClose" title="关闭"></div>
         <div class="wrapper">
-            <img src="image/index_main3.jpg" alt="全国人大成立60周年网上纪念展"/>
+            <img src="image/index_main5.jpg" alt="全国人大成立60周年网上纪念展"/>
         </div>
     </div>
     <div id="session-nav">
@@ -28,7 +29,7 @@ pageEncoding="UTF-8"%>
                         保证人民当家作主、保障实现中华民族伟大复兴的好制度。” ——摘自“庆祝全国人大成立60周年”习近平总书记讲话</p>
                 </span>
 
-                <div><img src="image/index_s0.jpg" alt="" class=""/></div>
+                <div><img data-original="image/index2_s0.jpg" alt="" class="lazy"/></div>
             </a></li>
             <c:if test="${!empty congresses && fn:length(congresses) > 0}">
                 <c:set var="rowIndex" value="1"></c:set>
@@ -45,7 +46,7 @@ pageEncoding="UTF-8"%>
                                 </c:if>
                             </span>
 
-                            <div><img src="image/index_s${congress.congressId }.jpg" alt="" class=""/>
+                            <div><img data-original="image/index2_s${congress.congressId }.jpg" alt="" class="lazy"/>
                             </div>
                         </a></li>
                         <c:set var="rowIndex" value="${rowIndex+1 }"></c:set>
@@ -61,51 +62,69 @@ pageEncoding="UTF-8"%>
 </footer>
 
 <%@ include file="script.jsp" %>
+<script src="js/vendor/jquery.cookie.js"></script>
 <script>
     $(document).ready(function () {
 
-		if(window.location.href.indexOf("style2") > 0) {
-		    $("#indexPlayer img").attr("src", "image/index_main4.jpg");
-		    $("#index-main-content img").attr("src", "image/index_main4.jpg");
-			
-		    $("#session-nav li a").each(function(){
-				var t = $(this);
-				var img = t.find("img")
-			    img.attr("src", img.attr("src").replace("index_s", "index2_s"));
-				//t.css("background", "#b28951");
-				//t.find("span").css("background", "#b28951");
+		var _width = $("#index-main-content").width();
+		var _rate = 5;
+		var _rate2 = 19;
+
+		if(!$.cookie('npc60init') || window.location.href.indexOf("nocache") > 0) {
+
+			function hideAd() {
+				//$("#indexPlayerClose").hide();
+				$("#index-main-content").animate({
+					height: _width/_rate
+				}, 1000);
+				$("#index-main-content img").animate({
+					"margin-top": -_width/_rate2
+				}, 1000);
+			}
+
+			$("#container #index-main-content").css({
+				height: _width / 1.8
+			});
+
+			//关闭横幅
+			$("#indexPlayerClose").show().click(function () {
+				$(this).hide();
+				$("#index-main-content").animate({
+					height: 0
+				}, 500, function(){
+					$(this).hide();
+				});
+			});
+
+			//$("body").css("overflow-x", "hidden");
+
+			var st = setTimeout(hideAd, 5000);
+
+			$.cookie('npc60init', 'true', {expires: 7});
+		} else {
+
+			$("#container #index-main-content").css({
+				height: _width/_rate
+			});
+
+			$("#index-main-content img").css({
+				"margin-top": -_width/_rate2
+			});
+
+			//关闭横幅
+			$("#indexPlayerClose").show().click(function () {
+				$(this).hide();
+				$("#index-main-content").animate({
+					height: 0
+				}, 500, function(){
+					$(this).hide();
+				});
 			});
 		}
 
-        function hideAd() {
-            $("#indexPlayerClose").hide();
-            $("#indexPlayer").animate({
-                top: -dheight
-            }, 1000, function () {
-                $(this).hide();
-                $("body").css("overflow", "auto");
-            });
-        }
-
-        var dwidth = $(document).width();
-        var dheight = document.documentElement.clientHeight;
-
-        $("#indexPlayer").css({
-            width: dheight * 2.21,
-            height: dheight,
-            "margin-left": -dheight * 2.21 / 2
-        }).show();
-
-        //把关闭按钮始终定位在右上角
-        $("#indexPlayerClose").css("left", dwidth / 2 + ($("#indexPlayer img").width() > dwidth ? dwidth / 2 : $("#indexPlayer img").width() / 2) - 60)
-                .show().click(function () {
-                    hideAd();
-                });
-
-
-        $("body").css("overflow-x", "hidden");
-
-        setTimeout(hideAd, 5000);
+        //var dwidth = $(document).width();
+        //var dheight = document.documentElement.clientHeight;
+	
     });
 </script>
 </body>

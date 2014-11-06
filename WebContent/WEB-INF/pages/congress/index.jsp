@@ -34,15 +34,15 @@ pageEncoding="UTF-8"%>
         <nav class="control">
             <ul>
                 <li class="gallery"><a href="javascript:void(0)" title="所有图片" class="png_bg"></a></li>
-                <li class="previous"><a href="javascript:void(0)" title="上一个" class="png_bg"></a></li>
-                <li class="next"><a href="javascript:void(0)" title="下一个" class="png_bg"></a></li>
                 <li class="previousCon"><a
                         href="${context }/congress/${congress.congressId-1<0?0:congress.congressId-1 }.html" title="上一届"
                         class="png_bg"></a></li>
                 <li class="nextCon"><a
                         href="${context }/congress/${congress.congressId+1>12?12:congress.congressId+1 }.html"
                         title="下一届" class="png_bg"></a></li>
-                <li class="home"><a href="${context }/index.html" title="回到首页" class="png_bg">回到首页</a></li>
+                <li class="home"><a href="${context }/index.html" title="回到首页" class="png_bg"></a></li>
+                <li class="previous"><a href="javascript:void(0)" title="上一个" class="png_bg"></a></li>
+                <li class="next"><a href="javascript:void(0)" title="下一个" class="png_bg"></a></li>
             </ul>
         </nav>
         <span class="tbar"></span>
@@ -65,7 +65,7 @@ pageEncoding="UTF-8"%>
     </div>
 
     <div id="gallery-content">
-        <h2 class="con-title"><img src="${context }/image/title_s${congress.congressId}.png" alt=""/></h2>
+        <h2 class="con-title"><img src="${context }/image/title2_s${congress.congressId}.png" alt=""/></h2>
         <ul>
             <c:if test="${!empty imageMains && fn:length(imageMains) > 0}">
                 <c:forEach var="imageMain" items="${imageMains}" varStatus="row">
