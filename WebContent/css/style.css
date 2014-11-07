@@ -426,7 +426,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 #container #index-main-content {
     position: relative;
     padding: 0;
-    background: #7d7d7d;
+    background: #dbc186;
     text-align: center;
     overflow: hidden;
     z-index: 5;
@@ -865,15 +865,15 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 }
 
 #container #relate-content .media ul li a.article {
-    background: #7d7d7d url(../image/icon_artical.png) center center no-repeat;
+    background: #dbc186 url(../image/icon_artical.png) center center no-repeat;
 }
 
 #container #relate-content .media ul li a.image {
-    background: #7d7d7d;
+    background: #dbc186;
 }
 
 #container #relate-content .media ul li a.video {
-    background: #7d7d7d;
+    background: #dbc186;
 }
 
 #container #relate-content .media ul li a.video img {
@@ -981,7 +981,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 #container #detail-content .media {
     position: relative;
     padding: 0;
-    background: #7d7d7d;
+    background: #dbc186;
     text-align: center;
     height: 576px;
     max-height: 576px;
@@ -1027,7 +1027,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 #container #detail-content .article {
     position: relative;
     *top: -44px;
-    background: #7d7d7d;
+    background: #dbc186;
     text-align: center;
     _height: 576px;
     min-height: 576px;
@@ -1036,7 +1036,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 }
 
 #container #detail-content .article div {
-    background: #707070;
+    background: #ae8a52;
     padding: 30px 30px 50px 30px;
 }
 
@@ -1156,7 +1156,7 @@ footer p a#gotop.hover {
 
 #container #dateContainer {
     line-height: 1.7;
-    border-top: 1px solid #7d7d7d;
+    border-top: 1px solid #dbc186;
     background: url(../image/bg_timeline.png) repeat-y center center;
     text-align: center;
     margin: 0;
@@ -1298,15 +1298,15 @@ footer p a#gotop.hover {
 }
 
 #container #dateContainer .year ul ul li a.article {
-    background: #7d7d7d url(../image/icon_artical.png) center center no-repeat;
+    background: #dbc186 url(../image/icon_artical.png) center center no-repeat;
 }
 
 #container #dateContainer .year ul ul li a.image {
-    background: #7d7d7d;
+    background: #dbc186;
 }
 
 #container #dateContainer .year ul ul li a.video {
-    background: #7d7d7d;
+    background: #dbc186;
 }
 
 #container #dateContainer .year ul ul li a.video img {
@@ -1358,7 +1358,7 @@ footer p a#gotop.hover {
     height: 60px;
     margin-bottom: 20px;
     line-height: 60px;
-    background: #7d7d7d;
+    background: #dbc186;
     text-align: center;
 }
 
