@@ -20,4 +20,12 @@
   			${npc:transMaterialType(materialId)}
   		</example>
 	</function>	
+	<function>
+		<name>formatUserType</name>
+		<function-class>com.weizhen.npc.utils.Functions</function-class>
+		<function-signature>java.lang.String formatUserType(java.lang.String)</function-signature>
+		<example>
+  			${npc:formatUserType(userType)}
+  		</example>
+	</function>		
 </taglib>

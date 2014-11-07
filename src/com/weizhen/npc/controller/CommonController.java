@@ -30,6 +30,7 @@ import com.weizhen.npc.service.DocumentService;
 import com.weizhen.npc.service.ImageMainService;
 import com.weizhen.npc.service.ImageRelatedService;
 import com.weizhen.npc.service.UserService;
+import com.weizhen.npc.utils.UserTypeEnum;
 
 /**
  * 通用请求
@@ -58,23 +59,7 @@ public class CommonController extends BaseController {
 	@Autowired
 	private UserService userService;
 	
-	@Autowired
 	private Map<String, String> managerViewNames; // 根据userType设置登录后的viewName
-
-	@RequestMapping(value = "/nav.do")
-	public ModelAndView navigation(HttpServletRequest request) {
-		return new ModelAndView("nav");
-	}
-
-	@RequestMapping(value = "/top.do")
-	public ModelAndView top(HttpServletRequest request) {
-		return new ModelAndView("top");
-	}
-	
-	@RequestMapping(value="submit.do")
-	public String submit(HttpServletRequest request, @RequestParam String directUrl) {
-		return "redirect:" + directUrl;
-	}
 	
 	@RequestMapping(value="/index.html")
 	public ModelAndView index(HttpServletRequest request) {
@@ -138,24 +123,40 @@ public class CommonController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "login.html", method = RequestMethod.POST)
-	public ModelAndView login(HttpServletRequest request, HttpSession session,
+	public String login(HttpServletRequest request, HttpSession session,
 			HttpServletResponse response, @RequestParam String userName,
 			@RequestParam String password, @RequestParam String verifyCode) {
 		logger.info("请求登录");
 
 		String sessionCode = (String) session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
-		if (null == verifyCode || !verifyCode.equalsIgnoreCase(sessionCode))
-			return showLogin("验证码不正确,请重新输入");
+		if (null == verifyCode || !verifyCode.equalsIgnoreCase(sessionCode)) {
+			session.setAttribute(Constants.KAPTCHA_SESSION_KEY, null);
+			session.setAttribute("errorMessage", "验证码不正确,请重新输入");
+			return "redirect:login.html";
+		}
 		
 		User user = userService.login(userName, password);
-		if (null == null)
-			return showLogin("用户名或密码不正确,请重新输入");
+		if (null == user) {
+			session.setAttribute(Constants.KAPTCHA_SESSION_KEY, null);
+			session.setAttribute("errorMessage", "验用户名或密码不正确,请重新输入");
+			return "redirect:login.html";
+		}
 		
-		user.setPassword(null);
-		Map<String, Object> values = new HashMap<String, Object>();
-		values.put("user", user);
+		session.setAttribute("user", user);
+		session.removeAttribute("errorMessage");
 		
-		return new ModelAndView("redirect:" + managerViewNames.get(user.getUserType()), values);
+		return "redirect:" + initManagerViewNames().get(user.getUserType());
+	}
+	
+	private Map<String, String> initManagerViewNames() {
+		if (null == managerViewNames) {
+			managerViewNames = new HashMap<String, String>();
+			managerViewNames.put(UserTypeEnum.AUDITOR.getItemCode(), "/manager/auditing.html");
+			managerViewNames.put(UserTypeEnum.EDITOR.getItemCode(), "/manager/content.html");
+			managerViewNames.put(UserTypeEnum.MANAGER.getItemCode(), "/manager/users.html");
+		}
+		
+		return managerViewNames;
 	}
 	
 	/**

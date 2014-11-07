@@ -9,8 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 
 /**
@@ -18,10 +18,11 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "user")
+@JsonIgnoreProperties({"password"})
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer userId;
-	private Integer userName;
+	private String userName;
 	private String realName;
 	private String password;
 	private String userType;
@@ -29,10 +30,7 @@ public class User implements Serializable {
 	private Date lastLoginTime;
 	private Date createdDate;
 	private Date lastUpdateDate;
-	
-	public static final String USER_TYPE_EDITOR = "editor"; // 用户类型_编辑员
-	public static final String USER_TYPE_AUDITOR = "auditor"; // 用户类型_审核员
-	public static final String USER_TYPE_MANAGER = "mananger"; // 用户类型_管理员
+	private String mobile;
 
 	public User() {
 	}
@@ -52,12 +50,12 @@ public class User implements Serializable {
 
 
 	@Column(name="user_name")
-	public Integer getUserName() {
+	public String getUserName() {
 		return userName;
 	}
 
 
-	public void setUserName(Integer userName) {
+	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 
@@ -106,7 +104,6 @@ public class User implements Serializable {
 	}
 
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="last_login_time")
 	public Date getLastLoginTime() {
 		return lastLoginTime;
@@ -118,7 +115,6 @@ public class User implements Serializable {
 	}
 
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="created_date")
 	public Date getCreatedDate() {
 		return createdDate;
@@ -130,7 +126,6 @@ public class User implements Serializable {
 	}
 
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="last_update_date")
 	public Date getLastUpdateDate() {
 		return lastUpdateDate;
@@ -139,5 +134,16 @@ public class User implements Serializable {
 
 	public void setLastUpdateDate(Date lastUpdateDate) {
 		this.lastUpdateDate = lastUpdateDate;
+	}
+
+
+	@Column(name = "mobile")
+	public String getMobile() {
+		return mobile;
+	}
+
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
 	}
 }

@@ -10,7 +10,7 @@
 	http://www.springframework.org/schema/context/spring-context-3.0.xsd
 	http://www.springframework.org/schema/task
 	http://www.springframework.org/schema/task/spring-task-3.0.xsd"
-	default-autowire="byName">
+	default-autowire="byName"> 
 	
 	<!-- 引用配置文件 -->
 	<bean id="propertyConfigure" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -92,16 +92,6 @@
                 <prop key="kaptcha.noise.color">black</prop>
 			</props>
 		</constructor-arg>
-	</bean>
-	
-	<bean id="managerViewNames"	class="java.util.Map">
-		<constructor-arg>  
-			<map>  
-		        <entry key="editor" value="/manager/content"/>  
-		        <entry key="auditor" value="/manager/auditing"/>  
-		        <entry key="manager" value="/manager/users"/>  
-			</map>  
-    	</constructor-arg>
 	</bean>
 	
 </beans>

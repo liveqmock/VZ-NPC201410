@@ -41,6 +41,19 @@ public class Functions {
 	}
 	
 	
+	/**
+	 * 格式化用户类型
+	 * @param userType
+	 * @return
+	 */
+	public static String formatUserType(String userType) {
+		try {
+			return UserTypeEnum.from(userType).getItemValue();
+		} catch(Exception e) {
+			return userType;
+		}
+	}
+	
 	public static void main(String[] args) {
 		System.out.println(transImagePath("/Img/abc/01-01.jpg", "b"));
 		System.out.println(transImagePath("/Img/abc/01-01.jpg", "m"));
