@@ -29,7 +29,7 @@ pageEncoding="UTF-8"%>
                         保证人民当家作主、保障实现中华民族伟大复兴的好制度。” ——摘自“庆祝全国人大成立60周年”习近平总书记讲话</p>
                 </span>
 
-                <div><img data-original="image/index2_s0.jpg" alt="" class="lazy"/></div>
+                <div><img src="image/index2_s0.jpg" alt="" class=""/></div>
             </a></li>
             <c:if test="${!empty congresses && fn:length(congresses) > 0}">
                 <c:set var="rowIndex" value="1"></c:set>
@@ -46,7 +46,7 @@ pageEncoding="UTF-8"%>
                                 </c:if>
                             </span>
 
-                            <div><img data-original="image/index2_s${congress.congressId }.jpg" alt="" class="lazy"/>
+                            <div><img src="image/index2_s${congress.congressId }.jpg" alt="" class=""/>
                             </div>
                         </a></li>
                         <c:set var="rowIndex" value="${rowIndex+1 }"></c:set>
