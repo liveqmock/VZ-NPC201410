@@ -8,6 +8,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -34,6 +35,13 @@ public abstract class BaseController {
 	
 	@Autowired
 	protected HttpServletRequest request;
+	
+	@Autowired
+	protected HttpServletResponse response;
+	
+	@Autowired
+	protected HttpSession session;
+	
 	/**
 	 * 通过response对象返回前台json字符串
 	 * 

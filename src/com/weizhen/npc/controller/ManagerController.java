@@ -58,6 +58,8 @@ public class ManagerController extends BaseController {
 	@Autowired
 	private UserService userService;
 
+	private String webRootPath;
+
 	@RequestMapping(value = "/users.html")
 	public ModelAndView navigation(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("manager/users");
@@ -129,9 +131,9 @@ public class ManagerController extends BaseController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/imagemains/add.html", method=RequestMethod.POST)
+	@RequestMapping(value = "/imagemains/add.html", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> addImageMain(HttpServletRequest request, ImageMain imageMain,
+	public Map<String, Object> addImageMain(ImageMain imageMain,
 			@RequestParam Integer congressId,
 			@RequestParam("imageMainFile") MultipartFile imageMainFile) {
 		Map<String, Object> res = new HashMap<String, Object>();
@@ -144,8 +146,8 @@ public class ManagerController extends BaseController {
 					+ imageMainFile.getOriginalFilename().substring(
 							imageMainFile.getOriginalFilename()
 									.lastIndexOf("."));
-			imageMainFile.transferTo(new File(request.getSession().getServletContext().getRealPath("/") + fileName));
-			
+			imageMainFile.transferTo(new File(getWebRootPath() + fileName));
+
 			imageMain.setImageMainFilepath(fileName);
 			imageMain.setMaterialId(0);
 			imageMain.setCheckPublish(0);
@@ -153,7 +155,7 @@ public class ManagerController extends BaseController {
 			imageMain = imageMainService.addImageMain(imageMain);
 
 			res.put("imageMain", imageMain);
-			
+
 			return res;
 		} catch (Exception e) {
 			res.put("msg", e.getMessage());
@@ -161,29 +163,82 @@ public class ManagerController extends BaseController {
 		}
 	}
 
+	public String getWebRootPath() {
+		if (null == this.webRootPath)
+			this.webRootPath = session.getServletContext().getRealPath("/");
+
+		return this.webRootPath;
+	}
 
 	@RequestMapping("/relateds.html")
-	public ModelAndView showRelateds(HttpServletRequest request, @RequestParam Integer imageMainId) {
+	public ModelAndView showRelateds(@RequestParam Integer imageMainId) {
 		ModelAndView mav = new ModelAndView("manager/relateds");
-		List<ImageRelated> relateds = imageRelatedService.findByImageMainId(imageMainId);
+		List<ImageRelated> relateds = imageRelatedService
+				.findByImageMainId(imageMainId);
 		mav.addObject("relateds", relateds);
-		List<Document> documents = documentService.findByImageMainId(imageMainId);
+		List<Document> documents = documentService
+				.findByImageMainId(imageMainId);
 		mav.addObject("documents", documents);
 		mav.addObject("size", relateds.size() + documents.size());
-		
+
 		return mav;
 	}
-	
+
 	@RequestMapping("/relateds/add.html")
-	public ImageRelated addImageRelated(HttpServletRequest request, ImageRelated imageRelated, MultipartFile imageRelatedFile, MultipartFile imageRelatedThumbFile) {
-		return null;
+	public Map<String, Object> addImageRelated(ImageRelated imageRelated,
+			MultipartFile imageRelatedFile, MultipartFile imageRelatedThumbFile) {
+
+		Map<String, Object> res = new HashMap<String, Object>();
+
+		try {
+			String fileNamePrefix = Constants.getImageMainFileDirectory()
+					+ String.format("%02d", imageRelated.getCongressId())
+					+ Constants.getFileNameSplitter()
+					+ String.format("%02d", imageRelated.getImageMainId())
+					+ Constants.getFileNameSplitter()
+					+ String.format("%02d", imageRelated.getImageRelatedSequence());
+			
+			// 保存文件并设置文件路径
+			String fileName = imageRelatedFile.getOriginalFilename();
+			String fileNameSuffix = fileName.substring(fileName.lastIndexOf("."));
+			fileName = fileNamePrefix + fileNameSuffix;
+			imageRelatedFile.transferTo(new File(getWebRootPath() + fileName));
+			imageRelated.setImageRelatedFilepath(fileName);
+
+			// 视频资料的缩略图处理
+			if (Constants.MATERIAL_TYPE_VEDIO ==  imageRelated.getMaterialId()) {
+				fileName = imageRelatedThumbFile.getOriginalFilename();
+				fileNameSuffix = fileName.substring(fileName.lastIndexOf("."));
+				fileName = fileNamePrefix + fileNameSuffix;
+				imageRelatedThumbFile.transferTo(new File(getWebRootPath() + fileName));
+			}
+			imageRelated.setImageRelatedThumbFilepath(fileName);
+			
+			imageRelated = imageRelatedService.addImageRelated(imageRelated);
+
+			res.put("imageRelated", imageRelated);
+
+			return res;
+		} catch (Exception e) {
+			res.put("msg", e.getMessage());
+			return res;
+		}
 	}
-	
+
 	@RequestMapping("/documents/add.html")
-	public Document addDocument(Document document) {
-		return null;
+	public Map<String, Object> addDocument(Document document, List<String> paragraphs) {
+		Map<String, Object> res = new HashMap<String, Object>();
+
+		try {
+			document = documentService.addDocument(document, paragraphs);
+			res.put("document", document);
+
+			return res;
+		} catch (Exception e) {
+			res.put("msg", e.getMessage());
+			return res;
+		}
 	}
-	
 
 	@RequestMapping(value = "/index.html")
 	public ModelAndView index(HttpServletRequest request) {

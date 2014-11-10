@@ -11,6 +11,7 @@ import com.weizhen.npc.base.BaseService;
 import com.weizhen.npc.dao.CongressDAO;
 import com.weizhen.npc.dao.ImageMainDAO;
 import com.weizhen.npc.model.ImageMain;
+import com.weizhen.npc.utils.ModelStatusEnum;
 import com.weizhen.npc.vo.ImageMainQuery;
 
 /**
@@ -51,7 +52,9 @@ public class ImageMainService extends BaseService {
 		congressDao.loadExists(imageMain.getCongressId());
 		
 		// TODO 检查主题的序列是否已经存在
+		imageMain.setStatus(ModelStatusEnum.SUBMITTED.getItemCode());
+		imageMain = imageMainDao.saveOrUpdate(imageMain);
 		
-		return imageMainDao.saveOrUpdate(imageMain);
+		return imageMain;
 	}
 }

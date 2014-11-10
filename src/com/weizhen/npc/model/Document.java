@@ -45,6 +45,8 @@ public class Document implements Serializable {
 	private Date updateTime;
 	
 	private List<Paragraph> paragraphs;
+	
+	private String status;
 
 	public Document() {
 	}
@@ -258,5 +260,14 @@ public class Document implements Serializable {
 		}
 		
 		return paragraphContent;
+	}
+
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }

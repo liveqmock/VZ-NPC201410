@@ -45,6 +45,8 @@ public class ImageMain implements Serializable {
 	
 	private List<ImageRelated> imageRelateds;
 	private List<Document> documents;
+	
+	private String status;
 
 	public ImageMain() {
 	}
@@ -239,6 +241,16 @@ public class ImageMain implements Serializable {
 
 	public void setDocuments(List<Document> documents) {
 		this.documents = documents;
+	}
+
+
+	public String getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

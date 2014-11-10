@@ -42,6 +42,8 @@ public class ImageRelated implements Serializable {
 	private Integer provinceId;
 	private String publishDate;
 	private Date updateTime;
+	
+	private String status;
 
 	public ImageRelated() {
 	}
@@ -229,4 +231,12 @@ public class ImageRelated implements Serializable {
 		this.updateTime = updateTime;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 }
