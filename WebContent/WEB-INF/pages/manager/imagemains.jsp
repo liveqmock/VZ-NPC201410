@@ -66,10 +66,10 @@
      <div class="row">
         <div class="col-md-2">
 			<ul class="nav nav-pills nav-stacked">
-				<li class="active">
+				<li>
 					<a href="users.html">用户管理</a>
 				</li>
-				<li>
+				<li class="active">
 					<a href="content.html">内容管理</a>
 				</li>
 				<li>
@@ -90,125 +90,85 @@
             <thead>
               <tr>
                 <th>序号</th>
-                <th>用户名</th>
-                <th>真实姓名</th>
-                <th>手机号</th>
-                <th>用户类型</th>
-                <th>创建时间</th>
-                <th>最后登录时间</th>
-                <th>是否启用</th>
+                <th>标题</th>
+                <th>描述</th>
+                <th>次序</th>
+                <th>操作</th>
               </tr>
             </thead>
             <tbody>
-			<c:if test="${!empty users && fn:length(users) > 0}">
-			    <c:forEach var="user" items="${users}" varStatus="row">
+			<c:if test="${!empty imageMains && fn:length(imageMains) > 0}">
+			    <c:forEach var="imageMain" items="${imageMains}" varStatus="row">
               <tr>
                 <td>${row.index + 1 }</td>
-                <td>${user.userName }</td>
-                <td>${user.realName }</td>
-                <td>${user.mobile }</td>
-                <td>${npc:formatUserType(user.userType) }</td>
-                <td><fmt:formatDate value='${user.createdDate}' pattern='yyyy-MM-dd' /></td>
-                <td><fmt:formatDate value='${user.lastLoginTime}' pattern='yyyy-MM-dd HH:mm:ss' /></td>
-                <td>${user.enabled ? '已启用' : '已禁用' }</td>
+                <td>${imageMain.imageMainTitle }</td>
+                <td>${imageMain.imageMainDescription }</td>
+                <td>${imageMain.imageMainSequence }</td>
+                <td><a class="btn btn-primary" data-imageMainId="${imageMain.imageMainId }">编辑</a></td>
               </tr>			        
 			    </c:forEach>
 			</c:if>
             </tbody>
           </table>
-          <a id="modifyUser" class="btn btn-primary">修改</a>
-          <a id="addUser" class="btn btn-primary" data-toggle="modal" data-target="#usermodal">添加</a>
+          <a id="addImageMain" class="btn btn-primary" data-toggle="modal" data-target="#imageMainModal">新建主题</a>
         </div>
         <div class="col-md-3"></div>
     </div>
 
-    <div class="modal fade" id="usermodal">
+    <div class="modal fade" id="imageMainModal">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h4 class="modal-title">新建用户</h4>
+            <h4 class="modal-title">新建主题</h4>
           </div>
           <div class="modal-body">
-            <form class="form-horizontal" role="form" id="userform">
+            <form class="form-horizontal" role="form" id="imageMainForm" action="imagemains/add.html" enctype="multipart/form-data">
+            	<input type="hidden" id="congressId" name="congressId" value="${congressId }" />
               <div class="form-group">
                 <div class="col-sm-2">
-                  <label for="userName" class="control-label">登录名</label>
+                  <label for="imageMainTitle" class="control-label">标题</label>
                 </div>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control" id="userName" name="userName" placeholder="登录名">
+                  <input type="text" class="form-control" id="imageMainTitle" name="imageMainTitle" placeholder="标题" />
                 </div>
               </div>
               <div class="form-group">
                 <div class="col-sm-2">
-                  <label for="password" class="control-label">密码</label>
+                  <label for="imageMainDescription" class="control-label">描述</label>
                 </div>
                 <div class="col-sm-8">
-                  <input type="password" class="form-control" id="password" name="password" placeholder="密码">
+                  <input type="textarea" class="form-control" id="imageMainDescription" name="imageMainDescription" placeholder="描述" />
                 </div>
               </div>
               <div class="form-group">
                 <div class="col-sm-2">
-                  <label for="passwordConfirm" class="control-label">确认密码</label>
+                  <label for="imageMainSequence" class="control-label">次序</label>
                 </div>
                 <div class="col-sm-8">
-                  <input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm" placeholder="确认密码">
+                  <input type="text" class="form-control" id="imageMainSequence" name="imageMainSequence" placeholder="次序" />
                 </div>
               </div>
               <div class="form-group">
                 <div class="col-sm-2">
-                  <label for="mobile" class="control-label">手机号</label>
+                  <label for="imageMainFile" class="control-label">图片</label>
                 </div>
                 <div class="col-sm-8">
-                  <input type="tel" class="form-control" id="mobile" name="mobile" placeholder="手机号">
+                  <input type="file" class="form-control" id="imageMainFile" name="imageMainFile" accept="image/jpeg, image/png" />
                 </div>
               </div>
               <div class="form-group">
                 <div class="col-sm-2">
-                  <label for="realName" class="control-label">真实姓名</label>
+                  <label for="imageMainFilePreview" class="control-label">图片预览</label>
                 </div>
-                <div class="col-sm-8">
-                  <input type="text" class="form-control" id="realName" name="realName" placeholder="真实姓名">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-2">
-                  <label for="userType" class="control-label">用户类型</label>
-                </div>
-                <div class="col-sm-8">
-					<div class="btn-group" data-toggle="buttons">
-					  <label class="btn btn-primary active">
-					    <input type="radio" name="userType" id="userType_auditor" autocomplete="off" checked value="auditor">审核员
-					  </label>
-					  <label class="btn btn-primary">
-					    <input type="radio" name="userType" id="userType_editor" autocomplete="off" value="editor">录入员
-					  </label>
-					  <label class="btn btn-primary">
-					    <input type="radio" name="userType" id="userType_manager" autocomplete="off" value="manager">管理员
-					  </label>
-					</div>					
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-2">
-                  <label for="enabled" class="control-label">是否启用</label>
-                </div>
-                <div class="col-sm-8">
-                  <div class="btn-group" data-toggle="buttons">
-					  <label class="btn btn-primary active">
-					    <input type="radio" name="enabled" value="true" autocomplete="off" checked>启用
-					  </label>
-					  <label class="btn btn-primary">
-					    <input type="radio" name="enabled" value="false" autocomplete="off">禁用
-					  </label>
-					</div>
+                <div class="col-sm-8" id="imageMainFilePreview">
                 </div>
               </div>
             </form>
           </div>
           <div class="modal-footer">
             <a class="btn btn-default" data-dismiss="modal">取消</a>
-            <a class="btn btn-primary" action="addUser">确定</a>
+            <a class="btn btn-primary" action="addImageMain">确定</a>
           </div>
         </div>
       </div>
@@ -240,85 +200,110 @@
 	<script type="text/javascript" src="/npc/static/jquery/jquery-dateFormat.js"></script>
 
 	<script type="text/javascript">
-		function formatEnabledStatus(enabled) {
-			return enabled ? '已启用' : '已禁用';
-		}
-		
-		var userTypes = {
-			'editor' : '录入人员',
-			'auditor' : '审核人员',
-			'manager' : '管理员'
-		}
-		
-		function formatUserType(userType) {
-			return userTypes[userType];
-		}
-	
 	
 		$(document).ready(function(){
-			$("[action=addUser]").click(function(){
-				if($('#userform').validate()) {
-					$.ajax("users/add.html",{
-						data:$("#userform").serialize(),
-						dataType:'json',
-						error: function(jqXHR, textStatus, errorThrown){
-							alert(errorThrown);
-						},
-						success: function(data, textStatus, jqXHR) {
-							$("#userform")[0].reset();
+			
+			$("[action=addImageMain]").click(function(){
+				if($('#imageMainForm').validate()) {
+					
+					var fd = new FormData();
+					var ajax = new XMLHttpRequest();
+					fd.append('congressId' , $("#congressId").val());
+					fd.append('imageMainTitle' , $("#imageMainTitle").val());
+					fd.append('imageMainDescription' , $("#imageMainDescription").val());
+					fd.append('imageMainSequence', $("#imageMainSequence").val());
+					fd.append('imageMainFile' , $("#imageMainFile").get(0).files[0]);
+					ajax.open("post", "imagemains/add.html", true);
+
+					ajax.onload = function () {
+						console.log(ajax.responseText);
+					};
+					ajax.onreadystatechange = function() {
+						if (ajax.readyState==4 && ajax.status==200) {
+							var data = JSON.parse(ajax.responseText);
+							
+							$("#imageMainForm")[0].reset();
 							
 							if (null != data['errorMessage']) {
 								alert(data['errorMessage']);
 								return;
 							}
 							
-							var user = data['user'];
+							var imageMain = data['imageMain'];
 							$("<tr></tr>")
 								.append($("<td></td>").text($(".table tbody tr").size() + 1))
-								.append($("<td></td>").text(user['userName']))
-								.append($("<td></td>").text(user['realName']))
-								.append($("<td></td>").text(user['mobile']))
-								.append($("<td></td>").text(formatUserType(user['userType'])))
-								.append($("<td></td>").text($.format.date(user['createdDate'], 'yyyy-MM-dd')))
-								.append($("<td></td>").text($.format.date(user['lastLoginTime'], 'yyyy-MM-dd HH:mm:ss')))
-								.append($("<td></td>").text(user['enabled'] ? '已启用' : '已禁用'))
+								.append($("<td></td>").text(imageMain['imageMainTitle']))
+								.append($("<td></td>").text(user['imageMainDescription']))
+								.append($("<td></td>").text(user['imageMainSequence']))
+								.append($("<td></td>").html('<a class="btn btn-primary" data-imageMainId="' + imageMain['imageMainId'] + '">编辑</a>'))
 								.appendTo($(".table tbody"));						
 							
-							$("#usermodal").modal('hide');
+							$("#imageMainModal").modal('hide');
+					    }
+					};
+
+					ajax.send(fd);
+					
+					
+					/*
+					$.ajax("imagemains/add.html",{
+						contentType:'multipart/form-data',
+						data:{
+							'congressId' : $("#congressId").val(),
+							'imageMainTitle' : $("#imageMainTitle").val(),
+							'imageMainDescription' : $("#imageMainDescription").val(),
+							'imageMainSequence': $("#imageMainSequence").val(),
+							'imageMainFile' : $("#imageMainFile").get(0).files[0]
+						},
+						dataType:'json',
+						error: function(jqXHR, textStatus, errorThrown){
+							alert(errorThrown);
+						},
+						processData : false,
+						success: function(data, textStatus, jqXHR) {
+							$("#imageMainForm")[0].reset();
+							
+							if (null != data['errorMessage']) {
+								alert(data['errorMessage']);
+								return;
+							}
+							
+							var imageMain = data['imageMain'];
+							$("<tr></tr>")
+								.append($("<td></td>").text($(".table tbody tr").size() + 1))
+								.append($("<td></td>").text(imageMain['imageMainTitle']))
+								.append($("<td></td>").text(user['imageMainDescription']))
+								.append($("<td></td>").text(user['imageMainSequence']))
+								.append($("<td></td>").html('<a class="btn btn-primary" data-imageMainId="' + imageMain['imageMainId'] + '">编辑</a>'))
+								.appendTo($(".table tbody"));						
+							
+							$("#imageMainModal").modal('hide');
 						},
 						type:'post'
 					});
+					*/
 				
 				}
 				
 			});
 			
-			$('#usermodal').on('hidden.bs.modal', function (e) {
-				  $("#userform")[0].reset();
-				  $("#userform label.error").remove();
-				  $("#userform label.valid").remove();
+			$('#imageMainModal').on('hidden.bs.modal', function (e) {
+				  $("#imageMainForm")[0].reset();
+				  $("#imageMainForm label.error").remove();
+				  $("#imageMainForm label.valid").remove();
 			});
 			
-			$('#userform').validate(
+			$('#imageMainForm').validate(
 					 {
 					  rules: {
-					    userName: {
-					      	minlength: 4,
+					    imageMainTitle: {
 					      	required: true
 					    },
-					    password: {
-					    	minlength:8,
+					    imageMainSequence: {
 					      	required: true
 					    },
-					    passwordConfirm: {
-					    	equalsTo: '#password'
-					    },
-					    mobile: {
-					      required: true,
-					      digitals: true
-					    },
-					    realName:{
-					    	required: true
+					    imageMainFile: {
+					    	required:true
 					    }
 					  },
 					  highlight: function(element) {
@@ -329,7 +314,20 @@
 					    .text('OK!').addClass('valid')
 					    .closest('.control-group').removeClass('error').addClass('success');
 					  }
-					 });			
+					 });	
+			
+			// 图片预览
+			$("#imageMainFile").change(function(e){
+				var file = e.target.files[0];
+				var img = new Image(), url = img.src = URL.createObjectURL(file)
+	            var $img = $(img)
+	            img.style.width = '360px';
+				img.style.height ='300px';
+	            img.onload = function() {
+	                URL.revokeObjectURL(url)
+	                $('#imageMainFilePreview').empty().append($img)
+	            }
+			});
 		});
 	
 	</script>

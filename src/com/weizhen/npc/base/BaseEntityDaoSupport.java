@@ -25,6 +25,7 @@ import com.chineseall.dams.common.paging.PagingQueryResult;
 import com.chineseall.dams.common.paging.SimpleQueryModelProcessor;
 import com.fylaw.utils.CollectionUtils;
 import com.fylaw.utils.EntityUtils;
+import com.weizhen.npc.exception.ModelNotFoundException;
 
 /**
  * 
@@ -66,6 +67,14 @@ public abstract class BaseEntityDaoSupport<T> extends HibernateDaoSupport {
 	public T load(Serializable id) {
 		return getHibernateTemplate().load(entityClass, id);
 
+	}
+	
+	public T loadExists(Serializable id) {
+		T t = load(id);
+		
+		if (null == t) throw new ModelNotFoundException("指定的记录不存在:" + id);
+		
+		return t;
 	}
 
 	/**

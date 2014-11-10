@@ -38,6 +38,8 @@ public class Congress implements Serializable {
 	private String congressTitle;
 	private Date updateTime;
 	private List<CongressResume> congressResumes;
+	
+	private String status;
 
 	public Congress() {
 	}
@@ -179,4 +181,14 @@ public class Congress implements Serializable {
 		return content.toString();
 	}
 
+
+	@Column(name = "status")
+	public String getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 }

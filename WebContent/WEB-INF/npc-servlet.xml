@@ -18,7 +18,7 @@
 	<context:annotation-config /> 
 	<mvc:annotation-driven />
 	
-	<task:annotation-driven/>
+	<task:annotation-driven/> 
 	
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
@@ -26,6 +26,16 @@
 		<property name="suffix" value=".jsp"/>
 	</bean>
 	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/manager/**/*.html" />
+		 	<bean class="com.weizhen.npc.interceptors.ManagerInterceptor" />
+		</mvc:interceptor>	
+	</mvc:interceptors>	
 	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- one of the properties available; the maximum file size in bytes -->
+		<property name="maxUploadSize" value="1000000000" />
+	</bean>
 	
 </beans>

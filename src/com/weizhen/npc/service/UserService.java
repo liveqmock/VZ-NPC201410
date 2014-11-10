@@ -64,8 +64,14 @@ public class UserService extends BaseService {
 		if (null == originalUser)
 			throw new Exception("用户不存在");
 		
-		originalUser.setRealName(user.getRealName());
+		
 		originalUser.setEnabled(user.getEnabled());
 		originalUser.setLastUpdateDate(new Date());
+		originalUser.setMobile(user.getMobile());
+		originalUser.setPassword(user.getPassword());
+		originalUser.setRealName(user.getRealName());
+		originalUser.setUserType(user.getUserType());
+		
+		return userDao.update(originalUser);
 	}
 }
