@@ -10,7 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>后台管理</title>
 
-	<link href="/npc/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="${context }/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 
 	<!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
@@ -89,8 +89,8 @@
 	</div>
 </div>
 
-	<script type="text/javascript" src="/npc/js/vendor/jquery.min.js"></script>
-	<script type="text/javascript" src="/npc/static/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="${context }/js/vendor/jquery.min.js"></script>
+	<script type="text/javascript" src="${context }/static/bootstrap/js/bootstrap.min.js"></script>
 	
 	<script type="text/javascript">
 		$("#imgcode").click(function(){
