@@ -1,5 +1,6 @@
 package com.weizhen.npc.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,9 +53,32 @@ public class ImageMainService extends BaseService {
 		congressDao.loadExists(imageMain.getCongressId());
 		
 		// TODO 检查主题的序列是否已经存在
+
+		imageMain.setMaterialId(0);
+		imageMain.setCheckPublish(0);
+		imageMain.setCreatedDate(new Date());
 		imageMain.setStatus(ModelStatusEnum.SUBMITTED.getItemCode());
 		imageMain = imageMainDao.saveOrUpdate(imageMain);
 		
 		return imageMain;
+	}
+	
+	public ImageMain modifyImageMain(ImageMain imageMain) {
+		imageMain.setStatus(ModelStatusEnum.SUBMITTED.getItemCode());
+		imageMain.setUpdateTime(new Date());
+		imageMain = imageMainDao.saveOrUpdate(imageMain);
+		
+		return imageMain;
+	}
+	
+	/**
+	 * 查询待审核的主题
+	 * @return
+	 */
+	public List<ImageMain> findSubmittedImageMains() {
+		ImageMainQuery query = new ImageMainQuery();
+		query.setStatus(ModelStatusEnum.SUBMITTED.getItemCode());
+		
+		return imageMainDao.findByQueryModel(query);
 	}
 }

@@ -10,8 +10,4 @@ public class Constants {
 		return "-";
 	}
 	
-	public static final Integer MATERIAL_TYPE_IMAGE = 1;
-	public static final Integer MATERIAL_TYPE_VEDIO = 2;
-	public static final Integer MATERIAL_TYPE_ARTICLE = 4;
-	
 }

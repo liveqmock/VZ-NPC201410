@@ -18,6 +18,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import com.weizhen.npc.base.StatusEntity;
+
 
 /**
  * The persistent class for the Congress database table.
@@ -26,7 +28,7 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "congress")
 @NamedQuery(name="Congress.findAll", query="SELECT c FROM Congress c")
-public class Congress implements Serializable {
+public class Congress implements Serializable, StatusEntity {
 	private static final long serialVersionUID = 1L;
 	private Integer congressId;
 	private Integer checkPublish;

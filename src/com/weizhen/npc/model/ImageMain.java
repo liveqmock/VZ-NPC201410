@@ -15,6 +15,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import com.weizhen.npc.base.StatusEntity;
+
 
 /**
  * The persistent class for the Image_Main database table.
@@ -23,7 +25,7 @@ import javax.persistence.Transient;
 @Entity
 @Table(name="Image_Main")
 @NamedQuery(name="ImageMain.findAll", query="SELECT i FROM ImageMain i")
-public class ImageMain implements Serializable {
+public class ImageMain implements Serializable, StatusEntity {
 	private static final long serialVersionUID = 1L;
 	private Integer imageMainId;
 	private Integer checkPublish;
@@ -47,6 +49,8 @@ public class ImageMain implements Serializable {
 	private List<Document> documents;
 	
 	private String status;
+	private String creator;
+	private Date createdDate;
 
 	public ImageMain() {
 	}
@@ -244,6 +248,7 @@ public class ImageMain implements Serializable {
 	}
 
 
+	@Column(name = "status")
 	public String getStatus() {
 		return status;
 	}
@@ -253,4 +258,29 @@ public class ImageMain implements Serializable {
 		this.status = status;
 	}
 
+
+	@Column(name = "creator")
+	public String getCreator() {
+		return creator;
+	}
+
+
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
+
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "created_date")
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	
+	
 }

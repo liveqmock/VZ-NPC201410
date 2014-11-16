@@ -26,12 +26,14 @@
 		<property name="suffix" value=".jsp"/>
 	</bean>
 	
+	<!-- 
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/manager/**/*.html" />
 		 	<bean class="com.weizhen.npc.interceptors.ManagerInterceptor" />
 		</mvc:interceptor>	
 	</mvc:interceptors>	
+	-->
 	
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!-- one of the properties available; the maximum file size in bytes -->

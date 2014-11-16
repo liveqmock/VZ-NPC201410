@@ -159,6 +159,13 @@ public class CommonController extends BaseController {
 		return managerViewNames;
 	}
 	
+	@RequestMapping("/logout.html")
+	public String logout() {
+		session.removeAttribute("user");
+		
+		return "redirect:login.html";
+	}
+	
 	/**
 	 * 验证码的控制配置
 	 * 

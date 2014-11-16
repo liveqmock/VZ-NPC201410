@@ -16,6 +16,8 @@ import javax.persistence.OrderBy;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.weizhen.npc.base.StatusEntity;
+
 
 /**
  * The persistent class for the Document database table.
@@ -23,7 +25,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @NamedQuery(name="Document.findAll", query="SELECT d FROM Document d")
-public class Document implements Serializable {
+public class Document implements Serializable, StatusEntity {
 	private static final long serialVersionUID = 1L;
 	private Integer documentId;
 	private Integer checkPublish;
@@ -47,6 +49,8 @@ public class Document implements Serializable {
 	private List<Paragraph> paragraphs;
 	
 	private String status;
+	private String creator;
+	private Date createdDate;
 
 	public Document() {
 	}
@@ -263,6 +267,7 @@ public class Document implements Serializable {
 	}
 
 
+	@Column(name = "status")
 	public String getStatus() {
 		return status;
 	}
@@ -270,4 +275,29 @@ public class Document implements Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+
+	@Column(name = "creator")
+	public String getCreator() {
+		return creator;
+	}
+
+
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
+
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "created_date")
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+	
+	
 }

@@ -39,60 +39,19 @@
 
 <div class="container-fluid">
 	<div class="row-fluid">
-		<div class="row">
-			<div class="navbar">
-				<div class="navbar-inner">
-					<div class="container-fluid">
-						 <a data-target=".navbar-responsive-collapse" data-toggle="collapse" class="btn btn-navbar"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a> <a href="#" class="brand">后台管理</a>
-						<div class="nav-collapse collapse navbar-responsive-collapse">
-							<ul class="nav">
-								<li class="dropdown open">
-								</li>
-								
-								<ul class="dropdown-menu">
-								</ul>
-							</ul>
-							<ul class="nav pull-right">
-								<li>
-									<a href="javascript:void(0);">请登录</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		<jsp:include page="nav.jsp"></jsp:include>
 
      <div class="row">
-        <div class="col-md-2">
-			<ul class="nav nav-pills nav-stacked">
-				<li>
-					<a href="users.html">用户管理</a>
-				</li>
-				<li class="active">
-					<a href="content.html">内容管理</a>
-				</li>
-				<li>
-					<a href="auditing.html">内容审核</a>
-				</li>
-				<li>
-					<a href="statics.html">信息统计</a>
-				</li>
-				<!-- 
-				<li class="disabled">
-					<a href="#">信息</a>
-				</li>
-				 -->
-			</ul>        
-        </div>
-        <div class="col-md-7">
+        <jsp:include page="left.jsp"></jsp:include>
+        
+        <div class="col-md-8">
           <table class="table table-hover">
             <thead>
               <tr>
                 <th>序号</th>
                 <th>标题</th>
-                <th>描述</th>
                 <th>次序</th>
+                <th>状态</th>
                 <th>操作</th>
               </tr>
             </thead>
@@ -101,10 +60,20 @@
 			    <c:forEach var="imageMain" items="${imageMains}" varStatus="row">
               <tr>
                 <td>${row.index + 1 }</td>
-                <td>${imageMain.imageMainTitle }</td>
-                <td>${imageMain.imageMainDescription }</td>
+                <td>【主题】${imageMain.imageMainTitle }</td>
                 <td>${imageMain.imageMainSequence }</td>
-                <td><a class="btn btn-primary" data-imageMainId="${imageMain.imageMainId }">编辑</a></td>
+                <td>${npc:formatModelStatus(imageMain.status) }</td>
+                <td>
+                	<a class="btn btn-primary btn-xs" action="viewlog" data-entityId="${imageMain.imageMainId }">日志</a>
+                	<c:if test="${imageMain.status == 'rejected' || imageMain.status == 'submitted' }">
+                		<a class="btn btn-primary btn-xs" action="modify" data-entityId="${imageMain.imageMainId }">编辑</a>
+                		<a class="btn btn-primary btn-xs" action="remove" data-entityId="${imageMain.imageMainId }">删除</a>
+                	</c:if>
+                	<c:if test="${imageMain.status == 'ratified' }">
+                		<a class="btn btn-primary btn-xs" action="publish" data-entityId="${imageMain.imageMainId }">发布</a>
+                	</c:if>
+                	<a class="btn btn-link btn-xs" href="relateds.html?imageMainId=${imageMain.imageMainId }">管理相关资料</a>
+                </td>
               </tr>			        
 			    </c:forEach>
 			</c:if>
@@ -173,6 +142,65 @@
         </div>
       </div>
 	</div>
+	
+    <div class="modal fade" id="modifyModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title">修改主题</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal" role="form" id="modifyForm" action="imagemains/modify.html" enctype="multipart/form-data">
+            	<input type="hidden" name="imageMainId" />
+              <div class="form-group">
+                <div class="col-sm-2">
+                  <label for="imageMainTitle" class="control-label">标题</label>
+                </div>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" name="imageMainTitle" placeholder="标题" />
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-2">
+                  <label for="imageMainDescription" class="control-label">描述</label>
+                </div>
+                <div class="col-sm-8">
+                  <input type="textarea" class="form-control" name="imageMainDescription" placeholder="描述" />
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-2">
+                  <label for="imageMainSequence" class="control-label">次序</label>
+                </div>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" name="imageMainSequence" placeholder="次序" />
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-2">
+                  <label for="imageMainFile" class="control-label">图片</label>
+                </div>
+                <div class="col-sm-8">
+                  <input type="file" class="form-control" name="imageMainFile" accept="image/jpeg, image/png" />
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-2">
+                  <label for="imageMainFilePreview" class="control-label">图片预览</label>
+                </div>
+                <div class="col-sm-8" name="imageMainFilePreview">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <a class="btn btn-default" data-dismiss="modal">取消</a>
+            <a class="btn btn-primary" action="modifyImageMain">确定</a>
+          </div>
+        </div>
+      </div>
+	</div>	
 
 	<div class="modal fade" id="errormodal">
       <div class="modal-dialog">
@@ -190,6 +218,23 @@
 		</div>
 	  </div>
 	</div>
+	
+	<div class="modal fade" id="logmodal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title">日志信息</h4>
+          </div>
+          <div class="modal-body">
+          	
+          </div>
+          <div class="modal-footer">
+            <a class="btn btn-default" data-dismiss="modal">确定</a>
+          </div>
+		</div>
+	  </div>
+	</div>	
 
 </div>
 
@@ -230,12 +275,19 @@
 							}
 							
 							var imageMain = data['imageMain'];
+							
+							var opHtml = "";
+								opHtml += '<a class="btn btn-primary btn-xs" action="viewlog" data-entityId="' + imageMain['imageMainId'] + '">日志</a>'
+								opHtml += '<a class="btn btn-primary btn-xs" action="modifyImageMain" data-entityId="' + imageMain['imageMainId'] + '">编辑</a>';
+								opHtml += '<a class="btn btn-primary btn-xs" action="removeImageMain" data-entityId="' + imageMain['imageMainId'] + '">删除</a>'
+								opHtml += '<a class="btn btn-link btn-xs" href="relateds.html?imageMainId="' + imageMain['imageMainId'] + '">管理相关资料</a>'
+							
 							$("<tr></tr>")
 								.append($("<td></td>").text($(".table tbody tr").size() + 1))
-								.append($("<td></td>").text(imageMain['imageMainTitle']))
-								.append($("<td></td>").text(user['imageMainDescription']))
-								.append($("<td></td>").text(user['imageMainSequence']))
-								.append($("<td></td>").html('<a class="btn btn-primary" data-imageMainId="' + imageMain['imageMainId'] + '">编辑</a>'))
+								.append($("<td></td>").text('【主题】' + imageMain['imageMainTitle']))
+								.append($("<td></td>").text(imageMain['imageMainDescription']))
+								.append($("<td></td>").text(imageMain['imageMainSequence']))
+								.append($("<td></td>").html(opHtml))
 								.appendTo($(".table tbody"));						
 							
 							$("#imageMainModal").modal('hide');
@@ -243,54 +295,14 @@
 					};
 
 					ajax.send(fd);
-					
-					
-					/*
-					$.ajax("imagemains/add.html",{
-						contentType:'multipart/form-data',
-						data:{
-							'congressId' : $("#congressId").val(),
-							'imageMainTitle' : $("#imageMainTitle").val(),
-							'imageMainDescription' : $("#imageMainDescription").val(),
-							'imageMainSequence': $("#imageMainSequence").val(),
-							'imageMainFile' : $("#imageMainFile").get(0).files[0]
-						},
-						dataType:'json',
-						error: function(jqXHR, textStatus, errorThrown){
-							alert(errorThrown);
-						},
-						processData : false,
-						success: function(data, textStatus, jqXHR) {
-							$("#imageMainForm")[0].reset();
-							
-							if (null != data['errorMessage']) {
-								alert(data['errorMessage']);
-								return;
-							}
-							
-							var imageMain = data['imageMain'];
-							$("<tr></tr>")
-								.append($("<td></td>").text($(".table tbody tr").size() + 1))
-								.append($("<td></td>").text(imageMain['imageMainTitle']))
-								.append($("<td></td>").text(user['imageMainDescription']))
-								.append($("<td></td>").text(user['imageMainSequence']))
-								.append($("<td></td>").html('<a class="btn btn-primary" data-imageMainId="' + imageMain['imageMainId'] + '">编辑</a>'))
-								.appendTo($(".table tbody"));						
-							
-							$("#imageMainModal").modal('hide');
-						},
-						type:'post'
-					});
-					*/
-				
 				}
 				
 			});
 			
-			$('#imageMainModal').on('hidden.bs.modal', function (e) {
-				  $("#imageMainForm")[0].reset();
-				  $("#imageMainForm label.error").remove();
-				  $("#imageMainForm label.valid").remove();
+			$('.modal').on('hidden.bs.modal', function (e) {
+				  $(".modal form")[0].reset();
+				  $(".modal form label.error").remove();
+				  $(".modal form label.valid").remove();
 			});
 			
 			$('#imageMainForm').validate(
@@ -327,6 +339,113 @@
 	                URL.revokeObjectURL(url)
 	                $('#imageMainFilePreview').empty().append($img)
 	            }
+			});
+			
+			// 发布主题
+			$("[action=publish]").click(function(){
+				var source = $(this);
+				var resourceId = source.attr('data-entityId');
+				
+				$.ajax({
+					  type: "POST",
+					  url: 'publish.html',
+					  data: 'resourceId=' + resourceId + '&resourceType=ImageMain',
+					  success: function(data, textStatus, jqXHR){
+						  if(data['msg']) {
+							  alert(data['msg']);
+							  return;
+						  }
+
+						source.parents("td").prev().text('已发布');
+					 	source.remove();						
+					  },
+					  dataType: 'json'
+					});				
+			});
+			
+			// 查看日志信息
+			$(".table").on("click", "[action=viewlog]", function(){
+				var url = 'auditlogs.html?resourceType=ImageMain&resourceId=' + $(this).attr('data-entityId');
+				$("#logmodal .modal-body").load(url, function(){});	
+				$("#logmodal").modal('show');
+			});
+			
+			
+			// 修改主题表单的验证
+			$('#modifyForm').validate(
+					 {
+					  rules: {
+					    imageMainTitle: {
+					      	required: true
+					    },
+					    imageMainSequence: {
+					      	required: true
+					    }
+					  },
+					  highlight: function(element) {
+					    $(element).closest('.control-group').removeClass('success').addClass('error');
+					  },
+					  success: function(element) {
+					    element
+					    .text('OK!').addClass('valid')
+					    .closest('.control-group').removeClass('error').addClass('success');
+					  }
+					 });			
+			
+			// 显示修改主题对话框
+			$(".table").on("click", "[action=modify]", function(){
+				var source = $(this);
+				var entityId = source.attr("data-entityId");
+				
+				$.ajax({
+					  url: 'imagemains/' + entityId + '.html',
+					  success: function(data, textStatus, jqXHR){
+						  $("#modifyForm [name=imageMainId]").val(data['imageMainId']);
+						  $("#modifyForm [name=imageMainTitle]").val(data['imageMainTitle']);
+						  $("#modifyForm [name=imageMainDescription]").val(data['imageMainDescription']);
+						  $("#modifyForm [name=imageMainSequence]").val(data['imageMainSequence']);
+						  
+						  $("#modifyModal").modal('show');
+					  },
+					  dataType: 'json'
+					});	
+			});
+			
+			$("[action=modifyImageMain]").click(function(){
+				if($('#modifyForm').validate()) {
+					
+					var fd = new FormData();
+					var ajax = new XMLHttpRequest();
+					fd.append('imageMainId' , $("#modifyForm [name=imageMainId]").val());
+					fd.append('imageMainTitle' , $("#modifyForm [name=imageMainTitle]").val());
+					fd.append('imageMainDescription' , $("#modifyForm [name=imageMainDescription]").val());
+					fd.append('imageMainSequence', $("#modifyForm [name=imageMainSequence]").val());
+					if ($("#modifyForm [name=imageMainFile]").val() != "") {
+						fd.append('imageMainFile' , $("#modifyForm [name=imageMainFile]").get(0).files[0]);
+					}
+					ajax.open("post", "imagemains/modify.html", true);
+
+					ajax.onload = function () {
+						console.log(ajax.responseText);
+					};
+					ajax.onreadystatechange = function() {
+						if (ajax.readyState==4 && ajax.status==200) {
+							var data = JSON.parse(ajax.responseText);
+							
+							$("#modifyForm")[0].reset();
+							
+							if (null != data['msg']) {
+								alert(data['msg']);
+								return;
+							}
+							
+							$("#modifyModal").modal('hide');
+							location.reload();
+					    }
+					};
+
+					ajax.send(fd);
+				}				
 			});
 		});
 	

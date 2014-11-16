@@ -10,26 +10,54 @@ public class DocumentQuery extends BaseQueryModel<DocumentQuery> {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private String documentTitle;
 	private String documentDescription;
-	
+
+	private Integer imageMainId;
+	private Integer checkPublish;
+	private String status;
+
 	@Expression(operatorType = OperatorType.LIKE)
 	public String getDocumentTitle() {
 		return documentTitle;
 	}
+
 	public void setDocumentTitle(String documentTitle) {
 		this.documentTitle = documentTitle;
 	}
-	
+
 	@Expression(operatorType = OperatorType.LIKE)
 	public String getDocumentDescription() {
 		return documentDescription;
 	}
+
 	public void setDocumentDescription(String documentDescription) {
 		this.documentDescription = documentDescription;
 	}
-	
-	
+
+	public Integer getImageMainId() {
+		return imageMainId;
+	}
+
+	public void setImageMainId(Integer imageMainId) {
+		this.imageMainId = imageMainId;
+	}
+
+	public Integer getCheckPublish() {
+		return checkPublish;
+	}
+
+	public void setCheckPublish(Integer checkPublish) {
+		this.checkPublish = checkPublish;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 }

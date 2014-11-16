@@ -34,6 +34,10 @@ public class ImageRelatedService extends BaseService {
 		return imageRelatedDao.findByImageMainId(imageMainId);
 	}
 	
+	public ImageRelated get(Integer imageRelatedId) {
+		return imageRelatedDao.get(imageRelatedId);
+	}
+	
 	public PagingQueryResult<ImageRelated> findByKeyword(String keyword, Paging paging) {
 		ImageRelatedQuery query = new ImageRelatedQuery();
 		query.setCombinationType("or");
@@ -53,10 +57,43 @@ public class ImageRelatedService extends BaseService {
 		imageMainDao.loadExists(imageRelated.getImageMainId());
 		
 		imageRelated.setCheckPublish(1);
+		imageRelated.setCreatedDate(new Date());
+		imageRelated.setStatus(ModelStatusEnum.SUBMITTED.getItemCode());
+		imageRelated = imageRelatedDao.saveOrUpdate(imageRelated);
+		
+		return imageRelated;
+	}
+	
+	
+	/**
+	 * 修改相关资料
+	 * @param imageRelated
+	 * @return
+	 */
+	public ImageRelated modifyImageRelated(ImageRelated imageRelated) {
 		imageRelated.setUpdateTime(new Date());
 		imageRelated.setStatus(ModelStatusEnum.SUBMITTED.getItemCode());
 		imageRelated = imageRelatedDao.saveOrUpdate(imageRelated);
 		
 		return imageRelated;
+	}	
+	
+	/**
+	 * 查询主题下的所有相关资料
+	 * @param imageMainId
+	 * @return
+	 */
+	public List<ImageRelated> findAllImageRelatedsOfImageMain(Integer imageMainId) {
+		ImageRelatedQuery query = new ImageRelatedQuery();
+		query.setImageMainId(imageMainId);
+		
+		return imageRelatedDao.findByQueryModel(query);
+	}
+	
+	public List<ImageRelated> findSubmittedRelateds() {
+		ImageRelatedQuery query = new ImageRelatedQuery();
+		query.setStatus(ModelStatusEnum.SUBMITTED.getItemCode());
+		
+		return imageRelatedDao.findByQueryModel(query);
 	}
 }

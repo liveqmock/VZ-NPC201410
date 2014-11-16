@@ -27,5 +27,21 @@
 		<example>
   			${npc:formatUserType(userType)}
   		</example>
-	</function>		
+	</function>	
+		<function>
+		<name>formatMaterialType</name>
+		<function-class>com.weizhen.npc.utils.Functions</function-class>
+		<function-signature>java.lang.String formatMaterialType(java.lang.Integer)</function-signature>
+		<example>
+  			${npc:formatMaterialType(materialId)}
+  		</example>
+	</function>	
+	<function>
+		<name>formatModelStatus</name>
+		<function-class>com.weizhen.npc.utils.Functions</function-class>
+		<function-signature>java.lang.String formatModelStatus(java.lang.String)</function-signature>
+		<example>
+  			${npc:formatModelStatus(status)}
+  		</example>
+	</function>	
 </taglib>

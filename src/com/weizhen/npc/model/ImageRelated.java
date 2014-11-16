@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.weizhen.npc.base.StatusEntity;
+
 
 /**
  * The persistent class for the Image_Related database table.
@@ -21,7 +23,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name="Image_Related")
 @NamedQuery(name="ImageRelated.findAll", query="SELECT i FROM ImageRelated i")
-public class ImageRelated implements Serializable {
+public class ImageRelated implements Serializable, StatusEntity {
 	private static final long serialVersionUID = 1L;
 	private Integer imageRelatedId;
 	private Integer checkPublish;
@@ -44,6 +46,8 @@ public class ImageRelated implements Serializable {
 	private Date updateTime;
 	
 	private String status;
+	private String creator;
+	private Date createdDate;
 
 	public ImageRelated() {
 	}
@@ -231,6 +235,7 @@ public class ImageRelated implements Serializable {
 		this.updateTime = updateTime;
 	}
 
+	@Column(name = "status")
 	public String getStatus() {
 		return status;
 	}
@@ -238,5 +243,27 @@ public class ImageRelated implements Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	
+	@Column(name = "creator")
+	public String getCreator() {
+		return creator;
+	}
+
+
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
+
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "created_date")
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 }

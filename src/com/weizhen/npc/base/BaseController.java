@@ -37,9 +37,6 @@ public abstract class BaseController {
 	protected HttpServletRequest request;
 	
 	@Autowired
-	protected HttpServletResponse response;
-	
-	@Autowired
 	protected HttpSession session;
 	
 	/**

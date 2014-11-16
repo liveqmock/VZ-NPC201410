@@ -86,6 +86,14 @@ public abstract class BaseEntityDaoSupport<T> extends HibernateDaoSupport {
 	public T get(Serializable id) {
 		return getHibernateTemplate().get(entityClass, id);
 	}
+	
+	public T getExists(Serializable id) {
+		T t = getHibernateTemplate().get(entityClass, id);
+		
+		if (null == t) throw new ModelNotFoundException("指定的记录不存在");
+		
+		return t;
+	}
 
 	/**
 	 * 保存对象的方法
@@ -388,5 +396,11 @@ public abstract class BaseEntityDaoSupport<T> extends HibernateDaoSupport {
 
 	public void saveOrUpdateAll(List<T> entitites) {
 		getHibernateTemplate().saveOrUpdateAll(entitites);
+	}
+	
+	public <E> E updateEntity(E entity) {
+		getHibernateTemplate().saveOrUpdate(entity);
+		
+		return entity;
 	}
 }

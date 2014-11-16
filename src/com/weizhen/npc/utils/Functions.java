@@ -1,5 +1,6 @@
 package com.weizhen.npc.utils;
 
+
 /**
  * 实用功能
  * @author y
@@ -36,7 +37,7 @@ public class Functions {
 		try {
 			return materialTypes[materialId];
 		} catch (Exception e) {
-			return null;
+			return materialId.toString();
 		}
 	}
 	
@@ -51,6 +52,32 @@ public class Functions {
 			return UserTypeEnum.from(userType).getItemValue();
 		} catch(Exception e) {
 			return userType;
+		}
+	}
+	
+	/**
+	 * 格式化显示相关资料类型
+	 * @param materialId
+	 * @return
+	 */
+	public static String formatMaterialType(Integer materialId) {
+		try {
+			return MaterialTypeEnum.from(materialId).getItemValue();
+		} catch(Exception e) {
+			return materialId.toString();
+		}
+	}
+	
+	/**
+	 * 格式化显示记录状态
+	 * @param status
+	 * @return
+	 */
+	public static String formatModelStatus(String status) {
+		try {
+			return ModelStatusEnum.from(status).getItemValue();
+		} catch (Exception e) {
+			return status;
 		}
 	}
 	

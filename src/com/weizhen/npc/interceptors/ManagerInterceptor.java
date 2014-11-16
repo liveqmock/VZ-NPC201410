@@ -27,6 +27,6 @@ public class ManagerInterceptor implements HandlerInterceptor {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-			return null == request.getSession().getAttribute("user");
+			return null != request.getSession().getAttribute("user");
 	}
 }

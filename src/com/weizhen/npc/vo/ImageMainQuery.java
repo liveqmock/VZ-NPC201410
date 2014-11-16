@@ -19,6 +19,8 @@ public class ImageMainQuery extends BaseQueryModel<ImageMainQuery> {
 	private String imageMainTitle;
 	private String imageMainDescription;
 	
+	private String status;
+	
 	@Expression(operatorType = OperatorType.LIKE)
 	public String getImageMainTitle() {
 		return imageMainTitle;
@@ -34,4 +36,13 @@ public class ImageMainQuery extends BaseQueryModel<ImageMainQuery> {
 	public void setImageMainDescription(String imageMainDescription) {
 		this.imageMainDescription = imageMainDescription;
 	}
+	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	
 }

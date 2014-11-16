@@ -39,53 +39,12 @@
 
 <div class="container-fluid">
 	<div class="row-fluid">
-		<div class="row">
-			<div class="navbar">
-				<div class="navbar-inner">
-					<div class="container-fluid">
-						 <a data-target=".navbar-responsive-collapse" data-toggle="collapse" class="btn btn-navbar"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a> <a href="#" class="brand">后台管理</a>
-						<div class="nav-collapse collapse navbar-responsive-collapse">
-							<ul class="nav">
-								<li class="dropdown open">
-								</li>
-								
-								<ul class="dropdown-menu">
-								</ul>
-							</ul>
-							<ul class="nav pull-right">
-								<li>
-									<a href="javascript:void(0);">请登录</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		<jsp:include page="nav.jsp"></jsp:include>
 
      <div class="row">
-        <div class="col-md-2">
-			<ul class="nav nav-pills nav-stacked">
-				<li class="active">
-					<a href="users.html">用户管理</a>
-				</li>
-				<li>
-					<a href="content.html">内容管理</a>
-				</li>
-				<li>
-					<a href="auditing.html">内容审核</a>
-				</li>
-				<li>
-					<a href="statics.html">信息统计</a>
-				</li>
-				<!-- 
-				<li class="disabled">
-					<a href="#">信息</a>
-				</li>
-				 -->
-			</ul>        
-        </div>
-        <div class="col-md-7">
+        <jsp:include page="left.jsp"></jsp:include>
+        
+        <div class="col-md-8">
           <table class="table table-hover">
             <thead>
               <tr>
@@ -97,6 +56,7 @@
                 <th>创建时间</th>
                 <th>最后登录时间</th>
                 <th>是否启用</th>
+                <th>操作</th>
               </tr>
             </thead>
             <tbody>
@@ -111,15 +71,15 @@
                 <td><fmt:formatDate value='${user.createdDate}' pattern='yyyy-MM-dd' /></td>
                 <td><fmt:formatDate value='${user.lastLoginTime}' pattern='yyyy-MM-dd HH:mm:ss' /></td>
                 <td>${user.enabled ? '已启用' : '已禁用' }</td>
+                <td><a action="modifyUser" data-entityId="${user.userId }" class="btn btn-primary btn-xs">修改</a></td>
               </tr>			        
 			    </c:forEach>
 			</c:if>
             </tbody>
           </table>
-          <a id="modifyUser" class="btn btn-primary">修改</a>
           <a id="addUser" class="btn btn-primary" data-toggle="modal" data-target="#usermodal">添加</a>
         </div>
-        <div class="col-md-3"></div>
+        <div class="col-md-2"></div>
     </div>
 
     <div class="modal fade" id="usermodal">
@@ -282,6 +242,7 @@
 								.append($("<td></td>").text($.format.date(user['createdDate'], 'yyyy-MM-dd')))
 								.append($("<td></td>").text($.format.date(user['lastLoginTime'], 'yyyy-MM-dd HH:mm:ss')))
 								.append($("<td></td>").text(user['enabled'] ? '已启用' : '已禁用'))
+								.append($("<td></td>").html('<a action="modifyUser" data-entityId="' + user['userId'] + '" class="btn btn-primary btn-xs">修改</a>'))
 								.appendTo($(".table tbody"));						
 							
 							$("#usermodal").modal('hide');

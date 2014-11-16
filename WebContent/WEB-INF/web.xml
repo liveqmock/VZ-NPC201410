@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
-  <display-name>npc</display-name>
+  <display-name>npc</display-name> 
   
   <context-param>
   <param-name>contextConfigLocation</param-name>
@@ -43,6 +43,15 @@
   <servlet-name>npc</servlet-name>
   <url-pattern>*.html</url-pattern>
  </servlet-mapping>
+ 
+  <filter>
+    <filter-name>sessionFilter</filter-name>
+    <filter-class>com.weizhen.npc.filter.SessionFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>sessionFilter</filter-name>
+    <url-pattern>/manager/*</url-pattern>
+  </filter-mapping> 
  
  <jsp-config>
     <taglib>
