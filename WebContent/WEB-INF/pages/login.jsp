@@ -1,101 +1,129 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
+pageEncoding="UTF-8" %>
+
 <%@ include file="common.jsp" %>
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>后台管理</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人大60周年纪念展--后台管理</title>
+    <link href="${context }/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="${context }/js/vendor/html5.min.js"></script>
+    <script src="${context }/js/vendor/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        body {
+            padding-top: 70px;
+            padding-bottom: 30px;
+        }
 
-	<link href="${context }/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        .form-signin {
+            max-width: 530px;
+            padding: 15px;
+            margin: 0 auto;
+        }
 
+        .form-signin .form-control {
+            position: relative;
+            height: auto;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            padding: 10px;
+            font-size: 16px;
+        }
 
-	<!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
-      <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
-      <!--[if lt IE 9]>
-         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-      <![endif]-->
-      
+        .form-signin .form-control:focus {
+            z-index: 2;
+        }
+    </style>
 </head>
 <body>
-<div class="container-fluid">
-	<div class="row-fluid">
-		<div class="row">
-			<div class="navbar">
-				<div class="navbar-inner">
-					<div class="container-fluid">
-						 <a data-target=".navbar-responsive-collapse" data-toggle="collapse" class="btn btn-navbar"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a> <a href="#" class="brand">后台管理</a>
-						<div class="nav-collapse collapse navbar-responsive-collapse">
-							<ul class="nav">
-								<li class="dropdown open">
-								</li>
-								
-								<ul class="dropdown-menu">
-								</ul>
-							</ul>
-							<ul class="nav pull-right">
-								<li>
-									<a href="javascript:void(0);">请登录</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4">
-				</div>
-				<div class="col-md-4">
-					<form class="form-horizontal" method="post">
-						<div class="control-group">
-							<label class="control-label" for="userName">用户名</label>
-							<div class="controls">
-								<input id="userName" name="userName" type="text" autocomplete="off" />
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="password">密码</label>
-							<div class="controls">
-								<input id="password" name="password" type="password" autocomplete="off" />
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="verifyCode">验证码</label>
-							<div class="controls">
-								<input id="verifyCode" name="verifyCode" type="text" />
-								<img id="imgcode" title="点击刷新" style="cursor:pointer;" src="getcode.html">
-							</div>
-						</div>
-						
-						<c:if test="${!empty errorMessage }">				
-						<div class="alert alert-warning" role="alert">${errorMessage }</div>
-						</c:if>
-						
-						<div class="control-group">
-							<div class="controls">
-								<button class="btn" type="submit">登录</button>
-							</div>
-						</div>
-					</form>
-				</div>
-				<div class="col-md-4">
-				</div>
-			</div>
-		</div>
-	</div>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">人大60周年展--后台管理</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="javascript:void(0);">请登录</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <form class="form-signin form-horizontal" role="form" method="post">
+
+        <c:if test="${!empty errorMessage }">
+            <div class="alert alert-warning" role="alert">${errorMessage }</div>
+        </c:if>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" for="userName">用户名</label>
+
+            <div class="col-sm-9">
+                <input id="userName" name="userName" type="text" autocomplete="off" class="form-control"
+                       placeholder="请填写用户名"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label" for="password">密码</label>
+
+            <div class="col-sm-9">
+                <input id="password" name="password" type="password" autocomplete="off" class="form-control"
+                       placeholder="请填写密码"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label" for="verifyCode">验证码</label>
+
+            <div class="col-sm-5">
+                <input id="verifyCode" name="verifyCode" type="text" autocomplete="off" class="form-control"
+                       placeholder="请输入右侧验证码"/>
+            </div>
+            <div class="col-sm-4">
+                <img id="imgcode" title="点击刷新" style="cursor:pointer;" src="getcode.html">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-8 col-md-offset-3">
+                <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-8 col-md-offset-3 bg-warning">
+                <br/>
+                <ul>
+                    <li>测试版用户</li>
+                    <li>管理员：admin/123456</li>
+                    <li>编辑员：editor/12345678</li>
+                    <li>审核员：auditor/123456789</li>
+                </ul>
+                <br/>
+            </div>
+        </div>
+    </form>
 </div>
 
-	<script type="text/javascript" src="${context }/js/vendor/jquery.min.js"></script>
-	<script type="text/javascript" src="${context }/static/bootstrap/js/bootstrap.min.js"></script>
-	
-	<script type="text/javascript">
-		$("#imgcode").click(function(){
-			$("#imgcode").attr("src", $("#imgcode").attr("src"));
-		});
-	</script>
+<script type="text/javascript" src="${context }/js/vendor/jquery.min.js"></script>
+<script type="text/javascript" src="${context }/static/bootstrap/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+    $("#imgcode").click(function () {
+        $("#imgcode").attr("src", $("#imgcode").attr("src"));
+    });
+</script>
 </body>
 </html>

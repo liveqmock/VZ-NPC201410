@@ -138,7 +138,7 @@ public class CommonController extends BaseController {
 		User user = userService.login(userName, password);
 		if (null == user) {
 			session.setAttribute(Constants.KAPTCHA_SESSION_KEY, null);
-			session.setAttribute("errorMessage", "验用户名或密码不正确,请重新输入");
+			session.setAttribute("errorMessage", "用户名或密码不正确,请重新输入");
 			return "redirect:login.html";
 		}
 		

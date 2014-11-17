@@ -28,3 +28,7 @@ xi.mp4
 *.DS_Store
 WebContent/sql/npcwebsite2014102502.sql
 *.sql
+.project
+.externalToolBuilders/org.eclipse.wst.validation.validationbuilder.launch
+.project
+*.project
