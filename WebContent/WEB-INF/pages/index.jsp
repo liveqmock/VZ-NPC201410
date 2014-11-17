@@ -100,7 +100,7 @@ pageEncoding="UTF-8"%>
 
 			var st = setTimeout(hideAd, 5000);
 
-			$.cookie('npc60init', 'true', {expires: 7});
+			$.cookie('npc60init', 'true', {expires: 1});
 		} else {
 
 			$("#container #index-main-content").css({
