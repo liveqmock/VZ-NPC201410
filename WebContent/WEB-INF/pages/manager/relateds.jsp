@@ -176,8 +176,7 @@ pageEncoding="UTF-8"%>
                             <label for="imageRelatedFile" class="control-label">文件</label>
                         </div>
                         <div class="col-sm-8">
-                            <input type="file" class="form-control" id="imageRelatedFile" name="imageRelatedFile"
-                                   accept="image/jpeg, image/png"/>
+                            <input type="file" class="form-control" id="imageRelatedFile" name="imageRelatedFile" />
                         </div>
                     </div>
                     <div class="form-group">
@@ -193,7 +192,7 @@ pageEncoding="UTF-8"%>
                         </div>
                         <div class="col-sm-8">
                             <input type="file" class="form-control" id="imageRelatedThumbFile"
-                                   name="imageRelatedThumbFile" accept="image/jpeg, image/png"/>
+                                   name="imageRelatedThumbFile" />
                         </div>
                     </div>
                     <div class="form-group video" style="display:none;">
@@ -267,7 +266,7 @@ pageEncoding="UTF-8"%>
                         </div>
                         <div class="col-sm-8">
                             <input type="file" class="form-control" id="imageRelatedFile_modify" name="imageRelatedFile"
-                                   accept="image/jpeg, image/png"/>
+                                   />
                         </div>
                     </div>
                     <div class="form-group">
@@ -283,7 +282,7 @@ pageEncoding="UTF-8"%>
                         </div>
                         <div class="col-sm-8">
                             <input type="file" class="form-control" id="imageRelatedThumbFile_modify" name="imageRelatedThumbFile"
-                                   accept="image/jpeg, image/png"/>
+                                    />
                         </div>
                     </div>
                     <div class="form-group video" style="display:none;">
