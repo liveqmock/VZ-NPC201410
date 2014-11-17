@@ -191,7 +191,7 @@ pageEncoding="UTF-8"%>
                             <label for="imageMainFile" class="control-label">图片</label>
                         </div>
                         <div class="col-sm-8">
-                            <input type="file" class="form-control" name="imageMainFile"
+                            <input type="file" class="form-control" id="imageMainFile_modify" name="imageMainFile"
                                    accept="image/jpeg, image/png"/>
                         </div>
                     </div>
@@ -199,7 +199,7 @@ pageEncoding="UTF-8"%>
                         <div class="col-sm-2">
                             <label for="imageMainFilePreview" class="control-label">图片预览</label>
                         </div>
-                        <div class="col-sm-8" name="imageMainFilePreview">
+                        <div class="col-sm-8" id="imageMainFilePreview_modify" name="imageMainFilePreview">
                         </div>
                     </div>
                 </form>
@@ -254,6 +254,7 @@ pageEncoding="UTF-8"%>
 <script type="text/javascript" src="${context }/static/jquery-validation/additional-methods.min.js"></script>
 <script type="text/javascript" src="${context }/static/jquery/jquery-dateFormat.js"></script>
 <script type="text/javascript" src="${context }/js/validate.message.cn.js"></script>
+<script type="text/javascript" src="${context }/js/common.js"></script>
 
 <script type="text/javascript">
 
@@ -296,8 +297,8 @@ $(document).ready(function () {
                     $("<tr></tr>")
                             .append($("<td></td>").text($(".table tbody tr").size() + 1))
                             .append($("<td></td>").text('【主题】' + imageMain['imageMainTitle']))
-                            .append($("<td></td>").text(imageMain['imageMainDescription']))
                             .append($("<td></td>").text(imageMain['imageMainSequence']))
+                            .append($("<td></td>").text(formatModelStatus(imageMain['status'])))
                             .append($("<td></td>").html(opHtml))
                             .appendTo($(".table tbody"));
 
@@ -350,6 +351,19 @@ $(document).ready(function () {
             $('#imageMainFilePreview').empty().append($img)
         }
     });
+    
+    // 图片预览
+    $("#imageMainFile_modify").change(function (e) {
+        var file = e.target.files[0];
+        var img = new Image(), url = img.src = URL.createObjectURL(file)
+        var $img = $(img)
+        img.style.width = '360px';
+        img.style.height = '300px';
+        img.onload = function () {
+            URL.revokeObjectURL(url)
+            $('#imageMainFilePreview_modify').empty().append($img)
+        }
+    });    
 
     // 发布主题
     $("[action=publish]").click(function () {

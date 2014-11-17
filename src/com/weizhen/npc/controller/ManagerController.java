@@ -1,6 +1,7 @@
 package com.weizhen.npc.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -176,15 +178,8 @@ public class ManagerController extends BaseController {
 			User user = (User) session.getAttribute("user");
 			assertUserTypeIn(user, UserTypeEnum.EDITOR);
 
-			String fileName = Constants.getImageMainFileDirectory()
-					+ String.format("%02d", congressId)
-					+ Constants.getFileNameSplitter()
-					+ String.format("%02d", imageMain.getImageMainSequence())
-					+ imageMainFile.getOriginalFilename().substring(
-							imageMainFile.getOriginalFilename().lastIndexOf("."));
-			imageMainFile.transferTo(new File(getWebRootPath() + fileName));
-
-			imageMain.setImageMainFilepath(fileName);
+			saveImageMainFile(imageMain, imageMainFile);
+			
 			imageMain = imageMainService.addImageMain(imageMain);
 			res.put("imageMain", imageMain);
 
@@ -202,6 +197,35 @@ public class ManagerController extends BaseController {
 			return res;
 		}
 	}
+	
+	/**
+	 * 保存主题文件
+	 * @param imageMain
+	 * @param imageMainFile
+	 * @return
+	 * @throws IOException
+	 */
+	private String saveImageMainFile(ImageMain imageMain, MultipartFile imageMainFile) throws IOException {
+		String originalFilename = imageMainFile.getOriginalFilename();
+		String suffixName = originalFilename.substring(originalFilename.lastIndexOf("."));
+		String directory = Constants.getImageMainFileDirectory();
+		String fileName = String.format("%02d", imageMain.getCongressId()) + Constants.getFileNameSplitter()
+				+ String.format("%02d", imageMain.getImageMainSequence());
+		
+		String filepath = directory + fileName + suffixName;
+		File file = new File(getWebRootPath() + filepath);
+		imageMainFile.transferTo(file);
+		imageMain.setImageMainFilepath(filepath);
+		
+		String mFilePath = directory + "m/" + fileName + "-m" + suffixName;
+		FileUtils.copyFile(file, new File(getWebRootPath() + mFilePath));
+		String sFilePath = directory + "s/" + fileName + "-s" + suffixName;
+		FileUtils.copyFile(file, new File(getWebRootPath() + sFilePath));
+		String bFilePath = directory + "b/" + fileName + "-b" + suffixName;
+		FileUtils.copyFile(file, new File(getWebRootPath() + bFilePath));
+		
+		return filepath;
+	}
 
 	@RequestMapping(value = "/imagemains/modify.html", method = RequestMethod.POST)
 	@ResponseBody
@@ -218,15 +242,7 @@ public class ManagerController extends BaseController {
 			assertCanBeModified(original);
 
 			if (null != imageMainFile) {
-				Integer congressId = original.getCongressId();
-				String fileName = Constants.getImageMainFileDirectory()
-						+ String.format("%02d", congressId)
-						+ Constants.getFileNameSplitter()
-						+ String.format("%02d", imageMain.getImageMainSequence())
-						+ imageMainFile.getOriginalFilename().substring(
-								imageMainFile.getOriginalFilename().lastIndexOf("."));
-				imageMainFile.transferTo(new File(getWebRootPath() + fileName));
-				original.setImageMainFilepath(fileName);
+				saveImageMainFile(original, imageMainFile);
 			}
 
 			original.setImageMainTitle(imageMain.getImageMainTitle());
@@ -310,28 +326,9 @@ public class ManagerController extends BaseController {
 		try {
 			User user = (User) session.getAttribute("user");
 			assertUserTypeIn(user, UserTypeEnum.EDITOR);
-
-			String fileNamePrefix = Constants.getImageMainFileDirectory()
-					+ String.format("%02d", imageRelated.getCongressId()) + Constants.getFileNameSplitter()
-					+ String.format("%02d", imageRelated.getImageMainId()) + Constants.getFileNameSplitter()
-					+ String.format("%02d", imageRelated.getImageRelatedSequence());
-
-			// 保存文件并设置文件路径
-			String fileName = imageRelatedFile.getOriginalFilename();
-			String fileNameSuffix = fileName.substring(fileName.lastIndexOf("."));
-			fileName = fileNamePrefix + fileNameSuffix;
-			imageRelatedFile.transferTo(new File(getWebRootPath() + fileName));
-			imageRelated.setImageRelatedFilepath(fileName);
-
-			// 视频资料的缩略图处理
-			if (MaterialTypeEnum.VIDEO.getItemCode() == imageRelated.getMaterialId().intValue()) {
-				fileName = imageRelatedThumbFile.getOriginalFilename();
-				fileNameSuffix = fileName.substring(fileName.lastIndexOf("."));
-				fileName = fileNamePrefix + fileNameSuffix;
-				imageRelatedThumbFile.transferTo(new File(getWebRootPath() + fileName));
-			}
-
-			imageRelated.setImageRelatedThumbFilepath(fileName);
+			
+			saveImageRelatedFile(imageRelated, imageRelatedFile, imageRelatedThumbFile);
+			
 			imageRelated = imageRelatedService.addImageRelated(imageRelated);
 
 			res.put("imageRelated", imageRelated);
@@ -351,6 +348,57 @@ public class ManagerController extends BaseController {
 			return res;
 		}
 	}
+	
+	/**
+	 * 保存相关资料的文件
+	 * @param imageRelated
+	 * @param imageRelatedFile
+	 * @param imageRelatedThumbFile
+	 * @throws IOException
+	 */
+	private void saveImageRelatedFile(ImageRelated imageRelated, MultipartFile imageRelatedFile, MultipartFile imageRelatedThumbFile) throws IOException {
+		int materialId = imageRelated.getMaterialId().intValue();
+		String directory = Constants.getImageRelatedFileDirectory();
+		String fileName = String.format("%02d", imageRelated.getCongressId()) + Constants.getFileNameSplitter()
+				+ String.format("%02d", imageRelated.getImageMainId()) + Constants.getFileNameSplitter()
+				+ String.format("%02d", imageRelated.getImageRelatedSequence());
+		
+		String originalFilename = imageRelatedFile.getOriginalFilename();
+		String suffixName = originalFilename.substring(originalFilename.lastIndexOf("."));
+		
+		String filepath  = directory + fileName + suffixName;
+		File file = new File(getWebRootPath() + filepath);
+		imageRelatedFile.transferTo(file);
+		imageRelated.setImageRelatedFilepath(filepath);
+		
+		if (MaterialTypeEnum.IMAGE.getItemCode() == materialId) {
+			String mFilepath = directory + "m/" + fileName + "-m" + suffixName;
+			FileUtils.copyFile(file, new File(getWebRootPath() + mFilepath));
+			String sFilepath = directory + "s/" + fileName + "-s" + suffixName;
+			FileUtils.copyFile(file, new File(getWebRootPath() + sFilepath));
+			String bFilepath = directory + "b/" + fileName + "-b" + suffixName;
+			FileUtils.copyFile(file, new File(getWebRootPath() + bFilepath));
+		}
+
+		// 视频资料的缩略图处理
+		if (MaterialTypeEnum.VIDEO.getItemCode() == materialId) {
+			originalFilename = imageRelatedThumbFile.getOriginalFilename();
+			suffixName = originalFilename.substring(originalFilename.lastIndexOf("."));
+			filepath  = directory + fileName + suffixName;
+			file = new File(getWebRootPath() + filepath);
+			imageRelatedThumbFile.transferTo(file);
+			
+			String mFilepath = directory + "m/" + fileName + "-m" + suffixName;
+			FileUtils.copyFile(file, new File(getWebRootPath() + mFilepath));
+			String sFilepath = directory + "s/" + fileName + "-s" + suffixName;
+			FileUtils.copyFile(file, new File(getWebRootPath() + sFilepath));
+			String bFilepath = directory + "b/" + fileName + "-b" + suffixName;
+			FileUtils.copyFile(file, new File(getWebRootPath() + bFilepath));
+		}
+		imageRelated.setImageRelatedThumbFilepath(filepath);
+	}
+	
+	
 
 	@RequestMapping(value = "/relateds/modify.html", method = RequestMethod.POST)
 	@ResponseBody

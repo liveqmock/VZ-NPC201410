@@ -182,9 +182,9 @@ pageEncoding="UTF-8"%>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-2">
-                            <label for="imageMainFilePreview" class="control-label">图片预览</label>
+                            <label for="imageRelatedFilePreview" class="control-label">图片预览</label>
                         </div>
-                        <div class="col-sm-8" id="imageMainFilePreview">
+                        <div class="col-sm-8" id="imageRelatedFilePreview" name="imageRelatedFilePreview">
                         </div>
                     </div>
                     <div class="form-group video" style="display:none;">
@@ -200,7 +200,7 @@ pageEncoding="UTF-8"%>
                         <div class="col-sm-2">
                             <label for="imageRelatedThumbFilePreview" class="control-label">图片预览</label>
                         </div>
-                        <div class="col-sm-8" id="imageRelatedThumbFilePreview">
+                        <div class="col-sm-8" id="imageRelatedThumbFilePreview" name="imageRelatedThumbFilePreview">
                         </div>
                     </div>
                 </form>
@@ -266,15 +266,15 @@ pageEncoding="UTF-8"%>
                             <label for="imageRelatedFile" class="control-label">文件</label>
                         </div>
                         <div class="col-sm-8">
-                            <input type="file" class="form-control" name="imageRelatedFile"
+                            <input type="file" class="form-control" id="imageRelatedFile_modify" name="imageRelatedFile"
                                    accept="image/jpeg, image/png"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-2">
-                            <label for="imageMainFilePreview" class="control-label">图片预览</label>
+                            <label for="imageRelatedFilePreview" class="control-label">图片预览</label>
                         </div>
-                        <div class="col-sm-8" name="imageMainFilePreview">
+                        <div class="col-sm-8" id="imageRelatedFilePreview_modify" name="imageRelatedFilePreview">
                         </div>
                     </div>
                     <div class="form-group video" style="display:none;">
@@ -282,7 +282,7 @@ pageEncoding="UTF-8"%>
                             <label for="imageRelatedThumbFile" class="control-label">缩略图</label>
                         </div>
                         <div class="col-sm-8">
-                            <input type="file" class="form-control" name="imageRelatedThumbFile"
+                            <input type="file" class="form-control" id="imageRelatedThumbFile_modify" name="imageRelatedThumbFile"
                                    accept="image/jpeg, image/png"/>
                         </div>
                     </div>
@@ -290,7 +290,7 @@ pageEncoding="UTF-8"%>
                         <div class="col-sm-2">
                             <label for="imageRelatedThumbFilePreview" class="control-label">图片预览</label>
                         </div>
-                        <div class="col-sm-8" name="imageRelatedThumbFilePreview">
+                        <div class="col-sm-8" id="imageRelatedThumbFilePreview_modify" name="imageRelatedThumbFilePreview">
                         </div>
                     </div>
                 </form>

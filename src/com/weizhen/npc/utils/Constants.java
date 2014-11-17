@@ -6,6 +6,10 @@ public class Constants {
 		return "Img/Image_Main/";
 	}
 	
+	public static String getImageRelatedFileDirectory() {
+		return "Img/Image_Related/";
+	}
+	
 	public static String getFileNameSplitter() {
 		return "-";
 	}
