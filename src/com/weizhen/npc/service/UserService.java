@@ -58,15 +58,14 @@ public class UserService extends BaseService {
 		if (EntityUtils.notEmpty(matchedUsers))
 			throw new Exception("用户名已存在");
 		
+		user.setCreatedDate(new Date());
 		user.setPassword(MD5.encrypt(user.getPassword().getBytes()));
 		
 		return userDao.saveOrUpdate(user);
 	}
 	
-	public User updateUser(User user) throws Exception {
-		User originalUser = userDao.load(user.getUserId());
-		if (null == originalUser)
-			throw new Exception("用户不存在");
+	public User updateUser(User user) {
+		User originalUser = userDao.getExists(user.getUserId());
 		
 		if (null != user.getEnabled()) {
 			originalUser.setEnabled(user.getEnabled());

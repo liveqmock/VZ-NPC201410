@@ -51,7 +51,7 @@ import com.weizhen.npc.vo.ResourceAuditLogQuery;
  */
 @Controller
 @RequestMapping(value = "/manager")
-@SessionAttributes("user")
+@SessionAttributes("loggedUser")
 public class ManagerController extends BaseController {
 
 	private static Logger logger = LoggerFactory.getLogger(ManagerController.class);
@@ -84,10 +84,10 @@ public class ManagerController extends BaseController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/users/list.html")
+	@RequestMapping(value = "/users/{userId}.html")
 	@ResponseBody
-	public List<User> listUser(HttpServletRequest request) {
-		return userService.loadAll();
+	public User userDetail(@PathVariable Integer userId) {
+		return userService.get(userId);
 	}
 
 	@RequestMapping(value = "/users/add.html")
@@ -95,20 +95,22 @@ public class ManagerController extends BaseController {
 	public Map<String, Object> addUser(User user) {
 		Map<String, Object> res = new HashMap<String, Object>();
 
-		if (!checkValid(user)) {
-			res.put("msg", "字段填写不正确,请重新填写");
-			return res;
-		}
-
 		try {
+			User loggedUser = (User) session.getAttribute("user");
+			assertUserTypeIn(loggedUser, UserTypeEnum.MANAGER);
+			
+			if (!checkValid(user)) {
+				throw new Exception("字段填写不正确,请重新填写");
+			}
+			
 			user = userService.addUser(user);
 			res.put("user", user);
-
-			return res;
 		} catch (Exception e) {
+			logger.error("添加用户失败", e);
 			res.put("msg", e.getMessage());
-			return res;
 		}
+		
+		return res;
 	}
 
 	/**
@@ -117,6 +119,8 @@ public class ManagerController extends BaseController {
 	 * @param user
 	 * @return
 	 */
+	@RequestMapping(value="/users/modify.html", method = RequestMethod.POST)
+	@ResponseBody
 	public Map<String, Object> updateUser(User user) {
 		Map<String, Object> res = new HashMap<String, Object>();
 
@@ -126,14 +130,12 @@ public class ManagerController extends BaseController {
 
 			user = userService.updateUser(user);
 			res.put("user", user);
-
-			return res;
 		} catch (Exception e) {
-			logger.error("修改用户出错:", e);
+			logger.error("修改用户失败", e);
 			res.put("msg", e.getMessage());
-
-			return res;
 		}
+		
+		return res;
 	}
 
 	private Boolean checkValid(User user) {
@@ -545,6 +547,13 @@ public class ManagerController extends BaseController {
 		List<ResourceAuditLog> auditLogs = resourceAuditLogService.showAuditLogs(query);
 		mav.addObject("auditLogs", auditLogs);
 
+		return mav;
+	}
+	
+	@RequestMapping("/stats.html")
+	public ModelAndView stats() {
+		ModelAndView mav = new ModelAndView("manager/stats");
+		
 		return mav;
 	}
 }

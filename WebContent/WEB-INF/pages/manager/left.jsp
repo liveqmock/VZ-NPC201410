@@ -13,6 +13,6 @@
 		<c:if test="${user.userType == 'auditor'}">
 			<li class="active"><a href="auditing.html">内容审核</a></li>
 		</c:if>
-		<li><a href="statics.html">信息统计</a></li>
+		<li><a href="stats.html">信息统计</a></li>
 	</ul>
 </div>
