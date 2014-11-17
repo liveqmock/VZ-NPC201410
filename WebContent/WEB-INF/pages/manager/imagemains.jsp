@@ -20,13 +20,6 @@
       <![endif]-->
       
      <style type="text/css">
-		label.valid {
-		  width: 24px;
-		  height: 24px;
-		  background: url(../static/images/valid.png) center center no-repeat;
-		  display: inline-block;
-		  text-indent: -9999px;
-		}
 		label.error {
 		  font-weight: bold;
 		  color: red;
@@ -243,13 +236,14 @@
 	<script type="text/javascript" src="${context }/static/jquery-validation/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="${context }/static/jquery-validation/additional-methods.min.js"></script>
 	<script type="text/javascript" src="${context }/static/jquery/jquery-dateFormat.js"></script>
+	<script type="text/javascript" src="${context }/js/validate.message.cn.js"></script>
 
 	<script type="text/javascript">
 	
 		$(document).ready(function(){
 			
 			$("[action=addImageMain]").click(function(){
-				if($('#imageMainForm').validate()) {
+				if($('#imageMainForm').valid()) {
 					
 					var fd = new FormData();
 					var ajax = new XMLHttpRequest();
@@ -322,9 +316,8 @@
 					    $(element).closest('.control-group').removeClass('success').addClass('error');
 					  },
 					  success: function(element) {
-					    element
-					    .text('OK!').addClass('valid')
-					    .closest('.control-group').removeClass('error').addClass('success');
+					    element.closest('.control-group').removeClass('error').addClass('success');
+					    element.remove();
 					  }
 					 });	
 			
@@ -386,9 +379,8 @@
 					    $(element).closest('.control-group').removeClass('success').addClass('error');
 					  },
 					  success: function(element) {
-					    element
-					    .text('OK!').addClass('valid')
-					    .closest('.control-group').removeClass('error').addClass('success');
+					    element.closest('.control-group').removeClass('error').addClass('success');
+					    element.remove();
 					  }
 					 });			
 			
@@ -412,7 +404,7 @@
 			});
 			
 			$("[action=modifyImageMain]").click(function(){
-				if($('#modifyForm').validate()) {
+				if($('#modifyForm').valid()) {
 					
 					var fd = new FormData();
 					var ajax = new XMLHttpRequest();

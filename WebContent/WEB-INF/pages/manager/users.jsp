@@ -20,13 +20,6 @@
       <![endif]-->
       
      <style type="text/css">
-		label.valid {
-		  width: 24px;
-		  height: 24px;
-		  background: url(../static/images/valid.png) center center no-repeat;
-		  display: inline-block;
-		  text-indent: -9999px;
-		}
 		label.error {
 		  font-weight: bold;
 		  color: red;
@@ -198,26 +191,14 @@
 	<script type="text/javascript" src="${context }/static/jquery-validation/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="${context }/static/jquery-validation/additional-methods.min.js"></script>
 	<script type="text/javascript" src="${context }/static/jquery/jquery-dateFormat.js"></script>
+	<script type="text/javascript" src="${context }/js/validate.message.cn.js"></script>
+	<script type="text/javascript" src="${context }/js/common.js"></script>
 
 	<script type="text/javascript">
-		function formatEnabledStatus(enabled) {
-			return enabled ? '已启用' : '已禁用';
-		}
 		
-		var userTypes = {
-			'editor' : '录入人员',
-			'auditor' : '审核人员',
-			'manager' : '管理员'
-		}
-		
-		function formatUserType(userType) {
-			return userTypes[userType];
-		}
-	
-	
 		$(document).ready(function(){
 			$("[action=addUser]").click(function(){
-				if($('#userform').validate()) {
+				if($('#userform').valid()) {
 					$.ajax("users/add.html",{
 						data:$("#userform").serialize(),
 						dataType:'json',
@@ -286,9 +267,8 @@
 					    $(element).closest('.control-group').removeClass('success').addClass('error');
 					  },
 					  success: function(element) {
-					    element
-					    .text('OK!').addClass('valid')
-					    .closest('.control-group').removeClass('error').addClass('success');
+					    element.closest('.control-group').removeClass('error').addClass('success');
+					    element.remove();
 					  }
 					 });			
 		});

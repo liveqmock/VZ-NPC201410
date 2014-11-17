@@ -47,6 +47,10 @@ public class UserService extends BaseService {
 		return userDao.loadAll();
 	}
 	
+	public User get(Integer userId) {
+		return userDao.get(userId);
+	}
+	
 	public User addUser(User user) throws Exception {
 		user.setUserId(null);
 		
@@ -64,13 +68,22 @@ public class UserService extends BaseService {
 		if (null == originalUser)
 			throw new Exception("用户不存在");
 		
-		
-		originalUser.setEnabled(user.getEnabled());
+		if (null != user.getEnabled()) {
+			originalUser.setEnabled(user.getEnabled());
+		}
+		if (null != user.getMobile()) { 
+			originalUser.setMobile(user.getMobile());
+		}
+		if (null != user.getPassword()) {
+			originalUser.setPassword(user.getPassword());
+		}
+		if (null != user.getRealName()) {
+			originalUser.setRealName(user.getRealName());
+		}
+		if (null != user.getUserType()) {
+			originalUser.setUserType(user.getUserType());
+		}
 		originalUser.setLastUpdateDate(new Date());
-		originalUser.setMobile(user.getMobile());
-		originalUser.setPassword(user.getPassword());
-		originalUser.setRealName(user.getRealName());
-		originalUser.setUserType(user.getUserType());
 		
 		return userDao.update(originalUser);
 	}

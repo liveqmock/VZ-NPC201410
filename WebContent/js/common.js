@@ -22,3 +22,23 @@ var modelStatusEnum = {
 function formatModelStatus(status) {
 	return modelStatusEnum[status];
 }
+
+var resourceTypeEnum = {
+		'ImageMain' : '主题',
+		'ImageRelated' : '相关资料',
+		'Document' : '文章'
+}
+
+var userTypes = {
+		'editor' : '录入人员',
+		'auditor' : '审核人员',
+		'manager' : '管理员'
+	}
+	
+function formatUserType(userType) {
+	return userTypes[userType];
+}
+
+function formatEnabledStatus(enabled) {
+	return enabled ? '已启用' : '已禁用';
+}

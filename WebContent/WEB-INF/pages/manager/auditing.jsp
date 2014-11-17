@@ -175,19 +175,10 @@
 
 	<script type="text/javascript" src="${context }/js/vendor/jquery.min.js"></script>
 	<script type="text/javascript" src="${context }/static/bootstrap/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="${context }/static/jquery-validation/jquery.validate.min.js"></script>
-	<script type="text/javascript" src="${context }/static/jquery-validation/additional-methods.min.js"></script>
 	<script type="text/javascript" src="${context }/static/jquery/jquery-dateFormat.js"></script>
 	<script type="text/javascript" src="${context }/js/common.js"></script>
 
 	<script type="text/javascript">
-	
-		var resourceTypeEnum = {
-				'ImageMain' : '主题',
-				'ImageRelated' : '相关资料',
-				'Document' : '文章'
-		}
-	
 		$(document).ready(function(){
 			$("[action=audit]").click(function(){
 				var resourceType = $(this).attr('data-resourceType');

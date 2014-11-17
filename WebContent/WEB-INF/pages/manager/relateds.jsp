@@ -20,16 +20,6 @@
       <![endif]-->
       
      <style type="text/css">
-		label.valid {
-		  width: 24px;
-		  height: 24px;
-		  background: url(../static/images/valid.png) center center no-repeat;
-		  display: inline-block;
-		  text-indent: -9999px;
-		  position:relative;
-		  top:-30px;
-		  right:-92%;
-		}
 		label.error {
 		  font-weight: bold;
 		  color: red;
@@ -423,6 +413,7 @@
 	<script type="text/javascript" src="${context }/static/jquery-validation/additional-methods.min.js"></script>
 	<script type="text/javascript" src="${context }/static/jquery/jquery-dateFormat.js"></script>
 	<script type="text/javascript" src="${context }/js/common.js"></script>
+	<script type="text/javascript" src="${context }/js/validate.message.cn.js"></script>
 
 	<script type="text/javascript">
 	
@@ -456,17 +447,16 @@
 									.addClass('error');
 						},
 						success : function(element) {
-							element.text('OK!').addClass(
-									'valid').closest(
-									'.control-group')
+							element.closest('.control-group')
 									.removeClass('error')
 									.addClass('success');
+							element.remove();
 						}
 					});	
 			
 			// 新建相关资料
 			$("[action=addImageRelated]").click(function(){
-				if($('#imageRelatedForm').validate()) {
+				if($('#imageRelatedForm').valid()) {
 					
 					var fd = new FormData();
 					var ajax = new XMLHttpRequest();
@@ -538,18 +528,17 @@
 									.addClass('error');
 						},
 						success : function(element) {
-							element.text('OK!').addClass(
-									'valid').closest(
-									'.control-group')
+							element.closest('.control-group')
 									.removeClass('error')
 									.addClass('success');
+							element.remove();
 						}
 					});
 			
 			
 			// 修改相关资料
 			$("[action=modifyImageRelated]").click(function(){
-				if($('#imageRelatedModifyForm').validate()) {
+				if($('#imageRelatedModifyForm').valid()) {
 					
 					var fd = new FormData();
 					var ajax = new XMLHttpRequest();
@@ -681,11 +670,10 @@
 													.addClass('error');
 										},
 										success : function(element) {
-											element.text("OK!").addClass(
-													"valid").closest(
-													'.control-group')
+											element.closest('.control-group')
 													.removeClass('error')
 													.addClass('success');
+											element.remove();
 										}
 									});
 
@@ -802,11 +790,10 @@
 													.addClass('error');
 										},
 										success : function(element) {
-											element.text("OK!").addClass(
-													"valid").closest(
-													'.control-group')
+											element.closest('.control-group')
 													.removeClass('error')
 													.addClass('success');
+											element.remove();
 										}
 									});
 
