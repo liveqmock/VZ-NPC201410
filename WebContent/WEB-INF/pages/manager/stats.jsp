@@ -38,9 +38,12 @@ pageEncoding="UTF-8"%>
         <div class="row">
             <jsp:include page="left.jsp"></jsp:include>
 
-            <div class="col-md-12">
+            <div class="col-md-10">
                 <h3>信息统计</h3>
 
+                <div id="myChart" style="width: 95%;height:500px;">
+
+                </div>
             </div>
         </div>
 
@@ -70,11 +73,74 @@ pageEncoding="UTF-8"%>
     <script type="text/javascript" src="${context }/static/jquery/jquery-dateFormat.js"></script>
     <script type="text/javascript" src="${context }/js/validate.message.cn.js"></script>
     <script type="text/javascript" src="${context }/js/common.js"></script>
+    <script type="text/javascript" src="${context }/static/bootstrap/js/echarts-all.js"></script>
+
 
     <script type="text/javascript">
 
         $(document).ready(function () {
+            var option = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    }
+                },
+                legend: {
+                    data: ['主题', '相关图片', '相关视频', '相关文章']
+                },
+                toolbox: {
+                    show: true,
+                    orient: 'vertical',
+                    x: 'right',
+                    y: 'center',
+                    feature: {
+                        mark: {show: true},
+                        dataView: {show: true, readOnly: false},
+                        magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                        restore: {show: true},
+                        saveAsImage: {show: true}
+                    }
+                },
+                calculable: true,
+                xAxis: [
+                    {
+                        type: 'category',
+                        data: ["序言", "第一届", "第二届", "第三届", "第四届", "第五届",
+                            "第六届", "第七届", "第八届", "第九届", "第十届", "第十一届", "第十二届"]
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value'
+                    }
+                ],
+                series: [
+                    {
+                        name: '主题',
+                        type: 'bar',
+                        data: [18, 20, 25, 5, 4, 15, 20, 24, 27, 30, 28, 25, 32]
+                    },
+                    {
+                        name: '相关图片',
+                        type: 'bar',
+                        data: [28, 45, 50, 15, 18, 25, 49, 56, 58, 49, 59, 62, 70]
+                    },
+                    {
+                        name: '相关视频',
+                        type: 'bar',
+                        data: [16, 20, 28, 6, 8, 19, 24, 28, 32, 36, 39, 42, 46]
+                    },
+                    {
+                        name: '相关文章',
+                        type: 'bar',
+                        data: [6, 12, 18, 3, 2, 4, 8, 12, 14, 5, 12, 8, 12]
+                    }
+                ]
+            };
+            var myChart = echarts.init(document.getElementById('myChart'));
 
+            myChart.setOption(option);
         });
 
     </script>
