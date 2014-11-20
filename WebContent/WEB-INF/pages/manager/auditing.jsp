@@ -128,34 +128,14 @@ pageEncoding="UTF-8"%>
                     <h4 class="modal-title">审批</h4>
                 </div>
                 <div class="modal-body">
+                	<form class="form-horizontal" role="form" id="detailForm">
+                	</form>
+                
                     <form class="form-horizontal" role="form" id="auditingForm" action="resource/audit.html">
                         <input type="hidden" name="resourceType" id="resourceType"/>
                         <input type="hidden" name="resourceId" id="resourceId"/>
-
-                        <div class="form-group">
-                            <div class="col-sm-2">
-                                <label for="contentType" class="control-label">内容类型</label>
-                            </div>
-                            <div class="col-sm-8">
-                                <p id="contentType"></p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-2">
-                                <label for="title" class="control-label">标题</label>
-                            </div>
-                            <div class="col-sm-8">
-                                <p id="title"></p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-2">
-                                <label for="auditLog" class="control-label">审核信息</label>
-                            </div>
-                            <div class="col-sm-8" name="auditLog" id="auditLog">
-                            </div>
-                        </div>
-                        <div class="form-group">
+ 
+                        <div class="form-group text-right">
                             <div class="col-sm-2">
                                 <label for="note" class="control-label">审核意见</label>
                             </div>
@@ -207,15 +187,11 @@ pageEncoding="UTF-8"%>
             $("#resourceType").val(resourceType);
             $("#resourceId").val(resourceId);
 
-            $("#contentType").text(resourceTypeEnum[resourceType]);
-            $("#title").text($(this).parents("td").prev().text());
-
-            // 加载审核日志
-            var url = "auditlogs.html?resourceType=" + resourceType + "&resourceId=" + resourceId;
-            $("#auditLog").load(url, function () {
+            // 加载数据详情日志
+            var url = resourceType.toLowerCase() + "view.html?id=" + resourceId;
+            $("#detailForm").load(url, function () {
+            	$("#auditingModal").modal('show');
             });
-
-            $("#auditingModal").modal('show');
         });
 
         $("[action=reject],[action=ratify]").click(function () {

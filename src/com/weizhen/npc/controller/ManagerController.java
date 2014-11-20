@@ -167,6 +167,14 @@ public class ManagerController extends BaseController {
 	public ImageMain imageMainDetail(@PathVariable Integer imageMainId) {
 		return imageMainService.get(imageMainId);
 	}
+	
+	@RequestMapping("/imagemainview.html")
+	public ModelAndView imageMainView(@RequestParam("id") Integer imageMainId) {
+		ModelAndView mav = new ModelAndView("manager/imagemainview");
+		mav.addObject("imageMain", imageMainService.get(imageMainId));
+		
+		return mav;
+	}	
 
 	@RequestMapping(value = "/imagemains/add.html", method = RequestMethod.POST)
 	@ResponseBody
@@ -314,6 +322,14 @@ public class ManagerController extends BaseController {
 	@ResponseBody
 	public ImageRelated imageRelatedDetail(@PathVariable Integer imageRelatedId) {
 		return imageRelatedService.get(imageRelatedId);
+	}
+	
+	@RequestMapping("/imagerelatedview.html")
+	public ModelAndView imageRelatedView(@RequestParam("id") Integer imageRelatedId) {
+		ModelAndView mav = new ModelAndView("manager/imagerelatedview");
+		mav.addObject("imageRelated", imageRelatedService.get(imageRelatedId));
+		
+		return mav;
 	}
 
 	@RequestMapping(value = "/relateds/add.html", method = RequestMethod.POST)
@@ -494,6 +510,14 @@ public class ManagerController extends BaseController {
 	@ResponseBody
 	public Document documentDetail(@PathVariable Integer documentId) {
 		return documentService.get(documentId);
+	}
+	
+	@RequestMapping(value = "/documentview.html")
+	public ModelAndView documentView(@RequestParam("id") Integer documentId) {
+		ModelAndView mav = new ModelAndView("manager/documentview");
+		mav.addObject("document", documentService.get(documentId));
+		
+		return mav;
 	}
 	
 	@RequestMapping(value = "/documents/modify.html", method = RequestMethod.POST)
