@@ -1,0 +1,58 @@
+{
+    "success": "true",
+    "msg": null,
+    "data": [
+        {
+            "congressName": "序",
+            "congressId": 0
+        },
+        {
+            "congressName": "第一届",
+            "congressId": 1
+        },
+        {
+            "congressName": "第二届",
+            "congressId": 2
+        },
+        {
+            "congressName": "第三届",
+            "congressId": 3
+        },
+        {
+            "congressName": "第四届",
+            "congressId": 4
+        },
+        {
+            "congressName": "第五届",
+            "congressId": 5
+        },
+        {
+            "congressName": "第六届",
+            "congressId": 6
+        },
+        {
+            "congressName": "第七届",
+            "congressId": 7
+        },
+        {
+            "congressName": "第八届",
+            "congressId": 8
+        },
+        {
+            "congressName": "第九届",
+            "congressId": 9
+        },
+        {
+            "congressName": "第十届",
+            "congressId": 10
+        },
+        {
+            "congressName": "第十一届",
+            "congressId": 11
+        },
+        {
+            "congressName": "第十二届",
+            "congressId": 12
+        }
+    ]
+}

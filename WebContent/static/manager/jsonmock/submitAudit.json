@@ -1,0 +1,27 @@
+{
+    "success": "true",
+    "msg": null,
+    "data": {
+        "contentId": 123,
+        "belongCongress": "第一届",
+        "contentType": "主题",
+        "submitPerson": "录入员",
+        "belongImageMain": "刘少奇在开会",
+        "submitTime": "",
+        "contentState": "审核中",
+        "contentTitle": "内容标题内容标题内容标题内容标题内容标题",
+        "contentDescription": "内容描述文字内容描述文字内容描述文字内容描述文字内容描述文字内容描述文字",
+        "imageMainImgPath": "Img/Image_Main/00-01.jpg",
+        "imageRelatedType": 1,
+        "imageRelatedImgPath": "Img/Image_Related/00-04-1010.jpg",
+        "imageRelatedVideoPath": "Img/Image_Related/00-04-2002.flv",
+        "imageRelatedVideoThumbImgPath": "Img/Image_Related/00-04-2002.jpg",
+        "Paragraphs": ["段落11111111111", "段落2222222222", "段落3333333333"],
+        "contentKeyword": "刘少奇,北京,中南海",
+        "contentDate": "1954-09-11",
+        "contentPerson": "刘少奇,朱德",
+        "contentLocation": "北京中南海",
+        "contentLocationLong": "38.1234",
+        "contentLocationLat": "78.4567"
+    }
+}

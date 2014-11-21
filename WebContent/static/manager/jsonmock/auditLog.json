@@ -1,0 +1,18 @@
+{
+    "success": "true",
+    "msg": null,
+    "data": [
+        {
+            "auditUser": "审核员",
+            "auditTime": "2014-11-20 11:20:00",
+            "auditContent": "写的很好，可以发表！",
+            "auditResult": "通过"
+        },
+        {
+            "auditUser": "审核员",
+            "auditTime": "2014-11-20 12:20:00",
+            "auditContent": "内容需要再修改！",
+            "auditResult": "拒绝"
+        }
+    ]
+}
