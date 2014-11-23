@@ -53,7 +53,7 @@ public class DateController extends BaseController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("date/index");
 		
-		List<Congress> congresses = congressService.loadAll();
+		List<Congress> congresses = congressService.loadAllPublishedCongresses();
 		mav.addObject("congresses", congresses);
 		
 		if (null == direction) direction = "asc";

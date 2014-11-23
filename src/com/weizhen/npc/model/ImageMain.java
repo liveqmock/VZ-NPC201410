@@ -17,14 +17,13 @@ import javax.persistence.Transient;
 
 import com.weizhen.npc.base.StatusEntity;
 
-
 /**
  * The persistent class for the Image_Main database table.
  * 
  */
 @Entity
-@Table(name="Image_Main")
-@NamedQuery(name="ImageMain.findAll", query="SELECT i FROM ImageMain i")
+@Table(name = "Image_Main")
+@NamedQuery(name = "ImageMain.findAll", query = "SELECT i FROM ImageMain i")
 public class ImageMain implements Serializable, StatusEntity {
 	private static final long serialVersionUID = 1L;
 	private Integer imageMainId;
@@ -44,20 +43,26 @@ public class ImageMain implements Serializable, StatusEntity {
 	private Integer provinceId;
 	private String publishDate;
 	private Date updateTime;
-	
+
 	private List<ImageRelated> imageRelateds;
 	private List<Document> documents;
-	
+
 	private String status;
 	private String creator;
 	private Date createdDate;
 
+	private String keyword;
+	private String date;
+	private String person;
+	private String location;
+	private Double locationLong;
+	private Double locationLat;
+
 	public ImageMain() {
 	}
 
-
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "image_Main_id")
 	public Integer getImageMainId() {
 		return this.imageMainId;
@@ -66,7 +71,6 @@ public class ImageMain implements Serializable, StatusEntity {
 	public void setImageMainId(Integer imageMainId) {
 		this.imageMainId = imageMainId;
 	}
-
 
 	@Column(name = "check_Publish")
 	public Integer getCheckPublish() {
@@ -77,7 +81,6 @@ public class ImageMain implements Serializable, StatusEntity {
 		this.checkPublish = checkPublish;
 	}
 
-
 	@Column(name = "city_id")
 	public Integer getCityId() {
 		return this.cityId;
@@ -86,7 +89,6 @@ public class ImageMain implements Serializable, StatusEntity {
 	public void setCityId(Integer cityId) {
 		this.cityId = cityId;
 	}
-
 
 	@Column(name = "comment")
 	public String getComment() {
@@ -97,7 +99,6 @@ public class ImageMain implements Serializable, StatusEntity {
 		this.comment = comment;
 	}
 
-
 	@Column(name = "congress_id")
 	public Integer getCongressId() {
 		return this.congressId;
@@ -106,7 +107,6 @@ public class ImageMain implements Serializable, StatusEntity {
 	public void setCongressId(Integer congressId) {
 		this.congressId = congressId;
 	}
-
 
 	@Column(name = "continent_id")
 	public Integer getContinentId() {
@@ -117,7 +117,6 @@ public class ImageMain implements Serializable, StatusEntity {
 		this.continentId = continentId;
 	}
 
-
 	@Column(name = "country_id")
 	public Integer getCountryId() {
 		return this.countryId;
@@ -126,7 +125,6 @@ public class ImageMain implements Serializable, StatusEntity {
 	public void setCountryId(Integer countryId) {
 		this.countryId = countryId;
 	}
-
 
 	@Column(name = "image_Main_description")
 	public String getImageMainDescription() {
@@ -137,7 +135,6 @@ public class ImageMain implements Serializable, StatusEntity {
 		this.imageMainDescription = imageMainDescription;
 	}
 
-
 	@Column(name = "image_Main_filepath")
 	public String getImageMainFilepath() {
 		return this.imageMainFilepath;
@@ -146,7 +143,6 @@ public class ImageMain implements Serializable, StatusEntity {
 	public void setImageMainFilepath(String imageMainFilepath) {
 		this.imageMainFilepath = imageMainFilepath;
 	}
-
 
 	@Column(name = "image_Main_location")
 	public String getImageMainLocation() {
@@ -157,7 +153,6 @@ public class ImageMain implements Serializable, StatusEntity {
 		this.imageMainLocation = imageMainLocation;
 	}
 
-
 	@Column(name = "image_Main_sequence")
 	public Integer getImageMainSequence() {
 		return this.imageMainSequence;
@@ -166,7 +161,6 @@ public class ImageMain implements Serializable, StatusEntity {
 	public void setImageMainSequence(Integer imageMainSequence) {
 		this.imageMainSequence = imageMainSequence;
 	}
-
 
 	@Column(name = "image_Main_time")
 	public Integer getImageMainTime() {
@@ -177,7 +171,6 @@ public class ImageMain implements Serializable, StatusEntity {
 		this.imageMainTime = imageMainTime;
 	}
 
-
 	@Column(name = "image_Main_title")
 	public String getImageMainTitle() {
 		return this.imageMainTitle;
@@ -186,7 +179,6 @@ public class ImageMain implements Serializable, StatusEntity {
 	public void setImageMainTitle(String imageMainTitle) {
 		this.imageMainTitle = imageMainTitle;
 	}
-
 
 	@Column(name = "material_id")
 	public Integer getMaterialId() {
@@ -197,7 +189,6 @@ public class ImageMain implements Serializable, StatusEntity {
 		this.materialId = materialId;
 	}
 
-
 	@Column(name = "province_id")
 	public Integer getProvinceId() {
 		return this.provinceId;
@@ -207,8 +198,7 @@ public class ImageMain implements Serializable, StatusEntity {
 		this.provinceId = provinceId;
 	}
 
-
-	@Column(name="publish_date")
+	@Column(name = "publish_date")
 	public String getPublishDate() {
 		return this.publishDate;
 	}
@@ -216,7 +206,6 @@ public class ImageMain implements Serializable, StatusEntity {
 	public void setPublishDate(String publishDate) {
 		this.publishDate = publishDate;
 	}
-
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "updateTime")
@@ -227,12 +216,12 @@ public class ImageMain implements Serializable, StatusEntity {
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
-	
+
 	@Transient
 	public List<ImageRelated> getImageRelateds() {
 		return this.imageRelateds;
 	}
-	
+
 	public void setImageRelateds(List<ImageRelated> imageRelateds) {
 		this.imageRelateds = imageRelateds;
 	}
@@ -242,33 +231,27 @@ public class ImageMain implements Serializable, StatusEntity {
 		return documents;
 	}
 
-
 	public void setDocuments(List<Document> documents) {
 		this.documents = documents;
 	}
-
 
 	@Column(name = "status")
 	public String getStatus() {
 		return status;
 	}
 
-
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
 
 	@Column(name = "creator")
 	public String getCreator() {
 		return creator;
 	}
 
-
 	public void setCreator(String creator) {
 		this.creator = creator;
 	}
-
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_date")
@@ -276,11 +259,58 @@ public class ImageMain implements Serializable, StatusEntity {
 		return createdDate;
 	}
 
-
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
 
-	
-	
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public String getPerson() {
+		return person;
+	}
+
+	public void setPerson(String person) {
+		this.person = person;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	@Column(name = "location_long")
+	public Double getLocationLong() {
+		return locationLong;
+	}
+
+	public void setLocationLong(Double locationLong) {
+		this.locationLong = locationLong;
+	}
+
+	@Column(name = "location_lat")
+	public Double getLocationLat() {
+		return locationLat;
+	}
+
+	public void setLocationLat(Double locationLat) {
+		this.locationLat = locationLat;
+	}
+
 }

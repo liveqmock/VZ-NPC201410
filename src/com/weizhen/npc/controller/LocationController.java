@@ -48,7 +48,7 @@ public class LocationController extends BaseController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("location/index");
 		
-		List<Congress> congresses = congressService.loadAll();
+		List<Congress> congresses = congressService.loadAllPublishedCongresses();
 		mav.addObject("congresses", congresses);
 		
 		List<Location> locations = locationService.loadAll();

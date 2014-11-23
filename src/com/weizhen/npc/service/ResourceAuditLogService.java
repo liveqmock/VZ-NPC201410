@@ -22,6 +22,7 @@ import com.weizhen.npc.model.ImageMain;
 import com.weizhen.npc.model.ImageRelated;
 import com.weizhen.npc.model.ResourceAuditLog;
 import com.weizhen.npc.utils.ModelStatusEnum;
+import com.weizhen.npc.utils.ModelStatusTransformer;
 import com.weizhen.npc.vo.ResourceAuditLogQuery;
 
 /**
@@ -50,16 +51,12 @@ public class ResourceAuditLogService extends BaseService {
 	
 	private Map<String, BaseEntityDaoSupport<? extends StatusEntity>> mapper;
 	
-	public void audit(ResourceAuditLog resourceAuditLog) throws Exception {
+	public void audit(ResourceAuditLog resourceAuditLog) {
 		BaseEntityDaoSupport<? extends StatusEntity> entityDAO = judgeEntityDAO(resourceAuditLog.getResourceType());
 		StatusEntity entity = entityDAO.getExists(resourceAuditLog.getResourceId());
 		
 		String statusFrom = entity.getStatus();
-		if (!ModelStatusEnum.SUBMITTED.getItemCode().equalsIgnoreCase(statusFrom))
-			throw new Exception("数据未处于待审核状态");
-		
-		String statusTo = ModelStatusEnum.REJECTED.getItemCode();
-		if ("ratify".equalsIgnoreCase(resourceAuditLog.getOperation())) statusTo = ModelStatusEnum.RATIFIED.getItemCode();
+		String statusTo = ModelStatusTransformer.getStatus(statusFrom, resourceAuditLog.getOperation());
 		entity.setStatus(statusTo);
 		entityDAO.updateEntity(entity);
 		
@@ -109,7 +106,6 @@ public class ResourceAuditLogService extends BaseService {
 	 */
 	public void saveOrUpdate(ResourceAuditLog resourceAuditLog) {
 		resourceAuditLog.setAuditDate(new Date());
-		resourceAuditLog.setStatusTo(ModelStatusEnum.SUBMITTED.getItemCode());
 		
 		resourceAuditLogDAO.save(resourceAuditLog);
 	}

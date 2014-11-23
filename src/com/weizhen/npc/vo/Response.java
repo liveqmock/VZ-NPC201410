@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author y
  *
  */
-public class Response implements Serializable {
+public class Response<E> implements Serializable {
 
 	/**
 	 * 
@@ -17,24 +17,21 @@ public class Response implements Serializable {
 
 	private String msg;
 	private Boolean success = true;
-	private Object data;
+	private E data;
 
 	private Response() {
-
+		
+	}
+	
+	public Response(E data) {
+		this.setData(data);
 	}
 
-	public static Response success(Object data) {
-		Response response = new Response();
-		response.setData(data);
-
-		return response;
-	}
-
-	public static Response error(String msg) {
-		Response response = new Response();
+	public static Response<String> error(String msg) {
+		Response<String> response = new Response<String>();
 		response.setSuccess(false);
 		response.setMsg(msg);
-
+		
 		return response;
 	}
 
@@ -54,11 +51,11 @@ public class Response implements Serializable {
 		this.success = success;
 	}
 
-	public Object getData() {
+	public E getData() {
 		return data;
 	}
 
-	public void setData(Object data) {
+	public void setData(E data) {
 		this.data = data;
 	}
 

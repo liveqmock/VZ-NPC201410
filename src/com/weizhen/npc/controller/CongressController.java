@@ -41,7 +41,7 @@ public class CongressController extends BaseController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("congress/index");
 		
-		List<Congress> congresses = congressService.loadAll();
+		List<Congress> congresses = congressService.loadAllPublishedCongresses();
 		mav.addObject("congresses", congresses);
 		Congress thisCongress = congressService.load(congressId);
 		mav.addObject("congress", thisCongress);
@@ -52,7 +52,7 @@ public class CongressController extends BaseController {
 //			}
 //		}
 		
-		List<ImageMain> imageMains = imageMainService.findByCongressId(congressId);
+		List<ImageMain> imageMains = imageMainService.findPublishedImageMainsByCongressId(congressId);
 		mav.addObject("imageMains", imageMains);
 		
 		ImageMain firstImageMain = imageMains.get(0);

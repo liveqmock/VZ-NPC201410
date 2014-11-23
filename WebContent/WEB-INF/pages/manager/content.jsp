@@ -33,12 +33,12 @@ pageEncoding="UTF-8"%>
     </button>
     <div class="col-md-12">
         <p>开发完毕后将这些type改为hidden</p>
-        <label>所属届别Id</label><input type="text" id="belongCongressId"/> <!--所属届别Id-->
-        <label>所属主题Id</label><input type="text" id="belongImageMainId"/> <!--所属主题Id-->
-        <label>主题Id</label><input type="text" id="imageMainId"/> <!--主题Id，用于编辑-->
-        <label>相关资料Id</label><input type="text" id="imageRelatedId"/> <!--相关资料Id，用于编辑-->
-        <label>内容类型</label><input type="text" id="contentTypeNo"/> <!--操作的内容类型，0-主题；1-相关资料-->
-        <label>内容Id</label><input type="text" id="contentId"/> <!--操作的内容Id-->
+        <label>所属届别Id</label><input type="text" id="belongCongressId" name="belongCongressId" /> <!--所属届别Id-->
+        <label>所属主题Id</label><input type="text" id="belongImageMainId" name="belongImageMainId" /> <!--所属主题Id-->
+        <label>主题Id</label><input type="text" id="imageMainId" name="imageMainId" /> <!--主题Id，用于编辑-->
+        <label>相关资料Id</label><input type="text" id="imageRelatedId" name="imageRelatedId" /> <!--相关资料Id，用于编辑-->
+        <label>内容类型</label><input type="text" id="contentTypeNo" name="contentTypeNo"  /> <!--操作的内容类型，0-主题；1-相关资料-->
+        <label>内容Id</label><input type="text" id="contentId" name="contentId" /> <!--操作的内容Id-->
     </div>
 </div>
 
@@ -85,7 +85,8 @@ pageEncoding="UTF-8"%>
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-6">
-                    <input type="text" id="imageMainImgPath" class="form-control unEditable"/>
+                    <input type="text" id="imageMainImgPath" name="imageMainImgPathDisplay" class="form-control unEditable"/>
+                    <input type="hidden" id="imageMainImgPathHidden" name="imageMainImgPath"/>
                 </div>
                 <div class="col-md-6">
                     <input id="file_upload_1" type="file" multiple="false">
@@ -110,7 +111,7 @@ pageEncoding="UTF-8"%>
                 <option value="">--请选择类型--</option>
                 <option value="1">图片</option>
                 <option value="2">视频</option>
-                <option value="3">文章</option>
+                <option value="4">文章</option>
             </select>
         </div>
     </div>
@@ -120,7 +121,8 @@ pageEncoding="UTF-8"%>
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-6">
-                    <input type="text" id="imageRelatedImgPath" class="form-control unEditable"/>
+                    <input type="text" id="imageRelatedImgPath" name="imageRelatedImgPathDisplay" class="form-control unEditable"/>
+                    <input type="hidden" id="imageRelatedImgPathHidden" name="imageRelatedImgPath"  />
                 </div>
                 <div class="col-md-6">
                     <input id="file_upload_2" type="file" multiple="false">
@@ -142,7 +144,8 @@ pageEncoding="UTF-8"%>
         <div class="col-md-10">
             <div class="row">
                 <div class="col-md-6">
-                    <input type="text" id="imageRelatedVideoPath" class="form-control unEditable"/>
+                    <input type="text" id="imageRelatedVideoPath" name="imageRelatedVideoPathDisplay" class="form-control unEditable"/>
+                    <input type="hidden" id="imageRelatedVideoPathHidden" name="imageRelatedVideoPath" />
                 </div>
                 <div class="col-md-6">
                     <input id="file_upload_3" type="file" multiple="false">
@@ -157,7 +160,8 @@ pageEncoding="UTF-8"%>
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-6">
-                    <input type="text" id="imageRelatedVideoThumbImgPath" class="form-control unEditable"/>
+                    <input type="text" id="imageRelatedVideoThumbImgPath" name="imageRelatedVideoThumbImgPathDisplay" class="form-control unEditable"/>
+                    <input type="hidden" id="imageRelatedVideoThumbImgPathHidden" name="imageRelatedVideoThumbImgPath" />
                 </div>
                 <div class="col-md-6">
                     <input id="file_upload_4" type="file" multiple="false">
@@ -178,7 +182,7 @@ pageEncoding="UTF-8"%>
 
         <div class="col-md-10 para">
             <div class="col-md-10">
-                <textarea class="form-control"></textarea>
+                <textarea class="form-control" name="paragraphContents"></textarea>
             </div>
             <div class="col-md-2"></div>
         </div>

@@ -7,7 +7,8 @@
             "pid": null,
             "title": "【主题】名称名称名称名称名称名称一",
             "type": 0,
-            "typeDisplay": "主题"
+            "typeDisplay": "主题",
+            "resourceId": 123
         },
         {
             "id": 1001,

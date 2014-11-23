@@ -46,14 +46,16 @@ $(document).ready(function () {
                     { name: 'pid', type: 'number' },
                     { name: 'title', type: 'string' },
                     { name: 'typeDisplay', type: 'string' },
-                    { name: 'type', type: 'number' }
+                    { name: 'type', type: 'number' },
+                    { name: 'resourceType', type: 'string' },
+                    { name: 'resourceId', type: 'number' }
                 ],
                 hierarchy: {
                     keyDataField: { name: 'id' },
                     parentDataField: { name: 'pid' }
                 },
                 id: 'id',
-                url: npcCommon.jsonUrl + "contentList.json"
+                url: npcCommon.jsonUrl + "contentList.json?congressId=" + $("#belongCongressId").val()
             };
             var dataAdapter = new $.jqx.dataAdapter(source);
             //初始化树状列表
@@ -70,12 +72,14 @@ $(document).ready(function () {
                         { text: 'TYPE', dataField: 'type', hidden: true  },
                         { text: 'ID', dataField: 'id', hidden: true },
                         { text: 'PID', dataField: 'pid', hidden: true },
+                        { text: '资源类型', dataField: 'resourceType', hidden: true },
+                        { text: '资源标识', dataField: 'resourceId', hidden: true },
                         { text: '操作', width: 200,
                             cellsrenderer: function (row, columnfield, value, obj) {
                                 console.log(obj);
-                                var html = '<button type="button" class="btn btn-primary btn-xs btnDGLSelect" data-id="' + obj.id + '" data-type="' + obj.type + '" data-pid="' + obj.pid + '">&nbsp;&nbsp;选择&nbsp;&nbsp;</button>&nbsp;&nbsp;' +
-                                    '<button type="button" class="btn btn-primary btn-xs btnDGLUp" data-id="' + obj.id + '" data-type="' + obj.type + '">上移</button>&nbsp;&nbsp;' +
-                                    '<button type="button" class="btn btn-primary btn-xs btnDGLDown" data-id="' + obj.id + '" data-type="' + obj.type + '">下移</button>';
+                                var html = '<button type="button" class="btn btn-primary btn-xs btnDGLSelect" data-id="' + obj.id + '" data-type="' + obj.type + '" data-resourceType="' + obj['resourceType'] + '" data-resourceId="' + obj['resourceId'] + '" data-pid="' + obj.pid + '">&nbsp;&nbsp;选择&nbsp;&nbsp;</button>&nbsp;&nbsp;' +
+                                    '<button type="button" class="btn btn-primary btn-xs btnDGLUp" data-id="' + obj.id + '" data-type="' + obj.type + '" data-resourceType="' + obj['resourceType'] + '" data-resourceId="' + obj['resourceId'] + '">上移</button>&nbsp;&nbsp;' +
+                                    '<button type="button" class="btn btn-primary btn-xs btnDGLDown" data-id="' + obj.id + '" data-type="' + obj.type + '" data-resourceType="' + obj['resourceType'] + '" data-resourceId="' + obj['resourceId'] + '">下移</button>';
 
                                 return html;
                             }
@@ -85,24 +89,24 @@ $(document).ready(function () {
 
                         //TODO:完善操作
                         $(".btnDGLSelect").off("click").on("click", function () {
-                            alert($(this).attr("data-id"));
-                            var id = $(this).attr("data-id");
                             var pid = $(this).attr("data-pid");
                             var type = $(this).attr("data-type");
+                            var resourceType = $(this).attr("data-resourceType");
+                            var resourceId = $(this).attr("data-resourceId");
                             $("#belongContentSelectModal").modal("hide");
-                            $("#contentTypeNo").val(type);
-                            $("#contentId").val(id);
+                            $("#contentTypeNo").val(resourceType);
+                            $("#contentId").val(resourceId);
                             if (type == 0) {
                                 $("#belongImageMainId").val("");
-                                $("#imageMainId").val(id);
+                                $("#imageMainId").val(resourceId);
                                 $("#imageRelatedId").val("");
                             } else {
                                 $("#belongImageMainId").val(pid);
                                 $("#imageMainId").val("");
-                                $("#imageRelatedId").val(id);
+                                $("#imageRelatedId").val(resourceId);
                             }
 
-                            npcCommon.getContentDetail(type, id);
+                            npcCommon.getContentDetail(resourceType, resourceId);
                         });
                         $(".btnDGLUp").off("click").on("click", function () {
                             alert($(this).attr("data-id"));
@@ -122,7 +126,7 @@ $(document).ready(function () {
 
     //增加段落操作
     $("#btnImageRelatedDocumentParaAdd").click(function () {
-        var html = '<div class="col-md-10"><textarea class="form-control"></textarea></div>' +
+        var html = '<div class="col-md-10"><textarea class="form-control" name="paragraphContents"></textarea></div>' +
             '<div class="col-md-2">' +
             '<button type="button" ' +
             'class="btn btn-primary btn-sm btnImageRelatedDocumentParaDelete">删除段落</button>' +
@@ -167,11 +171,12 @@ $(document).ready(function () {
         } else if ($("#imageMainId").val()) {
             //修改主题
             $("#contentContainer").show();
-            npcCommon.getContentDetail(0, $("#imageMainId").val(), 1);
+            npcCommon.getContentDetail(npcCommon.constants.resourceType.ImageMain, $("#imageMainId").val(), 1);
         } else if ($("#imageRelatedId").val()) {
             //修改相关资料
             $("#contentContainer").show();
-            npcCommon.getContentDetail(1, $("#imageRelatedId").val(), 1);
+            
+            npcCommon.getContentDetail($("#contentTypeNo").val(), $("#imageRelatedId").val(), 1);
         }
     });
 
@@ -241,7 +246,7 @@ $(document).ready(function () {
                     $("#btnSubmitAudit").hide();
                     alert("提交审批成功！");
 
-                    if ($("#contentTypeNo").val() == 1) {
+                    if ($("#contentTypeNo").val() == 'ImageRelated' || $("#contentTypeNo").val() == 'Document') {
                         npcCommon.initImageRelated(2);
                     } else {
                         npcCommon.initImageMain(2);

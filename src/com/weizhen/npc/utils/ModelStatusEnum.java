@@ -6,9 +6,10 @@ package com.weizhen.npc.utils;
  *
  */
 public enum ModelStatusEnum {
-	SUBMITTED("submitted", "已提交"),
-	RATIFIED("ratified", "已通过"),
-	REJECTED("rejected", "已拒绝"),
+	SAVED("saved", "未提交"),
+	SUBMITTED("submitted", "审核中"),
+	RATIFIED("ratified", "审核通过"),
+	REJECTED("rejected", "审核拒绝"),
 	PUBLISHED("published", "已发布");
 	
 	private String itemCode;

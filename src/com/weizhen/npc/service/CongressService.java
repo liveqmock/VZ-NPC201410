@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.weizhen.npc.base.BaseService;
 import com.weizhen.npc.dao.CongressDAO;
 import com.weizhen.npc.model.Congress;
+import com.weizhen.npc.vo.CongressQuery;
 
 /**
  * 界别
@@ -29,7 +30,22 @@ public class CongressService extends BaseService {
 		return congress;
 	}
 	
-	public List<Congress> loadAll() {
+	/**
+	 * 加载已发布的界别
+	 * @return
+	 */
+	public List<Congress> loadAllPublishedCongresses() {
+		CongressQuery query = new CongressQuery();
+		query.setCheckPublish(0);
+		
+		return congressDao.findByQueryModel(query);
+	}
+	
+	/**
+	 * 加载所有界别
+	 * @return
+	 */
+	public List<Congress> loadAllCongresses() {
 		return congressDao.loadAll();
 	}
 }

@@ -44,6 +44,11 @@
   <url-pattern>*.html</url-pattern>
  </servlet-mapping>
  
+  <servlet-mapping>
+  <servlet-name>npc</servlet-name>
+  <url-pattern>*.json</url-pattern>
+ </servlet-mapping>
+ 
   <filter>
     <filter-name>sessionFilter</filter-name>
     <filter-class>com.weizhen.npc.filter.SessionFilter</filter-class>

@@ -30,4 +30,16 @@ public class ImageRelatedDAO extends BaseEntityDaoSupport<ImageRelated> {
 
 		return imageRelateds;
 	}
+	
+	/**
+	 * 获取当前主题下最大的相关资料序列
+	 * @param imageMainId
+	 * @return
+	 */
+	public Integer nextSequence(Integer imageMainId) {
+		String queryString = "select max(imageRelatedSequence + 1) from ImageRelated where imageMainId = ?";
+		Integer currentMaxSequence = (Integer) this.findFirst(queryString, imageMainId);
+
+		return nvl(currentMaxSequence, 1).intValue();
+	}
 }

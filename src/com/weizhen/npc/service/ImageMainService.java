@@ -30,8 +30,19 @@ public class ImageMainService extends BaseService {
 	@Autowired
 	private CongressDAO congressDao;
 	
-	public List<ImageMain> findByCongressId(Integer congressId) {
-		return imageMainDao.findByCongressId(congressId);
+	public List<ImageMain> findPublishedImageMainsByCongressId(Integer congressId) {
+		ImageMainQuery query = new ImageMainQuery();
+		query.setCongressId(congressId);
+		query.setCheckPublish(0);
+		
+		return imageMainDao.findByQueryModel(query);
+	}
+	
+	public List<ImageMain> findAllImageMainsByCongressId(Integer congressId) {
+		ImageMainQuery query = new ImageMainQuery();
+		query.setCongressId(congressId);
+		
+		return imageMainDao.findByQueryModel(query);
 	}
 	
 	public ImageMain get(Integer imageMainId) {
@@ -52,20 +63,22 @@ public class ImageMainService extends BaseService {
 	public ImageMain addImageMain(ImageMain imageMain) {
 		congressDao.loadExists(imageMain.getCongressId());
 		
-		// TODO 检查主题的序列是否已经存在
-
 		imageMain.setMaterialId(0);
-		imageMain.setCheckPublish(0);
+		imageMain.setCheckPublish(1);
 		imageMain.setCreatedDate(new Date());
-		imageMain.setStatus(ModelStatusEnum.SUBMITTED.getItemCode());
+		imageMain.setStatus(ModelStatusEnum.SAVED.getItemCode());
 		imageMain = imageMainDao.saveOrUpdate(imageMain);
 		
 		return imageMain;
 	}
 	
+	public Integer nextSequence(Integer congressId) {
+		return imageMainDao.nextSequence(congressId);
+	}
+	
 	public ImageMain modifyImageMain(ImageMain imageMain) {
-		imageMain.setStatus(ModelStatusEnum.SUBMITTED.getItemCode());
 		imageMain.setUpdateTime(new Date());
+		imageMain.setStatus(ModelStatusEnum.SAVED.getItemCode());
 		imageMain = imageMainDao.saveOrUpdate(imageMain);
 		
 		return imageMain;
@@ -80,5 +93,11 @@ public class ImageMainService extends BaseService {
 		query.setStatus(ModelStatusEnum.SUBMITTED.getItemCode());
 		
 		return imageMainDao.findByQueryModel(query);
+	}
+	
+	public void remove(Integer imageMainId) {
+		ImageMain imageMain = imageMainDao.getExists(imageMainId);
+		assertEntityCanBeRemoved(imageMain);
+		imageMainDao.delete(imageMain);
 	}
 }

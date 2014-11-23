@@ -30,4 +30,16 @@ public class DocumentDAO extends BaseEntityDaoSupport<Document> {
 
 		return documents;
 	}
+	
+	/**
+	 * 获取当前主题下最大的文章序列
+	 * @param imageMainId
+	 * @return
+	 */
+	public Integer nextSequence(Integer imageMainId) {
+		String queryString = "select max(documentSequence + 1) from Document where imageMainId = ?";
+		Integer currentMaxSequence = (Integer) this.findFirst(queryString, imageMainId);
+
+		return nvl(currentMaxSequence, 1).intValue();
+	}	
 }

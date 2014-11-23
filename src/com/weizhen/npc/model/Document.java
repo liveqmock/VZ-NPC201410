@@ -18,13 +18,12 @@ import javax.persistence.TemporalType;
 
 import com.weizhen.npc.base.StatusEntity;
 
-
 /**
  * The persistent class for the Document database table.
  * 
  */
 @Entity
-@NamedQuery(name="Document.findAll", query="SELECT d FROM Document d")
+@NamedQuery(name = "Document.findAll", query = "SELECT d FROM Document d")
 public class Document implements Serializable, StatusEntity {
 	private static final long serialVersionUID = 1L;
 	private Integer documentId;
@@ -45,19 +44,25 @@ public class Document implements Serializable, StatusEntity {
 	private Integer provinceId;
 	private String publishDate;
 	private Date updateTime;
-	
+
 	private List<Paragraph> paragraphs;
-	
+
 	private String status;
 	private String creator;
 	private Date createdDate;
 
+	private String keyword;
+	private String date;
+	private String person;
+	private String location;
+	private Double locationLong;
+	private Double locationLat;
+
 	public Document() {
 	}
 
-
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "document_id")
 	public Integer getDocumentId() {
 		return this.documentId;
@@ -66,7 +71,6 @@ public class Document implements Serializable, StatusEntity {
 	public void setDocumentId(Integer documentId) {
 		this.documentId = documentId;
 	}
-
 
 	@Column(name = "check_Publish")
 	public Integer getCheckPublish() {
@@ -77,7 +81,6 @@ public class Document implements Serializable, StatusEntity {
 		this.checkPublish = checkPublish;
 	}
 
-
 	@Column(name = "city_id")
 	public Integer getCityId() {
 		return this.cityId;
@@ -86,7 +89,6 @@ public class Document implements Serializable, StatusEntity {
 	public void setCityId(Integer cityId) {
 		this.cityId = cityId;
 	}
-
 
 	@Column(name = "comment")
 	public String getComment() {
@@ -97,7 +99,6 @@ public class Document implements Serializable, StatusEntity {
 		this.comment = comment;
 	}
 
-
 	@Column(name = "congress_id")
 	public Integer getCongressId() {
 		return this.congressId;
@@ -106,7 +107,6 @@ public class Document implements Serializable, StatusEntity {
 	public void setCongressId(Integer congressId) {
 		this.congressId = congressId;
 	}
-
 
 	@Column(name = "continent_id")
 	public Integer getContinentId() {
@@ -117,7 +117,6 @@ public class Document implements Serializable, StatusEntity {
 		this.continentId = continentId;
 	}
 
-
 	@Column(name = "country_id")
 	public Integer getCountryId() {
 		return this.countryId;
@@ -126,7 +125,6 @@ public class Document implements Serializable, StatusEntity {
 	public void setCountryId(Integer countryId) {
 		this.countryId = countryId;
 	}
-
 
 	@Column(name = "document_description")
 	public String getDocumentDescription() {
@@ -137,7 +135,6 @@ public class Document implements Serializable, StatusEntity {
 		this.documentDescription = documentDescription;
 	}
 
-
 	@Column(name = "document_location")
 	public String getDocumentLocation() {
 		return this.documentLocation;
@@ -146,7 +143,6 @@ public class Document implements Serializable, StatusEntity {
 	public void setDocumentLocation(String documentLocation) {
 		this.documentLocation = documentLocation;
 	}
-
 
 	@Column(name = "document_ref")
 	public String getDocumentRef() {
@@ -157,7 +153,6 @@ public class Document implements Serializable, StatusEntity {
 		this.documentRef = documentRef;
 	}
 
-
 	@Column(name = "document_sequence")
 	public Integer getDocumentSequence() {
 		return this.documentSequence;
@@ -166,7 +161,6 @@ public class Document implements Serializable, StatusEntity {
 	public void setDocumentSequence(Integer documentSequence) {
 		this.documentSequence = documentSequence;
 	}
-
 
 	@Column(name = "document_time")
 	public Integer getDocumentTime() {
@@ -177,7 +171,6 @@ public class Document implements Serializable, StatusEntity {
 		this.documentTime = documentTime;
 	}
 
-
 	@Column(name = "document_title")
 	public String getDocumentTitle() {
 		return this.documentTitle;
@@ -186,7 +179,6 @@ public class Document implements Serializable, StatusEntity {
 	public void setDocumentTitle(String documentTitle) {
 		this.documentTitle = documentTitle;
 	}
-
 
 	@Column(name = "image_Main_id")
 	public Integer getImageMainId() {
@@ -197,7 +189,6 @@ public class Document implements Serializable, StatusEntity {
 		this.imageMainId = imageMainId;
 	}
 
-
 	@Column(name = "material_id")
 	public Integer getMaterialId() {
 		return this.materialId;
@@ -206,7 +197,6 @@ public class Document implements Serializable, StatusEntity {
 	public void setMaterialId(Integer materialId) {
 		this.materialId = materialId;
 	}
-
 
 	@Column(name = "province_id")
 	public Integer getProvinceId() {
@@ -217,8 +207,7 @@ public class Document implements Serializable, StatusEntity {
 		this.provinceId = provinceId;
 	}
 
-
-	@Column(name="publish_date")
+	@Column(name = "publish_date")
 	public String getPublishDate() {
 		return this.publishDate;
 	}
@@ -237,35 +226,32 @@ public class Document implements Serializable, StatusEntity {
 		this.updateTime = updateTime;
 	}
 
-
-	//bi-directional many-to-one association to CongressResume
-	@OneToMany(mappedBy="document",fetch=FetchType.EAGER)
+	// bi-directional many-to-one association to CongressResume
+	@OneToMany(mappedBy = "document", fetch = FetchType.EAGER)
 	@OrderBy("paragraphSequence")
 	public List<Paragraph> getParagraphs() {
 		return paragraphs;
 	}
 
-
 	public void setParagraphs(List<Paragraph> paragraphs) {
 		this.paragraphs = paragraphs;
 	}
-	
+
 	public String comboParagraphContent() {
 		return comboParagraphContent("<br />");
 	}
-	
+
 	public String comboParagraphContent(String split) {
 		if (null == this.paragraphs || this.paragraphs.size() == 0)
 			return null;
-		
+
 		String paragraphContent = this.paragraphs.get(0).getParagraphContent();
-		for(int index = 1; index < this.paragraphs.size(); index++) {
+		for (int index = 1; index < this.paragraphs.size(); index++) {
 			paragraphContent += split + this.paragraphs.get(index).getParagraphContent();
 		}
-		
+
 		return paragraphContent;
 	}
-
 
 	@Column(name = "status")
 	public String getStatus() {
@@ -276,17 +262,14 @@ public class Document implements Serializable, StatusEntity {
 		this.status = status;
 	}
 
-
 	@Column(name = "creator")
 	public String getCreator() {
 		return creator;
 	}
 
-
 	public void setCreator(String creator) {
 		this.creator = creator;
 	}
-
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_date")
@@ -294,10 +277,58 @@ public class Document implements Serializable, StatusEntity {
 		return createdDate;
 	}
 
-
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
-	
-	
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public String getPerson() {
+		return person;
+	}
+
+	public void setPerson(String person) {
+		this.person = person;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	@Column(name = "location_long")
+	public Double getLocationLong() {
+		return locationLong;
+	}
+
+	public void setLocationLong(Double locationLong) {
+		this.locationLong = locationLong;
+	}
+
+	@Column(name = "location_lat")
+	public Double getLocationLat() {
+		return locationLat;
+	}
+
+	public void setLocationLat(Double locationLat) {
+		this.locationLat = locationLat;
+	}
+
 }

@@ -39,7 +39,7 @@ public class DocumentService extends BaseService {
 	public List<Document> findByImageMainId(Integer imageMainId) {
 		return documentDao.findByImageMainId(imageMainId);
 	}
-	
+
 	public Document get(Integer documentId) {
 		return documentDao.get(documentId);
 	}
@@ -60,12 +60,14 @@ public class DocumentService extends BaseService {
 	}
 
 	public Document addDocument(Document document, List<String> paragraphs) {
-
+		documentDao.loadExists(document.getImageMainId());
+		
 		document.setMaterialId(MaterialTypeEnum.ARTICLE.getItemCode());
+		document.setDocumentSequence(documentDao.nextSequence(document.getImageMainId()));
 		document.setCheckPublish(1);
 		document.setCreatedDate(new Date());
 		document.setUpdateTime(new Date());
-		document.setStatus(ModelStatusEnum.SUBMITTED.getItemCode());
+		document.setStatus(ModelStatusEnum.SAVED.getItemCode());
 		document = documentDao.saveOrUpdate(document);
 
 		if (EntityUtils.notEmpty(paragraphs)) {
@@ -84,12 +86,12 @@ public class DocumentService extends BaseService {
 
 		return document;
 	}
-	
+
 	public Document modifyDocument(Document document, List<String> paragraphs) {
 		document.setUpdateTime(new Date());
-		document.setStatus(ModelStatusEnum.SUBMITTED.getItemCode());
+		document.setStatus(ModelStatusEnum.SAVED.getItemCode());
 		document = documentDao.saveOrUpdate(document);
-		
+
 		paragraphDao.execute("delete from Paragraph p where p.document.documentId = ?", document.getDocumentId());
 
 		if (EntityUtils.notEmpty(paragraphs)) {
@@ -107,10 +109,7 @@ public class DocumentService extends BaseService {
 		}
 
 		return document;
-	}	
-	
-	
-	
+	}
 
 	public List<Document> findAllDocumentsOfImageMain(Integer imageMainId) {
 		DocumentQuery query = new DocumentQuery();
@@ -118,11 +117,17 @@ public class DocumentService extends BaseService {
 
 		return documentDao.findByQueryModel(query);
 	}
-	
+
 	public List<Document> findSubmittedDocuments() {
 		DocumentQuery query = new DocumentQuery();
 		query.setStatus(ModelStatusEnum.SUBMITTED.getItemCode());
 
 		return documentDao.findByQueryModel(query);
+	}
+
+	public void remove(Integer documentId) {
+		Document document = documentDao.getExists(documentId);
+		assertEntityCanBeRemoved(document);
+		documentDao.delete(document);
 	}
 }

@@ -40,7 +40,7 @@ public class PersonController extends BaseController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("person/index");
 		
-		List<Congress> congresses = congressService.loadAll();
+		List<Congress> congresses = congressService.loadAllPublishedCongresses();
 		mav.addObject("congresses", congresses);
 		
 		List<Person> persons = personService.loadAll();

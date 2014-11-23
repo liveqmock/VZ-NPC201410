@@ -64,7 +64,7 @@ public class CommonController extends BaseController {
 	@RequestMapping(value="/index.html")
 	public ModelAndView index(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("index");
-		mav.addObject("congresses", congressService.loadAll());
+		mav.addObject("congresses", congressService.loadAllPublishedCongresses());
 		
 		return mav;
 	}
@@ -72,7 +72,7 @@ public class CommonController extends BaseController {
 	@RequestMapping(value="/search.html")
 	public ModelAndView search(HttpServletRequest request, String keyword, Paging paging) {
 		ModelAndView mav = new ModelAndView("search");
-		mav.addObject("congresses", congressService.loadAll());
+		mav.addObject("congresses", congressService.loadAllPublishedCongresses());
 		mav.addObject("keyword", keyword);
 	
 		if (EntityUtils.notEmpty(keyword)) {
@@ -87,7 +87,7 @@ public class CommonController extends BaseController {
 	@RequestMapping(value="/3d.html")
 	public ModelAndView threed(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("3d");
-		mav.addObject("congresses", congressService.loadAll());
+		mav.addObject("congresses", congressService.loadAllPublishedCongresses());
 		
 		return mav;
 	}
@@ -95,7 +95,7 @@ public class CommonController extends BaseController {
 	@RequestMapping(value="/360.html")
 	public ModelAndView threesixzero(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("360");
-		mav.addObject("congresses", congressService.loadAll());
+		mav.addObject("congresses", congressService.loadAllPublishedCongresses());
 		
 		return mav;
 	}

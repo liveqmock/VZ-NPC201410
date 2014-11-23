@@ -58,10 +58,14 @@ public class ImageRelatedService extends BaseService {
 		
 		imageRelated.setCheckPublish(1);
 		imageRelated.setCreatedDate(new Date());
-		imageRelated.setStatus(ModelStatusEnum.SUBMITTED.getItemCode());
+		imageRelated.setStatus(ModelStatusEnum.SAVED.getItemCode());
 		imageRelated = imageRelatedDao.saveOrUpdate(imageRelated);
 		
 		return imageRelated;
+	}
+	
+	public Integer nextSequence(Integer imageMainId) {
+		return imageRelatedDao.nextSequence(imageMainId);
 	}
 	
 	
@@ -72,7 +76,7 @@ public class ImageRelatedService extends BaseService {
 	 */
 	public ImageRelated modifyImageRelated(ImageRelated imageRelated) {
 		imageRelated.setUpdateTime(new Date());
-		imageRelated.setStatus(ModelStatusEnum.SUBMITTED.getItemCode());
+		imageRelated.setStatus(ModelStatusEnum.SAVED.getItemCode());
 		imageRelated = imageRelatedDao.saveOrUpdate(imageRelated);
 		
 		return imageRelated;
@@ -95,5 +99,11 @@ public class ImageRelatedService extends BaseService {
 		query.setStatus(ModelStatusEnum.SUBMITTED.getItemCode());
 		
 		return imageRelatedDao.findByQueryModel(query);
+	}
+	
+	public void remove(Integer imageRelatedId) {
+		ImageRelated imageRelated = imageRelatedDao.getExists(imageRelatedId);
+		assertEntityCanBeRemoved(imageRelated);
+		imageRelatedDao.delete(imageRelated);
 	}
 }

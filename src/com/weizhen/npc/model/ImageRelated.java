@@ -48,6 +48,13 @@ public class ImageRelated implements Serializable, StatusEntity {
 	private String status;
 	private String creator;
 	private Date createdDate;
+	
+	private String keyword;
+	private String date;
+	private String person;
+	private String location;
+	private Double locationLong;
+	private Double locationLat;	
 
 	public ImageRelated() {
 	}
@@ -265,5 +272,55 @@ public class ImageRelated implements Serializable, StatusEntity {
 
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
+	}
+	
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public String getPerson() {
+		return person;
+	}
+
+	public void setPerson(String person) {
+		this.person = person;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	@Column(name = "location_long")
+	public Double getLocationLong() {
+		return locationLong;
+	}
+
+	public void setLocationLong(Double locationLong) {
+		this.locationLong = locationLong;
+	}
+
+	@Column(name = "location_lat")
+	public Double getLocationLat() {
+		return locationLat;
+	}
+
+	public void setLocationLat(Double locationLat) {
+		this.locationLat = locationLat;
 	}
 }

@@ -6,6 +6,7 @@ package com.weizhen.npc.utils;
  *
  */
 public enum OperationEnum {
+	SAVE("save", "保存"),
 	SUBMIT("submit", "提交"),
 	REJECT("reject", "拒绝"),
 	RATIFY("ratify", "通过"),

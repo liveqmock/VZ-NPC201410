@@ -8,7 +8,12 @@ var npcCommon = {
     /**
      * 后台服务请求地址
      */
-    jsonUrl: "/npc/static/manager/jsonmock/",
+    jsonUrl: "/npc/manager/",
+    
+    /**
+     * 上传文件临时存放位置
+     */
+    uploadFileUrl: "/npc/uploads/",
 
     /**
      * 获取页面中的各项输入项，保存为对象，用于向后台传送
@@ -18,13 +23,51 @@ var npcCommon = {
     getFormData: function (page) {
         var inputElements = page.find("input[type!=file], textarea, select, .checkbox");
         var params = {};
+        var source = this;
+        
+        var duplicateKeys = [];
+        
         $.each(inputElements, function (i, obj) {
             var el = $(obj);
+            
             var key = el.attr("name") || el.attr("id") || "unknow", value = el.val();
-            params[key] = value.trim();
+            
+            if (params[key]) {
+            	duplicateKeys.push(key);
+            	
+            	if (source.isArray(params[key])) {
+            		params[key].push(value.trim());
+            	} else {
+            		params[key] = [params[key], value.trim()];
+            	}
+            } else {
+            	params[key] = value.trim();
+            }
         });
+        
+        for(var index in duplicateKeys) {
+        	var duplicateKey = duplicateKeys[index];
+        	var values = params[duplicateKey];
+        	
+        	for(var i in values) {
+        		params[duplicateKey + '[' + i + ']'] = values[i];
+        	}
+        	
+        	delete params[duplicateKey];
+        }
 
         return params;
+    },
+    
+    // 判断对象是否是数组
+    isArray : function(o) {   return Object.prototype.toString.call(o) === '[object Array]'; },
+    
+    constants: {
+    	resourceType: {
+    		ImageMain : "ImageMain",
+    		ImageRelated : "ImageRelated",
+    		Document : "Document"
+    	}
     },
 
     /**
@@ -35,6 +78,9 @@ var npcCommon = {
 
         for (var key in data) {
             if (data.hasOwnProperty(key)) {
+//            	if(["imageMainImgPath", "imageRelatedImgPath", "imageRelatedVideoPath", "imageRelatedVideoThumbImgPath"].indexOf(key) >= 0)
+//            		continue;
+            	
                 if ($("#" + key).length > 0) {
                     $("#" + key).val(data[key]);
                 } else if ($("[name='" + key + "']").length > 0) {
@@ -58,11 +104,11 @@ var npcCommon = {
         $("#imageRelatedVideoThumbImgPreview").attr("src", this.url + data["imageRelatedVideoThumbImgPath"] || "");
 
         //文章段落
-        $("#imageRelatedDocumentForm .para").html('<div class="col-md-10"><textarea class="form-control"></textarea></div><div class="col-md-2"></div>');
-        if (data["Paragraphs"]) {
-            $.each(data["Paragraphs"], function (i) {
+        $("#imageRelatedDocumentForm .para").html('<div class="col-md-10"><textarea class="form-control" name="paragraphContents"></textarea></div><div class="col-md-2"></div>');
+        if (data["paragraphs"]) {
+            $.each(data["paragraphs"], function (i) {
                 if (i > 0) {
-                    var html = '<div class="col-md-10"><textarea class="form-control"></textarea></div>' +
+                    var html = '<div class="col-md-10"><textarea class="form-control" name="paragraphContents"></textarea></div>' +
                         '<div class="col-md-2">' +
                         '<button type="button" class="btn btn-primary btn-sm btnImageRelatedDocumentParaDelete">删除段落</button>' +
                         '</div>';
@@ -70,7 +116,7 @@ var npcCommon = {
                 }
             });
             $("#imageRelatedDocumentForm .para textarea").each(function (i) {
-                $(this).val(data["Paragraphs"][i]);
+                $(this).val(data["paragraphs"][i]);
             });
             //删除段落
             $(".btnImageRelatedDocumentParaDelete").off("click").click(function () {
@@ -98,22 +144,61 @@ var npcCommon = {
         //注意，这里使用了uploadify控件，用于ajax文件上传，官方网站：www.uploadify.com
         //注意不要改file_upload_1这个id，要不用不了
         //TODO:上传完毕，设置路径等
+        
+        // 主题图片
         $('#file_upload_1').uploadify({
+        	'fileObjName' : 'uploadfile',
             'swf': that.url + 'static/uploadify/uploadify.swf',
-            'uploader': that.url + 'static/uploadify/uploadify.php'
+            'uploader': that.url + 'manager/upload.html',
+            'onUploadSuccess': function(file, data, response) {
+            	onUploadSuccess(file, data, "imageMainImgPath");
+            }
         });
+        
+        // 图片资料图片
         $('#file_upload_2').uploadify({
+        	'fileObjName' : 'uploadfile',
             'swf': that.url + 'static/uploadify/uploadify.swf',
-            'uploader': that.url + 'static/uploadify/uploadify.php'
+            'uploader': that.url + 'manager/upload.html',
+            'onUploadSuccess': function(file, data, response) {
+            	onUploadSuccess(file, data, "imageRelatedImgPath");
+            }
         });
+        
+        // 视频资料文件
         $('#file_upload_3').uploadify({
+        	'fileObjName' : 'uploadfile',
             'swf': that.url + 'static/uploadify/uploadify.swf',
-            'uploader': that.url + 'static/uploadify/uploadify.php'
+            'uploader': that.url + 'manager/upload.html',
+            'onUploadSuccess': function(file, data, response) {
+            	onUploadSuccess(file, data, "imageRelatedVideoPath");
+            }
         });
+        
+        // 视频资料缩略图
         $('#file_upload_4').uploadify({
+        	'fileObjName' : 'uploadfile',
             'swf': that.url + 'static/uploadify/uploadify.swf',
-            'uploader': that.url + 'static/uploadify/uploadify.php'
+            'uploader': that.url + 'manager/upload.html',
+            'onUploadSuccess': function(file, data, response) {
+            	onUploadSuccess(file, data, "imageRelatedVideoThumbImgPath");
+            }
         });
+        
+        function onUploadSuccess(file, data, el) {
+        	try {
+        		var res = jQuery.parseJSON(data);
+	        	if(res['success']) {
+	        		// 上传文件成功
+	        		$("#" + el).val(file.name);
+	        		$("#" + el + "Hidden").val(res['data']); // 文件名
+	        	} else {
+	        		alert("上传文件失败");
+	        	}
+        	} catch (e) {
+        		alert("上传文件失败");
+        	}
+        }
     },
 
     /**
@@ -191,7 +276,7 @@ var npcCommon = {
         $(".imageRelatedItem").hide();
         $(".imageMainItem").show();
         $("#contentType").html("主题");
-        $("#contentTypeNo").val(0);
+        $("#contentTypeNo").val(this.constants.resourceType.ImageMain);
         if (0 == type) {
             $("#operationType").html("新建");
             $("#imageMainId").val("");
@@ -243,8 +328,9 @@ var npcCommon = {
         $(".imageMainItem").hide();
         $(".imageRelatedItem").show();
         $("#contentType").html("相关资料");
-        $("#contentTypeNo").val(1);
+//        $("#contentTypeNo").val("ImageRelated");
         if (0 == type) {
+        	$("#contentState").html("未提交")
             $("#operationType").html("新建");
             $("#imageMainId").val("");
             $("#imageRelatedId").val("");
@@ -291,7 +377,7 @@ var npcCommon = {
     /**
      * 相关资料类型改变触发的事件
      * 隐藏相应的表单等
-     * @param type 类型：1-图片；2-视频；3-文章
+     * @param type 类型：1-图片；2-视频；4-文章
      */
     imageRelatedTypeChange: function (type) {
         switch (type) {
@@ -300,18 +386,21 @@ var npcCommon = {
                 $("#imageRelatedImgForm").show();
                 $("#imageRelatedVideoForm").hide();
                 $("#imageRelatedDocumentForm").hide();
+                $("#contentTypeNo").val("ImageRelated");
                 break;
             //视频
             case "2":
                 $("#imageRelatedImgForm").hide();
                 $("#imageRelatedVideoForm").show();
                 $("#imageRelatedDocumentForm").hide();
+                $("#contentTypeNo").val("ImageRelated");
                 break;
             //文章
-            case "3":
+            case "4":
                 $("#imageRelatedImgForm").hide();
                 $("#imageRelatedVideoForm").hide();
                 $("#imageRelatedDocumentForm").show();
+                $("#contentTypeNo").val("Document");
                 break;
             default :
                 $("#imageRelatedImgForm").hide();
@@ -337,15 +426,15 @@ var npcCommon = {
                 contentId: contentId
             },
             success: function (data) {
-                var jsonData = JSON.parse(data);
+                var jsonData = data;
                 if (jsonData.success && jsonData.data) {
                     npcCommon.setFormData(jsonData.data);
                     $("#contentContainer").show();
                     $("#btnSubmitAudit").hide();
-                    if ($("#contentTypeNo").val() == 1) {
-                        npcCommon.initImageRelated(isEdit || 2);
+                    if ($("#contentTypeNo").val() == "ImageMain") {
+                    	npcCommon.initImageMain(isEdit || 2);
                     } else {
-                        npcCommon.initImageMain(isEdit || 2);
+                    	npcCommon.initImageRelated(isEdit || 2);
                     }
                     that.initAuditGrid(contentType, contentId);
                 } else {
@@ -367,7 +456,7 @@ var npcCommon = {
             type: "POST",
             datafields: [
                 { name: 'auditUser', type: 'string' },
-                { name: 'auditTime', type: 'string' },
+                { name: 'auditTime', type: 'date' },
                 { name: 'auditContent', type: 'string' },
                 { name: 'auditResult', type: 'string' }
             ],
@@ -379,6 +468,10 @@ var npcCommon = {
             }
         };
         var dataAdapter = new $.jqx.dataAdapter(source);
+        
+        var daterender = function (row, column, value) {
+            return value;
+        }
 
         $("#auditGrid").jqxGrid(
             {
@@ -388,7 +481,7 @@ var npcCommon = {
                 width: 700,
                 columns: [
                     { text: '审核人', datafield: 'auditUser', width: 100, align: 'center', cellsalign: 'center' },
-                    { text: '审核时间', datafield: 'auditTime', width: 170, align: 'center', cellsalign: 'center' },
+                    { text: '审核时间', datafield: 'auditTime', width: 170, align: 'center', cellsalign: 'center', cellsformat: 'yyyy-MM-dd HH:mm:ss' },
                     { text: '审核意见', datafield: 'auditContent', width: 350, align: 'center' },
                     { text: '审核结果', datafield: 'auditResult', width: 80, align: 'center', cellsalign: 'center' }
                 ]

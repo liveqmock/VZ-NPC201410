@@ -403,4 +403,18 @@ public abstract class BaseEntityDaoSupport<T> extends HibernateDaoSupport {
 		
 		return entity;
 	}
+	
+	public Object findFirst(String queryString, Object...values) {
+		List datas = getHibernateTemplate().find(queryString, values);;
+		if (EntityUtils.notEmpty(datas))
+			return datas.get(0);
+		
+		return null;
+	}
+	
+	public <E> E nvl(E first, E second) {
+		if (null == first) return second;
+		
+		return first;
+	}
 }
