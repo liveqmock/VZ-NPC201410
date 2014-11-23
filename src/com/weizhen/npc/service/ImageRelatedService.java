@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.chineseall.dams.common.paging.Paging;
 import com.chineseall.dams.common.paging.PagingQueryResult;
+import com.fylaw.utils.EntityUtils;
 import com.weizhen.npc.base.BaseService;
 import com.weizhen.npc.dao.ImageMainDAO;
 import com.weizhen.npc.dao.ImageRelatedDAO;
@@ -90,6 +91,8 @@ public class ImageRelatedService extends BaseService {
 	public List<ImageRelated> findAllImageRelatedsOfImageMain(Integer imageMainId) {
 		ImageRelatedQuery query = new ImageRelatedQuery();
 		query.setImageMainId(imageMainId);
+		query.setSidx(new String[] {"imageRelatedSequence"});
+		query.setSord(new String[] {"asc"});
 		
 		return imageRelatedDao.findByQueryModel(query);
 	}
@@ -105,5 +108,34 @@ public class ImageRelatedService extends BaseService {
 		ImageRelated imageRelated = imageRelatedDao.getExists(imageRelatedId);
 		assertEntityCanBeRemoved(imageRelated);
 		imageRelatedDao.delete(imageRelated);
+	}
+	
+	public void adjustSequence(Integer imageRelatedId, String direction) {
+		ImageRelated imageRelated = imageRelatedDao.getExists(imageRelatedId);
+		Integer sequence = imageRelated.getImageRelatedSequence();
+		
+		ImageRelatedQuery query = new ImageRelatedQuery();
+		query.setImageMainId(imageRelated.getImageMainId());
+		query.setSidx(new String[] {"imageRelatedSequence"});
+		if ("up".equalsIgnoreCase(direction)) {
+			query.setSequenceLessThan(sequence);
+			query.setSord(new String[]{"desc"});
+		} else {
+			query.setSequenceGreatThan(sequence);
+			query.setSord(new String[] {"asc"});
+		}
+		
+		List<ImageRelated> imageRelateds = imageRelatedDao.findByQueryModel(query);
+		if (EntityUtils.isEmpty(imageRelateds))
+			return;
+		
+		ImageRelated target = imageRelateds.get(0);
+		Integer targetSequence = target.getImageRelatedSequence();
+		
+		imageRelated.setImageRelatedSequence(targetSequence);
+		imageRelatedDao.saveOrUpdate(imageRelated);
+		
+		target.setImageRelatedSequence(sequence);
+		imageRelatedDao.saveOrUpdate(target);
 	}
 }

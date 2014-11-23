@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fylaw.utils.EntityUtils;
 import com.weizhen.npc.base.BaseEntityDaoSupport;
 import com.weizhen.npc.base.BaseService;
 import com.weizhen.npc.base.StatusEntity;
@@ -16,6 +17,7 @@ import com.weizhen.npc.dao.DocumentDAO;
 import com.weizhen.npc.dao.ImageMainDAO;
 import com.weizhen.npc.dao.ImageRelatedDAO;
 import com.weizhen.npc.dao.ResourceAuditLogDAO;
+import com.weizhen.npc.exception.IllegalStatusException;
 import com.weizhen.npc.model.Congress;
 import com.weizhen.npc.model.Document;
 import com.weizhen.npc.model.ImageMain;
@@ -36,43 +38,60 @@ public class ResourceAuditLogService extends BaseService {
 
 	@Autowired
 	private ResourceAuditLogDAO resourceAuditLogDAO;
-	
+
 	@Autowired
 	private DocumentDAO documentDAO;
-	
+
 	@Autowired
 	private ImageRelatedDAO imageRelatedDAO;
-	
+
 	@Autowired
 	private ImageMainDAO imageMainDAO;
-	
+
 	@Autowired
 	private CongressDAO congressDAO;
-	
+
 	private Map<String, BaseEntityDaoSupport<? extends StatusEntity>> mapper;
-	
+
 	public void audit(ResourceAuditLog resourceAuditLog) {
 		BaseEntityDaoSupport<? extends StatusEntity> entityDAO = judgeEntityDAO(resourceAuditLog.getResourceType());
 		StatusEntity entity = entityDAO.getExists(resourceAuditLog.getResourceId());
-		
-		String statusFrom = entity.getStatus();
-		String statusTo = ModelStatusTransformer.getStatus(statusFrom, resourceAuditLog.getOperation());
+		assertStatusIn(entity, ModelStatusEnum.SUBMITTED);
+
+		resourceAuditLog.setAuditDate(new Date());
+		resourceAuditLog.setStatusFrom(entity.getStatus());
+
+		String statusTo = ModelStatusTransformer.getStatus(entity.getStatus(), resourceAuditLog.getOperation());
 		entity.setStatus(statusTo);
 		entityDAO.updateEntity(entity);
-		
-		resourceAuditLog.setAuditDate(new Date());
-		resourceAuditLog.setStatusFrom(statusFrom);
+
 		resourceAuditLog.setStatusTo(statusTo);
-		
 		resourceAuditLogDAO.save(resourceAuditLog);
 	}
 	
+	public void submit(ResourceAuditLog resourceAuditLog) {
+		BaseEntityDaoSupport<? extends StatusEntity> entityDAO = judgeEntityDAO(resourceAuditLog.getResourceType());
+		StatusEntity entity = entityDAO.getExists(resourceAuditLog.getResourceId());
+		assertStatusIn(entity, ModelStatusEnum.SAVED, ModelStatusEnum.REJECTED);
+
+		resourceAuditLog.setAuditDate(new Date());
+		resourceAuditLog.setStatusFrom(entity.getStatus());
+
+		String statusTo = ModelStatusTransformer.getStatus(entity.getStatus(), resourceAuditLog.getOperation());
+		entity.setStatus(statusTo);
+		entityDAO.updateEntity(entity);
+
+		resourceAuditLog.setStatusTo(statusTo);
+		resourceAuditLogDAO.save(resourceAuditLog);
+	}	
+
 	private BaseEntityDaoSupport<? extends StatusEntity> judgeEntityDAO(String resourceType) {
-		if (null == mapper) initMapper();
-		
+		if (null == mapper)
+			initMapper();
+
 		return mapper.get(resourceType);
 	}
-	
+
 	private void initMapper() {
 		mapper = new HashMap<String, BaseEntityDaoSupport<? extends StatusEntity>>();
 		mapper.put(Document.class.getSimpleName(), documentDAO);
@@ -80,38 +99,70 @@ public class ResourceAuditLogService extends BaseService {
 		mapper.put(ImageMain.class.getSimpleName(), imageMainDAO);
 		mapper.put(Congress.class.getSimpleName(), congressDAO);
 	}
-	
-	public void publish(ResourceAuditLog resourceAuditLog) throws Exception {
+
+	private void assertStatusIn(StatusEntity entity, ModelStatusEnum... values) {
+		if (EntityUtils.notEmpty(values))
+			for (ModelStatusEnum value : values)
+				if (value.getItemCode().equalsIgnoreCase(entity.getStatus()))
+					return;
+
+		throw new IllegalStatusException("数据状态不符");
+	}
+
+	/**
+	 * 发布内容并记录日志
+	 * 
+	 * @param resourceAuditLog
+	 */
+	public void publish(ResourceAuditLog resourceAuditLog) {
 		BaseEntityDaoSupport<? extends StatusEntity> entityDAO = judgeEntityDAO(resourceAuditLog.getResourceType());
 		StatusEntity entity = entityDAO.getExists(resourceAuditLog.getResourceId());
-		
-		String statusFrom = entity.getStatus();
-		if (!ModelStatusEnum.RATIFIED.getItemCode().equalsIgnoreCase(statusFrom))
-			throw new Exception("数据未处于待发布状态");
-		
-		entity.setStatus(ModelStatusEnum.PUBLISHED.getItemCode());
+		assertStatusIn(entity, ModelStatusEnum.RATIFIED);
+
+		resourceAuditLog.setAuditDate(new Date());
+		resourceAuditLog.setStatusFrom(entity.getStatus());
+
+		entity.setStatus(ModelStatusTransformer.getStatus(entity.getStatus(), resourceAuditLog.getOperation()));
 		entity.setCheckPublish(0);
 		entityDAO.updateEntity(entity);
-		
-		resourceAuditLog.setAuditDate(new Date());
-		resourceAuditLog.setStatusFrom(ModelStatusEnum.RATIFIED.getItemCode());
-		resourceAuditLog.setStatusTo(ModelStatusEnum.PUBLISHED.getItemCode());
-		
-		resourceAuditLogDAO.save(resourceAuditLog);		
+
+		resourceAuditLog.setStatusTo(entity.getStatus());
+		resourceAuditLogDAO.save(resourceAuditLog);
 	}
 	
 	/**
+	 * 取消发布内容并记录日志
+	 * @param resourceAuditLog
+	 */
+	public void unpublish(ResourceAuditLog resourceAuditLog) {
+		BaseEntityDaoSupport<? extends StatusEntity> entityDAO = judgeEntityDAO(resourceAuditLog.getResourceType());
+		StatusEntity entity = entityDAO.getExists(resourceAuditLog.getResourceId());
+		assertStatusIn(entity, ModelStatusEnum.PUBLISHED);
+
+		resourceAuditLog.setAuditDate(new Date());
+		resourceAuditLog.setStatusFrom(entity.getStatus());
+
+		entity.setStatus(ModelStatusTransformer.getStatus(entity.getStatus(), resourceAuditLog.getOperation()));
+		entity.setCheckPublish(1);
+		entityDAO.updateEntity(entity);
+
+		resourceAuditLog.setStatusTo(entity.getStatus());
+		resourceAuditLogDAO.save(resourceAuditLog);
+	}
+
+	/**
 	 * 新建或修改数据时记录日志
+	 * 
 	 * @param resourceAuditLog
 	 */
 	public void saveOrUpdate(ResourceAuditLog resourceAuditLog) {
 		resourceAuditLog.setAuditDate(new Date());
-		
+
 		resourceAuditLogDAO.save(resourceAuditLog);
 	}
 
-	
 	public List<ResourceAuditLog> showAuditLogs(ResourceAuditLogQuery query) {
 		return resourceAuditLogDAO.findByQueryModel(query);
 	}
+
 }

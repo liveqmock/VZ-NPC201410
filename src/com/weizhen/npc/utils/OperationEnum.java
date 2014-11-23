@@ -11,6 +11,7 @@ public enum OperationEnum {
 	REJECT("reject", "拒绝"),
 	RATIFY("ratify", "通过"),
 	PUBLISH("publish", "发布"),
+	UNPUBLISH("unpublish", "撤销发布"),
 	REMOVE("remove", "删除");
 	
 	private String itemCode;

@@ -23,6 +23,9 @@ public class ImageRelatedQuery extends BaseQueryModel<ImageRelatedQuery> {
 	private Integer imageMainId;
 	private Integer checkPublish;
 	private String status;
+	
+	private Integer sequenceLessThan;
+	private Integer sequenceGreatThan;
 
 	@Expression(operatorType = OperatorType.LIKE)
 	public String getImageRelatedTitle() {
@@ -66,4 +69,22 @@ public class ImageRelatedQuery extends BaseQueryModel<ImageRelatedQuery> {
 		this.status = status;
 	}
 
+	@Expression(fieldName="imageRelatedSequence", operatorType = OperatorType.LT)
+	public Integer getSequenceLessThan() {
+		return sequenceLessThan;
+	}
+
+	public void setSequenceLessThan(Integer sequenceLessThan) {
+		this.sequenceLessThan = sequenceLessThan;
+	}
+
+	@Expression(fieldName="imageRelatedSequence", operatorType = OperatorType.GT)
+	public Integer getSequenceGreatThan() {
+		return sequenceGreatThan;
+	}
+
+	public void setSequenceGreatThan(Integer sequenceGreatThan) {
+		this.sequenceGreatThan = sequenceGreatThan;
+	}
+	
 }

@@ -31,7 +31,7 @@ public class ModelStatusTransformer {
 		tables.put(ModelStatusEnum.RATIFIED, ratifyTable);
 		
 		Map<OperationEnum, ModelStatusEnum> publishTable = new HashMap<OperationEnum, ModelStatusEnum>();
-		publishTable.put(OperationEnum.REJECT, ModelStatusEnum.RATIFIED);
+		publishTable.put(OperationEnum.UNPUBLISH, ModelStatusEnum.RATIFIED);
 		tables.put(ModelStatusEnum.PUBLISHED, publishTable);
 	}
 	

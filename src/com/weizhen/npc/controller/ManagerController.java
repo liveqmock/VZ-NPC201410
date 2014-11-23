@@ -507,8 +507,8 @@ public class ManagerController extends BaseController {
 
 				imageRelatedFile.delete();
 			}
-			
-			if(null != imageRelatedThumbFile && imageRelatedThumbFile.exists()) {
+
+			if (null != imageRelatedThumbFile && imageRelatedThumbFile.exists()) {
 				originalFilename = imageRelatedThumbFile.getName();
 				suffixName = originalFilename.substring(originalFilename.lastIndexOf("."));
 				filepath = directory + fileName + suffixName;
@@ -697,29 +697,38 @@ public class ManagerController extends BaseController {
 		return res;
 	}
 
-	@RequestMapping(value = "/publish.html", method = RequestMethod.POST)
+	@RequestMapping(value = "/publish.json", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> publish(@RequestParam Integer resourceId, @RequestParam String resourceType) {
-		Map<String, Object> res = new HashMap<String, Object>();
+	public Response<ContentDetailData> publish(@RequestParam String resourceType, @RequestParam Integer resourceId) {
+		User user = (User) session.getAttribute("user");
+		assertUserTypeIn(user, UserTypeEnum.EDITOR);
 
-		try {
-			User user = (User) session.getAttribute("user");
-			assertUserTypeIn(user, UserTypeEnum.EDITOR);
+		ResourceAuditLog resourceAuditLog = new ResourceAuditLog();
+		resourceAuditLog.setAuditor(user.getRealName());
+		resourceAuditLog.setResourceType(resourceType);
+		resourceAuditLog.setResourceId(resourceId);
+		resourceAuditLog.setOperation(OperationEnum.PUBLISH.getItemCode());
 
-			ResourceAuditLog resourceAuditLog = new ResourceAuditLog();
-			resourceAuditLog.setAuditor(user.getRealName());
-			resourceAuditLog.setResourceType(resourceType);
-			resourceAuditLog.setResourceId(resourceId);
-			resourceAuditLog.setOperation(OperationEnum.PUBLISH.getItemCode());
+		resourceAuditLogService.publish(resourceAuditLog);
 
-			resourceAuditLogService.publish(resourceAuditLog);
-		} catch (Exception e) {
-			logger.error("发布失败", e);
+		return contentDetail(resourceType, resourceId);
+	}
 
-			res.put("msg", e.getMessage());
-		}
+	@RequestMapping(value = "/unpublish.json", method = RequestMethod.POST)
+	@ResponseBody
+	public Response<ContentDetailData> unpublish(@RequestParam String resourceType, @RequestParam Integer resourceId) {
+		User user = (User) session.getAttribute("user");
+		assertUserTypeIn(user, UserTypeEnum.EDITOR);
 
-		return res;
+		ResourceAuditLog resourceAuditLog = new ResourceAuditLog();
+		resourceAuditLog.setAuditor(user.getRealName());
+		resourceAuditLog.setResourceType(resourceType);
+		resourceAuditLog.setResourceId(resourceId);
+		resourceAuditLog.setOperation(OperationEnum.UNPUBLISH.getItemCode());
+
+		resourceAuditLogService.unpublish(resourceAuditLog);
+
+		return contentDetail(resourceType, resourceId);
 	}
 
 	@RequestMapping("/auditlogs.html")
@@ -982,7 +991,7 @@ public class ManagerController extends BaseController {
 		resourceAuditLog.setResourceId(res.getData().getContentId());
 		resourceAuditLog.setOperation(OperationEnum.SUBMIT.getItemCode());
 		resourceAuditLog.setAuditor(((User) session.getAttribute("user")).getRealName());
-		resourceAuditLogService.audit(resourceAuditLog);
+		resourceAuditLogService.submit(resourceAuditLog);
 
 		return contentDetail(resourceType, res.getData().getContentId());
 	}
@@ -1008,6 +1017,20 @@ public class ManagerController extends BaseController {
 			this.uploadPath = getWebRootPath() + "/uploads/";
 
 		return this.uploadPath;
+	}
+
+	@RequestMapping(value = "/adjustSequence.json", method = RequestMethod.POST)
+	@ResponseBody
+	public Response<Integer> adjustSequence(@RequestParam String resourceType, @RequestParam Integer resourceId,
+			@RequestParam String direction) {
+		if (ResourceTypeEnum.DOCUMENT.getItemCode().equalsIgnoreCase(resourceType))
+			documentService.adjustSequence(resourceId, direction);
+		else if (ResourceTypeEnum.IMAGERELATED.getItemCode().equalsIgnoreCase(resourceType))
+			imageRelatedService.adjustSequence(resourceId, direction);
+		else if (ResourceTypeEnum.IMAGEMAIN.getItemCode().equalsIgnoreCase(resourceType))
+			imageMainService.adjustSequence(resourceId, direction);
+
+		return new Response<Integer>(resourceId);
 	}
 
 	@ExceptionHandler(RuntimeException.class)

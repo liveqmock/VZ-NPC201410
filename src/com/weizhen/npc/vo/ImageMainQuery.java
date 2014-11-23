@@ -23,6 +23,9 @@ public class ImageMainQuery extends BaseQueryModel<ImageMainQuery> {
 	private String status;
 	private Integer congressId;
 	private Integer checkPublish;
+	
+	private Integer sequenceLessThan;
+	private Integer sequenceGreatThan;
 
 	@Expression(operatorType = OperatorType.LIKE)
 	public String getImageMainTitle() {
@@ -66,4 +69,21 @@ public class ImageMainQuery extends BaseQueryModel<ImageMainQuery> {
 		this.checkPublish = checkPublish;
 	}
 
+	@Expression(fieldName="imageMainSequence", operatorType = OperatorType.LT)
+	public Integer getSequenceLessThan() {
+		return sequenceLessThan;
+	}
+
+	public void setSequenceLessThan(Integer sequenceLessThan) {
+		this.sequenceLessThan = sequenceLessThan;
+	}
+
+	@Expression(fieldName="imageMainSequence", operatorType = OperatorType.GT)
+	public Integer getSequenceGreatThan() {
+		return sequenceGreatThan;
+	}
+
+	public void setSequenceGreatThan(Integer sequenceGreatThan) {
+		this.sequenceGreatThan = sequenceGreatThan;
+	}
 }

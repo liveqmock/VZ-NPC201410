@@ -13,6 +13,7 @@ import com.weizhen.npc.base.BaseEntityDaoSupport;
 import com.weizhen.npc.model.Document;
 import com.weizhen.npc.model.ImageRelated;
 import com.weizhen.npc.model.Location;
+import com.weizhen.npc.vo.LocationQuery;
 
 /**
  * 
@@ -52,6 +53,13 @@ public class LocationDAO extends BaseEntityDaoSupport<Location> {
 		PagingQueryResult<Document> result = this.pagingQuery(ql, nameValuePairs, paging);
 		
 		return result.getRecords();
+	}
+	
+	public Location findByLocationName(String locationName) {
+		LocationQuery query = new LocationQuery();
+		query.setLocationName(locationName);
+		
+		return this.findFirstByQueryModel(query);
 	}
 	
 }

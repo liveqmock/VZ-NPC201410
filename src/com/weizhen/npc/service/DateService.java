@@ -66,4 +66,9 @@ public class DateService extends BaseService {
 		
 		return dateDao.findDateDocuments(direction);
 	}	
+	
+	public void publish(ImageMain imageMain) {
+		DateImageMain dateImageMain = new DateImageMain();
+		dateImageMain.setImageMain(imageMain);
+	}
 }

@@ -1,3 +1,36 @@
+
+/** 
+* 时间对象的格式化 
+*/  
+
+Date.prototype.format = function(format) {
+	/*
+	 * format="yyyy-MM-dd hh:mm:ss";
+	 */
+	var o = {
+		"M+" : this.getMonth() + 1,
+		"d+" : this.getDate(),
+		"h+" : this.getHours(),
+		"m+" : this.getMinutes(),
+		"s+" : this.getSeconds(),
+		"q+" : Math.floor((this.getMonth() + 3) / 3),
+		"S" : this.getMilliseconds()
+	}
+
+	if (/(y+)/.test(format)) {
+		format = format.replace(RegExp.$1, (this.getFullYear() + "")
+				.substr(4 - RegExp.$1.length));
+	}
+
+	for ( var k in o) {
+		if (new RegExp("(" + k + ")").test(format)) {
+			format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k]
+					: ("00" + o[k]).substr(("" + o[k]).length));
+		}
+	}
+	return format;
+}
+
 $(document).ready(function () {
 
     //初始化页面
@@ -76,7 +109,6 @@ $(document).ready(function () {
                         { text: '资源标识', dataField: 'resourceId', hidden: true },
                         { text: '操作', width: 200,
                             cellsrenderer: function (row, columnfield, value, obj) {
-                                console.log(obj);
                                 var html = '<button type="button" class="btn btn-primary btn-xs btnDGLSelect" data-id="' + obj.id + '" data-type="' + obj.type + '" data-resourceType="' + obj['resourceType'] + '" data-resourceId="' + obj['resourceId'] + '" data-pid="' + obj.pid + '">&nbsp;&nbsp;选择&nbsp;&nbsp;</button>&nbsp;&nbsp;' +
                                     '<button type="button" class="btn btn-primary btn-xs btnDGLUp" data-id="' + obj.id + '" data-type="' + obj.type + '" data-resourceType="' + obj['resourceType'] + '" data-resourceId="' + obj['resourceId'] + '">上移</button>&nbsp;&nbsp;' +
                                     '<button type="button" class="btn btn-primary btn-xs btnDGLDown" data-id="' + obj.id + '" data-type="' + obj.type + '" data-resourceType="' + obj['resourceType'] + '" data-resourceId="' + obj['resourceId'] + '">下移</button>';
@@ -108,11 +140,19 @@ $(document).ready(function () {
 
                             npcCommon.getContentDetail(resourceType, resourceId);
                         });
+                        
+                        // 次序提前
                         $(".btnDGLUp").off("click").on("click", function () {
-                            alert($(this).attr("data-id"));
+                        	var resourceType = $(this).attr("data-resourceType");
+                            var resourceId = $(this).attr("data-resourceId");
+                        	npcCommon.adjustSequence(resourceType, resourceId, 'up');
                         });
+                        
+                        // 次序调后
                         $(".btnDGLDown").off("click").on("click", function () {
-                            alert($(this).attr("data-id"));
+                        	var resourceType = $(this).attr("data-resourceType");
+                            var resourceId = $(this).attr("data-resourceId");
+                        	npcCommon.adjustSequence(resourceType, resourceId, 'down');
                         });
                     }
                 });
@@ -214,13 +254,13 @@ $(document).ready(function () {
             url: npcCommon.jsonUrl + "saveContent.json",
             data: npcCommon.getFormData($("body")),
             success: function (data) {
-                var jsonData = JSON.parse(data);
+                var jsonData = data;
                 if (jsonData.success && jsonData.data) {
                     npcCommon.setFormData(jsonData.data);
                     $("#btnSave").hide();
                     alert("保存成功！");
 
-                    if ($("#contentTypeNo").val() == 1) {
+                    if ($("#contentTypeNo").val() == "ImageRelated" || $("#contentTypeNo").val() == "Document") {
                         npcCommon.initImageRelated(2);
                     } else {
                         npcCommon.initImageMain(2);
@@ -240,7 +280,7 @@ $(document).ready(function () {
             url: npcCommon.jsonUrl + "submitAudit.json",
             data: npcCommon.getFormData($("body")),
             success: function (data) {
-                var jsonData = JSON.parse(data);
+                var jsonData = data;
                 if (jsonData.success && jsonData.data) {
                     npcCommon.setFormData(jsonData.data);
                     $("#btnSubmitAudit").hide();
@@ -257,6 +297,60 @@ $(document).ready(function () {
             }
         });
     });
+    
+    // 发布
+    $("#btnPublish").click(function(){
+        $.ajax({
+            type: "POST",
+            url: npcCommon.jsonUrl + "publish.json",
+            data: {
+            	resourceType : $("#contentTypeNo").val(),
+            	resourceId : $("#contentId").val()
+            },
+            success: function (data) {
+                var jsonData = JSON.parse(data);
+                if (jsonData.success && jsonData.data) {
+                    npcCommon.setFormData(jsonData.data);
+                    $("#btnPublish").hide();
+
+                    if ($("#contentTypeNo").val() == 'ImageRelated' || $("#contentTypeNo").val() == 'Document') {
+                        npcCommon.initImageRelated(2);
+                    } else {
+                        npcCommon.initImageMain(2);
+                    }
+                } else {
+                    alert("发布失败");
+                }
+            }
+        });    	
+    });
+    
+    // 取消发布
+    $("#btnUnPublish").click(function(){
+        $.ajax({
+            type: "POST",
+            url: npcCommon.jsonUrl + "unpublish.json",
+            data: {
+            	resourceType : $("#contentTypeNo").val(),
+            	resourceId : $("#contentId").val()
+            },
+            success: function (data) {
+                var jsonData = JSON.parse(data);
+                if (jsonData.success && jsonData.data) {
+                    npcCommon.setFormData(jsonData.data);
+                    $("#btnUnPublish").hide();
+
+                    if ($("#contentTypeNo").val() == 'ImageRelated' || $("#contentTypeNo").val() == 'Document') {
+                        npcCommon.initImageRelated(2);
+                    } else {
+                        npcCommon.initImageMain(2);
+                    }
+                } else {
+                    alert("发布失败");
+                }
+            }
+        });    	
+    });    
 
     //选择关键字
     $("#btnSelectKeyword").click(function () {

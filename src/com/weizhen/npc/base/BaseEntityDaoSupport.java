@@ -68,12 +68,13 @@ public abstract class BaseEntityDaoSupport<T> extends HibernateDaoSupport {
 		return getHibernateTemplate().load(entityClass, id);
 
 	}
-	
+
 	public T loadExists(Serializable id) {
 		T t = load(id);
-		
-		if (null == t) throw new ModelNotFoundException("指定的记录不存在:" + id);
-		
+
+		if (null == t)
+			throw new ModelNotFoundException("指定的记录不存在:" + id);
+
 		return t;
 	}
 
@@ -86,12 +87,13 @@ public abstract class BaseEntityDaoSupport<T> extends HibernateDaoSupport {
 	public T get(Serializable id) {
 		return getHibernateTemplate().get(entityClass, id);
 	}
-	
+
 	public T getExists(Serializable id) {
 		T t = getHibernateTemplate().get(entityClass, id);
-		
-		if (null == t) throw new ModelNotFoundException("指定的记录不存在");
-		
+
+		if (null == t)
+			throw new ModelNotFoundException("指定的记录不存在");
+
 		return t;
 	}
 
@@ -169,9 +171,18 @@ public abstract class BaseEntityDaoSupport<T> extends HibernateDaoSupport {
 	 */
 	public List<T> findByQueryModel(BaseQueryModel<?> queryModel) {
 		ConditionsAndNameValuePairs cavp = SimpleQueryModelProcessor.gen(queryModel);
-		String hql = " from " + entityClass.getSimpleName() + " " + cavp.getWhereCondition() + " " + queryModel.getOrderCondition();
+		String hql = " from " + entityClass.getSimpleName() + " " + cavp.getWhereCondition() + " "
+				+ queryModel.getOrderCondition();
 		return (List<T>) findByNameValuePairs(hql, cavp.getNameValuePairs());
 
+	}
+
+	public T findFirstByQueryModel(BaseQueryModel<?> queryModel) {
+		List<T> datas = findByQueryModel(queryModel);
+		if (EntityUtils.notEmpty(datas))
+			return datas.get(0);
+
+		return null;
 	}
 
 	/**
@@ -210,7 +221,8 @@ public abstract class BaseEntityDaoSupport<T> extends HibernateDaoSupport {
 	 *            hql语句的参数
 	 * @return
 	 */
-	public List<T> pagingFind(final Integer offset, final Integer pageSize, final String queryString, final Object... values) {
+	public List<T> pagingFind(final Integer offset, final Integer pageSize, final String queryString,
+			final Object... values) {
 		return getHibernateTemplate().executeFind(new HibernateCallback<List<T>>() {
 			public List<T> doInHibernate(Session session) throws HibernateException, SQLException {
 				Query query = session.createQuery(queryString);
@@ -397,24 +409,26 @@ public abstract class BaseEntityDaoSupport<T> extends HibernateDaoSupport {
 	public void saveOrUpdateAll(List<T> entitites) {
 		getHibernateTemplate().saveOrUpdateAll(entitites);
 	}
-	
+
 	public <E> E updateEntity(E entity) {
 		getHibernateTemplate().saveOrUpdate(entity);
-		
+
 		return entity;
 	}
-	
-	public Object findFirst(String queryString, Object...values) {
-		List datas = getHibernateTemplate().find(queryString, values);;
+
+	public Object findFirst(String queryString, Object... values) {
+		List datas = getHibernateTemplate().find(queryString, values);
+		;
 		if (EntityUtils.notEmpty(datas))
 			return datas.get(0);
-		
+
 		return null;
 	}
-	
+
 	public <E> E nvl(E first, E second) {
-		if (null == first) return second;
-		
+		if (null == first)
+			return second;
+
 		return first;
 	}
 }

@@ -114,6 +114,8 @@ public class DocumentService extends BaseService {
 	public List<Document> findAllDocumentsOfImageMain(Integer imageMainId) {
 		DocumentQuery query = new DocumentQuery();
 		query.setImageMainId(imageMainId);
+		query.setSidx(new String[] {"documentSequence"});
+		query.setSord(new String[] {"asc"});
 
 		return documentDao.findByQueryModel(query);
 	}
@@ -129,5 +131,39 @@ public class DocumentService extends BaseService {
 		Document document = documentDao.getExists(documentId);
 		assertEntityCanBeRemoved(document);
 		documentDao.delete(document);
+	}
+	
+	/**
+	 * 调整文章次序
+	 * @param documentId
+	 * @param direction
+	 */
+	public void adjustSequence(Integer documentId, String direction) {
+		Document document = documentDao.getExists(documentId);
+		Integer sequence = document.getDocumentSequence();
+		
+		DocumentQuery query = new DocumentQuery();
+		query.setImageMainId(document.getImageMainId());
+		query.setSidx(new String[] {"documentSequence"});
+		if ("up".equalsIgnoreCase(direction)) {
+			query.setSequenceLessThan(sequence);
+			query.setSord(new String[] {"desc"});
+		} else {
+			query.setSequenceGreatThan(sequence);
+			query.setSord(new String[] {"asc"});
+		}
+		
+		List<Document> documents = documentDao.findByQueryModel(query);
+		if (EntityUtils.isEmpty(documents))
+			return;
+		
+		Document target = documents.get(0);
+		Integer targetSequence = target.getDocumentSequence();
+		
+		document.setDocumentSequence(targetSequence);
+		documentDao.saveOrUpdate(document);
+		
+		target.setDocumentSequence(sequence);
+		documentDao.saveOrUpdate(target);
 	}
 }

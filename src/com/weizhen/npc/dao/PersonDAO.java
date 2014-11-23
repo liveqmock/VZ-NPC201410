@@ -13,6 +13,7 @@ import com.weizhen.npc.base.BaseEntityDaoSupport;
 import com.weizhen.npc.model.Document;
 import com.weizhen.npc.model.ImageRelated;
 import com.weizhen.npc.model.Person;
+import com.weizhen.npc.vo.PersonQuery;
 
 /**
  * 
@@ -52,6 +53,13 @@ public class PersonDAO extends BaseEntityDaoSupport<Person> {
 		PagingQueryResult<Document> result = this.pagingQuery(ql, nameValuePairs, paging);
 		
 		return result.getRecords();
+	}
+	
+	public Person findByPersonName(String personName) {
+		PersonQuery query = new PersonQuery();
+		query.setPersonName(personName);
+		
+		return this.findFirstByQueryModel(query);
 	}
 	
 }

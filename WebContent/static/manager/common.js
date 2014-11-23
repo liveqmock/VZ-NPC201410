@@ -93,7 +93,7 @@ var npcCommon = {
         $("#belongCongress").html(data["belongCongress"] || "");
         $("#submitPerson").html(data["submitPerson"] || "");
         $("#belongImageMain").html(data["belongImageMain"] || "");
-        $("#submitTime").html(data["submitTime"] || "");
+        $("#submitTime").html(data["submitTime"] ? new Date(data["submitTime"]).format("yyyy-MM-dd hh:mm:ss") : "");
         $("#contentState").html(data["contentState"] || "");
 
         this.imageRelatedTypeChange($("#imageRelatedType").val());
@@ -209,6 +209,9 @@ var npcCommon = {
         $("#btnSelectPerson").show();
         $("#btnCreatePerson").show();
         $("#btnResetPerson").show();
+        $("#btnSelectLocation").show();
+        $("#btnCreateLocation").show();
+        $("#btnResetLocation").show();
         $("#btnImageRelatedDocumentParaAdd").show();
         $(".btnImageRelatedDocumentParaDelete").show();
 
@@ -223,6 +226,9 @@ var npcCommon = {
         $("#btnSelectPerson").hide();
         $("#btnCreatePerson").hide();
         $("#btnResetPerson").hide();
+        $("#btnSelectLocation").hide();
+        $("#btnCreateLocation").hide();
+        $("#btnResetLocation").hide();
         $("#btnImageRelatedDocumentParaAdd").hide();
         $(".btnImageRelatedDocumentParaDelete").hide();
 
@@ -278,6 +284,7 @@ var npcCommon = {
         $("#contentType").html("主题");
         $("#contentTypeNo").val(this.constants.resourceType.ImageMain);
         if (0 == type) {
+        	$("#contentState").html("");
             $("#operationType").html("新建");
             $("#imageMainId").val("");
             $("#imageRelatedId").val("");
@@ -312,7 +319,14 @@ var npcCommon = {
                 disabled: true
             });
             this.hideEditButtons();
-            $("#btnModify, #btnDelete").show();
+            
+            var contentState = $("#contentState").html();
+            if (contentState == '未提交' || contentState == '审核拒绝') {
+            	$("#btnModify, #btnDelete").show();
+            } else {
+            	$("#btnModify, #btnDelete").hide();
+            }
+            
             $("div.alert").hide();
 
         }
@@ -330,7 +344,7 @@ var npcCommon = {
         $("#contentType").html("相关资料");
 //        $("#contentTypeNo").val("ImageRelated");
         if (0 == type) {
-        	$("#contentState").html("未提交")
+        	$("#contentState").html("")
             $("#operationType").html("新建");
             $("#imageMainId").val("");
             $("#imageRelatedId").val("");
@@ -368,7 +382,14 @@ var npcCommon = {
             });
             this.hideEditButtons();
             this.imageRelatedTypeChange($("#imageRelatedType").val());
-            $("#btnModify, #btnDelete").show();
+            
+            var contentState = $("#contentState").html();
+            if (contentState == '未提交' || contentState == '审核拒绝') {
+            	$("#btnModify, #btnDelete").show();
+            } else {
+            	$("#btnModify, #btnDelete").hide();
+            }
+
             $("div.alert").hide();
         }
         this.initOperationButtons();
@@ -457,6 +478,7 @@ var npcCommon = {
             datafields: [
                 { name: 'auditUser', type: 'string' },
                 { name: 'auditTime', type: 'date' },
+                { name: 'operation', type: 'string' },
                 { name: 'auditContent', type: 'string' },
                 { name: 'auditResult', type: 'string' }
             ],
@@ -482,11 +504,33 @@ var npcCommon = {
                 columns: [
                     { text: '审核人', datafield: 'auditUser', width: 100, align: 'center', cellsalign: 'center' },
                     { text: '审核时间', datafield: 'auditTime', width: 170, align: 'center', cellsalign: 'center', cellsformat: 'yyyy-MM-dd HH:mm:ss' },
-                    { text: '审核意见', datafield: 'auditContent', width: 350, align: 'center' },
+                    { text: '审核操作', datafield: 'operation', width: 80, align: 'center', cellsalign: 'center' },
+                    { text: '审核意见', datafield: 'auditContent', width: 270, align: 'center' },
                     { text: '审核结果', datafield: 'auditResult', width: 80, align: 'center', cellsalign: 'center' }
                 ]
             });
 
+    },
+    
+    adjustSequence: function(resourceType, resoureId, direction) {
+    	var that = this;
+        $.ajax({
+            type: "POST",
+            url: npcCommon.jsonUrl + "adjustSequence.json",
+            data: {
+                resourceType: resourceType,
+                resourceId: resoureId,
+                direction: direction
+            },
+            success: function (data) {
+                var jsonData = data;
+                if (jsonData.success && jsonData.data) {
+                	 $("#contentDataGridList").jqxTreeGrid('updateBoundData');
+                } else {
+                    alert("调整内容次序失败");
+                }
+            }
+        });    	
     }
 
 

@@ -5,6 +5,7 @@ import java.util.Date;
 
 import com.weizhen.npc.model.ResourceAuditLog;
 import com.weizhen.npc.utils.ModelStatusEnum;
+import com.weizhen.npc.utils.OperationEnum;
 
 public class AuditLogData implements Serializable {
 
@@ -15,6 +16,7 @@ public class AuditLogData implements Serializable {
 
 	private String auditUser;
 	private Date auditTime;
+	private String operation;
 	private String auditContent;
 	private String auditResult;
 	
@@ -22,6 +24,7 @@ public class AuditLogData implements Serializable {
 		AuditLogData data = new AuditLogData();
 		data.setAuditUser(log.getAuditor());
 		data.setAuditTime(log.getAuditDate());
+		data.setOperation(OperationEnum.from(log.getOperation()).getItemValue());
 		data.setAuditContent(log.getNote());
 		data.setAuditResult(ModelStatusEnum.from(log.getStatusTo()).getItemValue());
 		
@@ -42,6 +45,14 @@ public class AuditLogData implements Serializable {
 
 	public void setAuditTime(Date auditTime) {
 		this.auditTime = auditTime;
+	}
+	
+	public String getOperation() {
+		return operation;
+	}
+
+	public void setOperation(String operation) {
+		this.operation = operation;
 	}
 
 	public String getAuditContent() {

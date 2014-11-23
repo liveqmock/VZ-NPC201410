@@ -231,7 +231,8 @@ pageEncoding="UTF-8"%>
         </div>
         <div class="col-md-4">
             <button type="button" class="btn btn-primary btn-sm"
-                    id="btnSelectPerson">选择人物
+                    id="btnSelectPerson"  data-toggle="modal"
+            data-target="#personSelectModal">选择人物
             </button>
             <button type="button" class="btn btn-primary btn-sm"
                     id="btnCreatePerson">新建人物
@@ -244,19 +245,33 @@ pageEncoding="UTF-8"%>
     <div class="form-group form-group-sm">
         <label class="col-md-2 control-label">地点：</label>
 
-        <div class="col-md-4">
-            <input type="text" id="contentLocation" class="form-control"/>
+        <div class="col-md-3">
+            <input type="text" id="contentLocation" class="form-control unEditable"/>
         </div>
         <label class="pull-left" style="padding-top: 6px;">经度：</label>
 
-        <div class="col-md-2">
-            <input type="text" id="contentLocationLong" class="form-control"/>
+        <div class="col-md-1">
+            <input type="text" id="contentLocationLong" class="form-control unEditable"/>
         </div>
         <label class="pull-left" style="padding-top: 6px;">纬度：</label>
 
-        <div class="col-md-2">
-            <input type="text" id="contentLocationLat" class="form-control"/>
+        <div class="col-md-1">
+            <input type="text" id="contentLocationLat" class="form-control unEditable"/>
         </div>
+        
+        <div class="col-md-4" style="padding-left:20px;">
+            <button type="button" class="btn btn-primary btn-sm"
+                    id="btnSelectLocation" data-toggle="modal"
+            data-target="#locationSelectModal">选择地点
+            </button>
+            <button type="button" class="btn btn-primary btn-sm"
+                    id="btnCreateLocation">新建地点
+            </button>
+            <button type="button" class="btn btn-primary btn-sm"
+                    id="btnResetLocation">清空地点
+            </button>
+        </div>
+        
         <div class="col-md-10 col-md-offset-2">
             <div class="alert alert-warning small">
                 <p>如果要将此内容在时间专题中展示，则需要填写时间信息，时间为这个内容所描述的事件发生的时间；<br/>
@@ -315,6 +330,36 @@ pageEncoding="UTF-8"%>
             </div>
             <div class="modal-body">
                 <div id="contentDataGridList"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--选择人物-->
+<div class="modal fade" id="personSelectModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">选择人物</h4>
+            </div>
+            <div class="modal-body">
+                <div id="personDataGridList"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--选择地点-->
+<div class="modal fade" id="locationSelectModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">选择地点</h4>
+            </div>
+            <div class="modal-body">
+                <div id="locationDataGridList"></div>
             </div>
         </div>
     </div>
