@@ -711,6 +711,13 @@ public class ManagerController extends BaseController {
 
 		resourceAuditLogService.publish(resourceAuditLog);
 
+		if (ResourceTypeEnum.IMAGEMAIN.eq(resourceType))
+			imageMainService.publish(resourceId);
+		else if (ResourceTypeEnum.IMAGERELATED.eq(resourceType))
+			imageRelatedService.publish(resourceId);
+		else if (ResourceTypeEnum.DOCUMENT.eq(resourceType))
+			documentService.publish(resourceId);
+
 		return contentDetail(resourceType, resourceId);
 	}
 
@@ -727,6 +734,13 @@ public class ManagerController extends BaseController {
 		resourceAuditLog.setOperation(OperationEnum.UNPUBLISH.getItemCode());
 
 		resourceAuditLogService.unpublish(resourceAuditLog);
+
+		if (ResourceTypeEnum.IMAGEMAIN.eq(resourceType))
+			imageMainService.unpublish(resourceId);
+		else if (ResourceTypeEnum.IMAGERELATED.eq(resourceType))
+			imageRelatedService.unpublish(resourceId);
+		else if (ResourceTypeEnum.DOCUMENT.eq(resourceType))
+			documentService.unpublish(resourceId);
 
 		return contentDetail(resourceType, resourceId);
 	}

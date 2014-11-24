@@ -308,7 +308,7 @@ $(document).ready(function () {
             	resourceId : $("#contentId").val()
             },
             success: function (data) {
-                var jsonData = JSON.parse(data);
+                var jsonData = data;
                 if (jsonData.success && jsonData.data) {
                     npcCommon.setFormData(jsonData.data);
                     $("#btnPublish").hide();
@@ -335,7 +335,7 @@ $(document).ready(function () {
             	resourceId : $("#contentId").val()
             },
             success: function (data) {
-                var jsonData = JSON.parse(data);
+                var jsonData = data;
                 if (jsonData.success && jsonData.data) {
                     npcCommon.setFormData(jsonData.data);
                     $("#btnUnPublish").hide();

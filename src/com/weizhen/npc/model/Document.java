@@ -54,6 +54,7 @@ public class Document implements Serializable, StatusEntity {
 	private String keyword;
 	private String date;
 	private String person;
+	private Integer locationId;
 	private String location;
 	private Double locationLong;
 	private Double locationLat;
@@ -303,6 +304,15 @@ public class Document implements Serializable, StatusEntity {
 
 	public void setPerson(String person) {
 		this.person = person;
+	}
+	
+	@Column(name = "location_id")
+	public Integer getLocationId() {
+		return locationId;
+	}
+
+	public void setLocationId(Integer locationId) {
+		this.locationId = locationId;
 	}
 
 	public String getLocation() {
