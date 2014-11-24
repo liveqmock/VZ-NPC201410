@@ -151,7 +151,19 @@ var npcCommon = {
             'swf': that.url + 'static/uploadify/uploadify.swf',
             'uploader': that.url + 'manager/upload.html',
             'onUploadSuccess': function(file, data, response) {
-            	onUploadSuccess(file, data, "imageMainImgPath");
+            	try {
+            		var res = jQuery.parseJSON(data);
+    	        	if(res['success']) {
+    	        		// 上传文件成功
+    	        		$("#imageMainImgPath").val(file.name);
+    	        		$("#imageMainImgPathHidden").val(res['data']); // 文件名
+    	        		$("#imageMainImgPreview").attr("src", that.uploadFileUrl + res['data']); // 预览
+    	        	} else {
+    	        		alert("上传文件失败");
+    	        	}
+            	} catch (e) {
+            		alert("上传文件失败");
+            	}
             }
         });
         
@@ -161,7 +173,19 @@ var npcCommon = {
             'swf': that.url + 'static/uploadify/uploadify.swf',
             'uploader': that.url + 'manager/upload.html',
             'onUploadSuccess': function(file, data, response) {
-            	onUploadSuccess(file, data, "imageRelatedImgPath");
+            	try {
+            		var res = jQuery.parseJSON(data);
+    	        	if(res['success']) {
+    	        		// 上传文件成功
+    	        		$("#imageRelatedImgPath").val(file.name);
+    	        		$("#imageRelatedImgPathHidden").val(res['data']); // 文件名
+    	        		$("#imageRelatedImgPreview").attr("src", that.uploadFileUrl + res['data']); // 预览
+    	        	} else {
+    	        		alert("上传文件失败");
+    	        	}
+            	} catch (e) {
+            		alert("上传文件失败");
+            	}
             }
         });
         
@@ -171,7 +195,18 @@ var npcCommon = {
             'swf': that.url + 'static/uploadify/uploadify.swf',
             'uploader': that.url + 'manager/upload.html',
             'onUploadSuccess': function(file, data, response) {
-            	onUploadSuccess(file, data, "imageRelatedVideoPath");
+            	try {
+            		var res = jQuery.parseJSON(data);
+    	        	if(res['success']) {
+    	        		// 上传文件成功
+    	        		$("#imageRelatedVideoPath").val(file.name);
+    	        		$("#imageRelatedVideoPathHidden").val(res['data']); // 文件名
+    	        	} else {
+    	        		alert("上传文件失败");
+    	        	}
+            	} catch (e) {
+            		alert("上传文件失败");
+            	}
             }
         });
         
@@ -181,24 +216,22 @@ var npcCommon = {
             'swf': that.url + 'static/uploadify/uploadify.swf',
             'uploader': that.url + 'manager/upload.html',
             'onUploadSuccess': function(file, data, response) {
-            	onUploadSuccess(file, data, "imageRelatedVideoThumbImgPath");
+            	try {
+            		var res = jQuery.parseJSON(data);
+    	        	if(res['success']) {
+    	        		// 上传文件成功
+    	        		$("#imageRelatedVideoThumbImgPath").val(file.name);
+    	        		$("#imageRelatedVideoThumbImgPathHidden").val(res['data']); // 文件名
+    	        		$("#imageRelatedVideoThumbImgPreview").attr("src", that.uploadFileUrl + res['data']); // 预览
+    	        	} else {
+    	        		alert("上传文件失败");
+    	        	}
+            	} catch (e) {
+            		alert("上传文件失败");
+            	}
             }
         });
         
-        function onUploadSuccess(file, data, el) {
-        	try {
-        		var res = jQuery.parseJSON(data);
-	        	if(res['success']) {
-	        		// 上传文件成功
-	        		$("#" + el).val(file.name);
-	        		$("#" + el + "Hidden").val(res['data']); // 文件名
-	        	} else {
-	        		alert("上传文件失败");
-	        	}
-        	} catch (e) {
-        		alert("上传文件失败");
-        	}
-        }
     },
 
     /**
