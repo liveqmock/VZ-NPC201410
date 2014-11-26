@@ -31,7 +31,7 @@ pageEncoding="UTF-8"%>
     <button type="button" class="btn btn-primary" id="btnSelectContent" data-toggle="modal"
             data-target="#belongContentSelectModal">选择主题或相关资料
     </button>
-    <div class="col-md-12">
+    <div class="col-md-12" style="display:none;">
         <p>开发完毕后将这些type改为hidden</p>
         <label>所属届别Id</label><input type="text" id="belongCongressId" name="belongCongressId" /> <!--所属届别Id-->
         <label>所属主题Id</label><input type="text" id="belongImageMainId" name="belongImageMainId" /> <!--所属主题Id-->
@@ -246,31 +246,19 @@ pageEncoding="UTF-8"%>
         <label class="col-md-2 control-label">地点：</label>
 
         <div class="col-md-3">
-            <input type="text" id="contentLocation" class="form-control unEditable"/>
+            <input type="text" id="contentLocation" class="form-control"/>
         </div>
         <label class="pull-left" style="padding-top: 6px;">经度：</label>
 
         <div class="col-md-1">
-            <input type="text" id="contentLocationLong" class="form-control unEditable"/>
+            <input type="text" id="contentLocationLong" class="form-control"/>
         </div>
         <label class="pull-left" style="padding-top: 6px;">纬度：</label>
 
         <div class="col-md-1">
-            <input type="text" id="contentLocationLat" class="form-control unEditable"/>
+            <input type="text" id="contentLocationLat" class="form-control"/>
         </div>
         
-        <div class="col-md-4" style="padding-left:20px;">
-            <button type="button" class="btn btn-primary btn-sm"
-                    id="btnSelectLocation" data-toggle="modal"
-            data-target="#locationSelectModal">选择地点
-            </button>
-            <button type="button" class="btn btn-primary btn-sm"
-                    id="btnCreateLocation">新建地点
-            </button>
-            <button type="button" class="btn btn-primary btn-sm"
-                    id="btnResetLocation">清空地点
-            </button>
-        </div>
         
         <div class="col-md-10 col-md-offset-2">
             <div class="alert alert-warning small">

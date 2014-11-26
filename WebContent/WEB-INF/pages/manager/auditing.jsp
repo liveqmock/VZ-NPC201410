@@ -37,7 +37,6 @@ pageEncoding="UTF-8"%>
 
     <div class="row">
 
-        <jsp:include page="left.jsp"></jsp:include>
 
         <div class="col-md-10">
             <h3>待审核信息列表</h3>

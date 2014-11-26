@@ -664,7 +664,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 }
 
 #container #main-content span.share {
-    display: none;
+    /*display: none;*/
     right: 20px;
     text-align: right;
 }

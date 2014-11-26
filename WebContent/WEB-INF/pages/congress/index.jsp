@@ -18,6 +18,9 @@ pageEncoding="UTF-8"%>
 </c:if>
 
 <%@ include file="../doctype.jsp" %>
+
+    <link href="${context }/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
 <body>
 <%@ include file="../header.jsp" %>
 <div id="container">
@@ -46,8 +49,20 @@ pageEncoding="UTF-8"%>
             </ul>
         </nav>
         <span class="tbar"></span>
-        <span class="info"></span> <span class="share"> <a
-            href="javascript:void(0)">赞</a> <a href="javascript:void(0)">分享</a>
+        <span class="info"></span> <span class="share"> 
+        		
+        		<a href="javascript:void(0)" style="padding-top:3px;">
+        			<span class="glyphicon glyphicon-thumbs-up" style="top:5px;margin-right: 3px;" aria-hidden="true"></span>
+        		</a>
+        		
+            	<div class="bshare-custom" style="display:inline-block;">
+					<a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a>
+				</div>
+				
+				<script type="text/javascript" charset="utf-8"
+				src="http://static.bshare.cn/b/buttonLite.js#style=10&bp=weixin,renren&lang=zh"></script>
+				<script type="text/javascript" charset="utf-8"
+					src="http://static.bshare.cn/b/bshareC0.js"></script>
 			</span>
     </div>
 

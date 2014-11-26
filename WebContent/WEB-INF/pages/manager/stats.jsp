@@ -36,8 +36,6 @@ pageEncoding="UTF-8"%>
         <jsp:include page="nav.jsp"></jsp:include>
 
         <div class="row">
-            <jsp:include page="left.jsp"></jsp:include>
-
             <div class="col-md-10">
                 <h3>信息统计</h3>
 
