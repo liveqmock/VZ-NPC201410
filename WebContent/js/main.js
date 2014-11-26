@@ -70,36 +70,36 @@ var goToPageTop = function () {
     $('body, html').stop().animate({scrollTop: '0px'}, 500);
 };
 
-/** 
-* 时间对象的格式化 
-*/  
+/**
+ * 时间对象的格式化
+ */
 
-Date.prototype.format = function(format) {
-	/*
-	 * format="yyyy-MM-dd hh:mm:ss";
-	 */
-	var o = {
-		"M+" : this.getMonth() + 1,
-		"d+" : this.getDate(),
-		"h+" : this.getHours(),
-		"m+" : this.getMinutes(),
-		"s+" : this.getSeconds(),
-		"q+" : Math.floor((this.getMonth() + 3) / 3),
-		"S" : this.getMilliseconds()
-	}
+Date.prototype.format = function (format) {
+    /*
+     * format="yyyy-MM-dd hh:mm:ss";
+     */
+    var o = {
+        "M+": this.getMonth() + 1,
+        "d+": this.getDate(),
+        "h+": this.getHours(),
+        "m+": this.getMinutes(),
+        "s+": this.getSeconds(),
+        "q+": Math.floor((this.getMonth() + 3) / 3),
+        "S": this.getMilliseconds()
+    }
 
-	if (/(y+)/.test(format)) {
-		format = format.replace(RegExp.$1, (this.getFullYear() + "")
-				.substr(4 - RegExp.$1.length));
-	}
+    if (/(y+)/.test(format)) {
+        format = format.replace(RegExp.$1, (this.getFullYear() + "")
+            .substr(4 - RegExp.$1.length));
+    }
 
-	for ( var k in o) {
-		if (new RegExp("(" + k + ")").test(format)) {
-			format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k]
-					: ("00" + o[k]).substr(("" + o[k]).length));
-		}
-	}
-	return format;
+    for (var k in o) {
+        if (new RegExp("(" + k + ")").test(format)) {
+            format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k]
+                : ("00" + o[k]).substr(("" + o[k]).length));
+        }
+    }
+    return format;
 }
 
 $(document).ready(function () {
@@ -305,6 +305,32 @@ $(document).ready(function () {
         e.preventDefault();
         goToPageTop();
     });
+
+    $("#share").click(function (e) {
+        e.preventDefault();
+        try {
+            bShare.addEntry({
+                title: "全国人民代表大会成立60周年网上纪念展",
+                summary: $("#relate-content .text #imageMainTitle").html(),
+                pic: window.location.origin + "/" + $("img.imageMainBig").attr("src")
+            });
+            bShare.more(event);
+        } catch (e) {
+        }
+    });
+
+    $("#fav").click(function (e) {
+        e.preventDefault();
+        var fav = $(this).siblings(".favtip");
+
+        //TODO: 点赞逻辑 $("#relate-content .text #imageMainId").html() 主题id
+
+        fav.show();
+        setTimeout(function () {
+            fav.hide();
+        }, 2000);
+    });
+
 });
 
 

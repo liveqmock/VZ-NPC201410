@@ -18,9 +18,6 @@ pageEncoding="UTF-8"%>
 </c:if>
 
 <%@ include file="../doctype.jsp" %>
-
-    <link href="${context }/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-
 <body>
 <%@ include file="../header.jsp" %>
 <div id="container">
@@ -32,7 +29,8 @@ pageEncoding="UTF-8"%>
                 </div>
                 <a class="play png_bg"></a>
             </c:if>
-            <img src="${context }/${npc:transImagePath(firstImageMain.imageMainFilepath, 'b')}" alt=""/>
+            <img src="${context }/${npc:transImagePath(firstImageMain.imageMainFilepath, 'b')}" alt=""
+                 class="imageMainBig"/>
         </div>
         <nav class="control">
             <ul>
@@ -49,26 +47,19 @@ pageEncoding="UTF-8"%>
             </ul>
         </nav>
         <span class="tbar"></span>
-        <span class="info"></span> <span class="share"> 
-        		
-        		<a href="javascript:void(0)" style="padding-top:3px;">
-        			<span class="glyphicon glyphicon-thumbs-up" style="top:5px;margin-right: 3px;" aria-hidden="true"></span>
-        		</a>
-        		
-            	<div class="bshare-custom" style="display:inline-block;">
-					<a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a>
-				</div>
-				
-				<script type="text/javascript" charset="utf-8"
-				src="http://static.bshare.cn/b/buttonLite.js#style=10&bp=weixin,renren&lang=zh"></script>
-				<script type="text/javascript" charset="utf-8"
-					src="http://static.bshare.cn/b/bshareC0.js"></script>
-			</span>
+        <span class="info"></span>
+        <span class="share">
+        	<a href="javascript:void(0)" id="fav" data-id="">赞</a>
+            <span class="favtip">点赞成功</span>
+        	<a href="javascript:void(0)" id="share">分享</a>
+		</span>
     </div>
 
     <div id="relate-content">
         <div class="text">
-            <h2>${firstImageMain.imageMainTitle }</h2>
+            <span id="imageMainId" class="hidden">${firstImageMain.imageMainId }</span>
+
+            <h2 id="imageMainTitle">${firstImageMain.imageMainTitle }</h2>
 
             <p>${firstImageMain.imageMainDescription }</p>
         </div>
@@ -90,7 +81,8 @@ pageEncoding="UTF-8"%>
 									<p>
                                         ${row.index < 2 ? fn:replace(congress.congressResumeContent,'/n','<br/>') : imageMain.imageMainDescription }</p>
 								</span>
-                        <img data-original="${context }/${npc:transImagePath(imageMain.imageMainFilepath, 'm')}" alt="" class="lazy"/>
+                        <img data-original="${context }/${npc:transImagePath(imageMain.imageMainFilepath, 'm')}" alt=""
+                             class="lazy"/>
                         <i><h4>${imageMain.imageMainTitle }</h4></i>
                     </a>
                     </li>
@@ -160,6 +152,7 @@ pageEncoding="UTF-8"%>
                 $("#main-content .info").text("${congress.congressTitle} " + currentIndex + "/" + (imageMainIds.length - 1));
 
                 $("#relate-content .text h2").text(data['imageMainTitle']);
+                $("#relate-content .text #imageMainId").html(data['imageMainId']);
 
                 var description = data['imageMainDescription'];
                 $("#relate-content .text p").html($("<span></span>").text(description).html());
@@ -239,5 +232,8 @@ pageEncoding="UTF-8"%>
         //showImageMain(currentImageMainId);
     });
 </script>
+
+<script type="text/javascript" charset="utf-8"
+        src="http://static.bshare.cn/b/buttonLite.js#style=-1&lang=zh"></script>
 </body>
 </html>

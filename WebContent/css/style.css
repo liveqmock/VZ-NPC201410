@@ -71,6 +71,10 @@ a:hover {
     text-decoration: underline;
 }
 
+.hidden {
+    display: none;
+}
+
 .clearfix {
     *zoom: 1;
 }
@@ -443,7 +447,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 #container a.play {
     position: absolute;
     right: 20px;
-    bottom: 20px;
+    bottom: 40px;
     display: block;
     width: 64px;
     height: 64px;
@@ -664,9 +668,33 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 }
 
 #container #main-content span.share {
-    /*display: none;*/
     right: 20px;
     text-align: right;
+}
+
+#container #main-content span.share a {
+    padding-left: 22px;
+    margin-left: 10px;
+}
+
+#container #main-content span.share #fav {
+    background: url("../image/icon_fav.png") no-repeat left center;
+}
+
+#container #main-content span.share .favtip {
+    display: none;
+    position: absolute;
+    bottom: 40px;
+    left: 70px;
+    background: #ffff99;
+    padding: 0 10px;
+    filter: alpha(opacity=80);
+    -moz-opacity: 0.8;
+    opacity: 0.8;
+}
+
+#container #main-content span.share #share {
+    background: url("../image/icon_share.png") no-repeat left center;
 }
 
 #container #main-content span:hover,

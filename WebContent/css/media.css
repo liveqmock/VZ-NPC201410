@@ -63,3 +63,62 @@
     }
 
 }
+
+@media screen and (max-width: 640px) {
+
+    header #header-content,
+    #container,
+    footer {
+        width: 100% !important;
+    }
+
+    header nav ul li.nav-input,
+    header nav ul li.nav-3d,
+    header nav ul li.nav-location {
+        display: none;
+    }
+
+    #container #relate-content .text {
+        width: 49%;
+    }
+
+    #container #relate-content .text h2,
+    #container #relate-content .text p {
+        margin-left: 100px;
+    }
+
+    #container #relate-content .media {
+        width: 47%;
+    }
+
+    #container #session-nav ul li,
+    #container #session-nav ul li a,
+    #container #session-nav ul li a img {
+        width: 327px;
+        height: 213px;
+    }
+
+    #container #session-nav ul li a span {
+        width: 327px;
+        height: 190px;
+    }
+
+    #container #session-nav ul li a span h3 {
+        text-align: center;
+    }
+
+    #container #session-nav ul li a span h3 strong {
+        display: block;
+    }
+
+    #container #main-content #mapContainer {
+        width: 740px;
+    }
+
+    #container #flashContent,
+    #container #flashContent object {
+        width: 100%;
+        height: 600px;
+    }
+
+}
