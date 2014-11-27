@@ -324,11 +324,29 @@ $(document).ready(function () {
         var fav = $(this).siblings(".favtip");
 
         //TODO: 点赞逻辑 $("#relate-content .text #imageMainId").html() 主题id
-
-        fav.show();
-        setTimeout(function () {
-            fav.hide();
-        }, 2000);
+        
+        if (currentImageMainId) {
+            $.ajax({
+                type: "GET",
+                url: context + "/fav.html",
+                data: {
+                    resourceType: 'ImageMain',
+                    resourceId: currentImageMainId
+                },
+                success: function (data) {
+                    if (data.success) {
+                    	fav.text("点赞成功");
+                    } else {
+                    	fav.text(data.msg);
+                    }
+                    
+                    fav.show();
+                    setTimeout(function () {
+                        fav.hide();
+                    }, 2000);
+                }
+            });        	
+        }
     });
 
 });
