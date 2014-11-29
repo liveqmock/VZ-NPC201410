@@ -14,14 +14,17 @@ pageEncoding="UTF-8"%>
     <div id="flashContent">
 	    <noscript><p>您还没有安装flash，<a href="http://get.adobe.com/cn/flashplayer" target="_blank">点击下载安装</a></p></noscript>
     </div>
-    <%@ include file="script.jsp" %>
-	<script src="360/tour.js"></script>
-	<script>
-
-        function openUrl(val){
-           alert("参数：" + val);
-        }
-		embedpano({swf:"360/tour.swf", xml:"360/tour.xml", target:"flashContent", html5:"auto", passQueryParameters:true});
-	</script>
+</div>
+<%@ include file="script.jsp" %>
+<script>
+    function openUrl(val){
+       //alert("参数：" + window.location.href.replace("360", "congress/" + val));
+	   window.location = window.location.href.replace("360", "congress/" + val);
+    }
+</script>
+<script src="360/tour.js"></script>
+<script>
+	embedpano({swf:"360/tour.swf", xml:"360/tour.xml", target:"flashContent", html5:"auto", passQueryParameters:true});
+</script>
 </body>
 </html>

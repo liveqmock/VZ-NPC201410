@@ -24,7 +24,7 @@ pageEncoding="UTF-8"%>
         <ul>
             <li><a href="congress/0.html">
                 <span>
-                    <h3>序——历史的选择 ${congress.congressDescription } <strong>（1954-2014）</strong></h3>
+                    <h3>序——历史的选择</h3>
                     <p>“60年的实践充分证明，人民代表大会制度是符合中国国情和实际、体现社会主义国家性质、
                         保证人民当家作主、保障实现中华民族伟大复兴的好制度。” ——摘自“庆祝全国人大成立60周年”习近平总书记讲话</p>
                 </span>
