@@ -42,12 +42,14 @@ import com.weizhen.npc.model.Congress;
 import com.weizhen.npc.model.Document;
 import com.weizhen.npc.model.ImageMain;
 import com.weizhen.npc.model.ImageRelated;
+import com.weizhen.npc.model.Person;
 import com.weizhen.npc.model.ResourceAuditLog;
 import com.weizhen.npc.model.User;
 import com.weizhen.npc.service.CongressService;
 import com.weizhen.npc.service.DocumentService;
 import com.weizhen.npc.service.ImageMainService;
 import com.weizhen.npc.service.ImageRelatedService;
+import com.weizhen.npc.service.PersonService;
 import com.weizhen.npc.service.ResourceAuditLogService;
 import com.weizhen.npc.service.UserService;
 import com.weizhen.npc.utils.Constants;
@@ -89,6 +91,9 @@ public class ManagerController extends BaseController {
 
 	@Autowired
 	private ResourceAuditLogService resourceAuditLogService;
+	
+	@Autowired
+	private PersonService personService;
 
 	private String webRootPath;
 	private String uploadPath;
@@ -1046,6 +1051,14 @@ public class ManagerController extends BaseController {
 
 		return new Response<Integer>(resourceId);
 	}
+	
+	
+	@RequestMapping(value="/persons.json", method = RequestMethod.GET)
+	@ResponseBody
+	public Response<List<Person>> persons() {
+		return new Response<List<Person>>(personService.loadAll());
+	}
+	
 
 	@ExceptionHandler(RuntimeException.class)
 	public void handleRuntimeException(RuntimeException ex, HttpServletResponse response) throws IOException {

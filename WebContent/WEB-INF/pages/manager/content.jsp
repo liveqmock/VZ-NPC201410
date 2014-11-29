@@ -325,7 +325,7 @@ pageEncoding="UTF-8"%>
 
 <!--选择人物-->
 <div class="modal fade" id="personSelectModal">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -334,6 +334,10 @@ pageEncoding="UTF-8"%>
             <div class="modal-body">
                 <div id="personDataGridList"></div>
             </div>
+			<div class="modal-footer">
+				<a class="btn btn-primary" data-dismiss="modal">取消</a>
+                <a class="btn btn-primary" id="btnConfirmPerson">选择人物</a>
+            </div>            
         </div>
     </div>
 </div>

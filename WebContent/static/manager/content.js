@@ -361,7 +361,52 @@ $(document).ready(function () {
     //选择人物
     $("#btnSelectPerson").click(function () {
 
-        //TODO:弹窗，列表，选择
+        //从后台载入数据
+        var source =
+        {
+            dataType: "json",
+            dataFields: [
+                { name: 'personId', type: 'number' },
+                { name: 'personName', type: 'string' },
+                { name: 'personBirthplaceProvince', type: 'string' },
+                { name: 'personWorkplaceProvince', type: 'string' }
+            ],
+            id: 'personId',
+            url: npcCommon.jsonUrl + "persons.json"
+        };
+        var dataAdapter = new $.jqx.dataAdapter(source);
+        //人物列表
+        $("#personDataGridList").jqxGrid(
+            {
+                source: dataAdapter,
+                columnsResize: true,
+                height: 300,
+                width: 560,
+                selectionmode: 'checkbox',
+                altrows: true,
+                columns: [
+                    { text: '姓名', dataField: 'personName', minWidth: 80, width: 100 },
+                    { text: '出生地简介', dataField: 'personBirthplaceProvince', width: 150 },
+                    { text: '工作地简介', dataField: 'personWorkplaceProvince'}
+                ]
+            });
+    });
+    
+    // 确认选择人物
+    $("#btnConfirmPerson").click(function(){
+    	var selectedRowIndexes = $('#personDataGridList').jqxGrid('getselectedrowindexes');
+    	if (selectedRowIndexes.length == 0) {
+    		alert("请选择至少一条记录");
+    		return;
+    	}
+    	
+    	var personNames = [];
+    	for(var index in selectedRowIndexes) {
+    		personNames.push($('#personDataGridList').jqxGrid('getrowdata', selectedRowIndexes[index]).personName);
+    	}
+    	
+    	$("#personSelectModal").modal("hide");
+    	$("#contentPerson").val(personNames.join(','));
     });
 
     //新建人物
