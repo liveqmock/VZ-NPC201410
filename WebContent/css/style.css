@@ -430,7 +430,8 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 #container #index-main-content {
     position: relative;
     padding: 0;
-    background: #dbc186;
+    /*background: #dbc186;*/
+	background: #e8d7b0;
     text-align: center;
     overflow: hidden;
     z-index: 5;
@@ -542,7 +543,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 #container nav.control ul li.next a {
     position: absolute !important;
     display: block;
-    right: 70px;
+    right: 50px;
     top: 0px;
     margin-bottom: 20px;
     width: 140px;
@@ -557,7 +558,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 #container nav.control ul li.previous a {
     position: absolute !important;
     display: block;
-    left: 50px;
+    left: 30px;
     top: 0px;
     margin-bottom: 20px;
     width: 140px;
@@ -893,15 +894,18 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 }
 
 #container #relate-content .media ul li a.article {
-    background: #dbc186 url(../image/icon_artical.png) center center no-repeat;
+    /*background: #dbc186 url(../image/icon_artical.png) center center no-repeat;*/
+	background: #e8d7b0 url(../image/icon_artical.png) center center no-repeat;
 }
 
 #container #relate-content .media ul li a.image {
-    background: #dbc186;
+    /*background: #dbc186;*/
+    background: #e8d7b0;
 }
 
 #container #relate-content .media ul li a.video {
-    background: #dbc186;
+    /*background: #dbc186;*/
+    background: #e8d7b0;
 }
 
 #container #relate-content .media ul li a.video img {
@@ -1009,7 +1013,8 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 #container #detail-content .media {
     position: relative;
     padding: 0;
-    background: #dbc186;
+    /*background: #dbc186;*/
+    background: #e8d7b0;
     text-align: center;
     height: 576px;
     max-height: 576px;
@@ -1055,7 +1060,8 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 #container #detail-content .article {
     position: relative;
     *top: -44px;
-    background: #dbc186;
+    /*background: #dbc186;*/
+    background: #e8d7b0;
     text-align: center;
     _height: 576px;
     min-height: 576px;
@@ -1326,15 +1332,18 @@ footer p a#gotop.hover {
 }
 
 #container #dateContainer .year ul ul li a.article {
-    background: #dbc186 url(../image/icon_artical.png) center center no-repeat;
+    /*background: #dbc186 url(../image/icon_artical.png) center center no-repeat;*/
+    background: #e8d7b0 url(../image/icon_artical.png) center center no-repeat;
 }
 
 #container #dateContainer .year ul ul li a.image {
-    background: #dbc186;
+    /*background: #dbc186;*/
+    background: #e8d7b0;
 }
 
 #container #dateContainer .year ul ul li a.video {
-    background: #dbc186;
+    /*background: #dbc186;*/
+    background: #e8d7b0;
 }
 
 #container #dateContainer .year ul ul li a.video img {
@@ -1386,7 +1395,8 @@ footer p a#gotop.hover {
     height: 60px;
     margin-bottom: 20px;
     line-height: 60px;
-    background: #dbc186;
+    /*background: #dbc186;*/
+    background: #e8d7b0;
     text-align: center;
 }
 

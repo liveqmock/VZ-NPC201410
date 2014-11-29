@@ -12,42 +12,16 @@ pageEncoding="UTF-8"%>
 <%@ include file="header.jsp" %>
 <div id="container">
     <div id="flashContent">
-        <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" id="jinsedating_demo1"
-                align="middle">
-            <param name="movie" value="jinsedating_demo1.swf">
-            <param name="quality" value="high">
-            <param name="bgcolor" value="#ffffff">
-            <param name="play" value="true">
-            <param name="loop" value="true">
-            <param name="wmode" value="window">
-            <param name="scale" value="showall">
-            <param name="menu" value="true">
-            <param name="devicefont" value="false">
-            <param name="salign" value="">
-            <param name="allowScriptAccess" value="sameDomain">
-            <!--[if !IE]>-->
-            <object type="application/x-shockwave-flash" data="jinsedating_demo1.swf" align="middle">
-                <param name="movie" value="jinsedating_demo1.swf">
-                <param name="quality" value="high">
-                <param name="bgcolor" value="#ffffff">
-                <param name="play" value="true">
-                <param name="loop" value="true">
-                <param name="wmode" value="window">
-                <param name="scale" value="showall">
-                <param name="menu" value="true">
-                <param name="devicefont" value="false">
-                <param name="salign" value="">
-                <param name="allowScriptAccess" value="sameDomain">
-                <!--<![endif]-->
-                <a href="http://www.adobe.com/go/getflash">
-                    <img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif"
-                         alt="获得 Adobe Flash Player">
-                </a>
-                <!--[if !IE]>-->
-            </object>
-            <!--<![endif]-->
-        </object>
+	    <noscript><p>您还没有安装flash，<a href="http://get.adobe.com/cn/flashplayer" target="_blank">点击下载安装</a></p></noscript>
     </div>
     <%@ include file="script.jsp" %>
+	<script src="360/tour.js"></script>
+	<script>
+
+        function openUrl(val){
+           alert("参数：" + val);
+        }
+		embedpano({swf:"360/tour.swf", xml:"360/tour.xml", target:"flashContent", html5:"auto", passQueryParameters:true});
+	</script>
 </body>
 </html>
