@@ -181,3 +181,20 @@ h5 {
 #contentContainer .thumbnail img {
     max-height: 150px;
 }
+
+#personCreateForm textarea.form-control {
+	height:auto;
+}
+
+#keywords a {
+  font-family:"æ≠µ‰‘≤ÃÂ∑±", "microsoft yahei", "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;;
+  display: inline-block;
+  font-size: 16px;
+  padding: 3px 5px;
+  border-radius: 5px;	
+  margin:3px 5px;
+}
+
+#keywords a:hover {
+  text-decoration:none;
+}

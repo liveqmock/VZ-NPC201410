@@ -43,4 +43,8 @@ public class PersonService extends BaseService {
 	public List<Document> findDocumentsByPersonId(Integer personId) {
 		return personDao.findDocumentsByPersonId(personId);
 	}
+	
+	public Person save(Person person) {
+		return personDao.saveOrUpdate(person);
+	}
 }

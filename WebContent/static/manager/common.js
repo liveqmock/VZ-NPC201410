@@ -232,6 +232,28 @@ var npcCommon = {
             }
         });
         
+        // 新建人物-照片
+        $('#file_upload_personImage').uploadify({
+        	'fileObjName' : 'uploadfile',
+            'swf': that.url + 'static/uploadify/uploadify.swf',
+            'uploader': that.url + 'manager/upload.html',
+            'onUploadSuccess': function(file, data, response) {
+            	try {
+            		var res = jQuery.parseJSON(data);
+    	        	if(res['success']) {
+    	        		// 上传文件成功
+    	        		$("#personImageDisplay").val(file.name);
+    	        		$("#personImage").val(res['data']); // 文件名
+    	        		$("#personImagePreview").attr("src", that.uploadFileUrl + res['data']); // 预览
+    	        	} else {
+    	        		alert("上传照片失败");
+    	        	}
+            	} catch (e) {
+            		alert("上传照片失败");
+            	}
+            }
+        });        
+        
     },
 
     /**

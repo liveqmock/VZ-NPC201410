@@ -301,6 +301,19 @@ public abstract class BaseEntityDaoSupport<T> extends HibernateDaoSupport {
 		});
 
 	}
+	
+	/**
+	 * 用sql语句查询
+	 * @param sql
+	 * @return
+	 */
+	public List<?> findBySql(final String sql) {
+		return getHibernateTemplate().execute(new HibernateCallback() {
+			public Object doInHibernate(Session session) throws HibernateException, SQLException {
+				return session.createSQLQuery(sql).list();
+			}
+		});		
+	}
 
 	public PagingQueryResult<T> pagingQuery(BaseQueryModel<?> queryModel, Paging paging) {
 		String ql = " from " + entityClass.getSimpleName() + " ";

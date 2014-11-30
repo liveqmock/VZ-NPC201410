@@ -354,9 +354,33 @@ $(document).ready(function () {
 
     //选择关键字
     $("#btnSelectKeyword").click(function () {
-
-        //TODO:弹窗，列表，选择
+    	$("#keywords").html('');
+        $.ajax({
+            type: "GET",
+            url: npcCommon.jsonUrl + "keywords.json",
+            success: function (jsonData) {
+                if (jsonData.success && jsonData.data) {
+                    for(var index in jsonData.data) {
+                    	var keyword = jsonData.data[index]['keyword'];
+                    	var cnt = jsonData.data[index]['cnt'];
+                    	$("<a href='javascript:void(0)' data-keyword='" + keyword + "' class='bg-info'></a>")
+                    		.text(keyword + '(' +cnt + ')')
+                    		.appendTo($("#keywords"));
+                    }
+                }
+            }
+        }); 
     });
+    
+    // 关键字点击事件
+    $("#keywords").on("click", "a", function () {
+    	var keyword = $(this).attr('data-keyword');
+    	var value = $("#contentKeyword").val() || '';
+    	if(value.indexOf(keyword) >= 0) return;
+    	
+    	value = value == '' ? keyword : value + "," + keyword;
+        $("#contentKeyword").val(value);
+    });    
 
     //选择人物
     $("#btnSelectPerson").click(function () {
@@ -408,11 +432,28 @@ $(document).ready(function () {
     	$("#personSelectModal").modal("hide");
     	$("#contentPerson").val(personNames.join(','));
     });
+    
+    // 新建人物对话框处理
+    $("#personBirthday").jqxDateTimeInput({ formatString: 'yyyy-MM-dd' });
 
     //新建人物
-    $("#btnCreatePerson").click(function () {
-
-        //TODO:弹窗，列表，新建，元素包含：名称，简介，上传图片
+    $("#btnConfirmCreatePerson").click(function () {
+        $.ajax({
+            type: "POST",
+            url: npcCommon.jsonUrl + "persons/create.json",
+            data: $("#personCreateForm").serialize(),
+            success: function (jsonData) {
+                if (jsonData.success && jsonData.data) {
+                    alert("新建人物成功");
+                    $("#personCreateModal").modal("hide");
+                    $("#personCreateForm")[0].reset();
+                    $("#personImagePreview").attr("src", "");
+                    $("[name=personSex][value=男]").click()
+                } else {
+                    alert("新建人物失败");
+                }
+            }
+        });    
     });
 
     //清空人物

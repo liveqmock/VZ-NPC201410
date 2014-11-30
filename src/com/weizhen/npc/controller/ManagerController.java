@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,6 +50,7 @@ import com.weizhen.npc.service.CongressService;
 import com.weizhen.npc.service.DocumentService;
 import com.weizhen.npc.service.ImageMainService;
 import com.weizhen.npc.service.ImageRelatedService;
+import com.weizhen.npc.service.KeywordService;
 import com.weizhen.npc.service.PersonService;
 import com.weizhen.npc.service.ResourceAuditLogService;
 import com.weizhen.npc.service.UserService;
@@ -94,6 +96,9 @@ public class ManagerController extends BaseController {
 	
 	@Autowired
 	private PersonService personService;
+	
+	@Autowired
+	private KeywordService keywordService;
 
 	private String webRootPath;
 	private String uploadPath;
@@ -1051,7 +1056,12 @@ public class ManagerController extends BaseController {
 
 		return new Response<Integer>(resourceId);
 	}
-	
+
+	@RequestMapping(value="/keywords.json", method = RequestMethod.GET)
+	@ResponseBody
+	public Response<List<Map<String, Object>>> keywrods() {
+		return new Response<List<Map<String, Object>>>(keywordService.statKeywords());
+	}
 	
 	@RequestMapping(value="/persons.json", method = RequestMethod.GET)
 	@ResponseBody
@@ -1059,6 +1069,19 @@ public class ManagerController extends BaseController {
 		return new Response<List<Person>>(personService.loadAll());
 	}
 	
+	@RequestMapping(value="/persons/create.json", method = RequestMethod.POST)
+	@ResponseBody
+	public Response<Person> createPerson(Person person) throws IOException {
+		File uploaded = new File(getUploadPath() + person.getPersonImage());
+		String personImageFilepath = Constants.getPersonFileDirectory() +  person.getPersonImage();
+		FileUtils.copyFile(uploaded, new File(getWebRootPath() + personImageFilepath));
+		uploaded.delete();
+		
+		person.setPersonImage(personImageFilepath);
+		person.setUpdateTime(new Date());
+	
+		return new Response<Person>(personService.save(person));
+	}	
 
 	@ExceptionHandler(RuntimeException.class)
 	public void handleRuntimeException(RuntimeException ex, HttpServletResponse response) throws IOException {

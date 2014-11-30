@@ -23,7 +23,7 @@ public class Person implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer personId;
 	private String personAcademicLevel;
-	private Integer personBirthday;
+	private Date personBirthday;
 	private String personBirthplaceProvince;
 	private String personEthnic;
 	private String personImage;
@@ -60,12 +60,13 @@ public class Person implements Serializable {
 	}
 
 
+	@Temporal(TemporalType.DATE)
 	@Column(name="person_birthday")
-	public Integer getPersonBirthday() {
+	public Date getPersonBirthday() {
 		return this.personBirthday;
 	}
 
-	public void setPersonBirthday(Integer personBirthday) {
+	public void setPersonBirthday(Date personBirthday) {
 		this.personBirthday = personBirthday;
 	}
 

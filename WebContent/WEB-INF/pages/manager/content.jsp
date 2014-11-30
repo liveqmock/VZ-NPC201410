@@ -207,7 +207,8 @@ pageEncoding="UTF-8"%>
         </div>
         <div class="col-md-2">
             <button type="button" class="btn btn-primary btn-sm"
-                    id="btnSelectKeyword">选择关键字
+                    id="btnSelectKeyword" data-toggle="modal"
+            		data-target="#keywordSelectModal" >选择关键字
             </button>
         </div>
         <div class="col-md-10 col-md-offset-2">
@@ -235,7 +236,8 @@ pageEncoding="UTF-8"%>
             data-target="#personSelectModal">选择人物
             </button>
             <button type="button" class="btn btn-primary btn-sm"
-                    id="btnCreatePerson">新建人物
+                    id="btnCreatePerson" data-toggle="modal"
+            		data-target="#personCreateModal">新建人物
             </button>
             <button type="button" class="btn btn-primary btn-sm"
                     id="btnResetPerson">清空人物
@@ -324,6 +326,21 @@ pageEncoding="UTF-8"%>
 </div>
 
 <!--选择人物-->
+<div class="modal fade" id="keywordSelectModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">选择关键字</h4>
+            </div>
+            <div class="modal-body">
+                <div id="keywords"></div>
+            </div>            
+        </div>
+    </div>
+</div>
+
+<!--选择人物-->
 <div class="modal fade" id="personSelectModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -337,6 +354,116 @@ pageEncoding="UTF-8"%>
 			<div class="modal-footer">
 				<a class="btn btn-primary" data-dismiss="modal">取消</a>
                 <a class="btn btn-primary" id="btnConfirmPerson">选择人物</a>
+            </div>            
+        </div>
+    </div>
+</div>
+
+<!--新建人物-->
+<div class="modal fade" id="personCreateModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">新建人物</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" id="personCreateForm" action="imagemains/add.html"
+                      enctype="multipart/form-data">
+                    <div class="form-group form-group-sm">
+                        <label for="personName" class="col-sm-2 control-label">姓名</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="personName" name="personName"
+                                   placeholder="姓名"/>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label for="personSex" class="col-sm-2 control-label">性别</label>
+                        <div class="col-sm-8">
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-primary btn-sm active">
+                                        <input type="radio" name="personSex" value="男" autocomplete="off" checked>男
+                                    </label>
+                                    <label class="btn btn-primary btn-sm">
+                                        <input type="radio" name="personSex" value="女" autocomplete="off">女
+                                    </label>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label for="personEthnic" class="col-sm-2 control-label">民族</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="personEthnic" name="personEthnic"
+                                   placeholder="民族"/>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label for="personBirthday" class="col-sm-2 control-label">出生日期</label>
+                        <div class="col-sm-8">
+                            <!-- <input type="date" class="form-control" id="personBirthday" name="personBirthday" /> -->
+                            <div id="personBirthday" name="personBirthday"></div>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label for="personBirthplaceProvince" class="col-sm-2 control-label">出生地简介</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" rows="2" id="personBirthplaceProvince"
+                                   name="personBirthplaceProvince"></textarea>
+                        </div>
+                    </div>                    
+                    <div class="form-group form-group-sm">
+                        <label for="personWorkplaceProvince" class="col-sm-2 control-label">工作地简介</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" id="personWorkplaceProvince"
+                                   name="personWorkplaceProvince" rows="2"></textarea>
+                        </div>
+                    </div>                        
+                    <div class="form-group form-group-sm">
+                        <label for="personPartyGrouping" class="col-sm-2 control-label">党组</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" id="personPartyGrouping"
+                                   name="personPartyGrouping"></textarea>
+                        </div>
+                    </div>                       
+                    <div class="form-group form-group-sm">
+                        <label for="personAcademicLevel" class="col-sm-2 control-label">学历</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="personAcademicLevel" name="personAcademicLevel"
+                                   placeholder="学历"/>
+                        </div>
+                    </div> 
+                    <div class="form-group form-group-sm">
+                        <label for="personResume" class="col-sm-2 control-label">简历</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" id="personResume"
+                                   name="personResume" rows="2"></textarea>
+                        </div>
+                    </div>                                         
+                                        
+                    <div class="form-group form-group-sm">
+                        <label for="personImageDisplay" class="col-sm-2 control-label">照片</label>
+                        <div class="col-sm-6">
+				            <div class="row">
+				                <div class="col-md-6">
+				                    <input type="text" id="personImageDisplay" class="form-control unEditable"/>
+				                    <input type="hidden" id="personImage" name="personImage" />
+				                </div>
+				                <div class="col-md-6">
+				                    <input id="file_upload_personImage" type="file" />
+				                </div>
+				            </div>
+                        </div>
+                        <div class="col-sm-4">
+	                        <span class="thumbnail">
+	                            <img src="" width="120px" height="120px" id="personImagePreview"/>
+	                        </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+			<div class="modal-footer">
+				<a class="btn btn-primary" data-dismiss="modal">取消</a>
+                <a class="btn btn-primary" id="btnConfirmCreatePerson">确定</a>
             </div>            
         </div>
     </div>
