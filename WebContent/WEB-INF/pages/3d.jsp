@@ -14,8 +14,7 @@ pageEncoding="UTF-8"%>
     <div id="unityPlayer">
         <div class="missing">
             <a href="http://unity3d.com/cn/webplayer" title="安装 Unity3d Web 播放器">
-                <img alt="安装 Unity3d Web 播放器" src="http://webplayer.unity3d.com/installation/getunity.png"/>
-
+                <!--<img alt="安装 Unity3d Web 播放器" src="http://webplayer.unity3d.com/installation/getunity.png"/>-->
                 <p>您的电脑还未安装3D播放器，点击安装播放器</p></a>
         </div>
     </div>
@@ -42,7 +41,7 @@ pageEncoding="UTF-8"%>
         var width = $("#unityPlayer").width();
 
         if (typeof unityObject != "undefined") {
-            unityObject.embedUnity("unityPlayer", "Img/renda2.unity3d", width, parseInt(width / 1.9), { logoimage: 'images/unity/zi.png', disableContextMenu: 'true' });
+            unityObject.embedUnity("unityPlayer", "Img/renda2.unity3d", width, parseInt(width / 1.9), { logoimage: 'image/unity/zi.png', disableContextMenu: 'true' });
         }
 
         function OpenNPC(id) {
