@@ -63,47 +63,49 @@ pageEncoding="UTF-8" %>
 </nav>
 <div class="container">
     <form class="form-signin form-horizontal" role="form" method="post">
-
+		<div class="form-group">
+            <p class="text-center"><img src="image/unity/zi.png" /></p>
+        </div>
         <c:if test="${!empty errorMessage }">
             <div class="alert alert-warning" role="alert">${errorMessage }</div>
         </c:if>
         <div class="form-group">
-            <label class="col-sm-3 control-label" for="userName">用户名</label>
+            <label class="col-sm-2 control-label" for="userName">用户名</label>
 
-            <div class="col-sm-9">
+            <div class="col-sm-10">
                 <input id="userName" name="userName" type="text" autocomplete="off" class="form-control"
                        placeholder="请填写用户名"/>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-sm-3 control-label" for="password">密码</label>
+            <label class="col-sm-2 control-label" for="password">密码</label>
 
-            <div class="col-sm-9">
+            <div class="col-sm-10">
                 <input id="password" name="password" type="password" autocomplete="off" class="form-control"
                        placeholder="请填写密码"/>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-sm-3 control-label" for="verifyCode">验证码</label>
+            <label class="col-sm-2 control-label" for="verifyCode">验证码</label>
 
             <div class="col-sm-5">
                 <input id="verifyCode" name="verifyCode" type="text" autocomplete="off" class="form-control"
                        placeholder="请输入右侧验证码"/>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-5">
                 <img id="imgcode" title="点击刷新" style="cursor:pointer;" src="getcode.html">
             </div>
         </div>
 
         <div class="form-group">
-            <div class="col-sm-8 col-md-offset-3">
+            <div class="col-sm-9 col-md-offset-2">
                 <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
             </div>
         </div>
         <div class="form-group">
-            <div class="col-sm-8 col-md-offset-3 bg-warning">
+            <div class="col-sm-9 col-md-offset-2 bg-warning">
                 <br/>
                 <ul>
                     <li>测试版用户</li>

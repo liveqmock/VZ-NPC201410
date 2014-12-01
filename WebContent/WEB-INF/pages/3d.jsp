@@ -24,6 +24,12 @@ pageEncoding="UTF-8"%>
 </footer>
 
 <%@ include file="script.jsp" %>
+<script>
+    function OpenNPC(val){
+        //alert("参数：" + window.location.href.replace("360", "congress/" + val));
+        window.location = window.location.href.replace("3d", "congress/" + val);
+    }
+</script>
 <script src="js/vendor/UnityObject.js"></script>
 <script>
     $(document).ready(function () {
@@ -41,13 +47,16 @@ pageEncoding="UTF-8"%>
         var width = $("#unityPlayer").width();
 
         if (typeof unityObject != "undefined") {
-            unityObject.embedUnity("unityPlayer", "Img/renda2.unity3d", width, parseInt(width / 1.9), { logoimage: 'image/unity/zi.png', disableContextMenu: 'true' });
-        }
-
-        function OpenNPC(id) {
-            if (id >= 0 && id <= 12) {
-                window.location.href = "congress/" + id + ".html";
-            }
+            //unityObject.embedUnity("unityPlayer", "Img/renda2.unity3d", width, parseInt(width / 1.9), { logoimage: 'image/unity/zi.png', disableContextMenu: 'true' });
+            var params = {
+                backgroundcolor: "A0A0A0",  <!--背景色-->
+                bordercolor: "000000",  <!--边线色-->
+                textcolor: "FFFFFF",   <!--字体色-->
+                logoimage: "image/unity/zi.png"  <!--LOGO图片名-->
+                //progressbarimage: "image/unity/zi.png", <!--加载条-->
+                //progressframeimage: "image/unity/zi.png"  <!--加载条外框-->
+            };
+            unityObject.embedUnity("unityPlayer", "Img/renda2.unity3d", width, parseInt(width / 1.9), params);
         }
     });
 </script>
