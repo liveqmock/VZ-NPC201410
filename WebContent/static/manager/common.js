@@ -95,6 +95,12 @@ var npcCommon = {
         $("#belongImageMain").html(data["belongImageMain"] || "");
         $("#submitTime").html(data["submitTime"] ? new Date(data["submitTime"]).format("yyyy-MM-dd hh:mm:ss") : "");
         $("#contentState").html(data["contentState"] || "");
+        
+        if(data['contentType'] == this.constants.resourceType.ImageMain) {
+        	$("#imageMainId").val(data['contentId']);
+        } else {
+        	$("#imageRelatedId").val(data['contentId']);
+        }
 
         this.imageRelatedTypeChange($("#imageRelatedType").val());
 
@@ -148,8 +154,8 @@ var npcCommon = {
         // 主题图片
         $('#file_upload_1').uploadify({
         	'fileObjName' : 'uploadfile',
-            'swf': that.url + 'static/uploadify/uploadify.swf',
-            'uploader': that.url + 'manager/upload.html',
+        	'swf': that.url + 'static/uploadify/uploadify.swf?ver=' + Math.random(),
+            'uploader': that.url + 'manager/upload.html?JSESSIONID=' + $.cookie('JSESSIONID'),
             'onUploadSuccess': function(file, data, response) {
             	try {
             		var res = jQuery.parseJSON(data);
@@ -170,8 +176,8 @@ var npcCommon = {
         // 图片资料图片
         $('#file_upload_2').uploadify({
         	'fileObjName' : 'uploadfile',
-            'swf': that.url + 'static/uploadify/uploadify.swf',
-            'uploader': that.url + 'manager/upload.html',
+        	'swf': that.url + 'static/uploadify/uploadify.swf?ver=' + Math.random(),
+            'uploader': that.url + 'manager/upload.html?JSESSIONID=' + $.cookie('JSESSIONID'),
             'onUploadSuccess': function(file, data, response) {
             	try {
             		var res = jQuery.parseJSON(data);
@@ -192,8 +198,8 @@ var npcCommon = {
         // 视频资料文件
         $('#file_upload_3').uploadify({
         	'fileObjName' : 'uploadfile',
-            'swf': that.url + 'static/uploadify/uploadify.swf',
-            'uploader': that.url + 'manager/upload.html',
+        	'swf': that.url + 'static/uploadify/uploadify.swf?ver=' + Math.random(),
+            'uploader': that.url + 'manager/upload.html?JSESSIONID=' + $.cookie('JSESSIONID'),
             'onUploadSuccess': function(file, data, response) {
             	try {
             		var res = jQuery.parseJSON(data);
@@ -213,8 +219,8 @@ var npcCommon = {
         // 视频资料缩略图
         $('#file_upload_4').uploadify({
         	'fileObjName' : 'uploadfile',
-            'swf': that.url + 'static/uploadify/uploadify.swf',
-            'uploader': that.url + 'manager/upload.html',
+        	'swf': that.url + 'static/uploadify/uploadify.swf?ver=' + Math.random(),
+            'uploader': that.url + 'manager/upload.html?JSESSIONID=' + $.cookie('JSESSIONID'),
             'onUploadSuccess': function(file, data, response) {
             	try {
             		var res = jQuery.parseJSON(data);
@@ -235,8 +241,8 @@ var npcCommon = {
         // 新建人物-照片
         $('#file_upload_personImage').uploadify({
         	'fileObjName' : 'uploadfile',
-            'swf': that.url + 'static/uploadify/uploadify.swf',
-            'uploader': that.url + 'manager/upload.html',
+        	'swf': that.url + 'static/uploadify/uploadify.swf?ver=' + Math.random(),
+            'uploader': that.url + 'manager/upload.html?JSESSIONID=' + $.cookie('JSESSIONID'),
             'onUploadSuccess': function(file, data, response) {
             	try {
             		var res = jQuery.parseJSON(data);
@@ -341,6 +347,8 @@ var npcCommon = {
         if (0 == type) {
         	$("#contentState").html("");
             $("#operationType").html("新建");
+            $("#belongImageMainId").val("");
+            $("#belongImageMain").text('');
             $("#imageMainId").val("");
             $("#imageRelatedId").val("");
             $("#contentContainer").find("input, select, textarea").prop({

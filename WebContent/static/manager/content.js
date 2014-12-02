@@ -62,6 +62,7 @@ $(document).ready(function () {
         if (event.args) {
             var item = event.args.item;
             if (item) {
+            	$("#belongCongress").text(item.originalItem.congressName || '');
                 $("#belongCongressId").val(item.value);
             }
         }
@@ -200,6 +201,7 @@ $(document).ready(function () {
             alert("请先选择主题！");
         } else {
             $("#belongImageMainId").val($("#belongImageMainId").val() || $("#imageMainId").val());
+            $("#belongImageMain").text($("#belongImageMain").text() || $("#imageMainTitle").val());
             $("#contentId").val("")
             $("#contentContainer").show();
             npcCommon.initImageRelated(0);
@@ -239,6 +241,7 @@ $(document).ready(function () {
                         npcCommon.initContentPage();
                         $("#contentTypeNo").val("");
                         $("#contentId").val("");
+                        $("#belongImageMainId").val("");
                         $("#imageMainId").val("");
                     } else {
                         alert("删除失败！");
@@ -258,8 +261,7 @@ $(document).ready(function () {
             type: "POST",
             url: npcCommon.jsonUrl + "saveContent.json",
             data: npcCommon.getFormData($("body")),
-            success: function (data) {
-                var jsonData = data;
+            success: function (jsonData) {
                 if (jsonData.success && jsonData.data) {
                     npcCommon.setFormData(jsonData.data);
                     $("#btnSave").hide();
@@ -275,6 +277,11 @@ $(document).ready(function () {
                 }
             }
         });
+        
+        $("#imageMainImgPathHidden").val('');
+        $("#imageRelatedImgPathHidden").val('');
+        $("#imageRelatedVideoPathHidden").val('');
+        $("#imageRelatedVideoThumbImgPathHidden").val('');
     });
 
     //提交审批

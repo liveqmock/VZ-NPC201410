@@ -61,6 +61,7 @@ pageEncoding="UTF-8"%>
         <label>所属届别Id</label><input type="text" id="belongCongressId" name="belongCongressId"/> <!--所属届别Id-->
         <label>所属主题Id</label><input type="text" id="belongImageMainId" name="belongImageMainId"/> <!--所属主题Id-->
         <label>主题Id</label><input type="text" id="imageMainId" name="imageMainId"/> <!--主题Id，用于编辑-->
+        <label>主题标题</label><input type="text" id="imageMainTitle" name=""imageMainTitle""/> <!--主题标题，用于编辑-->
         <label>相关资料Id</label><input type="text" id="imageRelatedId" name="imageRelatedId"/> <!--相关资料Id，用于编辑-->
         <label>内容类型</label><input type="text" id="contentTypeNo" name="contentTypeNo"/> <!--操作的内容类型，0-主题；1-相关资料-->
         <label>内容Id</label><input type="text" id="contentId" name="contentId"/> <!--操作的内容Id-->
@@ -252,7 +253,7 @@ pageEncoding="UTF-8"%>
         <label class="col-md-2 control-label">时间：</label>
 
         <div class="col-md-5">
-            <input type="text" id="contentDate" class="form-control"/>
+            <input type="text" id="contentDate" class="form-control" placeholder="格式:2001-01-01" />
         </div>
     </div>
     <div class="form-group form-group-sm">
@@ -284,12 +285,16 @@ pageEncoding="UTF-8"%>
         <label class="pull-left" style="padding-top: 6px;">经度：</label>
 
         <div class="col-md-1">
-            <input type="text" id="contentLocationLong" class="form-control"/>
+            <input type="text" id="contentLocationLong" class="form-control" />
         </div>
         <label class="pull-left" style="padding-top: 6px;">纬度：</label>
 
         <div class="col-md-1">
-            <input type="text" id="contentLocationLat" class="form-control"/>
+            <input type="text" id="contentLocationLat" class="form-control" />
+        </div>
+        
+        <div class="col-md-3">
+        	<a href="http://www.gpsspg.com/maps.htm" style="display:inline-block;margin-top:5px;" target="_blank">经纬度查询</a>
         </div>
 
 
@@ -332,10 +337,10 @@ pageEncoding="UTF-8"%>
         <button type="button" class="btn btn-primary" id="btnCreateImageRelated">新建相关资料</button>
     </p>
     <p>
-        <button type="button" class="btn btn-primary" id="btnModify">修改</button>
+        <button type="button" class="btn btn-primary" id="btnModify" style="display:none;">修改</button>
     </p>
     <p>
-        <button type="button" class="btn btn-primary" id="btnDelete">删除</button>
+        <button type="button" class="btn btn-primary" id="btnDelete" style="display:none;">删除</button>
     </p>
 </div>
 </div>
@@ -525,15 +530,16 @@ pageEncoding="UTF-8"%>
     </div>
 </div>
 
-<script src="js/vendor/jquery.min.js"></script>
-<script src="static/bootstrap/js/bootstrap.min.js"></script>
-<script src="static/uploadify/jquery.uploadify.min.js"></script>
+<script src="${context }/js/vendor/jquery.min.js"></script>
+<script src="${context }/static/bootstrap/js/bootstrap.min.js"></script>
+<script src="${context }/static/uploadify/jquery.uploadify.min.js"></script>
+<script src="${context }/js/vendor/jquery.cookie.js"></script>
 <!--jqwidgets -->
-<script src="static/jqwidgets/jqx-all.js"></script>
-<script src="static/jqwidgets/globalization/globalize.js"></script>
-<script src="static/jqwidgets/globalization/globalize.culture.zh-CN.js"></script>
+<script src="${context }/static/jqwidgets/jqx-all.js"></script>
+<script src="${context }/static/jqwidgets/globalization/globalize.js"></script>
+<script src="${context }/static/jqwidgets/globalization/globalize.culture.zh-CN.js"></script>
 
-<script src="static/manager/common.js"></script>
-<script src="static/manager/content.js"></script>
+<script src="${context }/static/manager/common.js"></script>
+<script src="${context }/static/manager/content.js"></script>
 </body>
 </html>

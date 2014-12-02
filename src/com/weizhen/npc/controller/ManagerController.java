@@ -1021,8 +1021,7 @@ public class ManagerController extends BaseController {
 	}
 
 	@RequestMapping(value = "/upload.html", method = RequestMethod.POST)
-	@ResponseBody
-	public Response<String> upload(@RequestParam MultipartFile uploadfile) throws IOException {
+	public void upload(@RequestParam MultipartFile uploadfile, HttpServletResponse response) throws IOException {
 		FileManager.mkdirIfNotExists(getUploadPath());
 
 		String fileName = uploadfile.getOriginalFilename();
@@ -1033,7 +1032,7 @@ public class ManagerController extends BaseController {
 		fileName = UUID.randomUUID().toString();
 		uploadfile.transferTo(new File(getUploadPath() + fileName + extName));
 
-		return new Response<String>(fileName + extName);
+		response.getWriter().write(JsonMapper.toJson(new Response<String>(fileName + extName), true));
 	}
 
 	private String getUploadPath() {

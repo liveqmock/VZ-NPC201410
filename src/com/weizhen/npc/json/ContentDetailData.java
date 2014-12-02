@@ -42,14 +42,19 @@ public class ContentDetailData implements Serializable {
 	private String contentLocation;
 	private Double contentLocationLong;
 	private Double contentLocationLat;
+	
+	private Integer belongCongressId;
+	private Integer imageMainId;
+	private String imageMainTitle;
+	private Integer belongImageMainId;
+	private Integer imageRelatedId;
 
 	public static ContentDetailData from(ImageMain imageMain, Congress congress) {
 		ContentDetailData data = new ContentDetailData();
-		data.setContentId(imageMain.getImageMainId());
 		data.setBelongCongress(congress.getCongressTitle());
+		data.setContentId(imageMain.getImageMainId());
 		data.setContentType(ResourceTypeEnum.IMAGEMAIN.getItemValue());
 		data.setSubmitPerson(imageMain.getCreator());
-		data.setBelongImageMain(imageMain.getImageMainTitle());
 		data.setSubmitTime(imageMain.getCreatedDate());
 		data.setContentState(ModelStatusEnum.from(imageMain.getStatus()).getItemValue());
 		data.setContentTitle(imageMain.getImageMainTitle());
@@ -61,17 +66,21 @@ public class ContentDetailData implements Serializable {
 		data.setContentLocation(imageMain.getLocation());
 		data.setContentLocationLong(imageMain.getLocationLong());
 		data.setContentLocationLat(imageMain.getLocationLat());
+		
+		data.setBelongCongressId(congress.getCongressId());
+		data.setImageMainId(imageMain.getImageMainId());
+		data.setImageMainTitle(imageMain.getImageMainTitle());
 
 		return data;
 	}
 
 	public static ContentDetailData from(ImageRelated imageRelated, ImageMain imageMain, Congress congress) {
 		ContentDetailData data = new ContentDetailData();
-		data.setContentId(imageRelated.getImageRelatedId());
 		data.setBelongCongress(congress.getCongressTitle());
+		data.setBelongImageMain(imageMain.getImageMainTitle());
+		data.setContentId(imageRelated.getImageRelatedId());
 		data.setContentType(ResourceTypeEnum.IMAGERELATED.getItemValue());
 		data.setSubmitPerson(imageRelated.getCreator());
-		data.setBelongImageMain(imageMain.getImageMainTitle());
 		data.setSubmitTime(imageRelated.getCreatedDate());
 		data.setContentState(ModelStatusEnum.from(imageRelated.getStatus()).getItemValue());
 		data.setContentTitle(imageRelated.getImageRelatedTitle());
@@ -91,6 +100,10 @@ public class ContentDetailData implements Serializable {
 		data.setContentLocation(imageRelated.getLocation());
 		data.setContentLocationLong(imageRelated.getLocationLong());
 		data.setContentLocationLat(imageRelated.getLocationLat());
+		
+		data.setBelongCongressId(congress.getCongressId());
+		data.setBelongImageMainId(imageMain.getImageMainId());
+		data.setImageRelatedId(imageRelated.getImageRelatedId());
 
 		return data;
 	}
@@ -120,6 +133,10 @@ public class ContentDetailData implements Serializable {
 		data.setContentLocation(document.getLocation());
 		data.setContentLocationLong(document.getLocationLong());
 		data.setContentLocationLat(document.getLocationLat());
+		
+		data.setBelongCongressId(congress.getCongressId());
+		data.setBelongImageMainId(imageMain.getImageMainId());
+		data.setImageRelatedId(document.getDocumentId());
 
 		return data;
 	}
@@ -292,4 +309,45 @@ public class ContentDetailData implements Serializable {
 		this.contentLocationLat = contentLocationLat;
 	}
 
+	public Integer getBelongCongressId() {
+		return belongCongressId;
+	}
+
+	public void setBelongCongressId(Integer belongCongressId) {
+		this.belongCongressId = belongCongressId;
+	}
+
+	public Integer getImageMainId() {
+		return imageMainId;
+	}
+
+	public void setImageMainId(Integer imageMainId) {
+		this.imageMainId = imageMainId;
+	}
+	
+	public String getImageMainTitle() {
+		return imageMainTitle;
+	}
+
+	public void setImageMainTitle(String imageMainTitle) {
+		this.imageMainTitle = imageMainTitle;
+	}
+
+	public Integer getBelongImageMainId() {
+		return belongImageMainId;
+	}
+
+	public void setBelongImageMainId(Integer belongImageMainId) {
+		this.belongImageMainId = belongImageMainId;
+	}
+
+	public Integer getImageRelatedId() {
+		return imageRelatedId;
+	}
+
+	public void setImageRelatedId(Integer imageRelatedId) {
+		this.imageRelatedId = imageRelatedId;
+	}
+
+	
 }
