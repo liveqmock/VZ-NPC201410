@@ -14,6 +14,31 @@ pageEncoding="UTF-8"%>
     <link href="static/jqwidgets/styles/jqx.base.css" rel="stylesheet">
     <link href="static/jqwidgets/styles/jqx.bootstrap.css" rel="stylesheet">
     <link href="css/manager.css" rel="stylesheet">
+    <style>
+        #loading-mask {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 20000;
+            background-color: #fff;
+            filter: alpha(opacity=80);
+            -moz-opacity: 0.8;
+            opacity: 0.8;
+        }
+
+        #loading-mask p {
+            position: absolute;
+            top: 200px;
+            left: 50%;
+            width: 200px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+            margin-left: -100px;
+        }
+    </style>
     <!--[if lt IE 9]>
     <script src="js/vendor/html5.min.js"></script>
     <script src="js/vendor/respond.min.js"></script>
@@ -21,7 +46,7 @@ pageEncoding="UTF-8"%>
 </head>
 <body>
 <jsp:include page="nav.jsp"></jsp:include>
-
+<div id="loading-mask"><p> 页面载入中，请等待...</p></div>
 <div class="container-fluid mainContainer">
 <div class="row">
 <div class="col-md-10">
@@ -33,12 +58,12 @@ pageEncoding="UTF-8"%>
     </button>
     <div class="col-md-12" style="display:none;">
         <p>开发完毕后将这些type改为hidden</p>
-        <label>所属届别Id</label><input type="text" id="belongCongressId" name="belongCongressId" /> <!--所属届别Id-->
-        <label>所属主题Id</label><input type="text" id="belongImageMainId" name="belongImageMainId" /> <!--所属主题Id-->
-        <label>主题Id</label><input type="text" id="imageMainId" name="imageMainId" /> <!--主题Id，用于编辑-->
-        <label>相关资料Id</label><input type="text" id="imageRelatedId" name="imageRelatedId" /> <!--相关资料Id，用于编辑-->
-        <label>内容类型</label><input type="text" id="contentTypeNo" name="contentTypeNo"  /> <!--操作的内容类型，0-主题；1-相关资料-->
-        <label>内容Id</label><input type="text" id="contentId" name="contentId" /> <!--操作的内容Id-->
+        <label>所属届别Id</label><input type="text" id="belongCongressId" name="belongCongressId"/> <!--所属届别Id-->
+        <label>所属主题Id</label><input type="text" id="belongImageMainId" name="belongImageMainId"/> <!--所属主题Id-->
+        <label>主题Id</label><input type="text" id="imageMainId" name="imageMainId"/> <!--主题Id，用于编辑-->
+        <label>相关资料Id</label><input type="text" id="imageRelatedId" name="imageRelatedId"/> <!--相关资料Id，用于编辑-->
+        <label>内容类型</label><input type="text" id="contentTypeNo" name="contentTypeNo"/> <!--操作的内容类型，0-主题；1-相关资料-->
+        <label>内容Id</label><input type="text" id="contentId" name="contentId"/> <!--操作的内容Id-->
     </div>
 </div>
 
@@ -85,7 +110,8 @@ pageEncoding="UTF-8"%>
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-6">
-                    <input type="text" id="imageMainImgPath" name="imageMainImgPathDisplay" class="form-control unEditable"/>
+                    <input type="text" id="imageMainImgPath" name="imageMainImgPathDisplay"
+                           class="form-control unEditable"/>
                     <input type="hidden" id="imageMainImgPathHidden" name="imageMainImgPath"/>
                 </div>
                 <div class="col-md-6">
@@ -94,6 +120,8 @@ pageEncoding="UTF-8"%>
             </div>
             <div class="alert alert-warning small">
                 <p>建议上传图片尺寸高度不小于500像素<br/>支持的图片类型jpg、png、gif</p>
+
+                <p class="info">请等待文件上传完毕并且文件名称框显示文件名称后再做保存，提交等其他操作。</p>
             </div>
         </div>
         <div class="col-md-4">
@@ -121,8 +149,9 @@ pageEncoding="UTF-8"%>
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-6">
-                    <input type="text" id="imageRelatedImgPath" name="imageRelatedImgPathDisplay" class="form-control unEditable"/>
-                    <input type="hidden" id="imageRelatedImgPathHidden" name="imageRelatedImgPath"  />
+                    <input type="text" id="imageRelatedImgPath" name="imageRelatedImgPathDisplay"
+                           class="form-control unEditable"/>
+                    <input type="hidden" id="imageRelatedImgPathHidden" name="imageRelatedImgPath"/>
                 </div>
                 <div class="col-md-6">
                     <input id="file_upload_2" type="file" multiple="false">
@@ -144,8 +173,9 @@ pageEncoding="UTF-8"%>
         <div class="col-md-10">
             <div class="row">
                 <div class="col-md-6">
-                    <input type="text" id="imageRelatedVideoPath" name="imageRelatedVideoPathDisplay" class="form-control unEditable"/>
-                    <input type="hidden" id="imageRelatedVideoPathHidden" name="imageRelatedVideoPath" />
+                    <input type="text" id="imageRelatedVideoPath" name="imageRelatedVideoPathDisplay"
+                           class="form-control unEditable"/>
+                    <input type="hidden" id="imageRelatedVideoPathHidden" name="imageRelatedVideoPath"/>
                 </div>
                 <div class="col-md-6">
                     <input id="file_upload_3" type="file" multiple="false">
@@ -160,8 +190,9 @@ pageEncoding="UTF-8"%>
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-6">
-                    <input type="text" id="imageRelatedVideoThumbImgPath" name="imageRelatedVideoThumbImgPathDisplay" class="form-control unEditable"/>
-                    <input type="hidden" id="imageRelatedVideoThumbImgPathHidden" name="imageRelatedVideoThumbImgPath" />
+                    <input type="text" id="imageRelatedVideoThumbImgPath" name="imageRelatedVideoThumbImgPathDisplay"
+                           class="form-control unEditable"/>
+                    <input type="hidden" id="imageRelatedVideoThumbImgPathHidden" name="imageRelatedVideoThumbImgPath"/>
                 </div>
                 <div class="col-md-6">
                     <input id="file_upload_4" type="file" multiple="false">
@@ -208,7 +239,7 @@ pageEncoding="UTF-8"%>
         <div class="col-md-2">
             <button type="button" class="btn btn-primary btn-sm"
                     id="btnSelectKeyword" data-toggle="modal"
-            		data-target="#keywordSelectModal" >选择关键字
+                    data-target="#keywordSelectModal">选择关键字
             </button>
         </div>
         <div class="col-md-10 col-md-offset-2">
@@ -232,12 +263,12 @@ pageEncoding="UTF-8"%>
         </div>
         <div class="col-md-4">
             <button type="button" class="btn btn-primary btn-sm"
-                    id="btnSelectPerson"  data-toggle="modal"
-            data-target="#personSelectModal">选择人物
+                    id="btnSelectPerson" data-toggle="modal"
+                    data-target="#personSelectModal">选择人物
             </button>
             <button type="button" class="btn btn-primary btn-sm"
                     id="btnCreatePerson" data-toggle="modal"
-            		data-target="#personCreateModal">新建人物
+                    data-target="#personCreateModal">新建人物
             </button>
             <button type="button" class="btn btn-primary btn-sm"
                     id="btnResetPerson">清空人物
@@ -260,8 +291,8 @@ pageEncoding="UTF-8"%>
         <div class="col-md-1">
             <input type="text" id="contentLocationLat" class="form-control"/>
         </div>
-        
-        
+
+
         <div class="col-md-10 col-md-offset-2">
             <div class="alert alert-warning small">
                 <p>如果要将此内容在时间专题中展示，则需要填写时间信息，时间为这个内容所描述的事件发生的时间；<br/>
@@ -335,7 +366,7 @@ pageEncoding="UTF-8"%>
             </div>
             <div class="modal-body">
                 <div id="keywords"></div>
-            </div>            
+            </div>
         </div>
     </div>
 </div>
@@ -351,10 +382,10 @@ pageEncoding="UTF-8"%>
             <div class="modal-body">
                 <div id="personDataGridList"></div>
             </div>
-			<div class="modal-footer">
-				<a class="btn btn-primary" data-dismiss="modal">取消</a>
+            <div class="modal-footer">
+                <a class="btn btn-primary" data-dismiss="modal">取消</a>
                 <a class="btn btn-primary" id="btnConfirmPerson">选择人物</a>
-            </div>            
+            </div>
         </div>
     </div>
 </div>
@@ -372,6 +403,7 @@ pageEncoding="UTF-8"%>
                       enctype="multipart/form-data">
                     <div class="form-group form-group-sm">
                         <label for="personName" class="col-sm-2 control-label">姓名</label>
+
                         <div class="col-sm-8">
                             <input type="text" class="form-control" id="personName" name="personName"
                                    placeholder="姓名"/>
@@ -379,19 +411,21 @@ pageEncoding="UTF-8"%>
                     </div>
                     <div class="form-group form-group-sm">
                         <label for="personSex" class="col-sm-2 control-label">性别</label>
+
                         <div class="col-sm-8">
-                                <div class="btn-group" data-toggle="buttons">
-                                    <label class="btn btn-primary btn-sm active">
-                                        <input type="radio" name="personSex" value="男" autocomplete="off" checked>男
-                                    </label>
-                                    <label class="btn btn-primary btn-sm">
-                                        <input type="radio" name="personSex" value="女" autocomplete="off">女
-                                    </label>
-                                </div>
+                            <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-primary btn-sm active">
+                                    <input type="radio" name="personSex" value="男" autocomplete="off" checked>男
+                                </label>
+                                <label class="btn btn-primary btn-sm">
+                                    <input type="radio" name="personSex" value="女" autocomplete="off">女
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group form-group-sm">
                         <label for="personEthnic" class="col-sm-2 control-label">民族</label>
+
                         <div class="col-sm-8">
                             <input type="text" class="form-control" id="personEthnic" name="personEthnic"
                                    placeholder="民族"/>
@@ -399,6 +433,7 @@ pageEncoding="UTF-8"%>
                     </div>
                     <div class="form-group form-group-sm">
                         <label for="personBirthday" class="col-sm-2 control-label">出生日期</label>
+
                         <div class="col-sm-8">
                             <!-- <input type="date" class="form-control" id="personBirthday" name="personBirthday" /> -->
                             <div id="personBirthday" name="personBirthday"></div>
@@ -406,52 +441,58 @@ pageEncoding="UTF-8"%>
                     </div>
                     <div class="form-group form-group-sm">
                         <label for="personBirthplaceProvince" class="col-sm-2 control-label">出生地简介</label>
+
                         <div class="col-sm-8">
                             <textarea class="form-control" rows="2" id="personBirthplaceProvince"
-                                   name="personBirthplaceProvince"></textarea>
+                                      name="personBirthplaceProvince"></textarea>
                         </div>
-                    </div>                    
+                    </div>
                     <div class="form-group form-group-sm">
                         <label for="personWorkplaceProvince" class="col-sm-2 control-label">工作地简介</label>
+
                         <div class="col-sm-8">
                             <textarea class="form-control" id="personWorkplaceProvince"
-                                   name="personWorkplaceProvince" rows="2"></textarea>
+                                      name="personWorkplaceProvince" rows="2"></textarea>
                         </div>
-                    </div>                        
+                    </div>
                     <div class="form-group form-group-sm">
                         <label for="personPartyGrouping" class="col-sm-2 control-label">党组</label>
+
                         <div class="col-sm-8">
                             <textarea class="form-control" id="personPartyGrouping"
-                                   name="personPartyGrouping"></textarea>
+                                      name="personPartyGrouping"></textarea>
                         </div>
-                    </div>                       
+                    </div>
                     <div class="form-group form-group-sm">
                         <label for="personAcademicLevel" class="col-sm-2 control-label">学历</label>
+
                         <div class="col-sm-8">
                             <input type="text" class="form-control" id="personAcademicLevel" name="personAcademicLevel"
                                    placeholder="学历"/>
                         </div>
-                    </div> 
+                    </div>
                     <div class="form-group form-group-sm">
                         <label for="personResume" class="col-sm-2 control-label">简历</label>
+
                         <div class="col-sm-8">
                             <textarea class="form-control" id="personResume"
-                                   name="personResume" rows="2"></textarea>
+                                      name="personResume" rows="2"></textarea>
                         </div>
-                    </div>                                         
-                                        
+                    </div>
+
                     <div class="form-group form-group-sm">
                         <label for="personImageDisplay" class="col-sm-2 control-label">照片</label>
+
                         <div class="col-sm-6">
-				            <div class="row">
-				                <div class="col-md-6">
-				                    <input type="text" id="personImageDisplay" class="form-control unEditable"/>
-				                    <input type="hidden" id="personImage" name="personImage" />
-				                </div>
-				                <div class="col-md-6">
-				                    <input id="file_upload_personImage" type="file" />
-				                </div>
-				            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" id="personImageDisplay" class="form-control unEditable"/>
+                                    <input type="hidden" id="personImage" name="personImage"/>
+                                </div>
+                                <div class="col-md-6">
+                                    <input id="file_upload_personImage" type="file"/>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-sm-4">
 	                        <span class="thumbnail">
@@ -461,10 +502,10 @@ pageEncoding="UTF-8"%>
                     </div>
                 </form>
             </div>
-			<div class="modal-footer">
-				<a class="btn btn-primary" data-dismiss="modal">取消</a>
+            <div class="modal-footer">
+                <a class="btn btn-primary" data-dismiss="modal">取消</a>
                 <a class="btn btn-primary" id="btnConfirmCreatePerson">确定</a>
-            </div>            
+            </div>
         </div>
     </div>
 </div>

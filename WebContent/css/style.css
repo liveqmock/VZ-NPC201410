@@ -431,7 +431,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     position: relative;
     padding: 0;
     /*background: #dbc186;*/
-	background: #e8d7b0;
+    background: #e8d7b0;
     text-align: center;
     overflow: hidden;
     z-index: 5;
@@ -895,7 +895,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 
 #container #relate-content .media ul li a.article {
     /*background: #dbc186 url(../image/icon_artical.png) center center no-repeat;*/
-	background: #e8d7b0 url(../image/icon_artical.png) center center no-repeat;
+    background: #e8d7b0 url(../image/icon_artical.png) center center no-repeat;
 }
 
 #container #relate-content .media ul li a.image {

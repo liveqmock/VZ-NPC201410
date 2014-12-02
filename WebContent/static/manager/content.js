@@ -1,34 +1,33 @@
+/**
+ * 时间对象的格式化
+ */
 
-/** 
-* 时间对象的格式化 
-*/  
+Date.prototype.format = function (format) {
+    /*
+     * format="yyyy-MM-dd hh:mm:ss";
+     */
+    var o = {
+        "M+": this.getMonth() + 1,
+        "d+": this.getDate(),
+        "h+": this.getHours(),
+        "m+": this.getMinutes(),
+        "s+": this.getSeconds(),
+        "q+": Math.floor((this.getMonth() + 3) / 3),
+        "S": this.getMilliseconds()
+    }
 
-Date.prototype.format = function(format) {
-	/*
-	 * format="yyyy-MM-dd hh:mm:ss";
-	 */
-	var o = {
-		"M+" : this.getMonth() + 1,
-		"d+" : this.getDate(),
-		"h+" : this.getHours(),
-		"m+" : this.getMinutes(),
-		"s+" : this.getSeconds(),
-		"q+" : Math.floor((this.getMonth() + 3) / 3),
-		"S" : this.getMilliseconds()
-	}
+    if (/(y+)/.test(format)) {
+        format = format.replace(RegExp.$1, (this.getFullYear() + "")
+            .substr(4 - RegExp.$1.length));
+    }
 
-	if (/(y+)/.test(format)) {
-		format = format.replace(RegExp.$1, (this.getFullYear() + "")
-				.substr(4 - RegExp.$1.length));
-	}
-
-	for ( var k in o) {
-		if (new RegExp("(" + k + ")").test(format)) {
-			format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k]
-					: ("00" + o[k]).substr(("" + o[k]).length));
-		}
-	}
-	return format;
+    for (var k in o) {
+        if (new RegExp("(" + k + ")").test(format)) {
+            format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k]
+                : ("00" + o[k]).substr(("" + o[k]).length));
+        }
+    }
+    return format;
 }
 
 $(document).ready(function () {
@@ -52,6 +51,10 @@ $(document).ready(function () {
         displayMember: "congressName",
         valueMember: "congressId",
         promptText: "请选择届别..."
+    });
+
+    $("#congressSelect").on("bindingComplete", function (event) {
+        $("#loading-mask").hide();
     });
 
     //届别选择后执行的事件
@@ -140,19 +143,19 @@ $(document).ready(function () {
 
                             npcCommon.getContentDetail(resourceType, resourceId);
                         });
-                        
+
                         // 次序提前
                         $(".btnDGLUp").off("click").on("click", function () {
-                        	var resourceType = $(this).attr("data-resourceType");
+                            var resourceType = $(this).attr("data-resourceType");
                             var resourceId = $(this).attr("data-resourceId");
-                        	npcCommon.adjustSequence(resourceType, resourceId, 'up');
+                            npcCommon.adjustSequence(resourceType, resourceId, 'up');
                         });
-                        
+
                         // 次序调后
                         $(".btnDGLDown").off("click").on("click", function () {
-                        	var resourceType = $(this).attr("data-resourceType");
+                            var resourceType = $(this).attr("data-resourceType");
                             var resourceId = $(this).attr("data-resourceId");
-                        	npcCommon.adjustSequence(resourceType, resourceId, 'down');
+                            npcCommon.adjustSequence(resourceType, resourceId, 'down');
                         });
                     }
                 });
@@ -193,11 +196,11 @@ $(document).ready(function () {
 
     //新建相关资料
     $("#btnCreateImageRelated").click(function () {
-        if (!$("#belongImageMainId").val()&&!$("#imageMainId").val()) {
+        if (!$("#belongImageMainId").val() && !$("#imageMainId").val()) {
             alert("请先选择主题！");
         } else {
-			$("#belongImageMainId").val($("#belongImageMainId").val()||$("#imageMainId").val());
-			$("#contentId").val("")
+            $("#belongImageMainId").val($("#belongImageMainId").val() || $("#imageMainId").val());
+            $("#contentId").val("")
             $("#contentContainer").show();
             npcCommon.initImageRelated(0);
             $("#auditContainer").hide();
@@ -215,7 +218,7 @@ $(document).ready(function () {
         } else if ($("#imageRelatedId").val()) {
             //修改相关资料
             $("#contentContainer").show();
-            
+
             npcCommon.getContentDetail($("#contentTypeNo").val(), $("#imageRelatedId").val(), 1);
         }
     });
@@ -297,15 +300,15 @@ $(document).ready(function () {
             }
         });
     });
-    
+
     // 发布
-    $("#btnPublish").click(function(){
+    $("#btnPublish").click(function () {
         $.ajax({
             type: "POST",
             url: npcCommon.jsonUrl + "publish.json",
             data: {
-            	resourceType : $("#contentTypeNo").val(),
-            	resourceId : $("#contentId").val()
+                resourceType: $("#contentTypeNo").val(),
+                resourceId: $("#contentId").val()
             },
             success: function (data) {
                 var jsonData = data;
@@ -322,17 +325,17 @@ $(document).ready(function () {
                     alert("发布失败");
                 }
             }
-        });    	
+        });
     });
-    
+
     // 取消发布
-    $("#btnUnPublish").click(function(){
+    $("#btnUnPublish").click(function () {
         $.ajax({
             type: "POST",
             url: npcCommon.jsonUrl + "unpublish.json",
             data: {
-            	resourceType : $("#contentTypeNo").val(),
-            	resourceId : $("#contentId").val()
+                resourceType: $("#contentTypeNo").val(),
+                resourceId: $("#contentId").val()
             },
             success: function (data) {
                 var jsonData = data;
@@ -349,38 +352,38 @@ $(document).ready(function () {
                     alert("发布失败");
                 }
             }
-        });    	
-    });    
+        });
+    });
 
     //选择关键字
     $("#btnSelectKeyword").click(function () {
-    	$("#keywords").html('');
+        $("#keywords").html('');
         $.ajax({
             type: "GET",
             url: npcCommon.jsonUrl + "keywords.json",
             success: function (jsonData) {
                 if (jsonData.success && jsonData.data) {
-                    for(var index in jsonData.data) {
-                    	var keyword = jsonData.data[index]['keyword'];
-                    	var cnt = jsonData.data[index]['cnt'];
-                    	$("<a href='javascript:void(0)' data-keyword='" + keyword + "' class='bg-info'></a>")
-                    		.text(keyword + '(' +cnt + ')')
-                    		.appendTo($("#keywords"));
+                    for (var index in jsonData.data) {
+                        var keyword = jsonData.data[index]['keyword'];
+                        var cnt = jsonData.data[index]['cnt'];
+                        $("<a href='javascript:void(0)' data-keyword='" + keyword + "' class='bg-info'></a>")
+                            .text(keyword + '(' + cnt + ')')
+                            .appendTo($("#keywords"));
                     }
                 }
             }
-        }); 
+        });
     });
-    
+
     // 关键字点击事件
     $("#keywords").on("click", "a", function () {
-    	var keyword = $(this).attr('data-keyword');
-    	var value = $("#contentKeyword").val() || '';
-    	if(value.indexOf(keyword) >= 0) return;
-    	
-    	value = value == '' ? keyword : value + "," + keyword;
+        var keyword = $(this).attr('data-keyword');
+        var value = $("#contentKeyword").val() || '';
+        if (value.indexOf(keyword) >= 0) return;
+
+        value = value == '' ? keyword : value + "," + keyword;
         $("#contentKeyword").val(value);
-    });    
+    });
 
     //选择人物
     $("#btnSelectPerson").click(function () {
@@ -415,24 +418,24 @@ $(document).ready(function () {
                 ]
             });
     });
-    
+
     // 确认选择人物
-    $("#btnConfirmPerson").click(function(){
-    	var selectedRowIndexes = $('#personDataGridList').jqxGrid('getselectedrowindexes');
-    	if (selectedRowIndexes.length == 0) {
-    		alert("请选择至少一条记录");
-    		return;
-    	}
-    	
-    	var personNames = [];
-    	for(var index in selectedRowIndexes) {
-    		personNames.push($('#personDataGridList').jqxGrid('getrowdata', selectedRowIndexes[index]).personName);
-    	}
-    	
-    	$("#personSelectModal").modal("hide");
-    	$("#contentPerson").val(personNames.join(','));
+    $("#btnConfirmPerson").click(function () {
+        var selectedRowIndexes = $('#personDataGridList').jqxGrid('getselectedrowindexes');
+        if (selectedRowIndexes.length == 0) {
+            alert("请选择至少一条记录");
+            return;
+        }
+
+        var personNames = [];
+        for (var index in selectedRowIndexes) {
+            personNames.push($('#personDataGridList').jqxGrid('getrowdata', selectedRowIndexes[index]).personName);
+        }
+
+        $("#personSelectModal").modal("hide");
+        $("#contentPerson").val(personNames.join(','));
     });
-    
+
     // 新建人物对话框处理
     $("#personBirthday").jqxDateTimeInput({ formatString: 'yyyy-MM-dd' });
 
@@ -448,18 +451,17 @@ $(document).ready(function () {
                     $("#personCreateModal").modal("hide");
                     $("#personCreateForm")[0].reset();
                     $("#personImagePreview").attr("src", "");
-                    $("[name=personSex][value=男]").click()
+                    $("[name=personSex][value='男']").click()
                 } else {
                     alert("新建人物失败");
                 }
             }
-        });    
+        });
     });
 
     //清空人物
     $("#btnResetPerson").click(function () {
         $("#contentPerson").val("");
     });
-
 
 });
