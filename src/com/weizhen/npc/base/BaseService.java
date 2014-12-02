@@ -16,10 +16,9 @@ public abstract class BaseService {
 	protected Logger logger = LoggerFactory.getLogger(getClass());
 
 	public void assertEntityCanBeRemoved(StatusEntity entity) {
-		if (entity.getCheckPublish() == 0)
-			throw new IllegalStatusException("内容不允许被删除");
+		if (ModelStatusEnum.SAVED.eq(entity.getStatus()) || ModelStatusEnum.REJECTED.eq(entity.getStatus()))
+			return;
 
-		if (ModelStatusEnum.PUBLISHED.getItemCode().equalsIgnoreCase(entity.getStatus()))
-			throw new IllegalStatusException("内容不允许被删除");
+		throw new IllegalStatusException("内容不允许被删除");
 	}
 }

@@ -93,10 +93,10 @@ public class ManagerController extends BaseController {
 
 	@Autowired
 	private ResourceAuditLogService resourceAuditLogService;
-	
+
 	@Autowired
 	private PersonService personService;
-	
+
 	@Autowired
 	private KeywordService keywordService;
 
@@ -856,10 +856,10 @@ public class ManagerController extends BaseController {
 
 	@RequestMapping("/deleteContent.json")
 	@ResponseBody
-	public Response<Object> deleteContent(@RequestParam("contentTypeNo") String resourceType,
+	public Response<Boolean> deleteContent(@RequestParam("contentType") String resourceType,
 			@RequestParam("contentId") Integer resourceId) {
-		Object data = new Object();
-
+		assertUserTypeIn((User) session.getAttribute("user"), UserTypeEnum.EDITOR);
+		
 		if (ResourceTypeEnum.IMAGEMAIN.getItemCode().equalsIgnoreCase(resourceType)) {
 			imageMainService.remove(resourceId);
 		} else if (ResourceTypeEnum.IMAGERELATED.getItemCode().equalsIgnoreCase(resourceType)) {
@@ -868,7 +868,7 @@ public class ManagerController extends BaseController {
 			documentService.remove(resourceId);
 		}
 
-		return new Response<Object>(data);
+		return new Response<Boolean>(true);
 	}
 
 	@RequestMapping("/saveContent.json")
@@ -1057,31 +1057,31 @@ public class ManagerController extends BaseController {
 		return new Response<Integer>(resourceId);
 	}
 
-	@RequestMapping(value="/keywords.json", method = RequestMethod.GET)
+	@RequestMapping(value = "/keywords.json", method = RequestMethod.GET)
 	@ResponseBody
 	public Response<List<Map<String, Object>>> keywrods() {
 		return new Response<List<Map<String, Object>>>(keywordService.statKeywords());
 	}
-	
-	@RequestMapping(value="/persons.json", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/persons.json", method = RequestMethod.GET)
 	@ResponseBody
 	public Response<List<Person>> persons() {
 		return new Response<List<Person>>(personService.loadAll());
 	}
-	
-	@RequestMapping(value="/persons/create.json", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/persons/create.json", method = RequestMethod.POST)
 	@ResponseBody
 	public Response<Person> createPerson(Person person) throws IOException {
 		File uploaded = new File(getUploadPath() + person.getPersonImage());
-		String personImageFilepath = Constants.getPersonFileDirectory() +  person.getPersonImage();
+		String personImageFilepath = Constants.getPersonFileDirectory() + person.getPersonImage();
 		FileUtils.copyFile(uploaded, new File(getWebRootPath() + personImageFilepath));
 		uploaded.delete();
-		
+
 		person.setPersonImage(personImageFilepath);
 		person.setUpdateTime(new Date());
-	
+
 		return new Response<Person>(personService.save(person));
-	}	
+	}
 
 	@ExceptionHandler(RuntimeException.class)
 	public void handleRuntimeException(RuntimeException ex, HttpServletResponse response) throws IOException {

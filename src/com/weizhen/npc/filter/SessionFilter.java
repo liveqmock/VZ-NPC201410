@@ -20,7 +20,6 @@ public class SessionFilter implements Filter {
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -29,19 +28,18 @@ public class SessionFilter implements Filter {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		HttpSession session = httpRequest.getSession();
-		
+
 		User user = (User) session.getAttribute(USER_SESSION_KEY);
-		if(null == user) {
-			httpResponse.sendRedirect("/npc/login.html");
+		if (null == user) {
+			httpResponse.sendRedirect(httpRequest.getContextPath() + "/login.html");
 		}
-		
+
 		chain.doFilter(request, response);
 	}
 
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
 		// TODO Auto-generated method stub
-		
 	}
 
 }

@@ -20,6 +20,10 @@ public enum ModelStatusEnum {
 		this.itemValue = itemValue;
 	}
 	
+	public Boolean eq(String code) {
+		return this.itemCode.equalsIgnoreCase(code);
+	}
+	
 	public static ModelStatusEnum from(String itemCode) {
 		for(ModelStatusEnum e : ModelStatusEnum.values())
 			if(e.getItemCode().equals(itemCode))

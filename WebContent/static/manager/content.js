@@ -233,8 +233,7 @@ $(document).ready(function () {
                     contentType: $("#contentTypeNo").val(),
                     contentId: $("#contentId").val()
                 },
-                success: function (data) {
-                    var jsonData = JSON.parse(data);
+                success: function (jsonData) {
                     if (jsonData.success && jsonData.data) {
                         alert("删除成功！");
                         npcCommon.initContentPage();
@@ -244,6 +243,9 @@ $(document).ready(function () {
                     } else {
                         alert("删除失败！");
                     }
+                },
+                failure: function() {
+                	alert("删除内容出错!");
                 }
             });
         }
