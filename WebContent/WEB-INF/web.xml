@@ -61,6 +61,15 @@
     <filter-name>sessionFilter</filter-name>
     <url-pattern>/manager/*</url-pattern>
   </filter-mapping> 
+  
+  <filter>
+    <filter-name>denyFilter</filter-name>
+    <filter-class>com.weizhen.npc.filter.DenyFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>denyFilter</filter-name>
+    <url-pattern>*.jsp</url-pattern>
+  </filter-mapping>  
  
  <jsp-config>
     <taglib>
