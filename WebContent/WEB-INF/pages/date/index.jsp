@@ -17,9 +17,6 @@
 
         <ul id="dateNav">
             <li>年份</li>
-            <li><a href="#year-1933">1933</a></li>
-            <li><a href="#year-1940">1940</a></li>
-            <li><a href="#year-1943">1943</a></li>
         </ul>
 
         <c:if test="${!empty dateVOs && fn:length(dateVOs) > 0 }">
@@ -235,6 +232,11 @@
         $(".nolink").click(function (e) {
             e.stopPropagation();
             e.preventDefault();
+        });
+        
+        $("div.year span[name=year]").each(function(index, element){
+        	var year = $(element).text().substring(0,4);
+        	$('<li><a href="#year-'+ year + '">'+ year + '</a></li>').appendTo($("#dateNav"));
         });
 
     });

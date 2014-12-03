@@ -101,6 +101,12 @@ pageEncoding="UTF-8"%>
                 <li class="next"><a href="javascript:void(0)" title="下一个" class="png_bg"></a></li>
             </ul>
         </nav>
+        
+		<span class="share">
+        	<a href="javascript:void(0)" data-action="fav" data-id="">赞</a>
+            <span class="favtip">点赞成功</span>
+        	<a href="javascript:void(0)" data-action="share">分享</a>
+		</span>
 
         <div class="media">
             <img src="data:image/gif;base64,R0lGODlhBAABAIABAMLBwfLx8SH5BAEAAAEALAAAAAAEAAEAAAICRF4AOw==" alt=""/>
