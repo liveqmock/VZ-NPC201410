@@ -108,7 +108,7 @@ $(document).ready(function () {
 
     // 搜索
     $(".nav-search").click(function () {
-        window.location.href = window.location.origin + context + "/search.html?keyword=" + encodeURI($("#keyword").val());
+        window.location.href = window.location.origin + context + "/search.html?page=1&pageSize=10000&keyword=" + encodeURI($("#keyword").val());
 
         return false;
     });

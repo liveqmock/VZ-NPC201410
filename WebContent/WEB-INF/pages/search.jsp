@@ -137,7 +137,7 @@ pageEncoding="UTF-8"%>
         }
 
         $("#search-box .btn").click(function (e) {
-            window.location.href = window.location.origin + context + "/search.html?keyword=" + encodeURI($("#_keyword").val());
+            window.location.href = window.location.origin + context + "/search.html?page=1&pageSize=10000&keyword=" + encodeURI($("#_keyword").val());
 
             return false;
         });
