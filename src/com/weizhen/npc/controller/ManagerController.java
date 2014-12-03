@@ -1073,8 +1073,19 @@ public class ManagerController extends BaseController {
 	public Response<Person> createPerson(Person person) throws IOException {
 		File uploaded = new File(getUploadPath() + person.getPersonImage());
 		String personImageFilepath = Constants.getPersonFileDirectory() + person.getPersonImage();
-		FileUtils.copyFile(uploaded, new File(getWebRootPath() + personImageFilepath));
+		File personImageFile = new File(getWebRootPath() + personImageFilepath);
+		FileUtils.copyFile(uploaded, personImageFile);
 		uploaded.delete();
+		
+		String suffixName = person.getPersonImage().substring(person.getPersonImage().lastIndexOf("."));
+		String fileName = person.getPersonImage().substring(0, person.getPersonImage().lastIndexOf("."));
+		
+		String mFilePath = Constants.getPersonFileDirectory() + "m/" + fileName + "-m" + suffixName;
+		FileUtils.copyFile(personImageFile, new File(getWebRootPath() + mFilePath));
+		String sFilePath = Constants.getPersonFileDirectory() + "s/" + fileName + "-s" + suffixName;
+		FileUtils.copyFile(personImageFile, new File(getWebRootPath() + sFilePath));
+		String bFilePath = Constants.getPersonFileDirectory() + "b/" + fileName + "-b" + suffixName;
+		FileUtils.copyFile(personImageFile, new File(getWebRootPath() + bFilePath));		
 
 		person.setPersonImage(personImageFilepath);
 		person.setUpdateTime(new Date());
