@@ -195,6 +195,9 @@
         $(".modal").height($(document.body).height());
         $(".modal").width($('body, html').width());
 
+
+        $("#main-content").show();
+
     });
 </script>
 

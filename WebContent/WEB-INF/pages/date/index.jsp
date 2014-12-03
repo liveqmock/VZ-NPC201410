@@ -15,10 +15,18 @@
 <div id="container">
     <div id="dateContainer">
 
+        <ul id="dateNav">
+            <li>年份</li>
+            <li><a href="#year-1933">1933</a></li>
+            <li><a href="#year-1940">1940</a></li>
+            <li><a href="#year-1943">1943</a></li>
+        </ul>
+
         <c:if test="${!empty dateVOs && fn:length(dateVOs) > 0 }">
             <c:set var="currentYear" value="${fn:substring(dateVOs[0].publishDate, 0, 4) }"></c:set>
 
             <div class="year" class="png_bg">
+                <a href="#" name="year-${currentYear }"></a>
                 <span name="year" class="png_bg">${currentYear }年</span>
                 <ul>
 
@@ -32,11 +40,12 @@
                 <div class="clearfix"></div>
             </div>
             <div class="year" class="png_bg">
+                <a href="#" name="year-${currentYear }"></a>
                 <span name="year" class="png_bg">${currentYear }年</span>
                 <ul>
         </c:if>
 
-        <li class="png_bg"><a href="#">${fn:substring(dateVO.publishDate,4,6) }月</a>
+        <li class="png_bg"><a class="nolink">${fn:substring(dateVO.publishDate,4,6) }月</a>
             <ul class="${row.index % 2 == 0 ? 'right' : 'left' }">
 
                 <c:if test="${!empty dateVO.imageMains && fn:length(dateVO.imageMains) > 0 }">
@@ -203,7 +212,7 @@
 
         $("img.lazy").lazyload();
 
-        $(".year li a").click(function (e) {
+        $(".year li a[class!=nolink]").click(function (e) {
             e.preventDefault();
             showDetail($(this));
         });
@@ -222,6 +231,11 @@
 
         $(".modal").height($(document.body).height());
         $(".modal").width($('body, html').width());
+
+        $(".nolink").click(function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+        });
 
     });
 </script>

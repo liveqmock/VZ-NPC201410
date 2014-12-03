@@ -1007,6 +1007,8 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     display: none;
     position: relative;
     padding: 0;
+    background: #e8d7b0;
+    padding-bottom: 100px;
     min-height: 600px;
 }
 
@@ -1044,6 +1046,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 
 #container #detail-content h2 {
     margin: 20px 20px 0 20px;
+    color: #111;
     font-size: 18px;
     line-height: 1.7;
     font-weight: bold;
@@ -1052,6 +1055,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 
 #container #detail-content p {
     margin: 20px 20px 0 20px;
+    color: #111;
     font-size: 14px;
     line-height: 1.7;
     text-align: center;
@@ -1237,6 +1241,14 @@ footer p a#gotop.hover {
     color: #FFFFFF;
 }
 
+a.nolink {
+    cursor: default;
+}
+
+a.nolink:hover {
+    text-decoration: none;
+}
+
 #container #dateContainer .year ul ul {
     position: relative;
     border-left: 0px solid #ccc;
@@ -1349,6 +1361,23 @@ footer p a#gotop.hover {
 #container #dateContainer .year ul ul li a.video img {
 }
 
+#container #dateContainer #dateNav {
+    position: fixed;
+    top: 100px;
+    left: 0;
+    padding: 10px;
+    background: #ae8a52;
+}
+
+#container #dateContainer #dateNav li {
+    color: #fff;
+    line-height: 24px;
+}
+
+#container #dateContainer #dateNav li a {
+    color: #fff;
+}
+
 #container .modal {
     display: none;
     position: absolute;
@@ -1357,7 +1386,7 @@ footer p a#gotop.hover {
     width: 100%;
     height: 100%;
     z-index: 800;
-    background-color: #000;
+    background-color: #fff;
     /*filter: alpha(opacity=90);*/
     /*-moz-opacity: 0.9;*/
     /*opacity: 0.9;*/
@@ -1365,7 +1394,7 @@ footer p a#gotop.hover {
 
 #container .modal #detail-content h2,
 #container .modal #detail-content p {
-    color: #fff;
+    color: #111;
 }
 
 /* 360 */
