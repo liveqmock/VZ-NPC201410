@@ -114,7 +114,6 @@ $(document).ready(function () {
     });
 
     if ($('#index-video-content').length > 0) {
-        console.log(1)
         var player = "";
         $("#main-content a.play").click(function (e) {
             e.stopPropagation();

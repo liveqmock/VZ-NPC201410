@@ -23,7 +23,7 @@ pageEncoding="UTF-8"%>
 <div id="container">
     <div id="main-content">
         <div class="wrapper">
-            <c:if test="${congress.congressId == 0}">
+            <c:if test="${congress.congressId == 0 }">
                 <div id="index-video-content">
                     <video id="index-video" src="${context }/Img/xi.flv" width="668" height="500"></video>
                 </div>
@@ -59,7 +59,7 @@ pageEncoding="UTF-8"%>
         <div class="text">
             <span id="imageMainId" class="hidden">${firstImageMain.imageMainId }</span>
 
-            <h2 id="imageMainTitle">${firstImageMain.imageMainTitle }</h2>
+            <h2 id="imageMainTitle">${fn:replace(firstImageMain.imageMainTitle, '　', '') }</h2>
 
             <p>${firstImageMain.imageMainDescription }</p>
         </div>
@@ -77,13 +77,13 @@ pageEncoding="UTF-8"%>
                 <c:forEach var="imageMain" items="${imageMains}" varStatus="row">
                     <li><a dataImageMainId="${imageMain.imageMainId }" href="javascript:void(0)">
 								<span style="display:none;">
-									<h3>${imageMain.imageMainTitle }</h3><br/>
+									<h3>${fn:replace(imageMain.imageMainTitle, '　', '<br>') }</h3><br/>
 									<p>
                                         ${row.index < 2 ? fn:replace(congress.congressResumeContent,'/n','<br/>') : imageMain.imageMainDescription }</p>
 								</span>
                         <img data-original="${context }/${npc:transImagePath(imageMain.imageMainFilepath, 'm')}" alt=""
                              class="lazy"/>
-                        <i><h4>${imageMain.imageMainTitle }</h4></i>
+                        <i><h4>${fn:replace(imageMain.imageMainTitle, '　', '') }</h4></i>
                     </a>
                     </li>
                 </c:forEach>
@@ -125,6 +125,14 @@ pageEncoding="UTF-8"%>
 
     function showImageMain(imageMainId) {
 
+        //只有习主席才显示视频播放
+        if ($("#index-video-content").length > 0) {
+            if (imageMainId == 1)
+                $("a.play").show();
+            else
+                $("a.play").hide();
+        }
+
         imageMainId = imageMainId * 1;
 
         $.ajax("${context}/imagemain/" + imageMainId + ".html", {
@@ -151,7 +159,7 @@ pageEncoding="UTF-8"%>
                 $("#main-content img")[0].src = '${context}/' + transImagePath(data['imageMainFilepath'], 'b');
                 $("#main-content .info").text("${congress.congressTitle} " + currentIndex + "/" + (imageMainIds.length - 1));
 
-                $("#relate-content .text h2").text(data['imageMainTitle']);
+                $("#relate-content .text h2").text(data['imageMainTitle'].replace('　', ''));
                 $("#relate-content .text #imageMainId").html(data['imageMainId']);
 
                 var description = data['imageMainDescription'];

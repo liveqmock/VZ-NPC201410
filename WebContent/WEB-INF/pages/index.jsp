@@ -15,10 +15,14 @@ pageEncoding="UTF-8"%>
 <div id="indexPlayer"><img src="image/index_main3.jpg"/></div> -->
 <div id="container">
     <div id="index-main-content">
-	    <div id="indexPlayerClose" title="关闭"></div>
+        <div id="indexPlayerClose" title="关闭"></div>
         <div class="wrapper">
             <img src="image/index_main5.jpg" alt="全国人大成立60周年网上纪念展"/>
         </div>
+        <div id="index-video-content">
+            <video id="index-video" src="${context }/Img/indexIntro.flv"></video>
+        </div>
+        <a href="#" class="play png_bg"></a>
     </div>
     <div id="session-nav">
         <ul>
@@ -66,65 +70,113 @@ pageEncoding="UTF-8"%>
 <script>
     $(document).ready(function () {
 
-		var _width = $("#index-main-content").width();
-		var _rate = 5;
-		var _rate2 = 19;
+        var _width = $("#index-main-content").width();
+        var _rate = 5;
+        var _rate2 = 19;
 
-		if(!$.cookie('npc60init') || window.location.href.indexOf("nocache") > 0) {
+        if (!$.cookie('npc60init') || window.location.href.indexOf("nocache") > 0) {
 
-			function hideAd() {
-				//$("#indexPlayerClose").hide();
-				$("#index-main-content").animate({
-					height: _width/_rate
-				}, 1000);
-				$("#index-main-content img").animate({
-					"margin-top": -_width/_rate2
-				}, 1000);
-			}
+            function hideAd() {
+                //$("#indexPlayerClose").hide();
+                $("#index-main-content").animate({
+                    height: _width / _rate
+                }, 1000);
+                $("#index-main-content img").animate({
+                    "margin-top": -_width / _rate2
+                }, 1000);
+            }
 
-			$("#container #index-main-content").css({
-				height: _width / 1.8
-			});
+            $("#container #index-main-content").css({
+                height: _width / 1.8
+            });
 
-			//关闭横幅
-			$("#indexPlayerClose").show().click(function () {
-				$(this).hide();
-				$("#index-main-content").animate({
-					height: 0
-				}, 500, function(){
-					$(this).hide();
-				});
-			});
+            //关闭横幅
+            $("#indexPlayerClose").show().click(function () {
+                $(this).hide();
+                $("#index-main-content").animate({
+                    height: 0
+                }, 500, function () {
+                    $(this).hide();
+                });
+            });
 
-			//$("body").css("overflow-x", "hidden");
+            //$("body").css("overflow-x", "hidden");
 
-			var st = setTimeout(hideAd, 5000);
+            var st = setTimeout(hideAd, 5000);
 
-			$.cookie('npc60init', 'true', {expires: 1});
-		} else {
+            $.cookie('npc60init', 'true', {expires: 1});
+        } else {
 
-			$("#container #index-main-content").css({
-				height: _width/_rate
-			});
+            $("#container #index-main-content").css({
+                height: _width / _rate
+            });
 
-			$("#index-main-content img").css({
-				"margin-top": -_width/_rate2
-			});
+            $("#index-main-content img").css({
+                "margin-top": -_width / _rate2
+            });
 
-			//关闭横幅
-			$("#indexPlayerClose").show().click(function () {
-				$(this).hide();
-				$("#index-main-content").animate({
-					height: 0
-				}, 500, function(){
-					$(this).hide();
-				});
-			});
-		}
+            //关闭横幅
+            $("#indexPlayerClose").show().click(function () {
+                $(this).hide();
+                $("#index-main-content").animate({
+                    height: 0
+                }, 500, function () {
+                    $(this).hide();
+                });
+            });
+        }
+
+        var player = "";
+        $("#index-main-content a.play").click(function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            if (!player) {
+                var _width = $(document).width() < 1200 ? ($(document).width() - 40) : 1280;
+                var _height = $(document).width() < 1200 ? ($(document).width() * 9 / 16) : 720;
+                $('#index-video-content').show().css("margin-left", -_width / 2);
+                player = new MediaElement('index-video', {
+                    plugins: ['flash'],
+                    defaultVideoWidth: _width,
+                    defaultVideoHeight: _height,
+                    pluginPath: context + '/js/vendor/',
+                    pauseOtherPlayers: true,
+                    flashName: 'flashmediaelement.swf',
+                    success: function (mediaElement, domObject) {
+                        $(this).on('click', function () {
+                            if (mediaElement.paused) {
+                                mediaElement.play();
+                            } else {
+                                mediaElement.pause();
+                            }
+                        });
+                        $("#index-main-content").animate({
+                            height: _height
+                        }, 500, function () {
+                            mediaElement.play();
+                            $('#index-main-content .wrapper').hide();
+                        });
+                    },
+                    error: function () {
+                        if ($(".me-cannotplay").length > 0) {
+                            $(".me-cannotplay").html('<h2>您的电脑没有安装flash播放器，无法观看视频。' +
+                                    '<a href="http://get.adobe.com/cn/flashplayer" target="_blank">点击下载安装</a></h2>')
+                        } else {
+                            alert("您的电脑没有安装flash播放器，无法观看视频。");
+                        }
+                    }
+                });
+            } else {
+                if (player.paused) {
+                    player.play();
+                } else {
+                    player.pause();
+                }
+            }
+        });
 
         //var dwidth = $(document).width();
         //var dheight = document.documentElement.clientHeight;
-	
+
     });
 </script>
 </body>

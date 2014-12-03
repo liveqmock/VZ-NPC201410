@@ -407,7 +407,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 #indexPlayerClose {
     display: none;
     position: absolute;
-    right: 20px;
+    right: 40px;
     top: 20px;
     width: 32px;
     height: 32px;
@@ -447,8 +447,9 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
 
 #container a.play {
     position: absolute;
-    right: 20px;
+    left: 50%;
     bottom: 40px;
+    margin-left: 230px;
     display: block;
     width: 64px;
     height: 64px;
@@ -635,6 +636,23 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     cursor: default;
 }
 
+#container #index-main-content a.play {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    margin-left: auto;
+}
+
+#container #index-main-content #index-video-content {
+    display: none;
+    position: absolute;
+    left: 50%;
+    margin-left: -640px;
+    height: 720px;
+    vertical-align: middle;
+    z-index: 300;
+}
+
 #container #main-content .tbar {
     position: absolute;
     display: block;
@@ -787,6 +805,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     color: #fff;
     font-size: 18px;
     font-weight: bold;
+    text-align: center;
 }
 
 #container #session-nav ul li a span h3 strong {
@@ -817,6 +836,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     font-size: 18px;
     font-weight: bold;
     line-height: 1.7;
+    text-align: center;
 }
 
 #container #relate-content .text p {
@@ -965,6 +985,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     font-weight: bold;
     font-style: normal;
     white-space: nowrap;
+    text-align: center;
     text-overflow: ellipsis;
     overflow: hidden;
 }
@@ -990,6 +1011,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     color: #fff;
     font-size: 18px;
     font-weight: bold;
+    text-align: center;
 }
 
 #container #gallery-content ul li a span h3 strong {
@@ -1001,6 +1023,7 @@ header nav ul li.nav-discovery ul li.nav-discovery-3 a:hover {
     margin: 15px 30px 0 30px;
     line-height: 1.7;
     color: #fff;
+    text-indent: 2em;
 }
 
 #container #detail-content {
