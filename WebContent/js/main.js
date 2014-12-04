@@ -429,7 +429,7 @@ function showDetail(source) {
             .replace('/s/', '/b/').replace('-s.', '-b.')
             .replace('/m/', '/b/').replace('-m.', '-b.');
 
-        $("#detail-content h2").text(source.attr('datatitle'));
+        $("#detail-content h2").html(source.attr('datatitle').replace('　', ''));
         $("#detail-content p").html(source.attr('datadescription') || '');
 
         //http://mediaelementjs.com/
@@ -466,7 +466,7 @@ function showDetail(source) {
             .replace('/m/', '/b/').replace('-m.', '-b.');
 
         $("#detail-content .media").html("<img src='" + imageSrc + "'></img>");
-        $("#detail-content h2").text(source.attr('datatitle'));
+        $("#detail-content h2").html(source.attr('datatitle').replace('　', ''));
         $("#detail-content p").html(source.attr('datadescription')  || '');
     } else if (materialType.indexOf('article') != -1) {
         $("#detail-content h2").text("");
