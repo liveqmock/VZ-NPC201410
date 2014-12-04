@@ -102,6 +102,13 @@ Date.prototype.format = function (format) {
     return format;
 }
 
+
+// 用来存放当前显示的相关资料的类型和ID
+var currentContentType;
+var currentContentId;
+
+
+
 $(document).ready(function () {
 
     $("img.lazy").lazyload();
@@ -192,6 +199,9 @@ $(document).ready(function () {
         $("#jp_container_1").hide();
 
         var source = $(this);
+        
+        currentContentType = source.attr('data-contentType');
+        currentContentId = source.attr('data-contentId');
 
         var materialType = source.prop('class');
         if (materialType.indexOf('video') != -1) {
@@ -282,6 +292,54 @@ $(document).ready(function () {
             }
         }
     });
+    
+    
+    // 三级页面点赞及分享
+    $("#detail-content a[data-action=fav]").click(function(e){
+        e.preventDefault();
+        var fav = $(this).siblings(".favtip");
+
+        if (currentContentId) {
+            $.ajax({
+                type: "GET",
+                url: context + "/fav.html",
+                data: {
+                    resourceType: currentContentType,
+                    resourceId: currentContentId
+                },
+                success: function (data) {
+                    if (data.success) {
+                    	fav.text("点赞成功");
+                    } else {
+                    	fav.text(data.msg);
+                    }
+                    
+                    fav.show();
+                    setTimeout(function () {
+                        fav.hide();
+                    }, 2000);
+                }
+            });        	
+        }    	
+    });
+    $("#detail-content a[data-action=share]").click(function (e) {
+        e.preventDefault();
+        try {
+        	var entry = {
+        		title: "全国人民代表大会成立60周年网上纪念展",
+        		summary: $("#detail-content h2").text()
+        	};
+        	
+        	if ($("#detail-content div.media img").size() > 0) {
+        		entry['pic'] = $("#detail-content div.media img").attr("src");
+        	}
+        	
+            bShare.addEntry(entry);
+            bShare.more(event);
+        } catch (e) {
+        }
+    });   
+    
 
 
     $("#main-content a.gallery").click(function (e) {

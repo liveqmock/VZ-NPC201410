@@ -188,6 +188,8 @@ pageEncoding="UTF-8"%>
                     $("<li></li>").append(
                             $("<a href='javascript:void(0)' class='article png_bg'><span><h4>" + document['documentTitle'] + "</h4></span></a>")
                                     .attr('datatitle', document['documentTitle'])
+                                    .attr('data-contentType', 'Document')
+                                    .attr('data-contentId', document['documentId'])
                                     .attr('datadescription', content)
                                     .attr('title', document['documentTitle'])
                     ).appendTo($("#relate-content .media ul"));
@@ -208,8 +210,8 @@ pageEncoding="UTF-8"%>
                     if (title.length > 28) {
                         _title = subStr(title, 28);
                     }
-
-                    var tHtml = "<li><a href='javascript:void(0)' datatitle='" + title + "' datadescription='" + content + "' file='" + relate['imageRelatedFilepath'] + "' " +
+                    
+                    var tHtml = "<li><a href='javascript:void(0)' data-contentType='ImageRelated' data-contentId='" + relate['imageRelatedId']  + "' datatitle='" + title + "' datadescription='" + content + "' file='" + relate['imageRelatedFilepath'] + "' " +
                             "class='" + materialType + "' title='" + title + "'><span><h4>" + _title + "</h4></span><img src='" + imgSrc + "' alt='" + title + "'></img>" +
                             "</a></li>";
                     $(tHtml).appendTo($("#relate-content .media ul"));
