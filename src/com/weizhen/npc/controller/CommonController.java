@@ -232,15 +232,10 @@ public class CommonController extends BaseController {
 
 			res = new Response<String>("点赞成功");
 		}
-		
-		logger.info("resourceType:" + resourceType);
-		logger.info("resourceId:" + resourceId);
 
 		Long cnt = (Long) favLogDao.findFirst("select count(*) from FavLog where resourceType = ? and resourceId = ? ",
 				resourceType, resourceId);
 		res.setData(cnt.toString());
-		
-		logger.info("cnt:" + cnt);
 
 		return res;
 	}
