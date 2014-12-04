@@ -35,12 +35,12 @@ pageEncoding="UTF-8"%>
                            class='image'
                            title='${imageMain.imageMainTitle }'>
                             <span style="display:none;">
-									<h3>${imageMain.imageMainTitle }</h3><br/>
+									<h3>${fn:replace(imageMain.imageMainTitle, '　', '<br>') }</h3><br/>
 									<p>${imageMain.imageMainDescription }</p>
 								</span>
                             <img src="${context }/${npc:transImagePath(imageMain.imageMainFilepath, 'm')}"
                                  alt='${imageMain.imageMainTitle }'></img>
-                            <i><h4>${imageMain.imageMainTitle }</h4></i>
+                            <i><h4>${fn:replace(imageMain.imageMainTitle, '　', '') }</h4></i>
                         </a>
                     </li>
 
