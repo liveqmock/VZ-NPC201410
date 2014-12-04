@@ -71,6 +71,9 @@ public class ImageRelatedService extends BaseService {
 		query.setImageRelatedTitle(keyword);
 		query.setImageRelatedDescription(keyword);
 		
+		query.setSidx(new String[] {"congressId", "imageMainId", "imageRelatedSequence"});
+		query.setSord(new String[] {"asc", "asc", "asc"});
+		
 		return imageRelatedDao.pagingQuery(query, paging);
 	}
 	

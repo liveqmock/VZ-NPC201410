@@ -36,8 +36,7 @@ pageEncoding="UTF-8"%>
                            title='${imageMain.imageMainTitle }'>
                             <span style="display:none;">
 									<h3>${imageMain.imageMainTitle }</h3><br/>
-									<p>
-                                        ${row.index < 2 ? fn:replace(congress.congressResumeContent,'/n','<br/>') : imageMain.imageMainDescription }</p>
+									<p>${imageMain.imageMainDescription }</p>
 								</span>
                             <img src="${context }/${npc:transImagePath(imageMain.imageMainFilepath, 'm')}"
                                  alt='${imageMain.imageMainTitle }'></img>

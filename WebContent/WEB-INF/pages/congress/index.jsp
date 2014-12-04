@@ -102,7 +102,7 @@ pageEncoding="UTF-8"%>
             </ul>
         </nav>
         
-		<span class="share">
+		<span class="share" style="display:none;">
         	<a href="javascript:void(0)" data-action="fav" data-id="">赞</a>
             <span class="favtip">点赞成功</span>
         	<a href="javascript:void(0)" data-action="share">分享</a>

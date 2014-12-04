@@ -79,7 +79,8 @@ public class DocumentService extends BaseService {
 		query.setDocument(document);
 
 		ConditionsAndNameValuePairs canv = SimpleQueryModelProcessor.gen(query, "m");
-		String select = "select distinct m.document from Paragraph m " + canv.getWhereCondition(true);
+		String select = "select distinct m.document from Paragraph m " + canv.getWhereCondition(true)
+				+ " order by m.document.congressId, m.document.imageMainId, m.document.documentSequence";
 
 		return documentDao.pagingQuery(select, canv.getNameValuePairs(), paging);
 	}

@@ -83,6 +83,9 @@ public class ImageMainService extends BaseService {
 
 		query.setImageMainTitle(keyword);
 		query.setImageMainDescription(keyword);
+		
+		query.setSidx(new String[] {"congressId", "imageMainSequence"});
+		query.setSord(new String[] {"asc", "asc"});
 
 		return imageMainDao.pagingQuery(query, paging);
 	}
