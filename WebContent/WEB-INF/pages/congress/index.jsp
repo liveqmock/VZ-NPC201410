@@ -221,6 +221,9 @@ pageEncoding="UTF-8"%>
                 //alert("获取内容失败,请稍后重试");
             }
         });
+        
+        // 恢复点赞按钮为初始状态
+        $("#fav").text("赞");
     }
 
     $(document).ready(function () {

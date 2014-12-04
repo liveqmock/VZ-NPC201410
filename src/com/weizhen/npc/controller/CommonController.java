@@ -1,7 +1,6 @@
 package com.weizhen.npc.controller;
 
 import java.awt.image.BufferedImage;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -219,17 +218,30 @@ public class CommonController extends BaseController {
 		String queryString = " from FavLog where ip = ? and resourceType = ? and resourceId = ? ";
 		Object data = favLogDao.findFirst(queryString, request.getRemoteAddr(), resourceType, resourceId);
 
+		Response<String> res;
+
 		if (null != data) {
-			return Response.error("您已经点过赞了");
+			res = Response.error("您已经点过赞了");
+		} else {
+			FavLog favLog = new FavLog();
+			favLog.setIp(request.getRemoteAddr());
+			favLog.setResourceType(resourceType);
+			favLog.setResourceId(resourceId);
+			favLog.setCreatedDate(new Date());
+			favLogDao.save(favLog);
+
+			res = new Response<String>("点赞成功");
 		}
+		
+		logger.info("resourceType:" + resourceType);
+		logger.info("resourceId:" + resourceId);
 
-		FavLog favLog = new FavLog();
-		favLog.setIp(request.getRemoteAddr());
-		favLog.setResourceType(resourceType);
-		favLog.setResourceId(resourceId);
-		favLog.setCreatedDate(new Date());
-		Serializable id = favLogDao.save(favLog);
+		Long cnt = (Long) favLogDao.findFirst("select count(*) from FavLog where resourceType = ? and resourceId = ? ",
+				resourceType, resourceId);
+		res.setData(cnt.toString());
+		
+		logger.info("cnt:" + cnt);
 
-		return new Response<String>(id.toString());
+		return res;
 	}
 }

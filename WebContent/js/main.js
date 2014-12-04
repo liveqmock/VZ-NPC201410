@@ -259,6 +259,9 @@ $(document).ready(function () {
         $("#detail-content").data("source_element", source);
         $("#detail-content").show();
         goToPageTop();
+        
+        // 三级页面点赞恢复初始值
+        $("#detail-content a[data-action=fav]").text("赞");
     });
 
 
@@ -298,6 +301,7 @@ $(document).ready(function () {
     $("#detail-content a[data-action=fav]").click(function(e){
         e.preventDefault();
         var fav = $(this).siblings(".favtip");
+        var source = $(this);
 
         if (currentContentId) {
             $.ajax({
@@ -309,8 +313,10 @@ $(document).ready(function () {
                 },
                 success: function (data) {
                     if (data.success) {
+                    	source.text("赞(" + data.data + ")");
                     	fav.text("点赞成功");
                     } else {
+                    	source.text("赞(" + data.data + ")");
                     	fav.text(data.msg);
                     }
                     
@@ -379,8 +385,7 @@ $(document).ready(function () {
     $("#fav").click(function (e) {
         e.preventDefault();
         var fav = $(this).siblings(".favtip");
-
-        //TODO: 点赞逻辑 $("#relate-content .text #imageMainId").html() 主题id
+        var source = $(this);
         
         if (currentImageMainId) {
             $.ajax({
@@ -392,8 +397,10 @@ $(document).ready(function () {
                 },
                 success: function (data) {
                     if (data.success) {
+                    	source.text("赞(" + data.data + ")");
                     	fav.text("点赞成功");
                     } else {
+                    	source.text("赞(" + data.data + ")");
                     	fav.text(data.msg);
                     }
                     
