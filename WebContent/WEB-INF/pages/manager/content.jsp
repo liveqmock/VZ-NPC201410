@@ -38,6 +38,12 @@ pageEncoding="UTF-8"%>
             font-weight: bold;
             margin-left: -100px;
         }
+        #controlMenu{
+            background: #e6ecf2;
+            padding: 20px 0;
+            text-align: center;
+            border-radius: 10px;
+        }
     </style>
     <!--[if lt IE 9]>
     <script src="js/vendor/html5.min.js"></script>
@@ -47,13 +53,32 @@ pageEncoding="UTF-8"%>
 <body>
 <jsp:include page="nav.jsp"></jsp:include>
 <div id="loading-mask"><p> 页面载入中，请等待...</p></div>
-<div class="container-fluid mainContainer">
+<div class="container-fluid">
 <div class="row">
-<div class="col-md-10">
+<div class="col-md-2 sidebar">
+    <ul class="nav nav-sidebar">
+        <c:if test="${user.userType == 'manager'}">
+            <li><a href="${context}/manager/users.html">用户管理</a></li>
+        </c:if>
+        <c:if test="${user.userType == 'editor'}">
+            <li class="active"><a href="${context}/manager/content.html">内容管理</a></li>
+        </c:if>
+        <c:if test="${user.userType == 'auditor'}">
+            <li><a href="${context}/manager/auditing.html">内容审核</a></li>
+        </c:if>
+        <li><a href="${context}/manager/stats.html">统计分析</a></li>
+        <li><a href="${context}/logout.html">退出系统</a></li>
+    </ul>
+</div>
+<div class="col-md-10 col-sm-offset-2">
+
+<h1 class="page-header">内容管理（管理主题和相关内容）</h1>
+
+<div class="col-md-10 mainContainer">
 <!--届别选择-->
 <div class="row">
     <div id="congressSelect"></div>
-    <button type="button" class="btn btn-primary" id="btnSelectContent" data-toggle="modal"
+    <button type="button" class="btn btn-danger" id="btnSelectContent" data-toggle="modal"
             data-target="#belongContentSelectModal">选择主题或相关资料
     </button>
     <div class="col-md-12" style="display:none;">
@@ -61,7 +86,7 @@ pageEncoding="UTF-8"%>
         <label>所属届别Id</label><input type="text" id="belongCongressId" name="belongCongressId"/> <!--所属届别Id-->
         <label>所属主题Id</label><input type="text" id="belongImageMainId" name="belongImageMainId"/> <!--所属主题Id-->
         <label>主题Id</label><input type="text" id="imageMainId" name="imageMainId"/> <!--主题Id，用于编辑-->
-        <label>主题标题</label><input type="text" id="imageMainTitle" name=""imageMainTitle""/> <!--主题标题，用于编辑-->
+        <label>主题标题</label><input type="text" id="imageMainTitle" name="" imageMainTitle""/> <!--主题标题，用于编辑-->
         <label>相关资料Id</label><input type="text" id="imageRelatedId" name="imageRelatedId"/> <!--相关资料Id，用于编辑-->
         <label>内容类型</label><input type="text" id="contentTypeNo" name="contentTypeNo"/> <!--操作的内容类型，0-主题；1-相关资料-->
         <label>内容Id</label><input type="text" id="contentId" name="contentId"/> <!--操作的内容Id-->
@@ -253,7 +278,7 @@ pageEncoding="UTF-8"%>
         <label class="col-md-2 control-label">时间：</label>
 
         <div class="col-md-5">
-            <input type="text" id="contentDate" class="form-control" placeholder="格式:2001-01-01" />
+            <input type="text" id="contentDate" class="form-control" placeholder="格式:2001-01-01"/>
         </div>
     </div>
     <div class="form-group form-group-sm">
@@ -285,16 +310,17 @@ pageEncoding="UTF-8"%>
         <label class="pull-left" style="padding-top: 6px;">经度：</label>
 
         <div class="col-md-1">
-            <input type="text" id="contentLocationLong" class="form-control" />
+            <input type="text" id="contentLocationLong" class="form-control"/>
         </div>
         <label class="pull-left" style="padding-top: 6px;">纬度：</label>
 
         <div class="col-md-1">
-            <input type="text" id="contentLocationLat" class="form-control" />
+            <input type="text" id="contentLocationLat" class="form-control"/>
         </div>
-        
+
         <div class="col-md-3">
-        	<a href="http://www.gpsspg.com/maps.htm" style="display:inline-block;margin-top:5px;" target="_blank">经纬度查询</a>
+            <a href="http://www.gpsspg.com/maps.htm" style="display:inline-block;margin-top:5px;"
+               target="_blank">经纬度查询</a>
         </div>
 
 
@@ -342,6 +368,7 @@ pageEncoding="UTF-8"%>
     <p>
         <button type="button" class="btn btn-primary" id="btnDelete" style="display:none;">删除</button>
     </p>
+</div>
 </div>
 </div>
 </div>

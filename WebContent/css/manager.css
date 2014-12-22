@@ -153,7 +153,7 @@ h5 {
 }
 
 .mainContainer > .row {
-    padding: 0 10px 20px;
+    padding: 0 20px 20px;
 }
 
 #controlMenu button {
@@ -183,18 +183,62 @@ h5 {
 }
 
 #personCreateForm textarea.form-control {
-	height:auto;
+    height: auto;
 }
 
 #keywords a {
-  font-family:"¾­µäÔ²Ìå·±", "microsoft yahei", "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;;
-  display: inline-block;
-  font-size: 16px;
-  padding: 3px 5px;
-  border-radius: 5px;	
-  margin:3px 5px;
+    font-family: "å¾®è½¯é›…é»‘", "microsoft yahei", "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;;
+    display: inline-block;
+    font-size: 16px;
+    padding: 3px 5px;
+    border-radius: 5px;
+    margin: 3px 5px;
 }
 
 #keywords a:hover {
-  text-decoration:none;
+    text-decoration: none;
+}
+
+.navbar-inverse .navbar-brand {
+    padding: 0;
+}
+
+.sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
+}
+
+.nav-sidebar {
+    margin-right: -21px; /* 20px padding + 1px border */
+    margin-bottom: 20px;
+    margin-left: -20px;
+}
+
+.nav-sidebar > li > a {
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+    color: #fff;
+    background-color: #428bca;
+}
+
+.page-header {
+    font-size: 22px;
+    font-weight: bold;
+    padding-bottom: 9px;
+    margin: 10px 0 20px;
+    border-bottom: 1px solid #eee;
 }
