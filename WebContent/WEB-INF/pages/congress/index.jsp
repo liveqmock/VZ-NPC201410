@@ -198,6 +198,8 @@ pageEncoding="UTF-8"%>
                 for (var index in data['imageRelateds']) {
                     var relate = data['imageRelateds'][index];
 
+                    //console.log(relate);
+
                     var materialType = materialTypes[relate['materialId']];
                     var imgSrc = "default.png";
                     if (materialType != 'article')
@@ -205,6 +207,7 @@ pageEncoding="UTF-8"%>
 
                     var title = relate['imageRelatedTitle'] || '';
                     var content = relate['imageRelatedDescription'] || '';
+                    var comment = relate['comment'] || '';  //腾讯视频id
 
                     var _title = title;
                     if (title.length > 28) {
@@ -212,7 +215,7 @@ pageEncoding="UTF-8"%>
                     }
                     
                     var tHtml = "<li><a href='javascript:void(0)' data-contentType='ImageRelated' data-contentId='" + relate['imageRelatedId']  + "' datatitle='" + title + "' datadescription='" + content + "' file='" + relate['imageRelatedFilepath'] + "' " +
-                            "class='" + materialType + "' title='" + title + "'><span><h4>" + _title + "</h4></span><img src='" + imgSrc + "' alt='" + title + "'></img>" +
+                            "class='" + materialType + "' data-vid='" + comment + "' title='" + title + "'><span><h4>" + _title + "</h4></span><img src='" + imgSrc + "' alt='" + title + "'></img>" +
                             "</a></li>";
                     $(tHtml).appendTo($("#relate-content .media ul"));
                 }

@@ -202,8 +202,11 @@ $(document).ready(function () {
         
         currentContentType = source.attr('data-contentType');
         currentContentId = source.attr('data-contentId');
+        currentContentVid = source.attr('data-vid');
 
         var materialType = source.prop('class');
+
+        //如果是视频
         if (materialType.indexOf('video') != -1) {
             var imageSrc = source.find('img').prop('src')
                 .replace('/s/', '/b/').replace('-s.', '-b.')
@@ -212,33 +215,42 @@ $(document).ready(function () {
             $("#detail-content h2").text($(this).attr('datatitle'));
             $("#detail-content p").html($(this).attr('datadescription') ? $(this).attr('datadescription') : '');
 
-            //http://mediaelementjs.com/
-            var _src = (context + "/" + source.attr('file'));
-            var player = $('<video id="video" src="' + _src + '" width="720" height="576" controls="controls" preload="none"></video>');
-            player.appendTo($("#detail-content .media"));
-            var me = new MediaElement('video', {
-                plugins: ['flash'],
-                pluginPath: context + '/js/vendor/',
-                flashName: 'flashmediaelement.swf',
-                success: function (mediaElement, domObject) {
-                    $(this).on('click', function () {
-                        if (mediaElement.paused) {
-                            mediaElement.play();
+            var _media = $("#detail-content .media");
+            if(currentContentVid){
+                //腾讯视频分享地址
+                var _mediaHtml = '<embed src="http://static.video.qq.com/TPout.swf?vid=' + currentContentVid+'&auto=1" ' +
+                    'allowFullScreen="true" quality="high" width="720" height="576" ' +
+                    'align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>';
+                $(_mediaHtml).appendTo(_media);
+            }else {
+                //http://mediaelementjs.com/
+                var _src = (context + "/" + source.attr('file'));
+                var player = $('<video id="video" src="' + _src + '" width="720" height="576" controls="controls" preload="none"></video>');
+                player.appendTo(_media);
+                var me = new MediaElement('video', {
+                    plugins: ['flash'],
+                    pluginPath: context + '/js/vendor/',
+                    flashName: 'flashmediaelement.swf',
+                    success: function (mediaElement, domObject) {
+                        $(this).on('click', function () {
+                            if (mediaElement.paused) {
+                                mediaElement.play();
+                            } else {
+                                mediaElement.pause();
+                            }
+                        });
+                        mediaElement.play();
+                    },
+                    error: function () {
+                        if ($(".me-cannotplay").length > 0) {
+                            $(".me-cannotplay").html('<h2>您的电脑没有安装flash播放器，无法观看视频。' +
+                                '<a href="http://get.adobe.com/cn/flashplayer" target="_blank">点击下载安装</a></h2>')
                         } else {
-                            mediaElement.pause();
+                            alert("您的电脑没有安装flash播放器，无法观看视频。");
                         }
-                    });
-                    mediaElement.play();
-                },
-                error: function () {
-                    if ($(".me-cannotplay").length > 0) {
-                        $(".me-cannotplay").html('<h2>您的电脑没有安装flash播放器，无法观看视频。' +
-                            '<a href="http://get.adobe.com/cn/flashplayer" target="_blank">点击下载安装</a></h2>')
-                    } else {
-                        alert("您的电脑没有安装flash播放器，无法观看视频。");
                     }
-                }
-            });
+                });
+            }
 
         } else if (materialType.indexOf('image') != -1) {
             var imageSrc = source.find('img').prop('src')
